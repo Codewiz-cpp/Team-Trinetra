@@ -1,0 +1,195 @@
+<div id="config-sidebar">
+    <div class="sidebar-item active">Full Parameter List</div>
+    <div class="sidebar-item" style="background:#5a8a00; color:#eee; font-weight:600;">Planner</div>
+</div>
+<div id="config-content">
+    <!-- Video Device -->
+    <div class="config-row">
+        <span class="config-lbl">Video Device</span>
+        <select class="cfg-select" style="width:200px;">
+            <option></option>
+        </select>
+        <button class="start-btn">Start</button>
+        <button class="stop-btn">Stop</button>
+        <input type="checkbox" class="cfg-cb" checked>
+        <span style="color:#bbb; font-size:11px;">Enable HUD Overlay</span>
+    </div>
+    <div class="config-row">
+        <span class="config-lbl">Video Format</span>
+        <select class="cfg-select" style="width:380px;">
+            <option></option>
+        </select>
+    </div>
+    <div class="config-row">
+        <span class="config-lbl">OSD Color</span>
+        <select class="cfg-select" style="width:120px;">
+            <option>ActiveBorder</option>
+        </select>
+    </div>
+    <div class="config-row">
+        <span class="config-lbl">Speech</span>
+        <input type="checkbox" class="cfg-cb">
+        <span style="color:#bbb; font-size:11px;">Enable Speech</span>
+    </div>
+    <div class="config-row" style="margin-left:118px;">
+        <select class="cfg-select" style="width:100px;">
+            <option>Warning</option>
+        </select>
+        <span class="cfg-note">NOTE: Set the low level of SEVERITY to speak</span>
+    </div>
+    <div class="config-row">
+        <span class="config-lbl">UI Language</span>
+        <select class="cfg-select" style="width:160px;">
+            <option>English (United States)</option>
+        </select>
+    </div>
+    <div class="config-row">
+        <span class="config-lbl">Joystick</span>
+        <button class="joystick-btn">Joystick Setup</button>
+    </div>
+    <div class="config-row">
+        <span class="config-lbl">Dist Units</span>
+        <select class="cfg-select" style="width:90px;">
+            <option>Meters</option>
+        </select>
+        <span style="color:#bbb; font-size:11px; margin-left:10px;">Alt Units</span>
+        <select class="cfg-select" style="width:90px;">
+            <option>Meters</option>
+        </select>
+        <span class="cfg-note" style="margin-left:10px;">NOTE: The Configuration Tab will NOT display these
+            units, as those are raw values.</span>
+    </div>
+    <div class="config-row">
+        <span class="config-lbl">Speed Units</span>
+        <select class="cfg-select" style="width:130px;">
+            <option>meters_per_second</option>
+        </select>
+    </div>
+    <div class="config-row cfg-section">
+        <span class="config-lbl">Telemetry Rates</span>
+        <div class="telemetry-row">
+            <span class="tele-lbl">Attitude</span>
+            <select class="tele-sel">
+                <option>4</option>
+            </select>
+            <span class="tele-lbl">Position</span>
+            <select class="tele-sel">
+                <option>2</option>
+            </select>
+            <span class="tele-lbl">Mode/Status</span>
+            <select class="tele-sel">
+                <option>2</option>
+            </select>
+            <span class="tele-lbl">RC</span>
+            <select class="tele-sel">
+                <option>2</option>
+            </select>
+            <span class="tele-lbl">Sensor</span>
+            <select class="tele-sel">
+                <option>2</option>
+            </select>
+        </div>
+    </div>
+    <div class="config-row">
+        <span class="config-lbl">Connect Reset</span>
+        <input type="checkbox" class="cfg-cb">
+        <span style="color:#bbb; font-size:11px;">Reset on USB Connect (toggle DTR)</span>
+        <input type="checkbox" class="cfg-cb" style="margin-left:10px;">
+        <span style="color:#bbb; font-size:11px;">Disable RTS reset on ESP32 SerialUSB</span>
+    </div>
+    <div class="config-row">
+        <span class="config-lbl">Track Length</span>
+        <input class="cfg-input" value="200" style="width:45px;">
+        <span style="color:#888; font-size:14px;">&#x2B06;&#x2B07;</span>
+        <input type="checkbox" class="cfg-cb">
+        <span style="color:#bbb; font-size:11px;">Dist to Home</span>
+        <input type="checkbox" class="cfg-cb" checked style="margin-left:6px;">
+        <span style="color:#bbb; font-size:11px;">Display in Flightdata</span>
+    </div>
+    <div class="config-row">
+        <span class="config-lbl">Waypoints</span>
+        <input type="checkbox" class="cfg-cb">
+        <span style="color:#bbb; font-size:11px;">Load Waypoints on connect?</span>
+    </div>
+    <div class="config-row">
+        <span class="config-lbl">HUD</span>
+        <input type="checkbox" class="cfg-cb">
+        <span style="color:#bbb; font-size:11px;">GDI+ (old type/no HW acceleration)</span>
+    </div>
+    <div class="config-row">
+        <span class="config-lbl">Map Follow</span>
+        <input type="checkbox" class="cfg-cb">
+        <span style="color:#bbb; font-size:11px;">Map is rotated to follow the plane</span>
+    </div>
+    <div class="config-row">
+        <span class="config-lbl">Log Path</span>
+        <input class="cfg-input" value="C:\Users\aryan\Documents\Mission Planner\logs" style="width:330px;">
+        <button class="browse-btn">Browse</button>
+    </div>
+    <div class="config-row">
+        <span class="config-lbl">Theme</span>
+        <select class="cfg-select" style="width:160px;">
+            <option>BurntKermit.mpsystheme</option>
+        </select>
+        <button class="custom-btn">Custom</button>
+    </div>
+    <div class="config-row">
+        <span class="config-lbl">Layout</span>
+        <select class="cfg-select" style="width:100px;">
+            <option>Advanced</option>
+        </select>
+    </div>
+    <div class="config-row">
+        <span class="config-lbl">GCS ID</span>
+        <input class="cfg-input" value="255" style="width:45px;">
+        <span style="color:#888; font-size:14px;">&#x2B06;&#x2B07;</span>
+    </div>
+    <div class="config-row">
+        <span class="config-lbl">Aircraft Icon</span>
+        <input type="checkbox" class="cfg-cb" checked> <span style="color:#bbb;font-size:11px;">Display COG</span>
+        <input type="checkbox" class="cfg-cb" checked> <span style="color:#bbb;font-size:11px;">Display Heading</span>
+        <input type="checkbox" class="cfg-cb" checked> <span style="color:#bbb;font-size:11px;">Display Nav Bearing</span>
+        <input type="checkbox" class="cfg-cb" checked> <span style="color:#bbb;font-size:11px;">Display Turn Radius</span>
+        <input type="checkbox" class="cfg-cb" checked> <span style="color:#bbb;font-size:11px;">Display Target</span>
+        <input type="checkbox" class="cfg-cb"> <span style="color:#bbb;font-size:11px;">Display ToolTip</span>
+        <input class="cfg-input" value="500" style="width:40px; margin-left:4px;">
+        <span style="color:#bbb;font-size:11px;">Line Length</span>
+    </div>
+    <div class="config-row">
+        <span class="config-lbl">Inactive Aircraft</span>
+        <select class="cfg-select" style="width:100px;">
+            <option>Normal</option>
+        </select>
+    </div>
+    <div class="config-row" style="margin-top:6px;">
+        <button class="vario-btn">Start/Stop Vario</button>
+        <input type="checkbox" class="cfg-cb" style="margin-left:14px;"> <span style="color:#bbb;font-size:11px;">Password Protect Config</span>
+        <input type="checkbox" class="cfg-cb" checked style="margin-left:10px;"> <span style="color:#bbb;font-size:11px;">Show Airports</span>
+        <input type="checkbox" class="cfg-cb" style="margin-left:10px;"> <span style="color:#bbb;font-size:11px;">ADSB</span>
+        <input type="checkbox" class="cfg-cb" checked style="margin-left:10px;"> <span style="color:#bbb;font-size:11px;">No Fly</span>
+    </div>
+    <div class="config-row">
+        <span style="display:inline-block; width:118px;"></span>
+        <input type="checkbox" class="cfg-cb"> <span style="color:#bbb;font-size:11px;">OptOut Anon Stats</span>
+        <input type="checkbox" class="cfg-cb" style="margin-left:10px;"> <span style="color:#bbb;font-size:11px;">Beta Updates</span>
+        <input type="checkbox" class="cfg-cb" style="margin-left:10px;"> <span style="color:#bbb;font-size:11px;">No RC Receiver</span>
+        <input type="checkbox" class="cfg-cb" checked style="margin-left:10px;"> <span style="color:#bbb;font-size:11px;">TFR's</span>
+    </div>
+    <div class="config-row">
+        <span style="display:inline-block; width:118px;"></span>
+        <input type="checkbox" class="cfg-cb"> <span style="color:#bbb;font-size:11px;">Params Download in BackGround</span>
+        <input type="checkbox" class="cfg-cb" style="margin-left:10px;"> <span style="color:#bbb;font-size:11px;">Runing on a slow computer</span>
+    </div>
+    <div class="config-row" style="margin-top:16px;">
+        <span class="config-lbl">Map Access Mode</span>
+        <select class="cfg-select" style="width:130px;">
+            <option>ServerAndCache</option>
+        </select>
+        <button class="browse-btn">Open Map Cache</button>
+    </div>
+    <div class="config-row" style="margin-top:20px;">
+        <span style="display:inline-block; width:118px;"></span>
+        <input type="checkbox" class="cfg-cb"> <span style="color:#bbb;font-size:11px;">Mavlink Message Debug</span>
+        <input type="checkbox" class="cfg-cb" style="margin-left:30px;"> <span style="color:#bbb;font-size:11px;">Testing Screen</span>
+    </div>
+</div>

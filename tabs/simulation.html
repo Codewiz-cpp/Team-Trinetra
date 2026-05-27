@@ -1,0 +1,100 @@
+<div id="sim-map" style="position:relative;">
+    <div id="map-sim"></div>
+    <div class="map-home-label" style="position:absolute;top:4px;left:4px;z-index:400;pointer-events:none;">
+        Home Location - Drag Me</div>
+</div>
+<div id="sim-bottom">
+    <div class="sim-row">
+        <div class="sim-box" style="padding:2px 8px; color:#888; border-color:#444;">Options</div>
+        <div class="sim-group">
+            <span class="sim-label">Heading</span>
+            <input class="sim-input" value="0" type="number">
+            <span style="color:#666; font-size:14px;">&#x2B06;&#x2B07;</span>
+        </div>
+        <div style="border-left:1px solid #444; padding-left:12px; color:#aaa; font-size:11px; margin-right:4px;">
+            Advanced users only</div>
+        <div class="sim-group">
+            <span class="sim-label">Sim Speed</span>
+            <input class="sim-input" value="1" type="number">
+        </div>
+        <div class="sim-group">
+            <span class="sim-label">Model</span>
+            <select class="sim-select" style="width:120px;">
+                <option></option>
+            </select>
+        </div>
+        <div class="sim-group">
+            <span class="sim-label">Extra command line</span>
+            <input class="sim-input" style="width:200px;" value="">
+        </div>
+        <div class="sim-group">
+            <input type="checkbox" class="cfg-cb"> <span class="sim-label">Wipe</span>
+        </div>
+    </div>
+    <div class="sim-row">
+        <select class="sim-select" style="width:100px;">
+            <option>Latest (Dev)</option>
+        </select>
+        <button class="green-btn">Copter Swarm -<br>Single link</button>
+        <button class="green-btn">Copter Swarm -<br>Multilink</button>
+        <button class="green-btn">Plane Swarm -<br>Multilink</button>
+        <button class="green-btn">Rover Swarm -<br>Multilink</button>
+    </div>
+    <div id="firmware-section">
+        <div class="firmware-label">Please select a firmware to run</div>
+        <div class="firmware-icons">
+            <div class="firmware-item">
+                <svg class="plane-svg" viewBox="0 0 70 55" fill="none" stroke="#999" stroke-width="1.5">
+                    <ellipse cx="35" cy="28" rx="24" ry="7" />
+                    <path d="M11 28 Q5 22 10 20 L35 24 L35 28" />
+                    <path d="M59 28 Q65 22 60 20 L35 24 L35 28" />
+                    <ellipse cx="35" cy="28" rx="3" ry="5" />
+                    <path d="M32 18 Q35 8 38 18" />
+                    <path d="M32 38 Q35 46 38 38" />
+                </svg>
+                <span class="fw-name">Plane</span>
+            </div>
+            <div class="firmware-item">
+                <svg class="rover-svg" viewBox="0 0 70 55" fill="none" stroke="#999" stroke-width="1.5">
+                    <rect x="15" y="18" width="40" height="22" rx="3" />
+                    <circle cx="20" cy="40" r="7" />
+                    <circle cx="50" cy="40" r="7" />
+                    <rect x="22" y="13" width="26" height="10" rx="2" />
+                    <line x1="15" y1="28" x2="55" y2="28" />
+                </svg>
+                <span class="fw-name">Rover</span>
+            </div>
+            <div class="firmware-item">
+                <svg class="multi-svg" viewBox="0 0 70 55" fill="none" stroke="#999" stroke-width="1.5">
+                    <circle cx="35" cy="28" r="6" />
+                    <line x1="35" y1="22" x2="35" y2="10" />
+                    <ellipse cx="35" cy="9" rx="10" ry="4" />
+                    <line x1="35" y1="34" x2="35" y2="46" />
+                    <ellipse cx="35" cy="47" rx="10" ry="4" />
+                    <line x1="29" y1="28" x2="18" y2="19" />
+                    <ellipse cx="16" cy="17" rx="7" ry="3" transform="rotate(-40 16 17)" />
+                    <line x1="41" y1="28" x2="52" y2="19" />
+                    <ellipse cx="54" cy="17" rx="7" ry="3" transform="rotate(40 54 17)" />
+                    <line x1="29" y1="28" x2="18" y2="37" />
+                    <ellipse cx="16" cy="39" rx="7" ry="3" transform="rotate(40 16 39)" />
+                    <line x1="41" y1="28" x2="52" y2="37" />
+                    <ellipse cx="54" cy="39" rx="7" ry="3" transform="rotate(-40 54 39)" />
+                </svg>
+                <span class="fw-name">Multirotor</span>
+            </div>
+            <div class="firmware-item">
+                <svg class="heli-svg" viewBox="0 0 90 55" fill="none" stroke="#999" stroke-width="1.5">
+                    <ellipse cx="38" cy="30" rx="18" ry="8" />
+                    <line x1="38" y1="22" x2="38" y2="15" />
+                    <line x1="10" y1="15" x2="75" y2="15" />
+                    <line x1="56" y1="30" x2="75" y2="32" />
+                    <line x1="75" y1="28" x2="75" y2="38" />
+                    <line x1="65" y1="28" x2="85" y2="28" />
+                    <line x1="20" y1="34" x2="20" y2="42" />
+                    <line x1="14" y1="42" x2="26" y2="42" />
+                </svg>
+                <span class="fw-name">Helicopter</span>
+            </div>
+        </div>
+    </div>
+</div>

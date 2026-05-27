@@ -1,0 +1,29 @@
+<div id="team-map-wrap">
+    <div id="map-plan"></div>
+
+    <div id="team-map-toggle" class="map-toggle-switch" onclick="toggleTeamMapStyle()">
+        <div id="mts-slider" class="mts-slider"></div>
+        <div id="mts-opt-political" class="mts-option">Political</div>
+        <div id="mts-opt-normal" class="mts-option">Normal</div>
+    </div>
+</div>
+
+<!-- ── SIDEBAR ── -->
+<div id="team-sidebar">
+    <div class="panel-resizer" id="team-sidebar-resizer"></div>
+    <div id="team-sidebar-hdr">
+        <div id="tsb-title">SQUAD</div>
+        <div id="tsb-sub">Select a member</div>
+    </div>
+    <div id="team-member-list">
+        <!-- Populated by JS -->
+    </div>
+</div>
+
+<!-- ── PROFILE PANEL (slides in) ── -->
+<div id="team-profile-bg" onclick="closeTeamProfile()"></div>
+<div id="team-profile-panel">
+    <div class="panel-resizer" id="team-profile-resizer"></div>
+    <button id="team-profile-close" onclick="closeTeamProfile()">&#x2715;</button>
+    <div id="team-profile-content"></div>
+</div>

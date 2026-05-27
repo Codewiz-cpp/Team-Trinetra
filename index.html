@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Trinetra</title>
+    <meta name="description" content="Team Trinetra GCS v1.0 - Ground Control Station for UAV mission planning and telemetry.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ═══════════════════════════════════════════
+         STARTUP SEQUENCE (Phase 1 + 2)
+    ════════════════════════════════════════════ -->
+
+    <!-- Phase 1: CMD Terminal -->
+    <div id="cmd-screen">
+        <div id="cmd-lines"></div>
+        <div id="cmd-cursor"></div>
+    </div>
+
+    <!-- Phase 2: Mission Planner-style Splash Window -->
+    <div id="splash-overlay">
+        <div id="splash-window">
+            <div id="splash-titlebar">
+                <span id="splash-titlebar-text">Team Trinetra</span>
+                <div id="splash-win-btns">
+                    <span class="swb">&#8212;</span>
+                    <span class="swb">&#9633;</span>
+                    <span class="swb swb-close">&#x2715;</span>
+                </div>
+            </div>
+            <div id="splash-body">
+                <div id="splash-logo">
+                    <span class="sl-main">TRI</span><span class="sl-accent">NETRA</span>
+                </div>
+                <div id="splash-tagline">Ground Control Station</div>
+                <div id="splash-version">GCS v1.0 &nbsp;&bull;&nbsp; ArduPilot Compatible</div>
+                <div id="splash-divider"></div>
+                <div id="splash-copyright">&copy; 2026 Team Trinetra &middot; MITS Gwalior</div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════
+         TOP TOOLBAR
+    ════════════════════════════════════════════ -->
+    <div id="toolbar">
+
+        <!-- Nav buttons -->
+        <div class="toolbar-btn" onclick="showTab('data')" id="btn-data">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <path d="M9 3v18M3 9h6M3 15h6" />
+            </svg>
+            <span>DATA</span>
+        </div>
+
+        <div class="toolbar-btn" onclick="showTab('plan')" id="btn-plan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="9" cy="7" r="3"/>
+                <circle cx="17" cy="7" r="2.5"/>
+                <path d="M3 20c0-3.314 2.686-6 6-6s6 2.686 6 6"/>
+                <path d="M17 14c1.657 0 4 1.343 4 4"/>
+            </svg>
+            <span>TEAM</span>
+        </div>
+
+        <div class="toolbar-btn" onclick="showTab('setup')" id="btn-setup">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M17 8c0 2.8-2 5-4.5 6.5C10 13 8 10.8 8 8a4.5 4.5 0 119 0z"/>
+                <ellipse cx="12" cy="19" rx="6" ry="2.5"/>
+                <path d="M5 17c-1 .5-1.8 1.2-1.8 2M19 17c1 .5 1.8 1.2 1.8 2"/>
+                <circle cx="5.5" cy="12" r="2"/>
+                <circle cx="18.5" cy="12" r="2"/>
+            </svg>
+            <span>VEHICLES</span>
+        </div>
+
+        <div class="toolbar-btn" onclick="showTab('config')" id="btn-config">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="3" />
+                <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
+            </svg>
+            <span>CONFIG</span>
+        </div>
+
+        <div class="toolbar-btn" onclick="showTab('simulation')" id="btn-simulation">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="2" y="3" width="20" height="14" rx="2" />
+                <path d="M8 21h8M12 17v4" />
+                <polygon points="10,8 16,11 10,14" fill="currentColor" stroke="none" />
+            </svg>
+            <span>SIMULATION</span>
+        </div>
+
+        <!-- Right side: Logo + Connection + Connect panel -->
+        <div id="toolbar-right">
+
+            <div id="toolbar-logo">
+                <div id="logo-text"><span class="logo-main">TRI</span><span class="logo-accent">NETRA</span></div>
+            </div>
+
+            <div id="conn-controls">
+                <select class="conn-select" id="sel-proto" title="Protocol">
+                    <option>UDP</option>
+                    <option>TCP</option>
+                    <option>Serial</option>
+                </select>
+                <select class="conn-select" id="sel-baud" title="Baud Rate">
+                    <option>115200</option>
+                    <option>57600</option>
+                    <option>38400</option>
+                    <option>9600</option>
+                </select>
+            </div>
+
+            <div id="connect-wrap">
+                <button class="conn-btn" id="connect-btn" onclick="toggleConnectPanel()">
+                    <span class="conn-btn-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22V12"/>
+                            <path d="M5 12H2a10 10 0 0 0 20 0h-3"/>
+                            <rect x="8" y="2" width="8" height="10" rx="1"/>
+                            <line x1="10" y1="6" x2="10" y2="2"/>
+                            <line x1="14" y1="6" x2="14" y2="2"/>
+                        </svg>
+                    </span>
+                    <span class="conn-btn-label">CONNECT WITH US</span>
+                </button>
+
+                <!-- ── CONNECT DROPDOWN PANEL ── -->
+                <div id="connect-panel">
+                    <div id="cp-toggle-wrap">
+                        <div id="cp-toggle-pill"></div>
+                        <button class="cp-tab active" id="cpt-member" onclick="switchCPTab('member')">TEAM MEMBER</button>
+                        <button class="cp-tab"        id="cpt-sponsor" onclick="switchCPTab('sponsor')">SPONSOR</button>
+                    </div>
+                    <div id="cp-forms">
+
+                        <!-- TEAM MEMBER form -->
+                        <div class="cp-form" id="cp-form-member">
+                            <p class="cp-desc">Apply to join our UAV team. We welcome passionate students from all domains.</p>
+                            <div class="cp-row">
+                                <label class="cp-lbl">Full Name</label>
+                                <input class="cp-input" id="cp-jn-name" type="text" placeholder="Your full name">
+                            </div>
+                            <div class="cp-row">
+                                <label class="cp-lbl">Email</label>
+                                <input class="cp-input" id="cp-jn-email" type="email" placeholder="student@college.edu">
+                            </div>
+                            <div class="cp-row">
+                                <label class="cp-lbl">College</label>
+                                <input class="cp-input" id="cp-jn-college" type="text" placeholder="Institution name">
+                            </div>
+                            <div class="cp-row">
+                                <label class="cp-lbl">Domain</label>
+                                <select class="cp-select" id="cp-jn-domain">
+                                    <option value="">-- Select domain --</option>
+                                    <option>Electrical / Electronics</option>
+                                    <option>Mechanical / Frame Design</option>
+                                    <option>AI / Machine Learning</option>
+                                    <option>Computer Vision</option>
+                                    <option>Software / IT</option>
+                                    <option>Autonomous Navigation</option>
+                                    <option>Robotics / AIR</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div class="cp-row">
+                                <label class="cp-lbl">Year</label>
+                                <select class="cp-select" id="cp-jn-year">
+                                    <option value="">-- Year --</option>
+                                    <option>1st Year</option>
+                                    <option>2nd Year</option>
+                                    <option>3rd Year</option>
+                                    <option>4th Year</option>
+                                    <option>Postgraduate</option>
+                                </select>
+                            </div>
+                            <div class="cp-row" style="align-items:flex-start">
+                                <label class="cp-lbl" style="padding-top:4px">Why Join?</label>
+                                <textarea class="cp-textarea" id="cp-jn-msg" rows="3" placeholder="Tell us about yourself and your interest in UAVs..."></textarea>
+                            </div>
+                            <div class="cp-footer">
+                                <button class="cp-btn-submit" onclick="submitCPMember()">Send Application</button>
+                            </div>
+                        </div>
+
+                        <!-- SPONSOR form -->
+                        <div class="cp-form" id="cp-form-sponsor" style="display:none;">
+                            <p class="cp-desc">Interested in sponsoring Team Trinetra? We'd love to hear from you.</p>
+                            <div class="cp-row">
+                                <label class="cp-lbl">Organization</label>
+                                <input class="cp-input" id="cp-sp-org" type="text" placeholder="Company / Institution">
+                            </div>
+                            <div class="cp-row">
+                                <label class="cp-lbl">Contact Name</label>
+                                <input class="cp-input" id="cp-sp-name" type="text" placeholder="Your full name">
+                            </div>
+                            <div class="cp-row">
+                                <label class="cp-lbl">Email</label>
+                                <input class="cp-input" id="cp-sp-email" type="email" placeholder="contact@company.com">
+                            </div>
+                            <div class="cp-row">
+                                <label class="cp-lbl">Type</label>
+                                <select class="cp-select" id="cp-sp-type">
+                                    <option value="">-- Select type --</option>
+                                    <option>Title Sponsor</option>
+                                    <option>Gold Sponsor</option>
+                                    <option>Silver Sponsor</option>
+                                    <option>Product / Equipment</option>
+                                    <option>Research Partnership</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div class="cp-row" style="align-items:flex-start">
+                                <label class="cp-lbl" style="padding-top:4px">Message</label>
+                                <textarea class="cp-textarea" id="cp-sp-msg" rows="3" placeholder="Tell us about your interest..."></textarea>
+                            </div>
+                            <div class="cp-footer">
+                                <button class="cp-btn-submit" onclick="submitCPSponsor()">Send Inquiry</button>
+                            </div>
+                        </div>
+
+                    </div><!-- /cp-forms -->
+                </div><!-- /connect-panel -->
+            </div><!-- /connect-wrap -->
+
+        </div><!-- /toolbar-right -->
+    </div><!-- /toolbar -->
+
+
+    <!-- ═══════════════════════════════════════════
+         MAIN CONTENT AREA  (tabs injected by JS)
+    ════════════════════════════════════════════ -->
+    <div id="main">
+        <div id="data-tab"   style="display:none; width:100%;"></div>
+        <div id="sim-tab"    style="display:none; width:100%;"></div>
+        <div id="config-tab" style="display:none; width:100%;"></div>
+        <div id="plan-tab"   style="display:none; width:100%;"></div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════
+         MODALS (kept here as they are app-global)
+    ════════════════════════════════════════════ -->
+
+    <!-- Sponsors modal -->
+    <div class="mp-modal-overlay" id="modal-sponsors" onclick="closeModalOutside(event,'modal-sponsors')">
+        <div class="mp-modal-box" style="width:500px;">
+            <div class="mp-modal-titlebar">
+                <span>Sponsor Team Trinetra</span>
+                <div class="mp-modal-winbtns">
+                    <span class="swb swb-close" onclick="closeModal('sponsors')">&#x2715;</span>
+                </div>
+            </div>
+            <div class="mp-modal-body">
+                <div class="mp-modal-desc">Interested in sponsoring Team Trinetra? Fill in your details and we'll get back to you.</div>
+                <div class="mp-form-row">
+                    <label class="mp-form-lbl">Organization</label>
+                    <input class="mp-form-input" id="sp-org" type="text" placeholder="Company / Institution name">
+                </div>
+                <div class="mp-form-row">
+                    <label class="mp-form-lbl">Contact Person</label>
+                    <input class="mp-form-input" id="sp-name" type="text" placeholder="Your full name">
+                </div>
+                <div class="mp-form-row">
+                    <label class="mp-form-lbl">Email</label>
+                    <input class="mp-form-input" id="sp-email" type="email" placeholder="contact@company.com">
+                </div>
+                <div class="mp-form-row">
+                    <label class="mp-form-lbl">Sponsorship Type</label>
+                    <select class="mp-form-select" id="sp-type">
+                        <option value="">-- Select --</option>
+                        <option>Title Sponsor</option>
+                        <option>Gold Sponsor</option>
+                        <option>Silver Sponsor</option>
+                        <option>Product / Equipment</option>
+                        <option>Research Partnership</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="mp-form-row" style="align-items:flex-start">
+                    <label class="mp-form-lbl" style="padding-top:4px">Message</label>
+                    <textarea class="mp-form-textarea" id="sp-msg" rows="3" placeholder="Tell us about your interest..."></textarea>
+                </div>
+                <div class="mp-modal-footer">
+                    <button class="mp-btn-cancel" onclick="closeModal('sponsors')">Cancel</button>
+                    <button class="mp-btn-submit" onclick="submitSponsor()">Send Inquiry</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Join Us modal -->
+    <div class="mp-modal-overlay" id="modal-joinus" onclick="closeModalOutside(event,'modal-joinus')">
+        <div class="mp-modal-box" style="width:520px;">
+            <div class="mp-modal-titlebar">
+                <span>Join Team Trinetra</span>
+                <div class="mp-modal-winbtns">
+                    <span class="swb swb-close" onclick="closeModal('joinus')">&#x2715;</span>
+                </div>
+            </div>
+            <div class="mp-modal-body">
+                <div class="mp-modal-desc">Apply to be part of our UAV team. We welcome passionate students from all domains.</div>
+                <div class="mp-form-row">
+                    <label class="mp-form-lbl">Full Name</label>
+                    <input class="mp-form-input" id="jn-name" type="text" placeholder="Your full name">
+                </div>
+                <div class="mp-form-row">
+                    <label class="mp-form-lbl">Email</label>
+                    <input class="mp-form-input" id="jn-email" type="email" placeholder="student@college.edu">
+                </div>
+                <div class="mp-form-row">
+                    <label class="mp-form-lbl">College / University</label>
+                    <input class="mp-form-input" id="jn-college" type="text" placeholder="Institution name">
+                </div>
+                <div class="mp-form-row">
+                    <label class="mp-form-lbl">Domain</label>
+                    <select class="mp-form-select" id="jn-domain">
+                        <option value="">-- Select your domain --</option>
+                        <option>Electrical / Electronics</option>
+                        <option>Mechanical / Frame Design</option>
+                        <option>AI / Machine Learning</option>
+                        <option>Computer Vision</option>
+                        <option>Software / IT</option>
+                        <option>Autonomous Navigation</option>
+                        <option>Robotics / AIR</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="mp-form-row">
+                    <label class="mp-form-lbl">Year of Study</label>
+                    <select class="mp-form-select" id="jn-year" style="width:120px">
+                        <option value="">-- Year --</option>
+                        <option>1st Year</option>
+                        <option>2nd Year</option>
+                        <option>3rd Year</option>
+                        <option>4th Year</option>
+                        <option>Postgraduate</option>
+                    </select>
+                </div>
+                <div class="mp-form-row" style="align-items:flex-start">
+                    <label class="mp-form-lbl" style="padding-top:4px">Why Join?</label>
+                    <textarea class="mp-form-textarea" id="jn-msg" rows="3" placeholder="Tell us about yourself and your interest in UAVs..."></textarea>
+                </div>
+                <div class="mp-modal-footer">
+                    <button class="mp-btn-cancel" onclick="closeModal('joinus')">Cancel</button>
+                    <button class="mp-btn-submit" onclick="submitJoinUs()">Submit Application</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
