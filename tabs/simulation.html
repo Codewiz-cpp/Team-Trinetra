@@ -1,100 +1,146 @@
-<div id="sim-map" style="position:relative;">
-    <div id="map-sim"></div>
-    <div class="map-home-label" style="position:absolute;top:4px;left:4px;z-index:400;pointer-events:none;">
-        Home Location - Drag Me</div>
-</div>
-<div id="sim-bottom">
-    <div class="sim-row">
-        <div class="sim-box" style="padding:2px 8px; color:#888; border-color:#444;">Options</div>
-        <div class="sim-group">
-            <span class="sim-label">Heading</span>
-            <input class="sim-input" value="0" type="number">
-            <span style="color:#666; font-size:14px;">&#x2B06;&#x2B07;</span>
+<!-- ════════════════════════════════════
+     SIMULATION — Horizontal Carousel
+     ════════════════════════════════════ -->
+<div id="sim-carousel-wrap">
+
+    <div id="sim-carousel-viewport">
+        <div id="sim-carousel-track">
+
+            <!-- ══ SLIDE 1 — Payload Drop ══
+                 File: videos/Loiter_auto.mp4 -->
+            <div class="sv-slide" data-index="0">
+                <div class="sv-card">
+                    <div class="sv-player-wrap">
+                        <video class="sv-player" controls preload="metadata">
+                            <source src="videos/Loiter_auto.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="sv-body">
+                        <div class="sv-body-top">
+                            <div class="sv-index">01</div>
+                            <div class="sv-title">Payload Drop — Operator Command</div>
+                            <div class="sv-desc">
+                                Added an additional operator command to trigger payload release.
+                                Manually inputting <code class="sv-code">beacon</code> / <code class="sv-code">bottle</code>
+                                executes a script that transitions the drone to Loiter for 60 seconds,
+                                drops the payload, then reverts to Auto mode — demonstrating the full
+                                mode-switch sequence that couldn't be captured in the previous recording.
+                            </div>
+                        </div>
+                        <div class="sv-footer">
+                            <div class="sv-tags">
+                                <span class="sv-tag">ArduCopter</span>
+                                <span class="sv-tag">Payload Drop</span>
+                                <span class="sv-tag">Loiter → Auto</span>
+                                <span class="sv-tag">Operator CMD</span>
+                            </div>
+                            <span class="sv-date">2026-05-28</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══ SLIDE 2 — ESRI + YOLOv8 ══
+                 File: videos/esri.mp4 -->
+            <div class="sv-slide" data-index="1">
+                <div class="sv-card">
+                    <div class="sv-player-wrap">
+                        <video class="sv-player" controls preload="metadata">
+                            <source src="videos/esri.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="sv-body">
+                        <div class="sv-body-top">
+                            <div class="sv-index">02</div>
+                            <div class="sv-title">ESRI Imagery + YOLOv8 Automation Demo</div>
+                            <div class="sv-desc">
+                                Map updated to ESRI 16 imagery.
+                                <code class="sv-code">velocity_decay=13</code> and <code class="sv-code">linear_damping_factor=13</code>
+                                applied to prevent payload freefall. YOLOv8World-v2 model demonstrates automated scripts —
+                                <code class="sv-code">RC 9</code> mapped to bottle, <code class="sv-code">RC 10</code> to beacon;
+                                automation script imitates these RC actions whenever a mannequin or canopy is detected respectively.
+                            </div>
+                        </div>
+                        <div class="sv-footer">
+                            <div class="sv-tags">
+                                <span class="sv-tag">ESRI 16</span>
+                                <span class="sv-tag">YOLOv8</span>
+                                <span class="sv-tag">RC Mapping</span>
+                                <span class="sv-tag">Auto Detection</span>
+                                <span class="sv-tag">Payload</span>
+                            </div>
+                            <span class="sv-date">2026-05-28</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══ SLIDE 3 — placeholder ══
+                 Add file + fill in title/desc/tags when ready -->
+            <div class="sv-slide" data-index="2">
+                <div class="sv-card sv-card--empty">
+                    <div class="sv-player-wrap">
+                        <div class="sv-no-src">Recording pending</div>
+                    </div>
+                    <div class="sv-body">
+                        <div class="sv-body-top">
+                            <div class="sv-index">03</div>
+                            <div class="sv-title sv-placeholder">— upcoming —</div>
+                            <div class="sv-desc sv-placeholder">Context will be added once the recording is ready.</div>
+                        </div>
+                        <div class="sv-footer">
+                            <div class="sv-tags"></div>
+                            <span class="sv-date"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══ SLIDE 4 — placeholder ══ -->
+            <div class="sv-slide" data-index="3">
+                <div class="sv-card sv-card--empty">
+                    <div class="sv-player-wrap">
+                        <div class="sv-no-src">Recording pending</div>
+                    </div>
+                    <div class="sv-body">
+                        <div class="sv-body-top">
+                            <div class="sv-index">04</div>
+                            <div class="sv-title sv-placeholder">— upcoming —</div>
+                            <div class="sv-desc sv-placeholder">Context will be added once the recording is ready.</div>
+                        </div>
+                        <div class="sv-footer">
+                            <div class="sv-tags"></div>
+                            <span class="sv-date"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /track -->
+
+        <!-- Side nav arrows -->
+        <button class="sv-arrow sv-arrow--prev" id="sv-prev" title="Previous">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+        </button>
+        <button class="sv-arrow sv-arrow--next" id="sv-next" title="Next">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M9 18l6-6-6-6"/>
+            </svg>
+        </button>
+
+    </div><!-- /viewport -->
+
+    <!-- Dot nav + counter -->
+    <div id="sim-carousel-footer">
+        <div id="sim-dots">
+            <span class="sv-dot active" data-index="0"></span>
+            <span class="sv-dot" data-index="1"></span>
+            <span class="sv-dot" data-index="2"></span>
+            <span class="sv-dot" data-index="3"></span>
         </div>
-        <div style="border-left:1px solid #444; padding-left:12px; color:#aaa; font-size:11px; margin-right:4px;">
-            Advanced users only</div>
-        <div class="sim-group">
-            <span class="sim-label">Sim Speed</span>
-            <input class="sim-input" value="1" type="number">
-        </div>
-        <div class="sim-group">
-            <span class="sim-label">Model</span>
-            <select class="sim-select" style="width:120px;">
-                <option></option>
-            </select>
-        </div>
-        <div class="sim-group">
-            <span class="sim-label">Extra command line</span>
-            <input class="sim-input" style="width:200px;" value="">
-        </div>
-        <div class="sim-group">
-            <input type="checkbox" class="cfg-cb"> <span class="sim-label">Wipe</span>
-        </div>
+        <span id="sim-slide-counter">01 / 04</span>
     </div>
-    <div class="sim-row">
-        <select class="sim-select" style="width:100px;">
-            <option>Latest (Dev)</option>
-        </select>
-        <button class="green-btn">Copter Swarm -<br>Single link</button>
-        <button class="green-btn">Copter Swarm -<br>Multilink</button>
-        <button class="green-btn">Plane Swarm -<br>Multilink</button>
-        <button class="green-btn">Rover Swarm -<br>Multilink</button>
-    </div>
-    <div id="firmware-section">
-        <div class="firmware-label">Please select a firmware to run</div>
-        <div class="firmware-icons">
-            <div class="firmware-item">
-                <svg class="plane-svg" viewBox="0 0 70 55" fill="none" stroke="#999" stroke-width="1.5">
-                    <ellipse cx="35" cy="28" rx="24" ry="7" />
-                    <path d="M11 28 Q5 22 10 20 L35 24 L35 28" />
-                    <path d="M59 28 Q65 22 60 20 L35 24 L35 28" />
-                    <ellipse cx="35" cy="28" rx="3" ry="5" />
-                    <path d="M32 18 Q35 8 38 18" />
-                    <path d="M32 38 Q35 46 38 38" />
-                </svg>
-                <span class="fw-name">Plane</span>
-            </div>
-            <div class="firmware-item">
-                <svg class="rover-svg" viewBox="0 0 70 55" fill="none" stroke="#999" stroke-width="1.5">
-                    <rect x="15" y="18" width="40" height="22" rx="3" />
-                    <circle cx="20" cy="40" r="7" />
-                    <circle cx="50" cy="40" r="7" />
-                    <rect x="22" y="13" width="26" height="10" rx="2" />
-                    <line x1="15" y1="28" x2="55" y2="28" />
-                </svg>
-                <span class="fw-name">Rover</span>
-            </div>
-            <div class="firmware-item">
-                <svg class="multi-svg" viewBox="0 0 70 55" fill="none" stroke="#999" stroke-width="1.5">
-                    <circle cx="35" cy="28" r="6" />
-                    <line x1="35" y1="22" x2="35" y2="10" />
-                    <ellipse cx="35" cy="9" rx="10" ry="4" />
-                    <line x1="35" y1="34" x2="35" y2="46" />
-                    <ellipse cx="35" cy="47" rx="10" ry="4" />
-                    <line x1="29" y1="28" x2="18" y2="19" />
-                    <ellipse cx="16" cy="17" rx="7" ry="3" transform="rotate(-40 16 17)" />
-                    <line x1="41" y1="28" x2="52" y2="19" />
-                    <ellipse cx="54" cy="17" rx="7" ry="3" transform="rotate(40 54 17)" />
-                    <line x1="29" y1="28" x2="18" y2="37" />
-                    <ellipse cx="16" cy="39" rx="7" ry="3" transform="rotate(40 16 39)" />
-                    <line x1="41" y1="28" x2="52" y2="37" />
-                    <ellipse cx="54" cy="39" rx="7" ry="3" transform="rotate(-40 54 39)" />
-                </svg>
-                <span class="fw-name">Multirotor</span>
-            </div>
-            <div class="firmware-item">
-                <svg class="heli-svg" viewBox="0 0 90 55" fill="none" stroke="#999" stroke-width="1.5">
-                    <ellipse cx="38" cy="30" rx="18" ry="8" />
-                    <line x1="38" y1="22" x2="38" y2="15" />
-                    <line x1="10" y1="15" x2="75" y2="15" />
-                    <line x1="56" y1="30" x2="75" y2="32" />
-                    <line x1="75" y1="28" x2="75" y2="38" />
-                    <line x1="65" y1="28" x2="85" y2="28" />
-                    <line x1="20" y1="34" x2="20" y2="42" />
-                    <line x1="14" y1="42" x2="26" y2="42" />
-                </svg>
-                <span class="fw-name">Helicopter</span>
-            </div>
-        </div>
-    </div>
-</div>
+
+</div><!-- /carousel-wrap -->

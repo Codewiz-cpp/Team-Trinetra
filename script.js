@@ -26,7 +26,6 @@ function showTab(name) {
     showTabBase(name);
     setTimeout(() => {
         if (name === 'data' && dataMap) dataMap.invalidateSize();
-        if ((name === 'sim' || name === 'simulation' || name === 'setup') && simMap) simMap.invalidateSize();
         if (name === 'plan' && planMap) planMap.invalidateSize();
     }, 50);
 }
@@ -297,6 +296,9 @@ function initDataMap() {
 }
 
 function initSimMap() {
+    // Sim tab no longer has a map — guard so startup doesn't crash
+    const el = document.getElementById('map-sim');
+    if (!el) return;
     simMap = L.map('map-sim', { zoomControl: false, attributionControl: false }).setView([HOME_LAT, HOME_LNG], 16);
     ESRI_TILES2.addTo(simMap);
     L.marker([HOME_LAT, HOME_LNG], { icon: homeIcon, draggable: true }).addTo(simMap)
@@ -940,6 +942,140 @@ async function loadTabs() {
     }));
 }
 
+// ===== SIMULATION CAROUSEL (GSAP) =====
+function initSimCarousel() {
+    const slides = document.querySelectorAll('.sv-slide');
+    if (!slides.length) return;
+    if (typeof gsap === 'undefined') {
+        console.warn('GSAP not loaded — sim carousel skipped');
+        return;
+    }
+
+    const viewport = document.getElementById('sim-carousel-viewport');
+    if (!viewport) return;
+
+    const total   = slides.length;
+    let current   = 0;
+    let animating = false;
+
+    // ── Initial positions: slide i starts at xPercent = i * 100
+    slides.forEach((slide, i) => gsap.set(slide, { xPercent: i * 100 }));
+
+    // ── Initial active/inactive visual state
+    slides.forEach((slide, i) => {
+        const card = slide.querySelector('.sv-card');
+        if (!card) return;
+        gsap.set(card, i === 0
+            ? { scale: 1,    filter: 'blur(0px)',   opacity: 1    }
+            : { scale: 0.91, filter: 'blur(3px)',    opacity: 0.38 }
+        );
+    });
+
+    // ── Sync dots, counter, arrow opacity
+    function syncUI(idx) {
+        document.querySelectorAll('.sv-dot').forEach((d, i) =>
+            d.classList.toggle('active', i === idx)
+        );
+        const counter = document.getElementById('sim-slide-counter');
+        if (counter) counter.textContent =
+            `${String(idx + 1).padStart(2,'0')} / ${String(total).padStart(2,'0')}`;
+
+        const prev = document.getElementById('sv-prev');
+        const next = document.getElementById('sv-next');
+        if (prev) prev.style.opacity = idx === 0         ? '0.2' : '1';
+        if (next) next.style.opacity = idx === total - 1 ? '0.2' : '1';
+    }
+
+    // ── Core transition
+    function goTo(index) {
+        if (index < 0 || index >= total || index === current || animating) return;
+        animating = true;
+
+        const prev = current;
+        current    = index;
+
+        // Move all slides horizontally
+        slides.forEach((slide, i) => {
+            gsap.to(slide, {
+                xPercent:  (i - current) * 100,
+                duration:  0.72,
+                ease:      'power3.inOut',
+            });
+        });
+
+        // Incoming card → sharp, full size
+        const inCard = slides[current].querySelector('.sv-card');
+        if (inCard) {
+            gsap.to(inCard, {
+                scale:    1,
+                filter:   'blur(0px)',
+                opacity:  1,
+                duration: 0.55,
+                ease:     'power2.out',
+                onComplete: () => { animating = false; }
+            });
+        } else {
+            setTimeout(() => { animating = false; }, 750);
+        }
+
+        // Outgoing + all other cards → dim + blur
+        slides.forEach((slide, i) => {
+            if (i === current) return;
+            const card = slide.querySelector('.sv-card');
+            if (!card) return;
+            gsap.to(card, {
+                scale:    0.91,
+                filter:   'blur(3px)',
+                opacity:  0.38,
+                duration: 0.45,
+                ease:     'power2.out'
+            });
+        });
+
+        syncUI(current);
+    }
+
+    syncUI(0);
+
+    // ── Mouse wheel (debounced — one slide per swipe gesture)
+    let wheelBlock = false;
+    viewport.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        if (wheelBlock) return;
+        wheelBlock = true;
+        setTimeout(() => { wheelBlock = false; }, 850);
+        if (e.deltaY > 0 || e.deltaX > 0) goTo(current + 1);
+        else                                goTo(current - 1);
+    }, { passive: false });
+
+    // ── Arrow buttons
+    document.getElementById('sv-prev')?.addEventListener('click', () => goTo(current - 1));
+    document.getElementById('sv-next')?.addEventListener('click', () => goTo(current + 1));
+
+    // ── Dots
+    document.querySelectorAll('.sv-dot').forEach((dot, i) => {
+        dot.addEventListener('click', () => goTo(i));
+    });
+
+    // ── Keyboard (only when sim tab is visible)
+    document.addEventListener('keydown', (e) => {
+        const simTab = document.getElementById('sim-tab');
+        if (!simTab || simTab.style.display === 'none') return;
+        if (e.key === 'ArrowRight') goTo(current + 1);
+        if (e.key === 'ArrowLeft')  goTo(current - 1);
+    });
+
+    // ── Touch / swipe
+    let touchX = 0;
+    viewport.addEventListener('touchstart', e => {
+        touchX = e.touches[0].clientX;
+    }, { passive: true });
+    viewport.addEventListener('touchend', e => {
+        const dx = touchX - e.changedTouches[0].clientX;
+        if (Math.abs(dx) > 55) goTo(dx > 0 ? current + 1 : current - 1);
+    }, { passive: true });
+}
+
 // ===== INITIALISE ON LOAD =====
 window.addEventListener('load', async () => {
     await loadTabs();          // inject all tab HTML first
@@ -948,6 +1084,7 @@ window.addEventListener('load', async () => {
         drawHUD();
         initDataMap();
         initSimMap();
+        initSimCarousel();
         initPlanMap();
         showTab('data');
         document.getElementById('btn-data').classList.add('active');

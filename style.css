@@ -1049,215 +1049,274 @@ body {
     height: 20px;
 }
 
-/* ===== SIMULATION TAB ===== */
+/* ===== SIMULATION TAB — Horizontal Carousel ===== */
 #sim-tab {
     display: flex;
     flex-direction: column;
     width: 100%;
-}
-
-#sim-map {
-    flex: 1;
-    position: relative;
-    background: #5a6b3a;
+    height: 100%;
     overflow: hidden;
 }
 
-.map-satellite {
+/* Outer wrapper */
+#sim-carousel-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #0a0a0a;
+}
+
+/* ── Viewport clips the sliding track ── */
+#sim-carousel-viewport {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Track holds all slides absolutely — GSAP moves each slide via xPercent */
+#sim-carousel-track {
+    position: absolute;
+    inset: 0;
+}
+
+/* ── Each slide fills the viewport ── */
+.sv-slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 80px;
+    will-change: transform;
+}
+
+/* ── Card — horizontal layout ──
+   Left: video  |  Right: info                */
+.sv-card {
+    width: 100%;
+    max-width: 1020px;
+    height: min(420px, calc(100vh - 180px));
+    background: #161616;
+    border: 1px solid #222;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    position: relative;
+    will-change: transform, filter, opacity;
+}
+
+/* Green top-accent line draws on hover */
+.sv-card:not(.sv-card--empty)::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    height: 2px;
+    width: 0%;
+    background: #7ab000;
+    transition: width 0.4s ease;
+    z-index: 4;
+}
+
+.sv-card:not(.sv-card--empty):hover::before { width: 100%; }
+.sv-card:not(.sv-card--empty):hover { border-color: #2a3818; }
+
+/* ── Left: video panel (58%) ── */
+.sv-player-wrap {
+    flex: 0 0 58%;
+    position: relative;
+    background: #080808;
+    overflow: hidden;
+}
+
+.sv-player {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
-    background:
-        linear-gradient(135deg, #6b7a45 0%, #5a6b3a 20%, #7a8a50 40%, #4a5a30 60%, #6b7a45 80%, #5a6b3a 100%);
-    position: relative;
+    display: block;
+    object-fit: contain;
+    border: none;
+    background: #080808;
 }
 
-.map-road {
+.sv-no-src {
     position: absolute;
-    background: #888;
-    top: 0;
-    bottom: 0;
-    left: 55%;
-    width: 18px;
-    box-shadow: -2px 0 0 #999, 2px 0 0 #999;
-}
-
-.map-road::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: repeating-linear-gradient(to bottom, #fff 0, #fff 12px, transparent 12px, transparent 24px);
-}
-
-.map-pin {
-    position: absolute;
-    top: 36%;
-    left: 49%;
-    width: 24px;
-    height: 32px;
-    cursor: pointer;
-}
-
-.map-pin::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0;
-    transform: translateX(-50%);
-    width: 20px;
-    height: 20px;
-    background: #22bb44;
-    border-radius: 50% 50% 50% 0;
-    transform: translateX(-50%) rotate(-45deg);
-    border: 2px solid #1a8832;
-}
-
-.map-aircraft {
-    position: absolute;
-    top: 34%;
-    left: 50%;
-    width: 40px;
-    height: 30px;
-    color: #aaa;
-    font-size: 28px;
-    transform: rotate(90deg);
-}
-
-.map-home-label {
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    border: 1px solid #888;
-    background: rgba(30, 30, 30, 0.85);
-    padding: 2px 8px;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 11px;
-    color: #ddd;
+    color: #1e1e1e;
+    font-family: 'Consolas', monospace;
 }
 
-/* Sim bottom panels */
-#sim-bottom {
-    background: #1e1e1e;
-    border-top: 1px solid #444;
-    padding: 6px 10px;
+/* ── Right: info panel ── */
+.sv-body {
+    flex: 1;
+    padding: 26px 28px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    border-left: 1px solid #1c1c1c;
+}
+
+.sv-body-top {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Slide number e.g. "01" */
+.sv-index {
+    font-size: 10px;
+    color: #2e2e2e;
+    font-family: 'Consolas', monospace;
+    letter-spacing: 1.5px;
+}
+
+.sv-title {
+    font-size: 13px;
+    color: #ccc;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+.sv-desc {
+    font-size: 11px;
+    color: #5a5a5a;
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.75;
+    /* cap at 5 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Footer: tags + date */
+.sv-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 14px;
+    border-top: 1px solid #1a1a1a;
     flex-shrink: 0;
 }
 
-.sim-row {
+.sv-tags {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 5px;
+    gap: 5px;
     flex-wrap: wrap;
 }
 
-.sim-group {
+.sv-tag {
+    font-size: 10px;
+    color: #7ab000;
+    border: 1px solid #2a4400;
+    padding: 1px 7px;
+    font-family: 'Segoe UI', sans-serif;
+    letter-spacing: 0.3px;
+}
+
+.sv-date {
+    font-size: 10px;
+    color: #2e2e2e;
+    font-family: 'Consolas', monospace;
+}
+
+/* Inline code chip */
+.sv-code {
+    font-family: 'Consolas', monospace;
+    font-size: 10px;
+    color: #7ab000;
+    background: #0f1a00;
+    border: 1px solid #253300;
+    padding: 0 4px;
+    border-radius: 2px;
+}
+
+/* Empty / pending card */
+.sv-card--empty {
+    border-style: dashed;
+    border-color: #181818;
+    opacity: 0.3;
+}
+
+.sv-placeholder {
+    color: #222 !important;
+    font-style: italic;
+}
+
+/* ── Navigation arrows ── */
+.sv-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(20, 20, 20, 0.85);
+    border: 1px solid #252525;
+    color: #555;
+    width: 38px;
+    height: 38px;
     display: flex;
     align-items: center;
-    gap: 6px;
-}
-
-.sim-label {
-    color: #bbb;
-    font-size: 11px;
-}
-
-.sim-input {
-    background: #111;
-    border: 1px solid #555;
-    color: #ccc;
-    padding: 2px 5px;
-    width: 50px;
-    font-size: 11px;
-    height: 22px;
-}
-
-.sim-select {
-    background: #111;
-    border: 1px solid #555;
-    color: #ccc;
-    padding: 2px 5px;
-    font-size: 11px;
-    height: 22px;
-}
-
-.sim-box {
-    border: 1px solid #555;
-    padding: 4px 8px;
-    font-size: 11px;
-    color: #aaa;
-}
-
-.sim-section-label {
-    color: #aaa;
-    font-size: 11px;
-    margin-right: 6px;
-}
-
-.green-btn {
-    background: #5a8a00;
-    color: #e8e8e8;
-    border: 1px solid #7ab000;
-    padding: 3px 10px;
-    font-size: 11px;
+    justify-content: center;
     cursor: pointer;
-    white-space: nowrap;
+    transition: background 0.15s, color 0.15s, opacity 0.25s;
+    z-index: 20;
 }
 
-.green-btn:hover {
-    background: #6aa000;
-}
+.sv-arrow svg { width: 18px; height: 18px; pointer-events: none; }
+.sv-arrow:hover { background: #222; color: #ccc; border-color: #333; }
+.sv-arrow--prev { left: 22px; }
+.sv-arrow--next { right: 22px; }
 
-#firmware-section {
-    border-top: 1px solid #444;
-    padding-top: 8px;
-    margin-top: 5px;
-}
-
-.firmware-label {
-    color: #aaa;
-    font-size: 11px;
-    margin-bottom: 8px;
-}
-
-.firmware-icons {
+/* ── Footer bar: dots + counter ── */
+#sim-carousel-footer {
+    flex-shrink: 0;
+    height: 38px;
     display: flex;
-    gap: 30px;
-    align-items: flex-end;
-    padding: 8px 30px;
-}
-
-.firmware-item {
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
+    background: #0a0a0a;
+    border-top: 1px solid #181818;
+    position: relative;
+}
+
+#sim-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.sv-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #252525;
     cursor: pointer;
-    color: #bbb;
+    transition: background 0.25s, transform 0.25s;
 }
 
-.firmware-item:hover .fw-icon {
-    color: #fff;
+.sv-dot.active {
+    background: #7ab000;
+    transform: scale(1.4);
 }
 
-.fw-icon {
-    font-size: 48px;
-    color: #999;
+.sv-dot:not(.active):hover { background: #3a3a3a; }
+
+#sim-slide-counter {
+    position: absolute;
+    right: 20px;
+    font-size: 10px;
+    color: #2a2a2a;
+    font-family: 'Consolas', monospace;
+    letter-spacing: 1px;
 }
 
-.fw-name {
-    font-size: 11px;
-}
-
-.plane-svg,
-.rover-svg,
-.multi-svg,
-.heli-svg {
-    width: 70px;
-    height: 55px;
-}
 
 /* ===== CONFIG TAB ===== */
 #config-tab {
