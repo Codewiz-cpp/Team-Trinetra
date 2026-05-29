@@ -7,13 +7,17 @@
         <div id="sim-carousel-track">
 
             <!-- ══ SLIDE 1 — Payload Drop ══
-                 File: videos/Loiter_auto.mp4 -->
+                 Source: Google Drive (works on Vercel)
+                 Local fallback: videos/Loiter_auto.mp4 -->
             <div class="sv-slide" data-index="0">
                 <div class="sv-card">
                     <div class="sv-player-wrap">
-                        <video class="sv-player" controls preload="metadata">
-                            <source src="videos/Loiter_auto.mp4" type="video/mp4">
-                        </video>
+                        <iframe class="sv-player"
+                            src="https://drive.google.com/file/d/1utohRBS6-_Ky6VVxCwMF_ZywwugGIWv0/preview"
+                            allow="autoplay; encrypted-media"
+                            allowfullscreen
+                            frameborder="0"
+                        ></iframe>
                     </div>
                     <div class="sv-body">
                         <div class="sv-body-top">
@@ -41,13 +45,17 @@
             </div>
 
             <!-- ══ SLIDE 2 — ESRI + YOLOv8 ══
-                 File: videos/esri.mp4 -->
+                 TODO: Upload esri.mp4 to Google Drive, share it, then
+                 replace YOUR_FILE_ID below with the actual ID from the link -->
             <div class="sv-slide" data-index="1">
                 <div class="sv-card">
                     <div class="sv-player-wrap">
-                        <video class="sv-player" controls preload="metadata">
-                            <source src="videos/esri.mp4" type="video/mp4">
-                        </video>
+                        <iframe class="sv-player"
+                            src="https://drive.google.com/file/d/YOUR_FILE_ID/preview"
+                            allow="autoplay; encrypted-media"
+                            allowfullscreen
+                            frameborder="0"
+                        ></iframe>
                     </div>
                     <div class="sv-body">
                         <div class="sv-body-top">
