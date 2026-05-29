@@ -1356,12 +1356,12 @@ body {
 
 /* Odd: text left, image right */
 .veh-entry--odd  { flex-direction: row; }
-/* Even: image left, text right */
-.veh-entry--even { flex-direction: row-reverse; }
+/* Even: image left, text right (HTML order is image,text so row = image left) */
+.veh-entry--even { flex-direction: row; }
 
 /* ── Text panel ── */
 .veh-text {
-    flex: 0 0 46%;
+    flex: 0 0 60%;
     padding: 32px 36px 28px;
     display: flex;
     flex-direction: column;
@@ -1474,7 +1474,7 @@ body {
 
 /* ── Image panel ── */
 .veh-image-wrap {
-    flex: 1;
+    flex: 0 0 40%;
     position: relative;
     overflow: hidden;
     background: #0a0a0a;
