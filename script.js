@@ -1,6 +1,6 @@
 // ===== TAB SWITCHING =====
 function showTabBase(name) {
-    ['data-tab', 'sim-tab', 'config-tab', 'plan-tab'].forEach(id => {
+    ['data-tab', 'sim-tab', 'config-tab', 'plan-tab', 'vehicles-tab'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = 'none';
     });
@@ -19,6 +19,8 @@ function showTabBase(name) {
         document.getElementById('config-tab').style.display = 'flex';
     } else if (name === 'plan') {
         document.getElementById('plan-tab').style.display = 'flex';
+    } else if (name === 'setup' || name === 'vehicles') {
+        document.getElementById('vehicles-tab').style.display = 'flex';
     }
 }
 
@@ -930,10 +932,11 @@ function runSplash(onComplete) {
 // NOTE: Requires a local web server (e.g. VS Code Live Server)
 async function loadTabs() {
     const tabs = [
-        { id: 'data-tab',   file: 'tabs/data.html'       },
-        { id: 'sim-tab',    file: 'tabs/simulation.html'  },
-        { id: 'config-tab', file: 'tabs/config.html'      },
-        { id: 'plan-tab',   file: 'tabs/team.html'        },
+        { id: 'data-tab',     file: 'tabs/data.html'       },
+        { id: 'sim-tab',      file: 'tabs/simulation.html'  },
+        { id: 'config-tab',   file: 'tabs/config.html'      },
+        { id: 'plan-tab',     file: 'tabs/team.html'        },
+        { id: 'vehicles-tab', file: 'tabs/vehicles.html'    },
     ];
     await Promise.all(tabs.map(async ({ id, file }) => {
         const res  = await fetch(file);
