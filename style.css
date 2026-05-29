@@ -1080,15 +1080,15 @@ body {
     inset: 0;
 }
 
-/* ── Each slide is narrower than the clip by 160px total ──
-   left: 80px + width: calc(100%-160px) means:
-   - Active card is centred with 80px gap on each side
-   - Adjacent card extends 80px INTO the clip from each edge → visible peek */
+/* ── Each slide is 80% wide with 10% margin each side ──
+   Adjacent cards naturally peek 10% into the clip on each side.
+   xPercent:(i-current)*100 means next card left edge = 10%+80% = 90%  → 10% visible
+   prev card right edge = 10%-80%+80% = 10%                             → 10% visible */
 .sv-slide {
     position: absolute;
     top: 0;
-    left: 80px;                  /* horizontal offset so card starts 80px in */
-    width: calc(100% - 160px);   /* 80px peek zone on each side */
+    left: 10%;
+    width: 80%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -1096,6 +1096,7 @@ body {
     padding: 20px 0;
     will-change: transform;
 }
+
 
 
 /* ── Card — horizontal layout ──
