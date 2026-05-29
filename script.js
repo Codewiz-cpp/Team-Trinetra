@@ -13,7 +13,7 @@ function showTabBase(name) {
 
     if (name === 'data') {
         document.getElementById('data-tab').style.display = 'flex';
-    } else if (name === 'sim' || name === 'simulation' || name === 'setup') {
+    } else if (name === 'sim' || name === 'simulation') {
         document.getElementById('sim-tab').style.display = 'flex';
     } else if (name === 'config') {
         document.getElementById('config-tab').style.display = 'flex';
