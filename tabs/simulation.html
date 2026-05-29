@@ -3,12 +3,10 @@
      ════════════════════════════════════ -->
 <div id="sim-carousel-wrap">
 
-    <!-- Clip: overflow:hidden keeps adjacent cards from leaking outside -->
+    <!-- Clip: single overflow:hidden container — slides peek 80px into its edges -->
     <div id="sim-carousel-clip">
 
-        <!-- Viewport: inset 120px each side → 120px peek of adjacent cards -->
-        <div id="sim-carousel-viewport">
-            <div id="sim-carousel-track">
+        <div id="sim-carousel-track">
 
                 <!-- ══ SLIDE 1 — Payload Drop ══ -->
                 <div class="sv-slide" data-index="0">
@@ -124,9 +122,8 @@
                 </div>
 
             </div><!-- /track -->
-        </div><!-- /viewport -->
 
-        <!-- Arrows live in the clip's 120px peek zones, not inside viewport -->
+        <!-- Arrows sit in the 80px peek zones on each side -->
         <button class="sv-arrow sv-arrow--prev" id="sv-prev" title="Previous">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
                 <path d="M15 18l-6-6 6-6"/>

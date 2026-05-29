@@ -1071,32 +1071,29 @@ body {
 #sim-carousel-clip {
     flex: 1;
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* this is the ONLY clip boundary */
 }
 
-/* ── Viewport: inset so adjacent cards peek into clip zone ── */
-#sim-carousel-viewport {
-    position: absolute;
-    top: 0; bottom: 0;
-    left: 120px; right: 120px; /* 120px peek on each side */
-    overflow: visible;         /* cards slide into peek zone */
-}
-
-/* Track holds all slides absolutely — GSAP moves each slide via xPercent */
+/* Track fills the clip — slides are positioned inside it */
 #sim-carousel-track {
     position: absolute;
     inset: 0;
 }
 
-/* ── Each slide fills the viewport ── */
+/* ── Each slide is narrower than the clip by 160px total ──
+   left: 80px + width: calc(100%-160px) means:
+   - Active card is centred with 80px gap on each side
+   - Adjacent card extends 80px INTO the clip from each edge → visible peek */
 .sv-slide {
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0;
+    left: 80px;                  /* horizontal offset so card starts 80px in */
+    width: calc(100% - 160px);   /* 80px peek zone on each side */
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px 0; /* no horizontal padding — clip provides peek */
+    padding: 20px 0;
     will-change: transform;
 }
 
@@ -1104,8 +1101,7 @@ body {
 /* ── Card — horizontal layout ──
    Left: video  |  Right: info                */
 .sv-card {
-    width: 100%;
-    max-width: 1020px;
+    width: 100%;            /* fills the full slide width so peek shows the card, not empty space */
     height: min(420px, calc(100vh - 180px));
     background: #161616;
     border: 1px solid #222;
