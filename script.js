@@ -951,27 +951,53 @@ function initSimCarousel() {
         return;
     }
 
-    const viewport = document.getElementById('sim-carousel-viewport');
-    if (!viewport) return;
+    const clip = document.getElementById('sim-carousel-clip');
+    if (!clip) return;
 
     const total   = slides.length;
     let current   = 0;
     let animating = false;
 
-    // ── Initial positions: slide i starts at xPercent = i * 100
+    // ── Store each iframe's original src so we can restore after stopping ──
+    slides.forEach(slide => {
+        const iframe = slide.querySelector('iframe.sv-player');
+        if (iframe && iframe.src && !iframe.src.includes('about:blank')) {
+            iframe.dataset.origSrc = iframe.src;
+        }
+    });
+
+    // ── Initial slide positions ──
     slides.forEach((slide, i) => gsap.set(slide, { xPercent: i * 100 }));
 
-    // ── Initial active/inactive visual state
+    // ── Initial card visual states ──
     slides.forEach((slide, i) => {
         const card = slide.querySelector('.sv-card');
         if (!card) return;
         gsap.set(card, i === 0
-            ? { scale: 1,    filter: 'blur(0px)',   opacity: 1    }
-            : { scale: 0.91, filter: 'blur(3px)',    opacity: 0.38 }
+            ? { scale: 1,    filter: 'blur(0px)', opacity: 1    }
+            : { scale: 0.88, filter: 'blur(4px)', opacity: 0.38 }
         );
     });
 
-    // ── Sync dots, counter, arrow opacity
+    // ── Stop video on a slide (works for both iframes & <video>) ──
+    function stopVideo(idx) {
+        const slide = slides[idx];
+        if (!slide) return;
+        const iframe = slide.querySelector('iframe.sv-player');
+        const video  = slide.querySelector('video.sv-player');
+        if (iframe) iframe.src = 'about:blank';   // stops Drive embed
+        if (video)  video.pause();
+    }
+
+    // ── Restore iframe src when returning to a slide ──
+    function restoreVideo(idx) {
+        const slide = slides[idx];
+        if (!slide) return;
+        const iframe = slide.querySelector('iframe.sv-player');
+        if (iframe && iframe.dataset.origSrc) iframe.src = iframe.dataset.origSrc;
+    }
+
+    // ── Sync dots + counter (no arrow dimming — circular so always enabled) ──
     function syncUI(idx) {
         document.querySelectorAll('.sv-dot').forEach((d, i) =>
             d.classList.toggle('active', i === idx)
@@ -979,67 +1005,80 @@ function initSimCarousel() {
         const counter = document.getElementById('sim-slide-counter');
         if (counter) counter.textContent =
             `${String(idx + 1).padStart(2,'0')} / ${String(total).padStart(2,'0')}`;
-
-        const prev = document.getElementById('sv-prev');
-        const next = document.getElementById('sv-next');
-        if (prev) prev.style.opacity = idx === 0         ? '0.2' : '1';
-        if (next) next.style.opacity = idx === total - 1 ? '0.2' : '1';
     }
 
-    // ── Core transition
-    function goTo(index) {
-        if (index < 0 || index >= total || index === current || animating) return;
+    // ── Core transition with circular wrap support ──
+    function goTo(rawIndex) {
+        // Modulo wrap for circular
+        const index = ((rawIndex % total) + total) % total;
+        if (index === current || animating) return;
         animating = true;
 
         const prev = current;
-        current    = index;
+        const next = index;
 
-        // Move all slides horizontally
-        slides.forEach((slide, i) => {
-            gsap.to(slide, {
-                xPercent:  (i - current) * 100,
-                duration:  0.72,
-                ease:      'power3.inOut',
+        // Stop whatever was playing on the outgoing slide
+        stopVideo(prev);
+        // Restore the incoming slide's video src (if it was blanked previously)
+        restoreVideo(next);
+
+        // ── Circular wrap positioning ──
+        const isForwardWrap  = prev === total - 1 && next === 0;
+        const isBackwardWrap = prev === 0          && next === total - 1;
+
+        if (isForwardWrap) {
+            // Incoming (first) was far left — teleport it to right of current, then slide in
+            gsap.set(slides[next], { xPercent: 100 });
+            slides.forEach((slide, i) => {
+                const xp = (i === prev) ? -100 : (i - next) * 100;
+                gsap.to(slide, { xPercent: xp, duration: 0.72, ease: 'power3.inOut' });
             });
-        });
+        } else if (isBackwardWrap) {
+            // Incoming (last) was far right — teleport it to left of current, then slide in
+            gsap.set(slides[next], { xPercent: -100 });
+            slides.forEach((slide, i) => {
+                const xp = (i === prev) ? 100 : (i - next) * 100;
+                gsap.to(slide, { xPercent: xp, duration: 0.72, ease: 'power3.inOut' });
+            });
+        } else {
+            // Normal sequential navigation
+            slides.forEach((slide, i) => {
+                gsap.to(slide, { xPercent: (i - next) * 100, duration: 0.72, ease: 'power3.inOut' });
+            });
+        }
 
-        // Incoming card → sharp, full size
-        const inCard = slides[current].querySelector('.sv-card');
+        // Incoming card → sharp + full size
+        const inCard = slides[next].querySelector('.sv-card');
         if (inCard) {
             gsap.to(inCard, {
-                scale:    1,
-                filter:   'blur(0px)',
-                opacity:  1,
-                duration: 0.55,
-                ease:     'power2.out',
+                scale: 1, filter: 'blur(0px)', opacity: 1,
+                duration: 0.55, ease: 'power2.out',
                 onComplete: () => { animating = false; }
             });
         } else {
             setTimeout(() => { animating = false; }, 750);
         }
 
-        // Outgoing + all other cards → dim + blur
+        // All other cards → blurred, scaled down, still visible (peek)
         slides.forEach((slide, i) => {
-            if (i === current) return;
+            if (i === next) return;
             const card = slide.querySelector('.sv-card');
             if (!card) return;
             gsap.to(card, {
-                scale:    0.91,
-                filter:   'blur(3px)',
-                opacity:  0.38,
-                duration: 0.45,
-                ease:     'power2.out'
+                scale: 0.88, filter: 'blur(4px)', opacity: 0.38,
+                duration: 0.45, ease: 'power2.out'
             });
         });
 
+        current = next;
         syncUI(current);
     }
 
     syncUI(0);
 
-    // ── Mouse wheel (debounced — one slide per swipe gesture)
+    // ── Mouse wheel on the clip (covers full visible area inc. peek zones) ──
     let wheelBlock = false;
-    viewport.addEventListener('wheel', (e) => {
+    clip.addEventListener('wheel', (e) => {
         e.preventDefault();
         if (wheelBlock) return;
         wheelBlock = true;
@@ -1048,16 +1087,16 @@ function initSimCarousel() {
         else                                goTo(current - 1);
     }, { passive: false });
 
-    // ── Arrow buttons
+    // ── Arrow buttons ──
     document.getElementById('sv-prev')?.addEventListener('click', () => goTo(current - 1));
     document.getElementById('sv-next')?.addEventListener('click', () => goTo(current + 1));
 
-    // ── Dots
+    // ── Dots ──
     document.querySelectorAll('.sv-dot').forEach((dot, i) => {
         dot.addEventListener('click', () => goTo(i));
     });
 
-    // ── Keyboard (only when sim tab is visible)
+    // ── Keyboard (only when sim tab is visible) ──
     document.addEventListener('keydown', (e) => {
         const simTab = document.getElementById('sim-tab');
         if (!simTab || simTab.style.display === 'none') return;
@@ -1065,12 +1104,10 @@ function initSimCarousel() {
         if (e.key === 'ArrowLeft')  goTo(current - 1);
     });
 
-    // ── Touch / swipe
+    // ── Touch / swipe ──
     let touchX = 0;
-    viewport.addEventListener('touchstart', e => {
-        touchX = e.touches[0].clientX;
-    }, { passive: true });
-    viewport.addEventListener('touchend', e => {
+    clip.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+    clip.addEventListener('touchend', e => {
         const dx = touchX - e.changedTouches[0].clientX;
         if (Math.abs(dx) > 55) goTo(dx > 0 ? current + 1 : current - 1);
     }, { passive: true });

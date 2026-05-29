@@ -1067,11 +1067,19 @@ body {
     background: #0a0a0a;
 }
 
-/* ── Viewport clips the sliding track ── */
-#sim-carousel-viewport {
+/* ── Clip: overflow:hidden boundary for peek effect ── */
+#sim-carousel-clip {
     flex: 1;
     position: relative;
     overflow: hidden;
+}
+
+/* ── Viewport: inset so adjacent cards peek into clip zone ── */
+#sim-carousel-viewport {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 120px; right: 120px; /* 120px peek on each side */
+    overflow: visible;         /* cards slide into peek zone */
 }
 
 /* Track holds all slides absolutely — GSAP moves each slide via xPercent */
@@ -1088,9 +1096,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 28px 80px;
+    padding: 24px 0; /* no horizontal padding — clip provides peek */
     will-change: transform;
 }
+
 
 /* ── Card — horizontal layout ──
    Left: video  |  Right: info                */
@@ -1172,14 +1181,14 @@ body {
 /* Slide number e.g. "01" */
 .sv-index {
     font-size: 10px;
-    color: #2e2e2e;
+    color: #555;
     font-family: 'Consolas', monospace;
     letter-spacing: 1.5px;
 }
 
 .sv-title {
     font-size: 13px;
-    color: #ccc;
+    color: #e8e8e8;
     font-family: 'Segoe UI', sans-serif;
     font-weight: 600;
     line-height: 1.45;
@@ -1187,10 +1196,9 @@ body {
 
 .sv-desc {
     font-size: 11px;
-    color: #5a5a5a;
+    color: #909090;
     font-family: 'Segoe UI', sans-serif;
     line-height: 1.75;
-    /* cap at 5 lines */
     display: -webkit-box;
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
@@ -1224,7 +1232,7 @@ body {
 
 .sv-date {
     font-size: 10px;
-    color: #2e2e2e;
+    color: #555;
     font-family: 'Consolas', monospace;
 }
 
@@ -1251,28 +1259,29 @@ body {
     font-style: italic;
 }
 
-/* ── Navigation arrows ── */
+/* ── Navigation arrows — live in #sim-carousel-clip's 120px peek zones ── */
 .sv-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(20, 20, 20, 0.85);
-    border: 1px solid #252525;
-    color: #555;
-    width: 38px;
-    height: 38px;
+    background: rgba(15, 15, 15, 0.9);
+    border: 1px solid #2a2a2a;
+    color: #666;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background 0.15s, color 0.15s, opacity 0.25s;
-    z-index: 20;
+    transition: background 0.15s, color 0.15s;
+    z-index: 30;
+    border-radius: 0;
 }
 
 .sv-arrow svg { width: 18px; height: 18px; pointer-events: none; }
-.sv-arrow:hover { background: #222; color: #ccc; border-color: #333; }
-.sv-arrow--prev { left: 22px; }
-.sv-arrow--next { right: 22px; }
+.sv-arrow:hover { background: #1e1e1e; color: #ddd; border-color: #444; }
+.sv-arrow--prev { left: 42px; }
+.sv-arrow--next { right: 42px; }
 
 /* ── Footer bar: dots + counter ── */
 #sim-carousel-footer {
@@ -1312,7 +1321,7 @@ body {
     position: absolute;
     right: 20px;
     font-size: 10px;
-    color: #2a2a2a;
+    color: #555;
     font-family: 'Consolas', monospace;
     letter-spacing: 1px;
 }
