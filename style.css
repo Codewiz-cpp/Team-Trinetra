@@ -8,15 +8,27 @@
 #cmd-screen {
     position: fixed;
     inset: 0;
-    background: #0c0c0c;
+    background: #000000;   /* true black like cmd.exe */
     z-index: 10000;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    padding: 18px 22px;
-    font-family: 'Consolas', 'Courier New', monospace;
     overflow: hidden;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.35s ease;
+    font-family: 'Consolas', 'Courier New', monospace;
+}
+
+/* Fake Windows CMD title bar */
+#cmd-screen::before {
+    content: '  C:\\Windows\\system32\\cmd.exe';
+    display: block;
+    background: #000080;   /* classic CMD title bar blue */
+    color: #fff;
+    font-size: 12px;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 400;
+    padding: 4px 10px;
+    letter-spacing: 0.2px;
+    flex-shrink: 0;
 }
 
 #cmd-screen.hidden {
@@ -29,33 +41,38 @@
     display: flex;
     flex-direction: column;
     gap: 0;
+    padding: 6px 10px 10px;
+    overflow: hidden;
 }
 
 .cmd-line {
     font-size: 13px;
-    color: #c8c8c8;
-    line-height: 1.55;
+    color: #ffffff;        /* pure CMD white */
+    line-height: 1.5;
     white-space: pre;
     opacity: 0;
-    animation: cmdFadeIn 0.08s forwards;
+    animation: cmdFadeIn 0.06s forwards;
+    letter-spacing: 0;
 }
 
-.cmd-line.dim    { color: #666; }
-.cmd-line.ok     { color: #4ec94e; }
-.cmd-line.warn   { color: #e0a020; }
-.cmd-line.err    { color: #e04040; }
-.cmd-line.prompt { color: #5af; }
+/* All lines white — real CMD has no color coding */
+.cmd-line.dim    { color: #aaaaaa; }
+.cmd-line.ok     { color: #ffffff; }
+.cmd-line.warn   { color: #ffffff; }
+.cmd-line.err    { color: #ffffff; }
+.cmd-line.prompt { color: #ffffff; }
 
 @keyframes cmdFadeIn {
     to { opacity: 1; }
 }
 
 #cmd-cursor {
-    width: 8px;
+    width: 9px;
     height: 14px;
-    background: #c8c8c8;
-    margin-top: 2px;
-    animation: blink 0.7s step-end infinite;
+    background: #ffffff;
+    margin-left: 10px;
+    margin-top: 1px;
+    animation: blink 0.53s step-end infinite;
     display: none;
 }
 
@@ -63,6 +80,7 @@
     0%, 100% { opacity: 1; }
     50%       { opacity: 0; }
 }
+
 
 /* ===== PHASE 2: SPLASH OVERLAY ===== */
 #splash-overlay {
