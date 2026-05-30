@@ -86,7 +86,7 @@
 #splash-overlay {
     position: fixed;
     inset: 0;
-    background: #0c0c0c;  /* fully opaque — no bleed-through */
+    background: #0c0c0c;
     z-index: 10001;
     display: flex;
     align-items: center;
@@ -106,18 +106,15 @@
     visibility: hidden;
 }
 
-/* The floating window box */
+/* ── Splash window — same proportions as Mission Planner ── */
 #splash-window {
-    width: 560px;
-    background: #1e1e1e;
-    border: 1px solid #3a3a3a;
-    box-shadow:
-        0 0 0 1px #111,
-        0 12px 50px rgba(0,0,0,0.95),
-        0 0 80px rgba(200,160,0,0.06);
-    border-radius: 3px;
-    overflow: visible;   /* allow italic logo to not clip */
-    transform: scale(0.92);
+    width: 690px;
+    background: #141414;
+    border: 1px solid #555;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.9);
+    border-radius: 0;
+    overflow: visible;
+    transform: scale(0.93);
     transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
 }
 
@@ -125,113 +122,126 @@
     transform: scale(1);
 }
 
-/* Title bar — classic Windows-style dark bar */
+/* ── Title bar — plain Windows grey like Mission Planner ── */
 #splash-titlebar {
-    background: linear-gradient(90deg, #1a2a00 0%, #0f1a00 100%);
-    border-bottom: 1px solid #2e4a00;
-    padding: 6px 8px;
+    background: linear-gradient(to bottom, #f0f0ef 0%, #d8d8d6 100%);
+    border-bottom: 1px solid #aaa;
+    padding: 5px 10px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     user-select: none;
 }
 
 #splash-titlebar-text {
     font-size: 11px;
-    color: #a8c860;
+    color: #111;
     font-family: 'Segoe UI', Tahoma, sans-serif;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.1px;
+    font-weight: 400;
 }
 
-#splash-win-btns {
-    display: none;   /* no minimize/maximize/close buttons */
-}
+#splash-win-btns { display: none; }
 
-.swb {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 18px;
-    height: 14px;
-    font-size: 10px;
-    color: #aaa;
-    background: #2a2a2a;
-    border: 1px solid #444;
-    border-radius: 2px;
-    cursor: default;
-    line-height: 1;
-}
-
-.swb-close {
-    background: #5a1a1a;
-    border-color: #7a2a2a;
-    color: #f88;
-}
-
-/* Splash body */
+/* ── Body — dark wood-grain texture exactly like Mission Planner ── */
 #splash-body {
-    padding: 40px 40px 30px;
+    position: relative;
+    height: 340px;
+    overflow: hidden;
+    /* Dark base */
+    background-color: #141414;
+    /* Subtle diagonal grain lines — same as MP */
+    background-image:
+        repeating-linear-gradient(
+            82deg,
+            transparent 0px,
+            transparent 4px,
+            rgba(255,255,255,0.016) 4px,
+            rgba(255,255,255,0.016) 5px
+        ),
+        /* Soft center-bottom vignette */
+        radial-gradient(ellipse 90% 70% at 50% 80%, #0a0a0a 0%, transparent 100%),
+        /* Edge darkening */
+        radial-gradient(ellipse 110% 80% at 50% 0%, #1c1c1c 0%, #0d0d0d 100%);
+}
+
+/* ── Drone icon — top right, same position as MP's plane ── */
+#splash-drone {
+    position: absolute;
+    top: 18px;
+    right: 24px;
+    width: 110px;
+    height: auto;
+    opacity: 0.95;
+}
+
+#splash-drone svg {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 2px 6px rgba(122,176,0,0.4));
+}
+
+/* ── Logo — TRI (light) NETRA (heavy), same size/position as MP ── */
+#splash-logo {
+    position: absolute;
+    /* MP logo sits at roughly 40% from top, left-of-center */
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    line-height: 1;
+    filter: drop-shadow(0 3px 8px rgba(0,0,0,0.8));
+}
+
+/* "TRI" — lighter weight, same as MP's "Mission" */
+.sl-main {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 400;
+    font-size: 68px;
+    color: #d8d8d8;
+    -webkit-text-fill-color: #d8d8d8;
+    letter-spacing: 2px;
+    font-style: normal;
+}
+
+/* "NETRA" — heavy weight, same as MP's "Planner" */
+.sl-accent {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 68px;
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+    letter-spacing: 2px;
+    font-style: normal;
+}
+
+/* ── Info block — bottom right, exactly like MP's version + author ── */
+#splash-info {
+    position: absolute;
+    bottom: 32px;
+    right: 32px;
+    text-align: right;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    background: #1a1a1a;
-}
-
-#splash-logo {
-    font-family: 'Orbitron', 'Segoe UI', sans-serif;
-    font-size: 52px;
-    font-weight: 900;
-    letter-spacing: 6px;
-    font-style: italic;
-    line-height: 1.1;
-    margin-bottom: 4px;
-    padding: 4px 20px 4px 4px;  /* right padding so italic slant doesn't clip */
-    overflow: visible;
-}
-
-.sl-main {
-    background: linear-gradient(135deg, #e8e8e8 0%, #a0a0a0 40%, #d4d4d4 60%, #b0b0b0 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
-}
-
-.sl-accent {
-    color: #ffaa00;
-    -webkit-text-fill-color: #ffaa00;
-}
-
-#splash-tagline {
-    font-size: 13px;
-    color: #a8c860;
-    font-family: 'Segoe UI', sans-serif;
-    letter-spacing: 3px;
-    text-transform: uppercase;
+    gap: 3px;
 }
 
 #splash-version {
-    font-size: 11px;
-    color: #555;
-    letter-spacing: 1px;
     font-family: 'Segoe UI', sans-serif;
-    text-transform: uppercase;
+    font-size: 13px;
+    color: #cccccc;
+    letter-spacing: 0.3px;
 }
 
-#splash-divider {
-    width: 80%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #333, transparent);
-    margin: 6px 0;
+#splash-author {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 13px;
+    color: #7ab000;   /* same green as MP's "by Michael Oborne" */
+    letter-spacing: 0.3px;
 }
 
-#splash-copyright {
-    font-size: 10px;
-    color: #3a3a3a;
-    font-family: 'Segoe UI', sans-serif;
-    margin-top: 2px;
-}
+/* Keep old selectors for any stray references */
+#splash-tagline, #splash-divider, #splash-copyright { display: none; }
+
 
 /* ===== MP-STYLE MODALS ===== */
 .mp-modal-overlay {

@@ -7,7 +7,7 @@
     <title>Team Trinetra</title>
     <meta name="description" content="Team Trinetra GCS v1.0 - Ground Control Station for UAV mission planning and telemetry.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -29,22 +29,50 @@
     <!-- Phase 2: Mission Planner-style Splash Window -->
     <div id="splash-overlay">
         <div id="splash-window">
+
+            <!-- Plain Windows-style title bar — no buttons -->
             <div id="splash-titlebar">
-                <span id="splash-titlebar-text">Team Trinetra</span>
-                <div id="splash-win-btns">
-                    <span class="swb">&#8212;</span>
-                    <span class="swb">&#9633;</span>
-                    <span class="swb swb-close">&#x2715;</span>
-                </div>
+                <span id="splash-titlebar-text">Team Trinetra GCS v1.0.0 build 1.0.0.2026</span>
             </div>
+
+            <!-- Dark textured body -->
             <div id="splash-body">
+
+                <!-- Drone icon — top right, like MP's airplane -->
+                <div id="splash-drone">
+                    <svg viewBox="0 0 130 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- X-frame arms -->
+                        <line x1="22" y1="20" x2="108" y2="70" stroke="#7ab000" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="108" y1="20" x2="22" y2="70" stroke="#7ab000" stroke-width="4" stroke-linecap="round"/>
+                        <!-- Center body -->
+                        <rect x="52" y="33" width="26" height="24" rx="4" fill="#7ab000"/>
+                        <rect x="58" y="39" width="14" height="12" rx="2" fill="#0d1a00"/>
+                        <!-- Motor hubs -->
+                        <circle cx="22" cy="20" r="6" fill="#7ab000"/>
+                        <circle cx="108" cy="20" r="6" fill="#7ab000"/>
+                        <circle cx="22" cy="70" r="6" fill="#7ab000"/>
+                        <circle cx="108" cy="70" r="6" fill="#7ab000"/>
+                        <!-- Rotor blades -->
+                        <ellipse cx="22" cy="20" rx="18" ry="5" stroke="#7ab000" stroke-width="1.5" fill="none" opacity="0.7"/>
+                        <ellipse cx="108" cy="20" rx="18" ry="5" stroke="#7ab000" stroke-width="1.5" fill="none" opacity="0.7"/>
+                        <ellipse cx="22" cy="70" rx="18" ry="5" stroke="#7ab000" stroke-width="1.5" fill="none" opacity="0.7"/>
+                        <ellipse cx="108" cy="70" rx="18" ry="5" stroke="#7ab000" stroke-width="1.5" fill="none" opacity="0.7"/>
+                        <!-- Camera gimbal -->
+                        <circle cx="65" cy="56" r="5" fill="#0d1a00" stroke="#7ab000" stroke-width="1.5"/>
+                    </svg>
+                </div>
+
+                <!-- Main logo: TRI (light) + NETRA (heavy) -->
                 <div id="splash-logo">
                     <span class="sl-main">TRI</span><span class="sl-accent">NETRA</span>
                 </div>
-                <div id="splash-tagline">Ground Control Station</div>
-                <div id="splash-version">GCS v1.0 &nbsp;&bull;&nbsp; ArduPilot Compatible</div>
-                <div id="splash-divider"></div>
-                <div id="splash-copyright">&copy; 2026 Team Trinetra &middot; MITS Gwalior</div>
+
+                <!-- Version + author — bottom right like Mission Planner -->
+                <div id="splash-info">
+                    <div id="splash-version">Version: 1.0.0</div>
+                    <div id="splash-author">by Aryan Bhadoriya</div>
+                </div>
+
             </div>
         </div>
     </div>
