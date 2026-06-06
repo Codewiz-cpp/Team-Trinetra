@@ -511,52 +511,123 @@ function initPlanMap() {
 }
 
 let activeHeroText = 'TRINETRA';
+let pinnedMember = null; // 🔴 Tracks who is currently pinned
+let surnameWrapRef = null; // Tracks the surname DOM element so we can remove it
+
+// The SVG shapes for swapping the cursor
+const ARROW_SVG = `<path d="m15 5 4 4-4 4"></path><path d="M19 9H5"></path>`;
+const PIN_SVG = `<line x1="12" y1="17" x2="12" y2="22"></line><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 11.2V6a3 3 0 0 0-6 0v5.2a2 2 0 0 1-1.11 1.35l-1.78.9A2 2 0 0 0 5 15.24Z"></path>`;
 
 function populateTeamCards() {
     const container = document.getElementById('team-thumbnails-container');
+    const cursorIcon = document.getElementById('cursor-icon');
     if (!container) return;
     container.innerHTML = '';
 
-    const images = [
-        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1513379733131-47fc74b45fc7?q=80&w=200&auto=format&fit=crop"
-    ];
-
+    const images = ["https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop","https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop","https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop","https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=200&auto=format&fit=crop","https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop","https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop","https://images.unsplash.com/photo-1513379733131-47fc74b45fc7?q=80&w=200&auto=format&fit=crop"];
     const thumbsArray = [];
-    const baseSize = 60;
-    const maxSize = 120;
-    const gap = 12;
-    const maxDist = 140; 
-    const containerWidth = 552;
-
-    const defaultTotalWidth = (images.length * baseSize) + (gap * (images.length - 1));
-    const startXOffset = (containerWidth - defaultTotalWidth) / 2;
+    const baseSize = 60, maxSize = 120, gap = 12, maxDist = 140, containerWidth = 552;
+    const startXOffset = (containerWidth - (images.length * baseSize + gap * (images.length - 1))) / 2;
 
     TEAM_MEMBERS.forEach((member, index) => {
         const thumb = document.createElement('div');
         thumb.className = 'new-team-thumb';
+        thumb.innerHTML = `<img src="${images[index % images.length]}" alt="${member.name}">`;
         
-        const imgSrc = images[index % images.length];
-        thumb.innerHTML = `<img src="${imgSrc}" alt="${member.name}">`;
-        
-        gsap.set(thumb, { 
-            x: startXOffset + (index * (baseSize + gap)),
-            yPercent: -50 
-        });
+        gsap.set(thumb, { x: startXOffset + (index * (baseSize + gap)), yPercent: -50 });
 
-        // ── HOVERING A THUMBNAIL (Name enters from BELOW) ──
+        // ── 1. HOVER LOGIC (Respects the Pin) ──
         thumb.addEventListener('mouseenter', () => {
+            // Do nothing if someone is pinned!
+            if (pinnedMember) return; 
+
             const firstName = member.name.split(' ')[0].toUpperCase();
             if (activeHeroText !== firstName) {
                 activeHeroText = firstName;
-                // 'hover' tells the engine to start the text from BELOW
                 splitTextAndAnimate(firstName, 'hover', '#F00020'); 
             }
+        });
+
+        // ── 2. CLICK LOGIC (The Shift & Reveal) ──
+        thumb.addEventListener('click', () => {
+            const firstNameText = member.name.split(' ')[0].toUpperCase();
+            const lastNameText = member.name.split(' ').slice(1).join(' ').toUpperCase();
+            
+            // If they clicked the ALREADY pinned member -> UNPIN THEM
+            if (pinnedMember === member) {
+                pinnedMember = null;
+                cursorIcon.innerHTML = ARROW_SVG; // Revert cursor
+
+                // Find the First Name and Surname elements
+                const textContainer = document.getElementById('team-bg-text-container');
+                const firstNameWrap = textContainer.querySelector('.team-bg-text-wrap:not(.surname)');
+                
+                // Glide First Name back to Center
+                if (firstNameWrap) {
+                    gsap.to(firstNameWrap, { x: 0, duration: 0.5, ease: 'power3.out' });
+                }
+
+                // Wobble exit the Surname
+                if (surnameWrapRef) {
+                    const surnameLetters = surnameWrapRef.querySelectorAll('.letter-inner');
+                    gsap.to(surnameLetters, {
+                        yPercent: 105, duration: 0.35, ease: 'power3.inOut',
+                        stagger: { amount: 0.08, from: "edges" },
+                        onComplete: () => { 
+                            if(surnameWrapRef) surnameWrapRef.remove(); 
+                            surnameWrapRef = null;
+                        }
+                    });
+                }
+                return;
+            }
+
+            // If someone ELSE is pinned, block it. You must unpin first!
+            if (pinnedMember !== null) return;
+
+            // PIN NEW MEMBER
+            pinnedMember = member;
+            cursorIcon.innerHTML = PIN_SVG; // Change cursor
+
+            // Find the current First Name wrapper
+            const textContainer = document.getElementById('team-bg-text-container');
+            const firstNameWrap = textContainer.querySelector('.team-bg-text-wrap');
+            if (!firstNameWrap) return;
+
+            // Generate Surname Wrapper
+            surnameWrapRef = document.createElement('div');
+            surnameWrapRef.className = 'team-bg-text-wrap surname';
+            surnameWrapRef.style.color = '#ffffff';
+
+            [...lastNameText].forEach(char => {
+                const box = document.createElement('span'); box.className = 'letter-box';
+                const inner = document.createElement('span'); inner.className = 'letter-inner';
+                inner.textContent = char === ' ' ? '\u00A0' : char;
+                box.appendChild(inner); surnameWrapRef.appendChild(box);
+            });
+            textContainer.appendChild(surnameWrapRef);
+
+            // ── THE SHIFT MATH ──
+            // Measure both words and the gap between them to calculate perfect centering
+            const firstWidth = firstNameWrap.offsetWidth;
+            const lastWidth = surnameWrapRef.offsetWidth;
+            const textGap = 40; // Pixel gap between first and last name
+
+            const slideDistanceFirst = -(lastWidth + textGap) / 2;
+            const slideDistanceLast = (firstWidth + textGap) / 2;
+
+            // 1. Shift First Name Left
+            gsap.to(firstNameWrap, { x: slideDistanceFirst, duration: 0.5, ease: 'power3.out' });
+
+            // 2. Position Surname Right & Animate Letters Up
+            gsap.set(surnameWrapRef, { x: slideDistanceLast });
+            const surnameLetters = surnameWrapRef.querySelectorAll('.letter-inner');
+            gsap.set(surnameLetters, { yPercent: 105 });
+            
+            gsap.to(surnameLetters, { 
+                yPercent: 0, duration: 0.5, ease: 'power3.out', 
+                stagger: { amount: 0.12, from: "center" } 
+            });
         });
         
         thumbsArray.push(thumb);
@@ -566,54 +637,79 @@ function populateTeamCards() {
     container.addEventListener('mousemove', (e) => {
         const mouseX = e.clientX;
         const containerRect = container.getBoundingClientRect();
-
-        const sizes = thumbsArray.map((thumb, i) => {
-            const fixedCenterX = containerRect.left + startXOffset + (i * (baseSize + gap)) + (baseSize / 2);
-            const distance = Math.abs(mouseX - fixedCenterX);
-            if (distance < maxDist) {
-                const ratio = 1 - (distance / maxDist);
-                const curvedRatio = Math.pow(ratio, 1.4); 
-                return baseSize + ((maxSize - baseSize) * curvedRatio);
-            }
-            return baseSize;
+        const sizes = thumbsArray.map((_, i) => {
+            const centerX = containerRect.left + startXOffset + (i * (baseSize + gap)) + (baseSize / 2);
+            const dist = Math.min(Math.abs(mouseX - centerX), maxDist);
+            return baseSize + (maxSize - baseSize) * Math.pow(1 - dist / maxDist, 1.4);
         });
 
-        const dynamicTotalWidth = sizes.reduce((sum, size) => sum + size, 0) + (gap * (sizes.length - 1));
-        let currentX = (containerWidth - dynamicTotalWidth) / 2;
-
+        let currentX = (containerWidth - (sizes.reduce((a, b) => a + b, 0) + (gap * (sizes.length - 1)))) / 2;
         thumbsArray.forEach((thumb, i) => {
-            const isHovered = sizes[i] > baseSize + 5; 
-            gsap.to(thumb, {
-                x: currentX,             
-                width: sizes[i],
-                height: sizes[i],
-                borderColor: isHovered ? '#F00020' : 'transparent',
-                duration: 0.15,
-                ease: 'power2.out',
-                overwrite: 'auto'
-            });
-            currentX += sizes[i] + gap; 
+            gsap.to(thumb, { x: currentX, width: sizes[i], height: sizes[i], duration: 0.15, overwrite: 'auto' });
+            currentX += sizes[i] + gap;
         });
     });
 
-    // ── LEAVING THE DOCK ENTIRELY (TRINETRA enters from UP) ──
+    // ── LEAVING THE DOCK (Respects the Pin) ──
     container.addEventListener('mouseleave', () => {
-        if (activeHeroText !== 'TRINETRA') {
+        // Do nothing to the text if someone is pinned!
+        if (!pinnedMember && activeHeroText !== 'TRINETRA') {
             activeHeroText = 'TRINETRA';
-            // 'main' tells the engine to start the text from UP
             splitTextAndAnimate('TRINETRA', 'main', '#ffffff'); 
         }
-
         thumbsArray.forEach((thumb, i) => {
-            gsap.to(thumb, {
-                x: startXOffset + (i * (baseSize + gap)),
-                width: baseSize, 
-                height: baseSize, 
-                borderColor: 'transparent',
-                duration: 0.45, 
-                ease: 'back.out(1.2)', 
-                overwrite: 'auto'
-            });
+            gsap.to(thumb, { x: startXOffset + (i * (baseSize + gap)), width: baseSize, height: baseSize, duration: 0.45, ease: 'back.out(1.2)', overwrite: 'auto' });
+        });
+    });
+}
+
+function initTeamHero() {
+    const cursor = document.getElementById('team-cursor');
+    const container = document.getElementById('team-thumbnails-container'); 
+    
+    if (!cursor || !container) return;
+
+    const xSet = gsap.quickSetter(cursor, "x", "px");
+    const ySet = gsap.quickSetter(cursor, "y", "px");
+
+    const moveCursor = (e) => {
+        xSet(e.clientX);
+        ySet(e.clientY);
+    };
+
+    container.addEventListener('mouseenter', (e) => {
+        gsap.killTweensOf(cursor);
+        gsap.set(cursor, { visibility: 'visible' });
+        
+        // 🔴 FIXED ENTRANCE: Slower duration (0.5) and smooth ease (power3.out)
+        // This stops it from "popping" instantly and mirrors the exit fade perfectly.
+        gsap.to(cursor, { 
+            scale: 1, 
+            opacity: 1, 
+            duration: 0.5, 
+            ease: 'power3.out' 
+        });
+        
+        window.addEventListener('mousemove', moveCursor);
+    });
+
+    container.addEventListener('mouseleave', (e) => {
+        window.removeEventListener('mousemove', moveCursor);
+        
+        const r = container.getBoundingClientRect();
+        const centerX = r.left + r.width / 2;
+        const centerY = r.top + r.height / 2;
+        const exitX = (e.clientX - centerX) * 0.5;
+        const exitY = (e.clientY - centerY) * 0.5;
+
+        gsap.to(cursor, {
+            scale: 0,
+            opacity: 0,
+            x: `+=${exitX}`,
+            y: `+=${exitY}`,
+            duration: 0.5,
+            ease: 'power3.out',
+            onComplete: () => gsap.set(cursor, { visibility: 'hidden' })
         });
     });
 }
@@ -684,41 +780,6 @@ function splitTextAndAnimate(text, type, color) {
     });
 }
 
-// ─── TEAM HERO (Initialiser for custom cursor logic) ──────────────
-function initTeamHero() {
-    const cursor = document.getElementById('team-cursor');
-    const container = document.getElementById('team-thumbnails-container'); 
-    
-    if (!cursor || !container) return;
-
-    gsap.set(cursor, { xPercent: -50, yPercent: -50 });
-    const xTo = gsap.quickTo(cursor, 'x', { duration: 0.15, ease: 'power3.out' });
-    const yTo = gsap.quickTo(cursor, 'y', { duration: 0.15, ease: 'power3.out' });
-
-    // 🔴 REFINED EXIT: Shrinks and moves in the direction of the mouse exit
-    container.addEventListener('mouseleave', (e) => {
-        isHovering = false;
-        gsap.killTweensOf(cursor);
-
-        // We calculate a vector based on where the mouse was vs the container center
-        const rect = container.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        
-        // Determine the "push" vector
-        const exitX = (e.clientX - centerX) * 0.5;
-        const exitY = (e.clientY - centerY) * 0.5;
-
-        gsap.to(cursor, {
-            scale: 0,          // Shrinks to nothing
-            opacity: 0,
-            x: `+=${exitX}`,   // Pushes in the direction of the exit
-            y: `+=${exitY}`,
-            duration: 0.5,     // Exactly 0.5 seconds as requested
-            ease: 'power3.out' 
-        });
-    });
-}
 
 // ===== CONNECT PANEL =====
 let cpOpen = false;
