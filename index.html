@@ -7,10 +7,11 @@
     <title>Team Trinetra</title>
     <meta name="description" content="Team Trinetra GCS v1.0 - Ground Control Station for UAV mission planning and telemetry.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Anton&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -113,12 +114,11 @@
             <span>VEHICLES</span>
         </div>
 
-        <div class="toolbar-btn" onclick="showTab('config')" id="btn-config">
+        <div class="toolbar-btn" onclick="showTab('sponsors')" id="btn-sponsors">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <circle cx="12" cy="12" r="3" />
-                <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
+                <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/>
             </svg>
-            <span>CONFIG</span>
+            <span>SPONSORS</span>
         </div>
 
         <div class="toolbar-btn" onclick="showTab('simulation')" id="btn-simulation">
@@ -271,11 +271,11 @@
          MAIN CONTENT AREA  (tabs injected by JS)
     ════════════════════════════════════════════ -->
     <div id="main">
-        <div id="data-tab"     style="display:none; width:100%;"></div>
-        <div id="sim-tab"      style="display:none; width:100%;"></div>
-        <div id="config-tab"   style="display:none; width:100%;"></div>
-        <div id="plan-tab"     style="display:none; width:100%;"></div>
-        <div id="vehicles-tab" style="display:none; width:100%;"></div>
+        <div id="data-tab"      style="display:none; width:100%;"></div>
+        <div id="sim-tab"       style="display:none; width:100%;"></div>
+        <div id="sponsors-tab"  style="display:none; width:100%;"></div>
+        <div id="plan-tab"      style="display:none; width:100%;"></div>
+        <div id="vehicles-tab"  style="display:none; width:100%;"></div>
     </div>
 
 
@@ -391,6 +391,9 @@
     </div>
 
     <script src="script.js"></script>
+
+
+
 </body>
 
 </html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skiper UI Hero Section Replica</title>
+    
+    <!-- Anton Font for massive, blocky uppercase text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    
+    <!-- GSAP CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <style>
+        /* ── Core Reset ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #111111;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            font-family: sans-serif;
+            cursor: none; /* Hide default cursor globally */
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Make sure all interactive elements hide default cursor */
+        a, button, img, .thumb {
+            cursor: none !important;
+        }
+
+        /* ── Thumbnails Navigation (Centered Top Row) ── */
+        #thumbnails-container {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .thumb {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+                        border-color 0.3s ease;
+            background-color: #222;
+        }
+
+        .thumb:hover {
+            transform: scale(1.15) translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ── Massive Staggered Background Text ── */
+        #hero-text-container {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            pointer-events: none; /* Keep text from blocking cursor */
+            user-select: none;
+            overflow: hidden;
+        }
+
+        .hero-text-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        .letter-box {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: bottom;
+            line-height: 0.85;
+        }
+
+        .letter-inner {
+            display: inline-block;
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(4rem, 15vw, 18rem);
+            font-weight: 400;
+            text-transform: uppercase;
+            line-height: 0.9;
+            letter-spacing: -0.01em;
+            color: #ffffff;
+        }
+
+        /* ── Premium Custom physics Cursor ── */
+        #custom-cursor {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 64px;
+            height: 64px;
+            background-color: #F00020; /* Red circle */
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0; /* Hidden initially, fades in on mousemove */
+            transform: translate(-50%, -50%) scale(0);
+            box-shadow: 0 8px 30px rgba(240, 0, 32, 0.45);
+        }
+
+        #custom-cursor svg {
+            width: 24px;
+            height: 24px;
+            stroke: #ffffff; /* White arrow */
+            stroke-width: 2.5;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Row of 9 Centered Rounded Thumbnails -->
+    <div id="thumbnails-container">
+        <div class="thumb" data-word="TRINETRA"><img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=150&auto=format&fit=crop&q=80" alt="Thumb 1"></div>
+        <div class="thumb" data-word="SPEED"><img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?w=150&auto=format&fit=crop&q=80" alt="Thumb 2"></div>
+        <div class="thumb" data-word="VISION"><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=150&auto=format&fit=crop&q=80" alt="Thumb 3"></div>
+        <div class="thumb" data-word="FLIGHT"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=150&auto=format&fit=crop&q=80" alt="Thumb 4"></div>
+        <div class="thumb" data-word="DRONE"><img src="https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=150&auto=format&fit=crop&q=80" alt="Thumb 5"></div>
+        <div class="thumb" data-word="AERO"><img src="https://images.unsplash.com/photo-1447433589675-4adf5679185f?w=150&auto=format&fit=crop&q=80" alt="Thumb 6"></div>
+        <div class="thumb" data-word="POWER"><img src="https://images.unsplash.com/photo-1461360370896-922624d12aa1?w=150&auto=format&fit=crop&q=80" alt="Thumb 7"></div>
+        <div class="thumb" data-word="RADAR"><img src="https://images.unsplash.com/photo-1551498361-1e967a14e9f7?w=150&auto=format&fit=crop&q=80" alt="Thumb 8"></div>
+        <div class="thumb" data-word="NAVIGATE"><img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=150&auto=format&fit=crop&q=80" alt="Thumb 9"></div>
+    </div>
+
+    <!-- 2. Centered Background Word container -->
+    <div id="hero-text-container"></div>
+
+    <!-- 3. Red physics Cursor with White 'Up-Right Arrow' -->
+    <div id="custom-cursor">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+        </svg>
+    </div>
+
+    <!-- 4. GSAP Sliced Text & Cursor Physics Script -->
+    <script>
+        // ── Custom Physics Cursor tracking with quickTo ──
+        const cursor = document.getElementById('custom-cursor');
+        
+        // Pivot cursor from center
+        gsap.set(cursor, { xPercent: -50, yPercent: -50 });
+
+        const xTo = gsap.quickTo(cursor, 'x', { duration: 0.35, ease: 'power3.out' });
+        const yTo = gsap.quickTo(cursor, 'y', { duration: 0.35, ease: 'power3.out' });
+
+        let cursorVisible = false;
+
+        window.addEventListener('mousemove', e => {
+            xTo(e.clientX);
+            yTo(e.clientY);
+            
+            if (!cursorVisible) {
+                gsap.to(cursor, { scale: 1, opacity: 1, duration: 0.4, ease: 'power3.out' });
+                cursorVisible = true;
+            }
+        });
+
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            gsap.to(cursor, { scale: 0, opacity: 0, duration: 0.3, ease: 'power3.in' });
+            cursorVisible = false;
+        });
+
+
+        // ── Sliced Text Swap Animation ──
+        let activeWord = 'TRINETRA';
+
+        // Initial setup
+        const textContainer = document.getElementById('hero-text-container');
+        swapSlicedText(activeWord);
+
+        // Bind hover events to thumbnails
+        const thumbs = document.querySelectorAll('.thumb');
+        thumbs.forEach(thumb => {
+            thumb.addEventListener('mouseenter', () => {
+                const targetWord = thumb.getAttribute('data-word');
+                if (targetWord !== activeWord) {
+                    activeWord = targetWord;
+                    swapSlicedText(targetWord);
+                }
+            });
+        });
+
+        // Split text function and transition runner
+        function swapSlicedText(newText) {
+            // 1. Create a new absolute text wrapper
+            const newWrap = document.createElement('div');
+            newWrap.className = 'hero-text-wrap';
+
+            // 2. Slice word into individual double-nested span letters
+            [...newText.toUpperCase()].forEach(char => {
+                const letterBox = document.createElement('span');
+                letterBox.className = 'letter-box';
+
+                const letterInner = document.createElement('span');
+                letterInner.className = 'letter-inner';
+                letterInner.textContent = char === ' ' ? '\u00A0' : char;
+
+                letterBox.appendChild(letterInner);
+                newWrap.appendChild(letterBox);
+            });
+
+            textContainer.appendChild(newWrap);
+
+            const newInners = newWrap.querySelectorAll('.letter-inner');
+
+            // 3. Set starting position (incoming slides UP from below)
+            gsap.set(newInners, { yPercent: 100 });
+
+            // 4. Animate new word slide UP in with left-to-right stagger
+            gsap.to(newInners, {
+                yPercent: 0,
+                duration: 0.75,
+                ease: 'power4.out',
+                stagger: 0.03
+            });
+
+            // 5. Animate outgoing word wraps (if any exist) slide UP and out
+            const oldWraps = textContainer.querySelectorAll('.hero-text-wrap:not(:last-child)');
+            oldWraps.forEach(oldWrap => {
+                const oldInners = oldWrap.querySelectorAll('.letter-inner');
+                gsap.to(oldInners, {
+                    yPercent: -100, // Outgoing slides UP and out
+                    duration: 0.65,
+                    ease: 'power4.in',
+                    stagger: 0.02,
+                    onComplete: () => oldWrap.remove()
+                });
+            });
+        }
+    </script>
+</body>
+</html>

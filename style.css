@@ -2059,10 +2059,191 @@ input[type="checkbox"] {
 }
 
 /* ======================================================
-   TEAM SECTION  —  matches the existing app dark-gray theme
+   TEAM SECTION  —  Hero + Scroll Animation
 ====================================================== */
 
-#plan-tab { flex-direction: row !important; }
+/* plan-tab is a full-height flex container — team-section handles its own layout */
+#plan-tab {
+    flex-direction: row !important;
+    overflow: hidden !important;
+}
+
+
+/* ─── HERO ─── */
+#team-hero {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 52px);
+    background: #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+    cursor: none;
+}
+
+#team-thumbnails {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.team-thumb {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: none;
+    border: 2px solid transparent;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), border-color 0.2s;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.7);
+    flex-shrink: 0;
+}
+
+.team-thumb:hover {
+    transform: scale(1.18) translateY(-4px);
+    border-color: rgba(255,255,255,0.35);
+}
+
+.team-thumb-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 13px;
+    font-weight: 900;
+    color: #111;
+}
+
+#team-hero-text-wrap {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+}
+
+#team-hero-letters {
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    line-height: 0.85;
+}
+
+.hero-letter-clip {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.hero-letter-inner {
+    display: inline-block;
+    font-family: 'Anton', 'Orbitron', sans-serif;
+    font-size: clamp(4rem, 13vw, 17rem);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: #ffffff;
+    transform: translateY(105%);
+    transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1),
+                color 0.3s ease;
+    will-change: transform;
+    line-height: 0.9;
+    user-select: none;
+}
+
+.hero-letter-inner.visible { transform: translateY(0); }
+.hero-letter-inner.accent  { color: #c8c800; }
+
+#team-cursor {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 64px;
+    height: 64px;
+    background: #c8c800;           /* military green */
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;                    /* hidden by default; GSAP shows it after flip */
+    will-change: transform;        /* GPU-accelerated quickTo */
+    box-shadow: 0 6px 28px rgba(200, 200, 0, 0.40);
+}
+
+#team-cursor svg {
+    width: 28px;
+    height: 28px;
+    stroke: #111111;               /* dark arrow on light-green circle */
+    stroke-width: 2.4;
+    flex-shrink: 0;
+    display: block;
+}
+/* No .visible class — GSAP sets opacity directly */
+
+#team-hero-scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 10;
+    color: #444;
+    font-size: 9px;
+    letter-spacing: 3px;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 700;
+    animation: hintBob 2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+#team-scroll-arrow svg { width: 20px; height: 20px; stroke: #555; }
+
+@keyframes hintBob {
+    0%, 100% { opacity: 0.3; transform: translateX(-50%) translateY(0); }
+    50%       { opacity: 0.9; transform: translateX(-50%) translateY(6px); }
+}
+
+/* ── MAP + SIDEBAR container ── */
+#team-main {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: calc(100vh - 52px);
+    flex-shrink: 0;
+    overflow: hidden;      /* clip card spread to viewport */
+    position: relative;    /* anchor for absolute sidebar takeover */
+}
+
+/* Glowing white home dot */
+@keyframes homeGlow {
+    0%, 100% { box-shadow: 0 0 0 2px rgba(255,255,255,0.2), 0 0 10px 3px rgba(255,255,255,0.45); }
+    50%       { box-shadow: 0 0 0 5px rgba(255,255,255,0.08), 0 0 20px 7px rgba(255,255,255,0.65); }
+}
+
+.home-glow-dot {
+    width: 10px;
+    height: 10px;
+    background: #ffffff;
+    border-radius: 50%;
+    animation: homeGlow 2.2s ease-in-out infinite;
+}
+
 
 #team-map-wrap {
     flex: 1;
@@ -2221,16 +2402,26 @@ input[type="checkbox"] {
     pointer-events: none;
 }
 
-/* ── Sidebar ── */
+/* ── Sidebar (LEFT side of map) ── */
 #team-sidebar {
     position: relative;
     width: 240px;
     min-width: 240px;
     background: #111;
-    border-left: 1px solid #444;
+    border-right: 1px solid #333;
+    border-left: none;
     display: flex;
     flex-direction: column;
-    overflow: visible; /* so resizer can overhang slightly if needed, though hidden is mostly fine */
+    overflow: visible;     /* cards spread freely; team-main clips them */
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #0d0d0d 0%, #111111 60%, #0a0a0a 100%);
+    /* width is driven by GSAP — no CSS transition */
+}
+
+/* ── Avatar accent ring visible when card is collapsed */
+.tmc-avatar {
+    flex-shrink: 0;
+    transition: box-shadow 0.3s ease;
 }
 
 /* Panel Resizer Handle */
@@ -2238,7 +2429,7 @@ input[type="checkbox"] {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: -3px; /* Slightly overhangs the border to make grabbing easier */
+    left: -3px;
     width: 8px;
     cursor: col-resize;
     z-index: 1000;
@@ -2246,8 +2437,14 @@ input[type="checkbox"] {
     transition: background 0.2s;
 }
 
+/* When sidebar is on the LEFT, resizer goes on its RIGHT edge */
+#team-sidebar-resizer {
+    left: auto;
+    right: -3px;
+}
+
 .panel-resizer:hover, .panel-resizer.resizing {
-    background: rgba(200, 200, 0, 0.4); /* Yellow tint on hover/drag */
+    background: rgba(200, 200, 0, 0.4);
 }
 
 #team-sidebar-hdr {
@@ -2273,11 +2470,12 @@ input[type="checkbox"] {
 
 #team-member-list {
     flex: 1;
-    overflow-y: auto;
+    overflow: visible;   /* allow cards to spread outside list during animation */
     padding: 6px;
     display: flex;
     flex-direction: column;
     gap: 4px;
+    position: relative;  /* coordinate space for card transforms */
 }
 
 #team-member-list::-webkit-scrollbar { width: 3px; }
@@ -2290,11 +2488,21 @@ input[type="checkbox"] {
     border-radius: 3px;
     padding: 7px 9px;
     cursor: pointer;
-    transition: background 0.15s, border-color 0.15s;
     display: flex;
     align-items: center;
     gap: 8px;
     position: relative;
+    overflow: hidden; /* clip text as it slides right */
+    will-change: transform, background-color, border-color;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.tmc-info {
+    will-change: opacity, transform;
+}
+
+.tmc-arrow {
+    will-change: opacity;
 }
 
 .team-member-card::before {
@@ -2534,3 +2742,448 @@ input[type="checkbox"] {
 }
 
 .leaflet-bar a:hover { background: #2a2a2a !important; }
+
+/* ======================================================
+   SPONSORS TAB
+====================================================== */
+
+#sponsors-tab {
+    flex-direction: column !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #0d0d0d;
+}
+
+#sponsors-tab::-webkit-scrollbar { width: 4px; }
+#sponsors-tab::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
+
+#sponsors-page {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Hero strip ── */
+#sp-hero {
+    position: relative;
+    width: 100%;
+    padding: 56px 60px 44px;
+    background: linear-gradient(160deg, #111 0%, #0d0d0d 60%, #0a0f00 100%);
+    border-bottom: 1px solid #1e1e1e;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+#sp-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent, transparent 28px,
+        rgba(200,200,0,0.022) 28px, rgba(200,200,0,0.022) 29px
+    );
+    pointer-events: none;
+}
+
+#sp-scanline {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(200,200,0,0.45), transparent);
+    animation: spScan 4s ease-in-out infinite;
+    top: 0;
+}
+
+@keyframes spScan {
+    0%   { top: 0%; opacity: 0; }
+    8%   { opacity: 1; }
+    92%  { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+
+#sp-hero-inner { position: relative; z-index: 2; max-width: 720px; }
+
+#sp-hero-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #c8c800;
+    border: 1px solid #c8c800;
+    padding: 3px 10px;
+    margin-bottom: 18px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+#sp-hero-title {
+    font-family: 'Orbitron', 'Segoe UI', sans-serif;
+    font-size: clamp(26px, 4vw, 50px);
+    font-weight: 900;
+    color: #fff;
+    margin: 0 0 16px;
+    line-height: 1.1;
+}
+
+.sp-accent { color: #c8c800; }
+
+#sp-hero-sub {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.85;
+    max-width: 540px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* ── Tier sections ── */
+.sp-tier {
+    padding: 40px 50px 30px;
+    border-bottom: 1px solid #171717;
+}
+
+.sp-tier-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 26px;
+}
+
+.sp-tier-line {
+    flex: 1;
+    height: 1px;
+    background: #1e1e1e;
+}
+
+.sp-tier-name {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #3a3a3a;
+    white-space: nowrap;
+    font-family: 'Segoe UI', sans-serif;
+    text-transform: uppercase;
+}
+
+.sp-gold    { color: #7a5f05 !important; }
+.sp-silver  { color: #505050 !important; }
+.sp-partner { color: #333    !important; }
+
+/* Grids */
+.sp-tier-grid { display: grid; gap: 16px; }
+.sp-grid-1 { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+.sp-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.sp-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.sp-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+/* ── Sponsor card base ── */
+.sp-card {
+    background: #111;
+    border: 1px solid #1e1e1e;
+    border-radius: 3px;
+    padding: 28px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    cursor: default;
+    transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.sp-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+}
+
+/* Title sponsor */
+.sp-card-title           { border-color: #252500; }
+.sp-card-title::after    { background: radial-gradient(ellipse at 50% -10%, rgba(200,200,0,0.10) 0%, transparent 65%); }
+.sp-card-title:hover     { border-color: #c8c800; background: #121200; box-shadow: 0 0 30px rgba(200,200,0,0.10); }
+.sp-card-title:hover::after { opacity: 1; }
+
+/* Gold */
+.sp-card-gold            { border-color: #1e1500; }
+.sp-card-gold::after     { background: radial-gradient(ellipse at 50% -10%, rgba(184,146,10,0.10) 0%, transparent 65%); }
+.sp-card-gold:hover      { border-color: #b8920a; background: #110d00; box-shadow: 0 0 24px rgba(184,146,10,0.10); }
+.sp-card-gold:hover::after { opacity: 1; }
+
+/* Silver */
+.sp-card-silver          { border-color: #1e1e1e; }
+.sp-card-silver::after   { background: radial-gradient(ellipse at 50% -10%, rgba(110,110,110,0.08) 0%, transparent 65%); }
+.sp-card-silver:hover    { border-color: #4a4a4a; background: #131313; box-shadow: 0 0 18px rgba(100,100,100,0.08); }
+.sp-card-silver:hover::after { opacity: 1; }
+
+/* Partner (compact horizontal) */
+.sp-card-partner {
+    flex-direction: row;
+    padding: 14px 14px;
+    gap: 12px;
+    align-items: center;
+}
+.sp-card-partner:hover { border-color: #2e2e2e; background: #131313; }
+
+/* Logo area */
+.sp-card-logo-wrap {
+    width: 100%;
+    min-height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sp-card-logo-wrap img {
+    max-width: 100%;
+    max-height: 68px;
+    object-fit: contain;
+    filter: brightness(0.8) grayscale(0.15);
+    transition: filter 0.25s ease;
+}
+
+.sp-card:hover .sp-card-logo-wrap img { filter: brightness(1) grayscale(0); }
+
+.sp-logo-placeholder {
+    width: 100%;
+    max-width: 180px;
+    opacity: 0.35;
+}
+
+.sp-logo-sm { width: 72px; flex-shrink: 0; opacity: 0.3; }
+
+/* Card text */
+.sp-card-info  { text-align: center; width: 100%; }
+
+.sp-card-org {
+    font-size: 14px;
+    font-weight: 700;
+    color: #d0d0d0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.sp-card-type {
+    font-size: 9px;
+    color: #3a3a3a;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 4px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.sp-placeholder-text { color: #2a2a2a !important; }
+
+/* ── CTA strip ── */
+#sp-cta {
+    margin-top: auto;
+    background: #0e0e0e;
+    border-top: 1px solid #1a1a1a;
+    padding: 26px 50px;
+}
+
+#sp-cta-inner {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+#sp-cta-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #2a2a00;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c8c800;
+}
+
+#sp-cta-icon svg { width: 20px; height: 20px; }
+
+#sp-cta-text { flex: 1; }
+
+#sp-cta-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #d0d0d0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+#sp-cta-desc {
+    font-size: 11px;
+    color: #444;
+    margin-top: 4px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+#sp-cta-btn {
+    background: #c8c800;
+    color: #111;
+    border: none;
+    padding: 10px 28px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    font-family: 'Segoe UI', sans-serif;
+    transition: background 0.15s, box-shadow 0.15s;
+    border-radius: 2px;
+    flex-shrink: 0;
+    text-transform: uppercase;
+}
+
+#sp-cta-btn:hover {
+    background: #e2e200;
+    box-shadow: 0 0 18px rgba(200,200,0,0.3);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .sp-grid-3, .sp-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .sp-tier { padding: 28px 20px 20px; }
+    #sp-hero { padding: 36px 24px 28px; }
+    #sp-cta  { padding: 20px 24px; }
+    #sp-cta-inner { flex-wrap: wrap; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   NEW TEAM SECTION — Mapless Grid Card Layout & GSAP Animations
+   ═══════════════════════════════════════════════════════════════════ */
+/* 1. Remove the global cursor: none so your normal mouse works everywhere else */
+#new-team-section {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 52px);
+    background: #0a0a0a;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ── The GPU-Accelerated Container ── */
+#team-thumbnails-container {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    
+    /* Fixed container sizing */
+    width: 552px; 
+    height: 120px; 
+    
+    z-index: 10;
+    cursor: none !important;
+    /* WE COMPLETELY DELETED FLEXBOX HERE */
+}
+
+#team-thumbnails-container * {
+    cursor: none !important;
+}
+
+/* ── The Absolute Positioned Thumbnails ── */
+.new-team-thumb {
+    position: absolute; /* Takes them out of the document flow! */
+    top: 50%;
+    
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #222;
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto; /* Allow hover on the thumbs */
+    
+    /* Tell the GPU to take full control of these properties */
+    will-change: transform, width, height, border-color;
+}
+
+.new-team-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+/* ── Background Text Container ── */
+
+#team-bg-text-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 420px; 
+    
+    display: flex;
+    align-items: flex-start; 
+    justify-content: center;
+    padding-top: 180px; 
+    
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+    overflow: hidden;
+}
+
+.team-bg-text-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.letter-box {
+    display: inline-flex;
+    overflow: hidden;
+    vertical-align: top;  
+    line-height: 0.85;
+}
+
+/* ── The Text Itself ── */
+.letter-inner {
+    display: inline-block;
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(3rem, 11vw, 14rem); 
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 0.85;
+    letter-spacing: normal;
+    color: white; 
+    will-change: transform;
+}
+
+/* ── Custom Skiper UI Cursor ── */
+#team-cursor {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 64px;
+    height: 64px;
+    background: #F00020; /* Bright Skiper UI Red */
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+    box-shadow: 0 10px 25px rgba(240, 0, 32, 0.3);
+    will-change: transform, opacity;
+}
+
+#team-cursor svg {
+    width: 28px;
+    height: 28px;
+    display: block;
+}

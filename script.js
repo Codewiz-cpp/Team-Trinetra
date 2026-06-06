@@ -1,10 +1,10 @@
 // ===== TAB SWITCHING =====
 function showTabBase(name) {
-    ['data-tab', 'sim-tab', 'config-tab', 'plan-tab', 'vehicles-tab'].forEach(id => {
+    ['data-tab', 'sim-tab', 'sponsors-tab', 'plan-tab', 'vehicles-tab'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = 'none';
     });
-    ['data', 'plan', 'setup', 'config', 'simulation', 'help'].forEach(t => {
+    ['data', 'plan', 'setup', 'sponsors', 'simulation', 'help'].forEach(t => {
         const btn = document.getElementById('btn-' + t);
         if (btn) btn.classList.remove('active');
     });
@@ -15,8 +15,8 @@ function showTabBase(name) {
         document.getElementById('data-tab').style.display = 'flex';
     } else if (name === 'sim' || name === 'simulation') {
         document.getElementById('sim-tab').style.display = 'flex';
-    } else if (name === 'config') {
-        document.getElementById('config-tab').style.display = 'flex';
+    } else if (name === 'sponsors') {
+        document.getElementById('sponsors-tab').style.display = 'flex';
     } else if (name === 'plan') {
         document.getElementById('plan-tab').style.display = 'flex';
     } else if (name === 'setup' || name === 'vehicles') {
@@ -26,10 +26,11 @@ function showTabBase(name) {
 
 function showTab(name) {
     showTabBase(name);
-    setTimeout(() => {
+    // After the tab is visible, let Leaflet know the container size
+    requestAnimationFrame(() => {
         if (name === 'data' && dataMap) dataMap.invalidateSize();
-        if (name === 'plan' && planMap) planMap.invalidateSize();
-    }, 50);
+        if (name === 'plan' && planMap)  planMap.invalidateSize();
+    });
 }
 
 // Sub-tab click wiring — called after tabs are injected into DOM
@@ -252,6 +253,21 @@ function drawHUD() {
 const HOME_LAT = -35.3632627;
 const HOME_LNG = 149.1652383;
 
+// Dark political map tiles (CartoDB Dark Matter) — black bg, white outlines
+const DARK_POLITICAL = L.tileLayer(
+    'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+    { attribution: '&copy; <a href="https://carto.com/">CARTO</a>', subdomains: 'abcd', maxZoom: 20 }
+);
+const DARK_POLITICAL2 = L.tileLayer(
+    'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+    { attribution: '&copy; <a href="https://carto.com/">CARTO</a>', subdomains: 'abcd', maxZoom: 20 }
+);
+const DARK_POLITICAL3 = L.tileLayer(
+    'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+    { attribution: '&copy; <a href="https://carto.com/">CARTO</a>', subdomains: 'abcd', maxZoom: 20 }
+);
+
+// Satellite tiles (for team map toggle)
 const ESRI_TILES = L.tileLayer(
     'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     { attribution: 'Tiles &copy; Esri', maxZoom: 20 }
@@ -261,8 +277,8 @@ const ESRI_TILES2 = L.tileLayer(
     { attribution: 'Tiles &copy; Esri', maxZoom: 20 }
 );
 const ESRI_TILES3 = L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    { attribution: '&copy; OpenStreetMap contributors', maxZoom: 19 }
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    { attribution: 'Tiles &copy; Esri', maxZoom: 20 }
 );
 
 let dataMap, simMap, planMap;
@@ -289,11 +305,21 @@ const wpIcon = (n) => L.divIcon({
     iconSize: [18, 18], iconAnchor: [9, 9]
 });
 
+// Glowing white home dot icon
+const homeGlowIcon = L.divIcon({
+    className: '',
+    html: '<div class="home-glow-dot"></div>',
+    iconSize: [10, 10], iconAnchor: [5, 5]
+});
+
 function initDataMap() {
-    dataMap = L.map('map-data', { zoomControl: true, attributionControl: false }).setView([HOME_LAT, HOME_LNG], 17);
-    ESRI_TILES.addTo(dataMap);
-    L.marker([HOME_LAT, HOME_LNG], { icon: homeIcon }).addTo(dataMap).bindTooltip('Home', { permanent: false });
-    droneMarkerData = L.marker([HOME_LAT, HOME_LNG], { icon: droneIcon, draggable: true }).addTo(dataMap);
+    dataMap = L.map('map-data', { zoomControl: true, attributionControl: false }).setView([22.5, 82.0], 5);
+    DARK_POLITICAL.addTo(dataMap);
+    // Glowing white home marker at Gwalior
+    L.marker([26.209, 78.22], { icon: homeGlowIcon })
+        .addTo(dataMap)
+        .bindTooltip('Home Base · Gwalior', { permanent: false, direction: 'top' });
+    droneMarkerData = L.marker([26.209, 78.22], { icon: droneIcon, draggable: true }).addTo(dataMap);
     droneMarkerData.bindTooltip('Aircraft', { permanent: false });
 }
 
@@ -400,7 +426,7 @@ const TEAM_MEMBERS = [
 
 let activeTeamMember = null;
 let adminMode = false;
-let teamMapIsPolitical = true;
+let teamMapIsDark = true; // true = dark political, false = satellite
 
 // Listen for baud rate change to enable admin mode (9600)
 document.getElementById('sel-baud').addEventListener('change', (e) => {
@@ -424,25 +450,22 @@ document.getElementById('sel-baud').addEventListener('change', (e) => {
     }
 });
 
-// Map style toggle function
+// Map style toggle — dark political <-> satellite
 function toggleTeamMapStyle() {
+    if (!planMap) return;   // map not yet initialised (lazy)
     const btn = document.getElementById('team-map-toggle');
-    if (teamMapIsPolitical) {
-        planMap.removeLayer(ESRI_TILES3);
-        if (!window.TEAM_ESRI_NORMAL) {
-            window.TEAM_ESRI_NORMAL = L.tileLayer(
-                'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-                { attribution: 'Tiles &copy; Esri', maxZoom: 20 }
-            );
-        }
-        window.TEAM_ESRI_NORMAL.addTo(planMap);
-        teamMapIsPolitical = false;
-        if(btn) btn.classList.add('is-normal');
-    } else {
-        planMap.removeLayer(window.TEAM_ESRI_NORMAL);
+    if (teamMapIsDark) {
+        // Switch to satellite
+        planMap.removeLayer(DARK_POLITICAL3);
         ESRI_TILES3.addTo(planMap);
-        teamMapIsPolitical = true;
-        if(btn) btn.classList.remove('is-normal');
+        teamMapIsDark = false;
+        if (btn) btn.classList.add('is-normal');
+    } else {
+        // Switch back to dark political
+        planMap.removeLayer(ESRI_TILES3);
+        DARK_POLITICAL3.addTo(planMap);
+        teamMapIsDark = true;
+        if (btn) btn.classList.remove('is-normal');
     }
 }
 
@@ -477,126 +500,224 @@ function makeTeamMarker(member) {
 }
 
 
-// Sidebar card avatar — photo if available, else initials
-function avatarHtml(member, size = 36) {
-    if (member.image) {
-        return `<img src="${member.image}" alt="${member.name}"
-            style="width:${size}px;height:${size}px;border-radius:50%;object-fit:cover;
-            border:2px solid ${member.color};flex-shrink:0;"
-            onerror="this.outerHTML='<div style=width:${size}px;height:${size}px;border-radius:50%;background:${member.color};color:#111;display:flex;align-items:center;justify-content:center;font-size:${Math.round(size*0.28)}px;font-weight:900;border:2px solid #111;flex-shrink:0>${member.initials}</div>'">`;
-    }
-    return `<div style="width:${size}px;height:${size}px;border-radius:50%;
-        background:${member.color};color:#111;
-        display:flex;align-items:center;justify-content:center;
-        font-size:${Math.round(size*0.28)}px;font-weight:900;
-        border:2px solid #111;flex-shrink:0;font-family:'Segoe UI',sans-serif;">${member.initials}</div>`;
-}
-
-// Populate the sidebar cards
-function populateTeamSidebar() {
-    const list = document.getElementById('team-member-list');
-    if (!list) return;
-    list.innerHTML = '';
-    TEAM_MEMBERS.forEach(member => {
-        const card = document.createElement('div');
-        card.className = 'team-member-card';
-        card.id = `tmc-${member.id}`;
-        card.style.setProperty('--member-color', member.color);
-        card.innerHTML = `
-            ${avatarHtml(member, 36)}
-            <div class="tmc-info">
-                <div class="tmc-name">${member.name}</div>
-                <div class="tmc-role">${member.role}</div>
-                <div class="tmc-city"> ${member.city.split(',')[0]}</div>
-            </div>
-            <div class="tmc-arrow">›</div>`;
-        card.addEventListener('click', () => openTeamProfile(member));
-        list.appendChild(card);
-    });
-}
-
-// Open profile panel
-function openTeamProfile(member) {
-    document.querySelectorAll('.team-member-card').forEach(c => c.classList.remove('active'));
-    const card = document.getElementById(`tmc-${member.id}`);
-    if (card) card.classList.add('active');
-
-    if (planMap) planMap.flyTo([member.lat, member.lng], 11, { duration: 1.0 });
-
-    const linkItems = [];
-    if (member.portfolio && member.portfolio !== '#')
-        linkItems.push(`<a class="tp-link-btn" href="${member.portfolio}" target="_blank"><span class="tp-link-icon">🌐</span><span>Portfolio</span></a>`);
-    if (member.github && member.github !== '#')
-        linkItems.push(`<a class="tp-link-btn" href="${member.github}" target="_blank"><span class="tp-link-icon">⌨️</span><span>GitHub</span></a>`);
-    if (member.linkedin && member.linkedin !== '#')
-        linkItems.push(`<a class="tp-link-btn" href="${member.linkedin}" target="_blank"><span class="tp-link-icon">💼</span><span>LinkedIn</span></a>`);
-
-    const linksHtml = linkItems.length
-        ? `<div class="tp-divider"></div><div class="tp-section-label">Links</div><div class="tp-links">${linkItems.join('')}</div>`
-        : '';
-
-    // Passport-size photo — shown inside the header alongside name/role
-    const photoContent = member.image
-        ? `<img src="${member.image}" alt="${member.name}"
-               style="width:100%;height:100%;object-fit:cover;display:block;"
-               onerror="this.outerHTML='<div class=\\'tp-passport-initials\\'>${member.initials}</div>'">`
-        : `<div class="tp-passport-initials" style="background:${member.color};color:#111">${member.initials}</div>`;
-
-    document.getElementById('team-profile-content').innerHTML = `
-        <div class="tp-header" style="border-left:4px solid ${member.color}">
-            <div class="tp-passport-photo" style="border-color:${member.color}">
-                ${photoContent}
-            </div>
-            <div class="tp-header-info">
-                <div class="tp-name">${member.name}</div>
-                <div class="tp-role-tag" style="color:${member.color}">${member.role}</div>
-                <div class="tp-location">📍 ${member.city}</div>
-            </div>
-        </div>
-        <div class="tp-meta-row">
-            <div class="tp-meta-cell"><span class="tp-meta-label">Branch</span><span class="tp-meta-val">${member.branch}</span></div>
-            <div class="tp-meta-cell"><span class="tp-meta-label">Year</span><span class="tp-meta-val">${member.year}</span></div>
-        </div>
-        <div class="tp-divider"></div>
-        <div class="tp-section-label">Work Topics</div>
-        <div class="tp-bio">${member.work}</div>
-        ${linksHtml}`;
-
-    document.getElementById('team-profile-bg').style.display = 'block';
-    document.getElementById('team-profile-panel').classList.add('open');
-    activeTeamMember = member;
-}
-
-// Close profile panel
-function closeTeamProfile() {
-    document.getElementById('team-profile-bg').style.display = 'none';
-    document.getElementById('team-profile-panel').classList.remove('open');
-    document.querySelectorAll('.team-member-card').forEach(c => c.classList.remove('active'));
-    activeTeamMember = null;
-}
-
-// Initialise team map — centred on Madhya Pradesh
+// Initialise the team section (replaces old Leaflet map init)
 function initPlanMap() {
-    planMap = L.map('map-plan', { zoomControl: true, attributionControl: true }).setView([26.0, 78.1], 8);
-    ESRI_TILES3.addTo(planMap);
-    TEAM_MEMBERS.forEach(member => {
-        const icon = makeTeamMarker(member);
-        member._marker = L.marker([member.lat, member.lng], { icon, draggable: adminMode })
-            .addTo(planMap)
-            .on('click', () => openTeamProfile(member));
-            
-        // When admin mode is active and pin is dragged, update coordinates
-        member._marker.on('dragend', function(e) {
-            const pos = e.target.getLatLng();
-            member.lat = pos.lat;
-            member.lng = pos.lng;
-            console.log(`Updated location for ${member.name}: lat: ${pos.lat.toFixed(4)}, lng: ${pos.lng.toFixed(4)}`);
-            
-            // If their profile is currently open, we don't necessarily need to re-render everything,
-            // but we could. For now, the visual change is enough for the admin.
+    populateTeamCards();
+    // Set default background text initially
+    splitTextAndAnimate('TRINETRA', 'down', '#ffffff');
+    
+    // Add this to start the cursor physics!
+    initTeamHero();
+}
+
+let activeHeroText = 'TRINETRA';
+
+function populateTeamCards() {
+    const container = document.getElementById('team-thumbnails-container');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const images = [
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1513379733131-47fc74b45fc7?q=80&w=200&auto=format&fit=crop"
+    ];
+
+    const thumbsArray = [];
+    const baseSize = 60;
+    const maxSize = 120;
+    const gap = 12;
+    const maxDist = 140; 
+    const containerWidth = 552;
+
+    const defaultTotalWidth = (images.length * baseSize) + (gap * (images.length - 1));
+    const startXOffset = (containerWidth - defaultTotalWidth) / 2;
+
+    TEAM_MEMBERS.forEach((member, index) => {
+        const thumb = document.createElement('div');
+        thumb.className = 'new-team-thumb';
+        
+        const imgSrc = images[index % images.length];
+        thumb.innerHTML = `<img src="${imgSrc}" alt="${member.name}">`;
+        
+        gsap.set(thumb, { 
+            x: startXOffset + (index * (baseSize + gap)),
+            yPercent: -50 
+        });
+
+        // ── HOVERING A THUMBNAIL (Name enters from BELOW) ──
+        thumb.addEventListener('mouseenter', () => {
+            const firstName = member.name.split(' ')[0].toUpperCase();
+            if (activeHeroText !== firstName) {
+                activeHeroText = firstName;
+                // 'hover' tells the engine to start the text from BELOW
+                splitTextAndAnimate(firstName, 'hover', '#F00020'); 
+            }
+        });
+        
+        thumbsArray.push(thumb);
+        container.appendChild(thumb);
+    });
+
+    container.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX;
+        const containerRect = container.getBoundingClientRect();
+
+        const sizes = thumbsArray.map((thumb, i) => {
+            const fixedCenterX = containerRect.left + startXOffset + (i * (baseSize + gap)) + (baseSize / 2);
+            const distance = Math.abs(mouseX - fixedCenterX);
+            if (distance < maxDist) {
+                const ratio = 1 - (distance / maxDist);
+                const curvedRatio = Math.pow(ratio, 1.4); 
+                return baseSize + ((maxSize - baseSize) * curvedRatio);
+            }
+            return baseSize;
+        });
+
+        const dynamicTotalWidth = sizes.reduce((sum, size) => sum + size, 0) + (gap * (sizes.length - 1));
+        let currentX = (containerWidth - dynamicTotalWidth) / 2;
+
+        thumbsArray.forEach((thumb, i) => {
+            const isHovered = sizes[i] > baseSize + 5; 
+            gsap.to(thumb, {
+                x: currentX,             
+                width: sizes[i],
+                height: sizes[i],
+                borderColor: isHovered ? '#F00020' : 'transparent',
+                duration: 0.15,
+                ease: 'power2.out',
+                overwrite: 'auto'
+            });
+            currentX += sizes[i] + gap; 
         });
     });
-    populateTeamSidebar();
+
+    // ── LEAVING THE DOCK ENTIRELY (TRINETRA enters from UP) ──
+    container.addEventListener('mouseleave', () => {
+        if (activeHeroText !== 'TRINETRA') {
+            activeHeroText = 'TRINETRA';
+            // 'main' tells the engine to start the text from UP
+            splitTextAndAnimate('TRINETRA', 'main', '#ffffff'); 
+        }
+
+        thumbsArray.forEach((thumb, i) => {
+            gsap.to(thumb, {
+                x: startXOffset + (i * (baseSize + gap)),
+                width: baseSize, 
+                height: baseSize, 
+                borderColor: 'transparent',
+                duration: 0.45, 
+                ease: 'back.out(1.2)', 
+                overwrite: 'auto'
+            });
+        });
+    });
+}
+
+// ── RECONSTRUCTED TEXT ANIMATION LOGIC (PERFECT TIMING) ──
+function splitTextAndAnimate(text, type, color) {
+    const container = document.getElementById('team-bg-text-container');
+    if (!container) return;
+
+    const allOldWraps = container.querySelectorAll('.team-bg-text-wrap');
+    
+    // Increased the delay slightly so the new word WAITS for the fast exit to finish
+    const needsDelay = allOldWraps.length > 0;
+    const incomingDelay = needsDelay ? 0.25 : 0; 
+
+    const upperText = text.toUpperCase();
+    const newWrap = document.createElement('div');
+    newWrap.className = 'team-bg-text-wrap';
+    newWrap.style.color = color;
+
+    [...upperText].forEach(char => {
+        const letterBox = document.createElement('span');
+        letterBox.className = 'letter-box';
+        const letterInner = document.createElement('span');
+        letterInner.className = 'letter-inner';
+        letterInner.textContent = char === ' ' ? '\u00A0' : char; 
+        letterBox.appendChild(letterInner);
+        newWrap.appendChild(letterBox);
+    });
+
+    container.appendChild(newWrap);
+    const newInners = newWrap.querySelectorAll('.letter-inner');
+
+    if (type === 'main') {
+        gsap.set(newInners, { yPercent: -105 }); // TRINETRA starts ABOVE
+    } else {
+        gsap.set(newInners, { yPercent: 105 });  // Names start BELOW
+    }
+
+    // ── INCOMING ANIMATION ──
+    gsap.to(newInners, {
+        yPercent: 0,
+        duration: 0.5,
+        delay: incomingDelay, // Waits exactly 0.25s for the screen to clear
+        ease: 'power3.out',
+        stagger: {
+            amount: 0.12,      
+            from: "center"     
+        }
+    });
+
+    // ── OUTGOING ANIMATION (Faster!) ──
+    allOldWraps.forEach(oldWrap => {
+        const oldInners = oldWrap.querySelectorAll('.letter-inner');
+        
+        gsap.killTweensOf(oldInners);
+
+        gsap.to(oldInners, {
+            yPercent: 105,     
+            duration: 0.35,     // FAST EXIT: Dropped from 0.35s to 0.2s
+            ease: 'power3.inOut',
+            stagger: {
+                amount: 0.08,   // FAST STAGGER: The wobble happens much quicker now
+                from: "edges"  
+            },
+            onComplete: () => { oldWrap.remove(); }
+        });
+    });
+}
+
+// ─── TEAM HERO (Initialiser for custom cursor logic) ──────────────
+function initTeamHero() {
+    const cursor = document.getElementById('team-cursor');
+    const container = document.getElementById('team-thumbnails-container'); 
+    
+    if (!cursor || !container) return;
+
+    gsap.set(cursor, { xPercent: -50, yPercent: -50 });
+    const xTo = gsap.quickTo(cursor, 'x', { duration: 0.15, ease: 'power3.out' });
+    const yTo = gsap.quickTo(cursor, 'y', { duration: 0.15, ease: 'power3.out' });
+
+    // 🔴 REFINED EXIT: Shrinks and moves in the direction of the mouse exit
+    container.addEventListener('mouseleave', (e) => {
+        isHovering = false;
+        gsap.killTweensOf(cursor);
+
+        // We calculate a vector based on where the mouse was vs the container center
+        const rect = container.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        // Determine the "push" vector
+        const exitX = (e.clientX - centerX) * 0.5;
+        const exitY = (e.clientY - centerY) * 0.5;
+
+        gsap.to(cursor, {
+            scale: 0,          // Shrinks to nothing
+            opacity: 0,
+            x: `+=${exitX}`,   // Pushes in the direction of the exit
+            y: `+=${exitY}`,
+            duration: 0.5,     // Exactly 0.5 seconds as requested
+            ease: 'power3.out' 
+        });
+    });
 }
 
 // ===== CONNECT PANEL =====
@@ -989,11 +1110,11 @@ function runSplash(onComplete) {
 // NOTE: Requires a local web server (e.g. VS Code Live Server)
 async function loadTabs() {
     const tabs = [
-        { id: 'data-tab',     file: 'tabs/data.html'       },
-        { id: 'sim-tab',      file: 'tabs/simulation.html'  },
-        { id: 'config-tab',   file: 'tabs/config.html'      },
-        { id: 'plan-tab',     file: 'tabs/team.html'        },
-        { id: 'vehicles-tab', file: 'tabs/vehicles.html'    },
+        { id: 'data-tab',      file: 'tabs/data.html'       },
+        { id: 'sim-tab',       file: 'tabs/simulation.html'  },
+        { id: 'sponsors-tab',  file: 'tabs/sponsors.html'    },
+        { id: 'plan-tab',      file: 'tabs/team.html'        },
+        { id: 'vehicles-tab',  file: 'tabs/vehicles.html'    },
     ];
     await Promise.all(tabs.map(async ({ id, file }) => {
         const res  = await fetch(file);
@@ -1182,10 +1303,11 @@ window.addEventListener('load', async () => {
         initDataMap();
         initSimMap();
         initSimCarousel();
-        initPlanMap();
-        showTab('data');
+        initPlanMap();         // populates cards immediately (no Leaflet yet)
+        showTab('data');       // make data tab visible as default
         document.getElementById('btn-data').classList.add('active');
-        startGeolocation();
+        // Leaflet plan map init is deferred to first showTab('plan') call
+        // makeResizable calls below are safe — they guard against missing IDs
         makeResizable('team-sidebar-resizer', 'team-sidebar');
         makeResizable('team-profile-resizer', 'team-profile-panel');
     });
