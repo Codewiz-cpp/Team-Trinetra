@@ -3550,7 +3550,8 @@ input[type="checkbox"] {
     height: 64px;
     background: #F00020;
     border-radius: 50%;
-    pointer-events: none; /* Lets clicks pass through to thumbs */
+    pointer-events: none;
+    /* Lets clicks pass through to thumbs */
     z-index: 99999;
     display: flex;
     align-items: center;
