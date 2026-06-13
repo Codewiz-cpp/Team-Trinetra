@@ -4,334 +4,43 @@ function showTabBase(name) {
         const el = document.getElementById(id);
         if (el) el.style.display = 'none';
     });
-    ['data', 'plan', 'setup', 'sponsors', 'simulation', 'help'].forEach(t => {
+    // Clear all toolbar buttons (btn-home, btn-plan, btn-setup, btn-sponsors, btn-simulation)
+    ['home', 'plan', 'setup', 'sponsors', 'simulation', 'help'].forEach(t => {
         const btn = document.getElementById('btn-' + t);
         if (btn) btn.classList.remove('active');
     });
-    const btn = document.getElementById('btn-' + name);
-    if (btn) btn.classList.add('active');
 
-    if (name === 'data') {
-        document.getElementById('data-tab').style.display = 'flex';
+    // 'home' and 'data' both map to the home/data tab (btn-home)
+    if (name === 'home' || name === 'data') {
+        const homeBtn = document.getElementById('btn-home');
+        if (homeBtn) homeBtn.classList.add('active');
+        const tab = document.getElementById('data-tab');
+        if (tab) {
+            tab.style.display = 'flex';
+            setTimeout(() => tab.classList.add('home-visible'), 40);
+        }
     } else if (name === 'sim' || name === 'simulation') {
+        const btn = document.getElementById('btn-simulation');
+        if (btn) btn.classList.add('active');
         document.getElementById('sim-tab').style.display = 'flex';
     } else if (name === 'sponsors') {
+        const btn = document.getElementById('btn-sponsors');
+        if (btn) btn.classList.add('active');
         document.getElementById('sponsors-tab').style.display = 'flex';
     } else if (name === 'plan') {
-        document.getElementById('plan-tab').style.display = 'flex';
+        const btn = document.getElementById('btn-plan');
+        if (btn) btn.classList.add('active');
+        const tab = document.getElementById('plan-tab');
+        if (tab) tab.style.display = 'flex';
     } else if (name === 'setup' || name === 'vehicles') {
+        const btn = document.getElementById('btn-setup');
+        if (btn) btn.classList.add('active');
         document.getElementById('vehicles-tab').style.display = 'flex';
     }
 }
 
 function showTab(name) {
     showTabBase(name);
-    // After the tab is visible, let Leaflet know the container size
-    requestAnimationFrame(() => {
-        if (name === 'data' && dataMap) dataMap.invalidateSize();
-        if (name === 'plan' && planMap) planMap.invalidateSize();
-    });
-}
-
-// Sub-tab click wiring — called after tabs are injected into DOM
-function initSubTabs() {
-    document.querySelectorAll('.sub-tab').forEach(t => {
-        t.addEventListener('click', () => {
-            document.querySelectorAll('.sub-tab').forEach(x => x.classList.remove('active'));
-            t.classList.add('active');
-        });
-    });
-}
-
-// ===== HUD DRAWING =====
-function drawHUD() {
-    const canvas = document.getElementById('hudCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const W = 420, H = 390;
-    ctx.clearRect(0, 0, W, H);
-
-    const TAPE_W = 48;
-    const horizonY = H * 0.54;
-
-    // Sky
-    ctx.fillStyle = '#4a7fb5';
-    ctx.fillRect(0, 0, W, horizonY);
-
-    // Ground
-    ctx.fillStyle = '#5a8a22';
-    ctx.fillRect(0, horizonY, W, H - horizonY);
-
-    // Pitch ladder lines
-    ctx.lineWidth = 1.5;
-    ctx.font = '11px Segoe UI';
-    for (let p = -20; p <= 20; p += 10) {
-        if (p === 0) continue;
-        const y = horizonY - p * 8;
-        const lw = Math.abs(p) === 10 ? 55 : 75;
-        ctx.strokeStyle = 'rgba(255,255,255,0.85)';
-        ctx.beginPath();
-        ctx.moveTo(W / 2 - lw, y); ctx.lineTo(W / 2 + lw, y);
-        ctx.stroke();
-        ctx.fillStyle = '#fff'; ctx.textAlign = 'right';
-        ctx.fillText(p.toString(), W / 2 - lw - 4, y + 4);
-        ctx.textAlign = 'left';
-        ctx.fillText(p.toString(), W / 2 + lw + 4, y + 4);
-    }
-
-    // Horizon red line segments (gap in center for aircraft symbol)
-    ctx.strokeStyle = '#cc2222';
-    ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(TAPE_W, horizonY); ctx.lineTo(W / 2 - 60, horizonY); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(W / 2 + 60, horizonY); ctx.lineTo(W - TAPE_W, horizonY); ctx.stroke();
-
-    // Aircraft symbol (red V / chevron)
-    ctx.strokeStyle = '#ff3333';
-    ctx.lineWidth = 2.5;
-    const cx = W / 2, cy = horizonY;
-    ctx.beginPath(); ctx.moveTo(cx - 75, cy); ctx.lineTo(cx - 22, cy); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(cx + 22, cy); ctx.lineTo(cx + 75, cy); ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(cx - 22, cy); ctx.lineTo(cx, cy + 16); ctx.lineTo(cx + 22, cy);
-    ctx.stroke();
-    ctx.fillStyle = '#ff3333';
-    ctx.beginPath(); ctx.arc(cx, cy, 3, 0, Math.PI * 2); ctx.fill();
-
-    // Roll / bank arc indicator at top
-    const arcCX = W / 2, arcCY = 36, arcR = 118;
-    ctx.strokeStyle = 'rgba(255,255,255,0.65)';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.arc(arcCX, arcCY, arcR, Math.PI * 1.08, Math.PI * 1.92);
-    ctx.stroke();
-    const bankAngles = [
-        { deg: -60, label: '60', tick: 8 },
-        { deg: -45, label: '45', tick: 6 },
-        { deg: -20, label: '20', tick: 5 },
-        { deg: -10, label: '10', tick: 4 },
-        { deg: 0, label: null, tick: 10 },
-        { deg: 10, label: '10', tick: 4 },
-        { deg: 20, label: '20', tick: 5 },
-        { deg: 45, label: '45', tick: 6 },
-        { deg: 60, label: '60', tick: 8 },
-    ];
-    bankAngles.forEach(({ deg, label, tick }) => {
-        const rad = (deg - 90) * Math.PI / 180;
-        const x1 = arcCX + arcR * Math.cos(rad);
-        const y1 = arcCY + arcR * Math.sin(rad);
-        const x2 = arcCX + (arcR - tick) * Math.cos(rad);
-        const y2 = arcCY + (arcR - tick) * Math.sin(rad);
-        ctx.strokeStyle = 'rgba(255,255,255,0.75)';
-        ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
-        if (label) {
-            const lx = arcCX + (arcR - tick - 11) * Math.cos(rad);
-            const ly = arcCY + (arcR - tick - 11) * Math.sin(rad);
-            ctx.save();
-            ctx.translate(lx, ly);
-            ctx.rotate(rad + Math.PI / 2);
-            ctx.fillStyle = '#ccc';
-            ctx.font = '9px Segoe UI';
-            ctx.textAlign = 'center';
-            ctx.fillText(label, 0, 3);
-            ctx.restore();
-        }
-    });
-    // Roll pointer triangle (red, top = 0 bank)
-    ctx.fillStyle = '#ff3333';
-    const ptr0rad = (0 - 90) * Math.PI / 180;
-    const ptrX = arcCX + arcR * Math.cos(ptr0rad);
-    const ptrY = arcCY + arcR * Math.sin(ptr0rad);
-    ctx.beginPath();
-    ctx.moveTo(ptrX, ptrY - 9);
-    ctx.lineTo(ptrX - 5, ptrY + 1);
-    ctx.lineTo(ptrX + 5, ptrY + 1);
-    ctx.closePath(); ctx.fill();
-
-    // Heading tape (top strip)
-    ctx.fillStyle = '#1a2a3a';
-    ctx.fillRect(TAPE_W, 0, W - TAPE_W * 2, 24);
-    ctx.strokeStyle = '#445566'; ctx.lineWidth = 1;
-    ctx.strokeRect(TAPE_W, 0, W - TAPE_W * 2, 24);
-    const headings = ['NW', '330', '345', '0', '15', '30', 'NE'];
-    ctx.fillStyle = '#ddd'; ctx.font = '10px Segoe UI'; ctx.textAlign = 'center';
-    headings.forEach((lbl, i) => {
-        const x = TAPE_W + 20 + i * ((W - TAPE_W * 2 - 20) / 6);
-        ctx.fillText(lbl, x, 15);
-        ctx.strokeStyle = '#667788'; ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(x, 19); ctx.lineTo(x, 24); ctx.stroke();
-    });
-    // Heading triangle pointer (downward)
-    ctx.fillStyle = '#ff4444';
-    ctx.beginPath();
-    ctx.moveTo(W / 2 - 5, 24); ctx.lineTo(W / 2 + 5, 24); ctx.lineTo(W / 2, 18);
-    ctx.closePath(); ctx.fill();
-    // Center heading value box
-    ctx.fillStyle = '#1a2a3a';
-    ctx.fillRect(W / 2 - 14, 24, 28, 14);
-    ctx.strokeStyle = '#556677'; ctx.lineWidth = 1;
-    ctx.strokeRect(W / 2 - 14, 24, 28, 14);
-    ctx.fillStyle = '#ffffff'; ctx.font = 'bold 10px Segoe UI'; ctx.textAlign = 'center';
-    ctx.fillText('0', W / 2, 34);
-
-    // Left speed tape
-    ctx.fillStyle = 'rgba(20,30,40,0.85)';
-    ctx.fillRect(0, 28, TAPE_W, H - 28);
-    ctx.strokeStyle = '#445566'; ctx.lineWidth = 1;
-    ctx.strokeRect(0, 28, TAPE_W, H - 28);
-    [10, 5, 0, -5, -10].forEach((v, i) => {
-        const y = 70 + i * 52;
-        ctx.fillStyle = '#ccc'; ctx.font = '10px Segoe UI'; ctx.textAlign = 'right';
-        ctx.fillText(v.toString(), TAPE_W - 5, y + 4);
-        ctx.strokeStyle = '#556677'; ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(TAPE_W - 5, y); ctx.lineTo(TAPE_W, y); ctx.stroke();
-    });
-    // Speed reference box (green outline)
-    ctx.fillStyle = '#0a1a0a';
-    ctx.fillRect(0, horizonY - 11, TAPE_W - 1, 22);
-    ctx.strokeStyle = '#22cc44'; ctx.lineWidth = 1.5;
-    ctx.strokeRect(0, horizonY - 11, TAPE_W - 1, 22);
-    ctx.fillStyle = '#22cc44'; ctx.font = 'bold 11px Segoe UI'; ctx.textAlign = 'center';
-    ctx.fillText('0m/s', TAPE_W / 2 - 1, horizonY + 4);
-    // AS / GS labels
-    ctx.fillStyle = '#22dd22'; ctx.font = 'bold 10px Segoe UI'; ctx.textAlign = 'left';
-    ctx.fillText('AS 0.0m/s', 2, H - 44);
-    ctx.fillText('GS 0.0m/s', 2, H - 31);
-
-    // Right altitude tape
-    ctx.fillStyle = 'rgba(20,30,40,0.85)';
-    ctx.fillRect(W - TAPE_W, 28, TAPE_W, H - 28);
-    ctx.strokeStyle = '#445566'; ctx.lineWidth = 1;
-    ctx.strokeRect(W - TAPE_W, 28, TAPE_W, H - 28);
-    [10, 5, 0, -5, -10].forEach((v, i) => {
-        const y = 70 + i * 52;
-        ctx.fillStyle = '#ccc'; ctx.font = '10px Segoe UI'; ctx.textAlign = 'left';
-        ctx.fillText(v.toString(), W - TAPE_W + 5, y + 4);
-        ctx.strokeStyle = '#556677'; ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(W - TAPE_W, y); ctx.lineTo(W - TAPE_W + 5, y); ctx.stroke();
-    });
-    // Altitude reference box (green outline)
-    ctx.fillStyle = '#0a1a0a';
-    ctx.fillRect(W - TAPE_W + 1, horizonY - 11, TAPE_W - 1, 22);
-    ctx.strokeStyle = '#22cc44'; ctx.lineWidth = 1.5;
-    ctx.strokeRect(W - TAPE_W + 1, horizonY - 11, TAPE_W - 1, 22);
-    ctx.fillStyle = '#22cc44'; ctx.font = 'bold 11px Segoe UI'; ctx.textAlign = 'center';
-    ctx.fillText('0 m', W - TAPE_W / 2, horizonY + 4);
-    // Unknown / 0m>0
-    ctx.fillStyle = '#ff5522'; ctx.font = 'bold 10px Segoe UI'; ctx.textAlign = 'right';
-    ctx.fillText('Unknown', W - 2, H - 44);
-    ctx.fillText('0m>0', W - 2, H - 31);
-
-    // Top-right: 0% with red X strikethrough + timer
-    ctx.fillStyle = '#ff3333'; ctx.font = 'bold 11px Segoe UI'; ctx.textAlign = 'right';
-    ctx.fillText('0%', W - 4, 50);
-    ctx.strokeStyle = '#ff0000'; ctx.lineWidth = 1.5;
-    ctx.beginPath(); ctx.moveTo(W - 28, 39); ctx.lineTo(W - 4, 52); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(W - 28, 52); ctx.lineTo(W - 4, 39); ctx.stroke();
-    ctx.fillStyle = '#cccccc'; ctx.font = '10px Segoe UI'; ctx.textAlign = 'right';
-    ctx.fillText('00:00:00', W - 2, 64);
-
-    // Bottom status bar
-    ctx.fillStyle = 'rgba(0,0,0,0.78)';
-    ctx.fillRect(0, H - 50, W, 50);
-    ctx.fillStyle = '#ff3333'; ctx.font = 'bold 13px Segoe UI'; ctx.textAlign = 'center';
-    ctx.fillText('Not Ready to Arm', W / 2, H - 30);
-    ctx.fillStyle = '#ff2222'; ctx.font = 'bold 10px Segoe UI'; ctx.textAlign = 'left';
-    ctx.fillText('Bat1', 2, H - 13);
-    ctx.fillStyle = '#ffee00';
-    ctx.fillText('10.0', 30, H - 13);
-    ctx.fillStyle = '#ff2222';
-    ctx.fillText('v  0.0 A  0%', 56, H - 13);
-    ctx.fillStyle = '#aaaaaa'; ctx.font = '10px Segoe UI';
-    ctx.fillText('EKF', 168, H - 13);
-    ctx.fillText('Vibe', 195, H - 13);
-    ctx.fillStyle = '#ff3333'; ctx.font = 'bold 10px Segoe UI';
-    ctx.fillText('GPS: No GPS', 225, H - 13);
-}
-
-// ===== LEAFLET MAP SETUP =====
-const HOME_LAT = -35.3632627;
-const HOME_LNG = 149.1652383;
-
-// Dark political map tiles (CartoDB Dark Matter) — black bg, white outlines
-const DARK_POLITICAL = L.tileLayer(
-    'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-    { attribution: '&copy; <a href="https://carto.com/">CARTO</a>', subdomains: 'abcd', maxZoom: 20 }
-);
-const DARK_POLITICAL2 = L.tileLayer(
-    'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-    { attribution: '&copy; <a href="https://carto.com/">CARTO</a>', subdomains: 'abcd', maxZoom: 20 }
-);
-const DARK_POLITICAL3 = L.tileLayer(
-    'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-    { attribution: '&copy; <a href="https://carto.com/">CARTO</a>', subdomains: 'abcd', maxZoom: 20 }
-);
-
-// Satellite tiles (for team map toggle)
-const ESRI_TILES = L.tileLayer(
-    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-    { attribution: 'Tiles &copy; Esri', maxZoom: 20 }
-);
-const ESRI_TILES2 = L.tileLayer(
-    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-    { attribution: 'Tiles &copy; Esri', maxZoom: 20 }
-);
-const ESRI_TILES3 = L.tileLayer(
-    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-    { attribution: 'Tiles &copy; Esri', maxZoom: 20 }
-);
-
-let dataMap, simMap, planMap;
-let droneMarkerData, droneMarkerSim;
-let waypoints = [];
-let wpPolyline = null;
-let totalDist = 0;
-
-const droneIcon = L.divIcon({
-    className: '',
-    html: '<div style="width:22px;height:22px;background:#22bb44;border:2px solid #1a8832;border-radius:50%;box-shadow:0 0 6px #22bb44;"></div>',
-    iconSize: [22, 22], iconAnchor: [11, 11]
-});
-
-const homeIcon = L.divIcon({
-    className: '',
-    html: '<div style="width:14px;height:14px;background:#ff3333;border:2px solid #cc0000;border-radius:50%;"></div>',
-    iconSize: [14, 14], iconAnchor: [7, 7]
-});
-
-const wpIcon = (n) => L.divIcon({
-    className: '',
-    html: `<div style="width:18px;height:18px;background:#c8c800;border:2px solid #7ab000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#000;font-weight:bold;">${n}</div>`,
-    iconSize: [18, 18], iconAnchor: [9, 9]
-});
-
-// Glowing white home dot icon
-const homeGlowIcon = L.divIcon({
-    className: '',
-    html: '<div class="home-glow-dot"></div>',
-    iconSize: [10, 10], iconAnchor: [5, 5]
-});
-
-function initDataMap() {
-    dataMap = L.map('map-data', { zoomControl: true, attributionControl: false }).setView([22.5, 82.0], 5);
-    DARK_POLITICAL.addTo(dataMap);
-    // Glowing white home marker at Gwalior
-    L.marker([26.209, 78.22], { icon: homeGlowIcon })
-        .addTo(dataMap)
-        .bindTooltip('Home Base · Gwalior', { permanent: false, direction: 'top' });
-    droneMarkerData = L.marker([26.209, 78.22], { icon: droneIcon, draggable: true }).addTo(dataMap);
-    droneMarkerData.bindTooltip('Aircraft', { permanent: false });
-}
-
-function initSimMap() {
-    // Sim tab no longer has a map — guard so startup doesn't crash
-    const el = document.getElementById('map-sim');
-    if (!el) return;
-    simMap = L.map('map-sim', { zoomControl: false, attributionControl: false }).setView([HOME_LAT, HOME_LNG], 16);
-    ESRI_TILES2.addTo(simMap);
-    L.marker([HOME_LAT, HOME_LNG], { icon: homeIcon, draggable: true }).addTo(simMap)
-        .bindTooltip('Home - Drag Me', { permanent: true, direction: 'right', className: 'wp-label' });
-    droneMarkerSim = L.marker([HOME_LAT + 0.001, HOME_LNG], { icon: droneIcon }).addTo(simMap);
 }
 
 // ===== TEAM DATA =====
@@ -425,79 +134,6 @@ const TEAM_MEMBERS = [
 ];
 
 let activeTeamMember = null;
-let adminMode = false;
-let teamMapIsDark = true; // true = dark political, false = satellite
-
-// Listen for baud rate change to enable admin mode (9600)
-document.getElementById('sel-baud').addEventListener('change', (e) => {
-    adminMode = (e.target.value === '9600');
-
-    // Update draggable status for all team markers
-    TEAM_MEMBERS.forEach(member => {
-        if (member._marker) {
-            if (adminMode) {
-                member._marker.dragging.enable();
-            } else {
-                member._marker.dragging.disable();
-            }
-        }
-    });
-
-    if (adminMode) {
-        console.log("Admin mode enabled: Drag pins to update locations.");
-        // We could also show a small toast here if we had a toast system, 
-        // for now console log is fine.
-    }
-});
-
-// Map style toggle — dark political <-> satellite
-function toggleTeamMapStyle() {
-    if (!planMap) return;   // map not yet initialised (lazy)
-    const btn = document.getElementById('team-map-toggle');
-    if (teamMapIsDark) {
-        // Switch to satellite
-        planMap.removeLayer(DARK_POLITICAL3);
-        ESRI_TILES3.addTo(planMap);
-        teamMapIsDark = false;
-        if (btn) btn.classList.add('is-normal');
-    } else {
-        // Switch back to dark political
-        planMap.removeLayer(ESRI_TILES3);
-        DARK_POLITICAL3.addTo(planMap);
-        teamMapIsDark = true;
-        if (btn) btn.classList.remove('is-normal');
-    }
-}
-
-// Map pin — teardrop location-pin shape
-function makeTeamMarker(member) {
-    const html = `
-        <div style="
-            display:flex; flex-direction:column; align-items:center;
-            cursor:pointer;
-            filter:drop-shadow(0 3px 6px rgba(0,0,0,0.55));
-        ">
-            <div style="
-                width:38px; height:38px; border-radius:50%;
-                background:#111;
-                border:2.5px solid ${member.color};
-                color:${member.color};
-                display:flex; align-items:center; justify-content:center;
-                font-size:10px; font-weight:900;
-                font-family:'Segoe UI',sans-serif;
-                letter-spacing:0.3px;
-            ">${member.initials}</div>
-            <div style="
-                width:0; height:0;
-                border-left:5px solid transparent;
-                border-right:5px solid transparent;
-                border-top:9px solid ${member.color};
-                margin-top:-2px;
-            "></div>
-        </div>`;
-    // iconAnchor at bottom of the pointer (18, 49) so tip sits on the location
-    return L.divIcon({ className: '', html, iconSize: [38, 49], iconAnchor: [19, 49] });
-}
 
 
 // Initialise the team section (replaces old Leaflet map init)
@@ -514,7 +150,7 @@ let activeHeroText = 'TRINETRA';
 let pinnedMember = null;
 let surnameWrapRef = null;
 let isCursorPinned = false;
-let hoverTimer; 
+let hoverTimer;
 
 function populateTeamCards() {
     const container = document.getElementById('team-thumbnails-container');
@@ -523,12 +159,12 @@ function populateTeamCards() {
     container.innerHTML = '';
 
     const images = [
-        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop", 
-        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop", 
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop", 
-        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=200&auto=format&fit=crop", 
-        "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop", 
-        "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop", 
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop",
         "https://images.unsplash.com/photo-1513379733131-47fc74b45fc7?q=80&w=200&auto=format&fit=crop"
     ];
     const thumbsArray = [];
@@ -545,8 +181,8 @@ function populateTeamCards() {
         // ── 1. HOVER LOGIC ──
         thumb.addEventListener('mouseenter', () => {
             if (pinnedMember) return;
-            clearTimeout(hoverTimer); 
-            
+            clearTimeout(hoverTimer);
+
             hoverTimer = setTimeout(() => {
                 const firstName = member.name.split(' ')[0].toUpperCase();
                 if (activeHeroText !== firstName) {
@@ -557,7 +193,7 @@ function populateTeamCards() {
         });
 
         thumb.addEventListener('mouseleave', () => {
-            clearTimeout(hoverTimer); 
+            clearTimeout(hoverTimer);
         });
 
         // ── 2. CLICK LOGIC (Bulletproof Override) ──
@@ -568,8 +204,8 @@ function populateTeamCards() {
             // 🔴 UNPIN LOGIC
             if (pinnedMember === member) {
                 pinnedMember = null;
-                isCursorPinned = false; 
-                container.classList.remove('is-frozen'); 
+                isCursorPinned = false;
+                container.classList.remove('is-frozen');
 
                 gsap.to(cursor, { x: e.clientX, y: e.clientY, scale: 1, opacity: 1, duration: 0.3, ease: 'power3.out' });
 
@@ -582,9 +218,9 @@ function populateTeamCards() {
                     gsap.killTweensOf(surnameLetters);
                     gsap.to(surnameLetters, {
                         yPercent: 105, duration: 0.35, ease: 'power3.inOut', stagger: { amount: 0.08, from: "edges" },
-                        onComplete: () => { 
-                            if (surnameWrapRef) surnameWrapRef.remove(); 
-                            surnameWrapRef = null; 
+                        onComplete: () => {
+                            if (surnameWrapRef) surnameWrapRef.remove();
+                            surnameWrapRef = null;
                         }
                     });
                 }
@@ -593,20 +229,20 @@ function populateTeamCards() {
                     gsap.to(t, {
                         x: startXOffset + (i * (baseSize + gap)),
                         width: baseSize, height: baseSize,
-                        opacity: 1, filter: 'grayscale(0)', 
+                        opacity: 1, filter: 'grayscale(0)',
                         duration: 0.5, ease: 'power3.out', overwrite: 'auto'
                     });
                 });
                 return;
             }
 
-            if (pinnedMember !== null) return; 
+            if (pinnedMember !== null) return;
 
             // 🔴 PIN LOGIC: ABSOLUTE OVERRIDE
             pinnedMember = member;
             isCursorPinned = true;
-            container.classList.add('is-frozen'); 
-            
+            container.classList.add('is-frozen');
+
             // 1. Kill any pending hover animations so they don't corrupt the click!
             clearTimeout(hoverTimer);
             activeHeroText = firstNameText; // Lock the system memory to this name
@@ -616,13 +252,13 @@ function populateTeamCards() {
             // 2. Nuke the container completely to wipe out any glitching text
             const textContainer = document.getElementById('team-bg-text-container');
             gsap.killTweensOf(textContainer.querySelectorAll('.letter-inner'));
-            textContainer.innerHTML = ''; 
+            textContainer.innerHTML = '';
 
             // 3. Build the First Name Instantly
             const firstNameWrap = document.createElement('div');
             firstNameWrap.className = 'team-bg-text-wrap';
             firstNameWrap.style.color = '#F00020';
-            
+
             [...firstNameText].forEach(char => {
                 const box = document.createElement('span'); box.className = 'letter-box';
                 const inner = document.createElement('span'); inner.className = 'letter-inner';
@@ -653,7 +289,7 @@ function populateTeamCards() {
 
             // Animate First Name sliding out of the center
             gsap.fromTo(firstNameWrap, { x: 0 }, { x: slideDistanceFirst, duration: 0.5, ease: 'power3.out' });
-            
+
             // Animate Surname rolling up
             gsap.set(surnameWrapRef, { x: slideDistanceLast });
             const surnameLetters = surnameWrapRef.querySelectorAll('.letter-inner');
@@ -668,8 +304,8 @@ function populateTeamCards() {
                 const isPinnedThumb = (t === thumb);
                 gsap.to(t, {
                     x: currentX, width: sizes[i], height: sizes[i],
-                    opacity: isPinnedThumb ? 1 : 0.4, 
-                    filter: isPinnedThumb ? 'grayscale(0)' : 'grayscale(1)', 
+                    opacity: isPinnedThumb ? 1 : 0.4,
+                    filter: isPinnedThumb ? 'grayscale(0)' : 'grayscale(1)',
                     duration: 0.5, ease: 'power3.out', overwrite: 'auto'
                 });
                 currentX += sizes[i] + gap;
@@ -682,7 +318,7 @@ function populateTeamCards() {
 
     // ── 3. DOCK PHYSICS ──
     container.addEventListener('mousemove', (e) => {
-        if (pinnedMember) return; 
+        if (pinnedMember) return;
 
         const mouseX = e.clientX;
         const containerRect = container.getBoundingClientRect();
@@ -781,7 +417,7 @@ function initTeamHero() {
     };
 
     container.addEventListener('mouseenter', () => {
-        if (isCursorPinned) return; 
+        if (isCursorPinned) return;
         gsap.killTweensOf(cursor);
         gsap.set(cursor, { visibility: 'visible' });
         gsap.to(cursor, { scale: 1, opacity: 1, duration: 0.5, ease: 'power3.out' });
@@ -790,7 +426,7 @@ function initTeamHero() {
 
     container.addEventListener('mouseleave', (e) => {
         window.removeEventListener('mousemove', moveCursor);
-        if (isCursorPinned) return; 
+        if (isCursorPinned) return;
 
         const r = container.getBoundingClientRect();
         const exitX = (e.clientX - (r.left + r.width / 2)) * 0.5;
@@ -981,10 +617,7 @@ function submitJoinUs() {
     closeModal('joinus');
 }
 
-// ===== REAL-TIME GEOLOCATION COORDINATES =====
-let userLocationMarker = null;
-let geoFirstFix = true;
-
+// ===== REAL-TIME GEOLOCATION COORDINATES (retired — display element removed) =====
 function startGeolocation() {
     const display = document.getElementById('coords-display');
     if (!display) return;
@@ -1053,158 +686,103 @@ function startGeolocation() {
 // ===== SPLASH SEQUENCE =====
 
 function runSplash(onComplete) {
-
-    // Hide the main UI until we're done
     const titlebar = document.getElementById('titlebar');
     const toolbar = document.getElementById('toolbar');
     const main = document.getElementById('main');
-    if (titlebar) titlebar.style.visibility = 'hidden';
-    if (toolbar) toolbar.style.visibility = 'hidden';
-    if (main) main.style.visibility = 'hidden';
 
-    // ── Phase 1: CMD Terminal (~2s) ──
-    const cmdScreen = document.getElementById('cmd-screen');
-    const cmdLines = document.getElementById('cmd-lines');
-    const cmdCursor = document.getElementById('cmd-cursor');
-    const now = new Date();
-    const dateStr = now.toLocaleDateString('en-GB').replace(/\//g, '/');
-    const timeStr = now.toLocaleTimeString('en-GB');
+    // ── Phase 0: hide the app beneath the splash ──
+    [titlebar, toolbar, main].forEach(el => {
+        if (el) { el.style.opacity = '0'; el.style.visibility = 'hidden'; }
+    });
 
-    const BOOT_LINES = [
-        { text: 'Microsoft Windows [Version 10.0.22631.3447]', cls: '' },
-        { text: '(c) Microsoft Corporation. All rights reserved.', cls: '' },
-        { text: '', cls: '' },
-        { text: `C:\\Users\\aryan\\TeamTrinetra> python gcs_launcher.py --mode=full --time=${timeStr}`, cls: '' },
-        { text: '', cls: '' },
-        { text: '  ████████╗██████╗ ██╗███╗   ██╗███████╗████████╗██████╗  █████╗ ', cls: '' },
-        { text: '     ██╔══╝██╔══██╗██║████╗  ██║██╔════╝╚══██╔══╝██╔══██╗██╔══██╗', cls: '' },
-        { text: '     ██║   ██████╔╝██║██╔██╗ ██║█████╗     ██║   ██████╔╝███████║', cls: '' },
-        { text: '     ██║   ██╔══██╗██║██║╚██╗██║██╔══╝     ██║   ██╔══██╗██╔══██║', cls: '' },
-        { text: '     ██║   ██║  ██║██║██║ ╚████║███████╗   ██║   ██║  ██║██║  ██║', cls: '' },
-        { text: '     ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝', cls: '' },
-        { text: '', cls: '' },
-        { text: '  Ground Control Station  v1.0.0  |  MITS Gwalior  |  ArduPilot Compatible', cls: '' },
-        { text: `  Launch timestamp: ${dateStr}  ${timeStr}`, cls: 'dim' },
-        { text: '', cls: '' },
-        { text: '──────────────────────────────────────────────────────────────────', cls: 'dim' },
-        { text: ' [INIT]  Resolving runtime environment...', cls: '' },
-        { text: ' [INIT]  Python 3.11.6  (tags/v3.11.6:8d01f18, Oct  2 2023)', cls: '' },
-        { text: ' [INIT]  MAVProxy 1.8.71   pymavlink 2.4.41   dronekit 2.9.2', cls: '' },
-        { text: ' [INIT]  OpenCV 4.9.0   YOLOv8 8.0.196   numpy 1.26.4', cls: '' },
-        { text: ' [INIT]  Leaflet 1.9.4   GSAP 3.12.5', cls: '' },
-        { text: '──────────────────────────────────────────────────────────────────', cls: 'dim' },
-        { text: '', cls: '' },
-        { text: ' [LOAD]  Importing mavlink_router...                        OK', cls: '' },
-        { text: ' [LOAD]  Importing telemetry.parser...                      OK', cls: '' },
-        { text: ' [LOAD]  Importing telemetry.streams.udp...                 OK', cls: '' },
-        { text: ' [LOAD]  Importing telemetry.streams.serial...              OK', cls: '' },
-        { text: ' [LOAD]  Importing mission.planner...                       OK', cls: '' },
-        { text: ' [LOAD]  Importing mission.geofence...                      OK', cls: '' },
-        { text: ' [LOAD]  Importing mission.waypoints...                     OK', cls: '' },
-        { text: ' [LOAD]  Importing vision.yolov8_world...                   OK', cls: '' },
-        { text: ' [LOAD]  Importing vision.stream_capture...                 OK', cls: '' },
-        { text: ' [LOAD]  Importing payload.drop_controller...               OK', cls: '' },
-        { text: ' [LOAD]  Importing payload.beacon_tracker...                OK', cls: '' },
-        { text: ' [LOAD]  Importing ui.hud_renderer...                       OK', cls: '' },
-        { text: ' [LOAD]  Importing ui.map_engine...                         OK', cls: '' },
-        { text: ' [LOAD]  Importing ui.simulation_view...                    OK', cls: '' },
-        { text: '', cls: '' },
-        { text: ' [SCAN]  Enumerating serial ports...', cls: '' },
-        { text: ' [SCAN]    COM1  -  Communications Port               [SKIP]', cls: '' },
-        { text: ' [SCAN]    COM3  -  USB Serial Device (CP2102)        [SKIP]', cls: '' },
-        { text: ' [SCAN]    COM4  -  Cube Orange+ (ArduPilot)          [WAIT]', cls: '' },
-        { text: ' [WARN]  No heartbeat received on COM4 (timeout 3s)   RETRYING...', cls: '' },
-        { text: ' [WARN]  Autopilot not detected — running in offline mode', cls: '' },
-        { text: '', cls: '' },
-        { text: ' [NET ]  Binding UDP socket  0.0.0.0:14550...              OK', cls: '' },
-        { text: ' [NET ]  Binding UDP socket  0.0.0.0:14551  (GCS mirror)   OK', cls: '' },
-        { text: ' [NET ]  TCP listener  127.0.0.1:5760...                   OK', cls: '' },
-        { text: '', cls: '' },
-        { text: ' [MAP ]  Loading ESRI World Imagery tiles (z=16)...        OK', cls: '' },
-        { text: ' [MAP ]  Initializing Leaflet tile cache...                 OK', cls: '' },
-        { text: ' [MAP ]  Geofence boundary data loaded  (4 vertices)        OK', cls: '' },
-        { text: ' [MAP ]  Home location: 26.2183° N  78.1828° E             OK', cls: '' },
-        { text: '', cls: '' },
-        { text: ' [AI  ]  Loading YOLOv8x-worldv2 weights (137 MB)...', cls: '' },
-        { text: ' [AI  ]  Target classes: [mannequin, canopy, survivor, bottle]', cls: '' },
-        { text: ' [AI  ]  CUDA not available — using CPU inference (torch 2.2.0)', cls: '' },
-        { text: ' [AI  ]  Model ready  |  conf=0.42  iou=0.55  imgsz=640     OK', cls: '' },
-        { text: '', cls: '' },
-        { text: ' [SIM ]  Connecting to ArduCopter SITL  127.0.0.1:5760...', cls: '' },
-        { text: ' [SIM ]  SITL not running — simulation view in replay mode   OK', cls: '' },
-        { text: ' [SIM ]  Loading flight log: mission_2026-05-28.bin          OK', cls: '' },
-        { text: '', cls: '' },
-        { text: ' [HUD ]  Canvas renderer initialized  (420×390 px)          OK', cls: '' },
-        { text: ' [HUD ]  Artificial horizon calibrated  (pitch=0  roll=0)    OK', cls: '' },
-        { text: '', cls: '' },
-        { text: '──────────────────────────────────────────────────────────────────', cls: 'dim' },
-        { text: ' All systems nominal. Launching GCS interface...', cls: '' },
-        { text: `C:\\Users\\aryan\\TeamTrinetra> _`, cls: '' },
-    ];
+    const splash = document.getElementById('minimal-splash');
+    const brand = splash.querySelector('.splash-brand');
+    const tagline = splash.querySelector('.splash-tagline');
 
-    const LINE_INTERVAL = 52;
-    let lineIdx = 0;
+    // ── Phase 1 (0 – 1.8s): light background, black TRINETRA, fully visible ──
+    splash.style.background = '#f0f0f0';
+    splash.style.opacity = '1';
+    splash.style.transition = 'none';
+    if (brand) brand.style.color = '#111111';
+    if (tagline) tagline.style.color = '#111111';
 
-    function addLine() {
-        if (lineIdx >= BOOT_LINES.length) {
-            cmdCursor.style.display = 'block';
-            setTimeout(startSplashWindow, 200);
-            return;
+    // ── Phase 2 (at 1800ms): circle-blur #1 — light → dark theme swap ──
+    // ::view-transition-new(root) CSS handles the expanding-circle + blur.
+    setTimeout(() => {
+
+        const doThemeSwap = () => {
+            splash.style.background = '#0d0d0d';
+            if (brand) brand.style.color = '#f0f0f0';
+            if (tagline) tagline.style.color = '#777777';
+        };
+
+        if (document.startViewTransition) {
+            const vt1 = document.startViewTransition(doThemeSwap);
+            // Wait for circle to fully expand, then hold 400ms before phase 3
+            vt1.finished.then(() => setTimeout(phase3, 400));
+        } else {
+            doThemeSwap();
+            setTimeout(phase3, 400);
         }
-        const { text, cls } = BOOT_LINES[lineIdx++];
-        const div = document.createElement('div');
-        div.className = 'cmd-line' + (cls ? ' ' + cls : '');
-        div.textContent = text;
-        cmdLines.appendChild(div);
-        void div.offsetWidth;
-        setTimeout(addLine, LINE_INTERVAL);
-    }
 
-    setTimeout(addLine, 200);
+    }, 1800);
 
-    // ── Phase 2: Splash Window (2s) ──
-    function startSplashWindow() {
-        const overlay = document.getElementById('splash-overlay');
+    // ── Phase 3: circle-blur #2 — circle sweeps from TRINETRA to blurred data ──
+    // Key: pre-render the app UNDER the splash (z-index keeps splash on top),
+    // wait two rAF frames for the browser to paint it, then fire the transition.
+    // The callback only removes the splash — old snapshot = TRINETRA,
+    // new snapshot = already-painted blurred dashboard. No pop-in.
+    function phase3() {
+        // 1. Reveal the app beneath the splash (splash z-index:10000 covers it)
+        [titlebar, toolbar, main].forEach(el => {
+            if (el) { el.style.visibility = 'visible'; el.style.opacity = '1'; }
+        });
 
-        // Show splash overlay FIRST (it's fully opaque, covers everything)
-        overlay.classList.add('visible');
+        // 2. Show data tab and pre-blur it
+        const dataTab = document.getElementById('data-tab');
+        if (dataTab) dataTab.style.display = 'flex';
+        const btnHome = document.getElementById('btn-home');
+        if (btnHome) btnHome.classList.add('active');
+        if (main) main.style.filter = 'blur(16px)';
 
-        // Then fade out CMD screen underneath
-        setTimeout(() => {
-            cmdScreen.classList.add('hidden');
-            setTimeout(() => { cmdScreen.style.display = 'none'; }, 400);
-        }, 50);
+        // 3. Two rAF frames — browser paints the blurred dashboard under the splash
+        requestAnimationFrame(() => requestAnimationFrame(() => {
 
-        // Hold splash for ~2 seconds then dismiss
-        setTimeout(() => {
-            overlay.classList.remove('visible');
-            overlay.classList.add('hidden');
+            const doRemoveSplash = () => {
+                splash.style.display = 'none';
+            };
 
-            // Reveal main UI
-            if (titlebar) titlebar.style.visibility = '';
-            if (toolbar) toolbar.style.visibility = '';
-            if (main) main.style.visibility = '';
-
-            setTimeout(onComplete, 320);
-        }, 2000);
+            if (document.startViewTransition) {
+                const vt2 = document.startViewTransition(doRemoveSplash);
+                vt2.finished.then(() => {
+                    // 4. Circle done — clear the blur with a smooth transition
+                    requestAnimationFrame(() => {
+                        if (main) {
+                            main.style.transition = 'filter 0.7s ease';
+                            main.style.filter = 'blur(0px)';
+                            setTimeout(() => {
+                                main.style.transition = '';
+                                main.style.filter = '';
+                            }, 700);
+                        }
+                        if (onComplete) onComplete();
+                    });
+                });
+            } else {
+                doRemoveSplash();
+                if (main) main.style.filter = '';
+                if (onComplete) onComplete();
+            }
+        }));
     }
 }
 
-// ===== LOAD TAB HTML FROM SEPARATE FILES =====
-// NOTE: Requires a local web server (e.g. VS Code Live Server)
+
+// ===== TAB HTML is now inlined in index.html — no fetch needed =====
+// This function is kept as a no-op for compatibility.
 async function loadTabs() {
-    const tabs = [
-        { id: 'data-tab', file: 'tabs/data.html' },
-        { id: 'sim-tab', file: 'tabs/simulation.html' },
-        { id: 'sponsors-tab', file: 'tabs/sponsors.html' },
-        { id: 'plan-tab', file: 'tabs/team.html' },
-        { id: 'vehicles-tab', file: 'tabs/vehicles.html' },
-    ];
-    await Promise.all(tabs.map(async ({ id, file }) => {
-        const res = await fetch(file);
-        const html = await res.text();
-        document.getElementById(id).innerHTML = html;
-    }));
+    // Content is already in the DOM — nothing to load.
+    return Promise.resolve();
 }
 
 // ===== SIMULATION CAROUSEL (GSAP) =====
@@ -1382,18 +960,13 @@ function initSimCarousel() {
 window.addEventListener('load', async () => {
     await loadTabs();          // inject all tab HTML first
     runSplash(() => {
-        initSubTabs();         // wire sub-tab clicks now that DOM exists
-        drawHUD();
-        initDataMap();
-        initSimMap();
         initSimCarousel();
-        initPlanMap();         // populates cards immediately (no Leaflet yet)
-        showTab('data');       // make data tab visible as default
-        document.getElementById('btn-data').classList.add('active');
-        // Leaflet plan map init is deferred to first showTab('plan') call
-        // makeResizable calls below are safe — they guard against missing IDs
-        makeResizable('team-sidebar-resizer', 'team-sidebar');
-        makeResizable('team-profile-resizer', 'team-profile-panel');
+        initPlanMap();         // populates team cards immediately
+        showTab('home');       // make home/data tab visible as default
+        setTimeout(() => {
+            const dt = document.getElementById('data-tab');
+            if (dt) dt.classList.add('home-visible');
+        }, 40);
     });
 });
 
