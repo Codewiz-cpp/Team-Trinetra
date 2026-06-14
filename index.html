@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team Trinetra</title>
-    <meta name="description"
-        content="Team Trinetra GCS v1.0 - Ground Control Station for UAV mission planning and telemetry.">
+    <meta name="description" content="Team Trinetra">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -24,7 +23,14 @@
     ════════════════════════════════════════════ -->
     <div id="toolbar">
 
-        <div class="toolbar-left" style="flex: 1;"></div>
+        <div class="toolbar-left" style="flex: 1;">
+            <div id="toolbar-brand">
+                <img src="Trinetra.svg" alt="Trinetra Logo" id="trinetra-logo">
+                <div id="toolbar-brand-text">
+                    <span id="brand-accent">TRINETRA</span>
+                </div>
+            </div>
+        </div>
 
         <div id="nav-tabs" style="display: flex; align-items: stretch;">
             <!-- Nav buttons -->
@@ -51,13 +57,6 @@
 
         <!-- Right side: Logo + Connection + Connect panel -->
         <div id="toolbar-right">
-
-            <!--
-            <div id="toolbar-logo">
-                <div id="logo-text"><span class="logo-main">TRI</span><span class="logo-accent">NETRA</span></div>
-            </div>
-            -->
-
             <div id="connect-wrap">
                 <div class="toolbar-btn" id="connect-btn" onclick="toggleConnectPanel()">
                     <span>Connect With Us</span>
@@ -180,7 +179,7 @@
             <div id="home-hero">
                 <video id="home-video-bg" autoplay muted loop playsinline disablepictureinpicture
                     controlslist="nodownload nofullscreen noremoteplayback">
-                    <source src="videos/Landing_page_video.mp4" type="video/mp4">
+                    <source src="videos/videoplayback.webm" type="video/webm">
                 </video>
                 <div id="home-overlay"></div>
             </div>
