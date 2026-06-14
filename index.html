@@ -7,9 +7,6 @@
     <title>Team Trinetra</title>
     <meta name="description"
         content="Team Trinetra GCS v1.0 - Ground Control Station for UAV mission planning and telemetry.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Anton&display=swap"
-        rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -27,62 +24,44 @@
     ════════════════════════════════════════════ -->
     <div id="toolbar">
 
-        <!-- Nav buttons -->
-        <div class="toolbar-btn" onclick="showTab('home')" id="btn-home">
-            <span>HOME</span>
-        </div>
+        <div class="toolbar-left" style="flex: 1;"></div>
 
-        <div class="toolbar-btn" onclick="showTab('plan')" id="btn-plan">
-            <span>TEAM</span>
-        </div>
+        <div id="nav-tabs" style="display: flex; align-items: stretch;">
+            <!-- Nav buttons -->
+            <div class="toolbar-btn" onclick="showTab('home')" id="btn-home">
+                <span>Home</span>
+            </div>
 
-        <div class="toolbar-btn" onclick="showTab('vehicles')" id="btn-setup">
-            <span>VEHICLES</span>
-        </div>
+            <div class="toolbar-btn" onclick="showTab('plan')" id="btn-plan">
+                <span>Team</span>
+            </div>
 
-        <div class="toolbar-btn" onclick="showTab('sponsors')" id="btn-sponsors">
-            <span>SPONSORS</span>
-        </div>
+            <div class="toolbar-btn" onclick="showTab('vehicles')" id="btn-setup">
+                <span>Vehicles</span>
+            </div>
 
-        <div class="toolbar-btn" onclick="showTab('simulation')" id="btn-simulation">
-            <span>SIMULATION</span>
+            <div class="toolbar-btn" onclick="showTab('sponsors')" id="btn-sponsors">
+                <span>Sponsors</span>
+            </div>
+
+            <div class="toolbar-btn" onclick="showTab('simulation')" id="btn-simulation">
+                <span>Simulation</span>
+            </div>
         </div>
 
         <!-- Right side: Logo + Connection + Connect panel -->
         <div id="toolbar-right">
 
+            <!--
             <div id="toolbar-logo">
                 <div id="logo-text"><span class="logo-main">TRI</span><span class="logo-accent">NETRA</span></div>
             </div>
-
-            <div id="conn-controls">
-                <select class="conn-select" id="sel-proto" title="Protocol">
-                    <option>UDP</option>
-                    <option>TCP</option>
-                    <option>Serial</option>
-                </select>
-                <select class="conn-select" id="sel-baud" title="Baud Rate">
-                    <option>115200</option>
-                    <option>57600</option>
-                    <option>38400</option>
-                    <option>9600</option>
-                </select>
-            </div>
+            -->
 
             <div id="connect-wrap">
-                <button class="conn-btn" id="connect-btn" onclick="toggleConnectPanel()">
-                    <span class="conn-btn-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 22V12" />
-                            <path d="M5 12H2a10 10 0 0 0 20 0h-3" />
-                            <rect x="8" y="2" width="8" height="10" rx="1" />
-                            <line x1="10" y1="6" x2="10" y2="2" />
-                            <line x1="14" y1="6" x2="14" y2="2" />
-                        </svg>
-                    </span>
-                    <span class="conn-btn-label">CONNECT WITH US</span>
-                </button>
+                <div class="toolbar-btn" id="connect-btn" onclick="toggleConnectPanel()">
+                    <span>Connect With Us</span>
+                </div>
 
                 <!-- ── CONNECT DROPDOWN PANEL ── -->
                 <div id="connect-panel">
@@ -356,7 +335,8 @@
                                     <svg viewBox="0 0 64 40" fill="none">
                                         <rect x="2" y="2" width="60" height="36" rx="4" stroke="#444" stroke-width="1.5"
                                             stroke-dasharray="4 3" /><text x="32" y="24" text-anchor="middle"
-                                            font-size="9" fill="#444" font-family="Segoe UI,sans-serif">YOUR LOGO</text>
+                                            font-size="9" fill="#444" font-family="Helvetica Neue, Helvetica">YOUR
+                                            LOGO</text>
                                     </svg>
                                 </div>
                             </div>
@@ -379,7 +359,8 @@
                                 <div class="sp-logo-placeholder"><svg viewBox="0 0 64 40" fill="none">
                                         <rect x="2" y="2" width="60" height="36" rx="4" stroke="#555" stroke-width="1.5"
                                             stroke-dasharray="4 3" /><text x="32" y="24" text-anchor="middle"
-                                            font-size="9" fill="#555" font-family="Segoe UI,sans-serif">YOUR LOGO</text>
+                                            font-size="9" fill="#555" font-family="Helvetica Neue, Helvetica">YOUR
+                                            LOGO</text>
                                     </svg></div>
                             </div>
                             <div class="sp-card-info">
@@ -392,7 +373,8 @@
                                 <div class="sp-logo-placeholder"><svg viewBox="0 0 64 40" fill="none">
                                         <rect x="2" y="2" width="60" height="36" rx="4" stroke="#555" stroke-width="1.5"
                                             stroke-dasharray="4 3" /><text x="32" y="24" text-anchor="middle"
-                                            font-size="9" fill="#555" font-family="Segoe UI,sans-serif">YOUR LOGO</text>
+                                            font-size="9" fill="#555" font-family="Helvetica Neue, Helvetica">YOUR
+                                            LOGO</text>
                                     </svg></div>
                             </div>
                             <div class="sp-card-info">
@@ -414,7 +396,8 @@
                                 <div class="sp-logo-placeholder"><svg viewBox="0 0 64 40" fill="none">
                                         <rect x="2" y="2" width="60" height="36" rx="4" stroke="#555" stroke-width="1.5"
                                             stroke-dasharray="4 3" /><text x="32" y="24" text-anchor="middle"
-                                            font-size="9" fill="#555" font-family="Segoe UI,sans-serif">YOUR LOGO</text>
+                                            font-size="9" fill="#555" font-family="Helvetica Neue, Helvetica">YOUR
+                                            LOGO</text>
                                     </svg></div>
                             </div>
                             <div class="sp-card-info">
@@ -427,7 +410,8 @@
                                 <div class="sp-logo-placeholder"><svg viewBox="0 0 64 40" fill="none">
                                         <rect x="2" y="2" width="60" height="36" rx="4" stroke="#555" stroke-width="1.5"
                                             stroke-dasharray="4 3" /><text x="32" y="24" text-anchor="middle"
-                                            font-size="9" fill="#555" font-family="Segoe UI,sans-serif">YOUR LOGO</text>
+                                            font-size="9" fill="#555" font-family="Helvetica Neue, Helvetica">YOUR
+                                            LOGO</text>
                                     </svg></div>
                             </div>
                             <div class="sp-card-info">
@@ -440,7 +424,8 @@
                                 <div class="sp-logo-placeholder"><svg viewBox="0 0 64 40" fill="none">
                                         <rect x="2" y="2" width="60" height="36" rx="4" stroke="#555" stroke-width="1.5"
                                             stroke-dasharray="4 3" /><text x="32" y="24" text-anchor="middle"
-                                            font-size="9" fill="#555" font-family="Segoe UI,sans-serif">YOUR LOGO</text>
+                                            font-size="9" fill="#555" font-family="Helvetica Neue, Helvetica">YOUR
+                                            LOGO</text>
                                     </svg></div>
                             </div>
                             <div class="sp-card-info">
@@ -461,7 +446,7 @@
                             <div class="sp-logo-placeholder sp-logo-sm"><svg viewBox="0 0 64 40" fill="none">
                                     <rect x="2" y="2" width="60" height="36" rx="4" stroke="#444" stroke-width="1.5"
                                         stroke-dasharray="4 3" /><text x="32" y="24" text-anchor="middle" font-size="9"
-                                        fill="#444" font-family="Segoe UI,sans-serif">LOGO</text>
+                                        fill="#444" font-family="Helvetica Neue, Helvetica">LOGO</text>
                                 </svg></div>
                             <div class="sp-card-org sp-placeholder-text" style="font-size:11px;">Partner</div>
                         </div>
@@ -469,7 +454,7 @@
                             <div class="sp-logo-placeholder sp-logo-sm"><svg viewBox="0 0 64 40" fill="none">
                                     <rect x="2" y="2" width="60" height="36" rx="4" stroke="#444" stroke-width="1.5"
                                         stroke-dasharray="4 3" /><text x="32" y="24" text-anchor="middle" font-size="9"
-                                        fill="#444" font-family="Segoe UI,sans-serif">LOGO</text>
+                                        fill="#444" font-family="Helvetica Neue, Helvetica">LOGO</text>
                                 </svg></div>
                             <div class="sp-card-org sp-placeholder-text" style="font-size:11px;">Partner</div>
                         </div>
@@ -477,7 +462,7 @@
                             <div class="sp-logo-placeholder sp-logo-sm"><svg viewBox="0 0 64 40" fill="none">
                                     <rect x="2" y="2" width="60" height="36" rx="4" stroke="#444" stroke-width="1.5"
                                         stroke-dasharray="4 3" /><text x="32" y="24" text-anchor="middle" font-size="9"
-                                        fill="#444" font-family="Segoe UI,sans-serif">LOGO</text>
+                                        fill="#444" font-family="Helvetica Neue, Helvetica">LOGO</text>
                                 </svg></div>
                             <div class="sp-card-org sp-placeholder-text" style="font-size:11px;">Partner</div>
                         </div>
@@ -485,7 +470,7 @@
                             <div class="sp-logo-placeholder sp-logo-sm"><svg viewBox="0 0 64 40" fill="none">
                                     <rect x="2" y="2" width="60" height="36" rx="4" stroke="#444" stroke-width="1.5"
                                         stroke-dasharray="4 3" /><text x="32" y="24" text-anchor="middle" font-size="9"
-                                        fill="#444" font-family="Segoe UI,sans-serif">LOGO</text>
+                                        fill="#444" font-family="Helvetica Neue, Helvetica">LOGO</text>
                                 </svg></div>
                             <div class="sp-card-org sp-placeholder-text" style="font-size:11px;">Partner</div>
                         </div>

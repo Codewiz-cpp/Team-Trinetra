@@ -464,8 +464,6 @@ body {
     flex-direction: column;
 }
 
-
-
 /* Top toolbar */
 #toolbar {
     background: #000;
@@ -473,7 +471,9 @@ body {
     align-items: stretch;
     padding: 0;
     flex-shrink: 0;
-    height: 52px;
+    height: 83px;
+    gap: 13px;
+    line-height: 1;
 }
 
 .toolbar-btn {
@@ -485,10 +485,14 @@ body {
     border: none;
     min-width: 80px;
     transition: background 0.15s, color 0.15s;
-    color: rgba(255, 255, 255, 0.55);
+
+    /* Changed to pure white */
+    color: #ffffff;
+
     text-decoration: none;
     position: relative;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    /* Already set to Helvetica Neue */
+    font-family: 'Helvetica Neue', Helvetica;
 }
 
 .toolbar-btn:hover {
@@ -501,29 +505,21 @@ body {
     color: #ffffff;
 }
 
-.toolbar-btn.active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: #c8c800;
-}
-
 .toolbar-btn span {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    font-weight: 300;
+    letter-spacing: 0px;
+    font-family: 'Helvetica Neue', Helvetica;
+    line-height: 1;
+    display: inline-block;
 }
 
 /* Right side toolbar */
 #toolbar-right {
-    margin-left: auto;
+    flex: 1;
     display: flex;
-    align-items: center;
+    align-items: stretch;
+    justify-content: flex-end;
     gap: 0;
     padding: 0;
 }
@@ -552,13 +548,14 @@ body {
     border: 1px solid #333;
     color: #ccc;
     padding: 2px 4px;
-    font-size: 11px;
+    font-size: 12px;
+    font-weight: 300;
     height: 22px;
     border-radius: 2px;
     outline: none;
     cursor: pointer;
     min-width: 58px;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica;
 }
 
 .conn-select:hover {
@@ -587,7 +584,7 @@ body {
     cursor: pointer;
     gap: 3px;
     transition: background 0.15s, color 0.15s;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica;
     position: relative;
 }
 
@@ -627,12 +624,12 @@ body {
 
 /* Label matches EXACTLY the nav tab span style */
 .conn-btn-label {
-    font-size: 10px;
-    font-weight: 600;
+    font-size: 11px;
+    font-weight: 300;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     white-space: nowrap;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica;
 }
 
 /* ===== CONNECT PANEL ===== */
@@ -869,7 +866,7 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: #0a0a0a;
+    background: #000;
     flex-direction: column;
 }
 
@@ -896,7 +893,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    background: #0a0a0a;
+    background: #000;
 }
 
 /* ── Clip: overflow:hidden boundary for peek effect ── */
@@ -1143,7 +1140,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #0a0a0a;
+    background: #000;
     border-top: 1px solid #181818;
     position: relative;
 }
@@ -1194,7 +1191,7 @@ body {
 #vehicles-page {
     flex: 1;
     overflow-y: auto;
-    background: #0d0d0d;
+    background: #000;
     padding: 0;
     scrollbar-width: thin;
     scrollbar-color: #222 #0d0d0d;
@@ -1349,7 +1346,7 @@ body {
     flex: 0 0 40%;
     position: relative;
     overflow: hidden;
-    background: #0a0a0a;
+    background: #000;
 }
 
 .veh-image {
@@ -1411,7 +1408,7 @@ body {
     flex-direction: column !important;
     overflow-y: auto;
     overflow-x: hidden;
-    background: #0d0d0d;
+    background: #000;
 }
 
 #sponsors-tab::-webkit-scrollbar {
@@ -1435,7 +1432,7 @@ body {
     position: relative;
     width: 100%;
     padding: 56px 60px 44px;
-    background: linear-gradient(160deg, #111 0%, #0d0d0d 60%, #0a0f00 100%);
+    background: linear-gradient(160deg, #111 0%, #000 60%, #0a0f00 100%);
     border-bottom: 1px solid #1e1e1e;
     overflow: hidden;
     flex-shrink: 0;
@@ -1842,7 +1839,7 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    background: #0a0a0a;
+    background: #000;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -1984,40 +1981,80 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    overflow: hidden;
     background: #000;
+    overflow: hidden;
 }
 
+/* ===== UPDATED HOME HERO VIDEO ===== */
+
+/* 1. The Video Box */
 #home-video-bg {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    top: 0px;
+    bottom: 36px;
+    left: 36px;
+    /* Increased left gap */
+    right: 36px;
+    /* Increased right gap */
+
+    /* Calculate dimensions based on the new gaps */
+    width: calc(100% - 64px);
+    height: calc(100% - 60px);
+
     object-fit: cover;
-    object-position: center;
     z-index: 0;
-    opacity: 1;
+
+    /* Really small border radius */
+    border-radius: 0px;
+
+    filter: grayscale(20%) contrast(110%) brightness(95%);
+    animation: anduril-zoom 30s linear infinite alternate;
+
+    /* Prepares the video to smoothly transition when blurred */
+    transition: filter 0.5s ease;
 }
 
+/* 2. The Overlay (Must match video size perfectly) */
 #home-overlay {
     position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.42);
-    background-image:
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.0) 30%),
-        linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.0) 45%),
-        linear-gradient(to right, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.0) 60%);
+    top: 16px;
+    bottom: 24px;
+    left: 32px;
+    right: 32px;
+    width: calc(100% - 64px);
+    height: calc(100% - 40px);
+
+    border-radius: 2px;
     z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 15%);
 }
 
+/* 3. The Content Box */
 #home-content {
     position: absolute;
-    inset: 0;
+    top: 16px;
+    bottom: 24px;
+    left: 32px;
+    right: 32px;
+    width: calc(100% - 64px);
+    height: calc(100% - 40px);
+
     z-index: 2;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 0 64px 56px;
+    padding: 0 40px 32px;
+}
+
+/* =========================================
+   4. FUTURE EXPANDABLE NAV BAR SUPPORT
+   Add this class to your video using JavaScript 
+   when the user clicks the menu button.
+========================================= */
+#home-video-bg.nav-open-blur {
+    /* Darkens the video further and blurs it so text above it is readable */
+    filter: grayscale(20%) contrast(110%) brightness(50%) blur(16px);
 }
 
 #home-eyebrow {
@@ -2156,18 +2193,7 @@ body {
 }
 
 #home-scroll-hint {
-    position: absolute;
-    bottom: 22px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 7px;
-    opacity: 0;
-    transition: opacity 0.6s ease 1.5s;
-    pointer-events: none;
+    display: none !important;
 }
 
 #home-scroll-hint span {
