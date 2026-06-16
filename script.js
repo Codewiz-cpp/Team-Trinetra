@@ -1,5 +1,11 @@
 // ===== TAB SWITCHING =====
 function showTabBase(name) {
+    if (name === 'sponsors') {
+        document.body.classList.add('sponsors-light-theme');
+    } else {
+        document.body.classList.remove('sponsors-light-theme');
+    }
+
     ['data-tab', 'sim-tab', 'sponsors-tab', 'plan-tab', 'vehicles-tab'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = 'none';
@@ -117,7 +123,7 @@ const TEAM_MEMBERS = [
         city: 'Adityapuram, Gwalior',
         branch: 'IT', year: '2nd Year',
         work: 'Documentation and logic designing.',
-        image: null, portfolio: '#', github: '#', linkedin: '#'
+        image: 'videos/a.jpeg', portfolio: '#', github: '#', linkedin: '#'
     },
     {
         id: 7,
@@ -174,7 +180,8 @@ function populateTeamCards() {
     TEAM_MEMBERS.forEach((member, index) => {
         const thumb = document.createElement('div');
         thumb.className = 'new-team-thumb';
-        thumb.innerHTML = `<img src="${images[index % images.length]}" alt="${member.name}">`;
+        const imgSrc = member.image ? member.image : images[index % images.length];
+        thumb.innerHTML = `<img src="${imgSrc}" alt="${member.name}">`;
 
         gsap.set(thumb, { x: startXOffset + (index * (baseSize + gap)), yPercent: -50 });
 
@@ -778,11 +785,19 @@ function runSplash(onComplete) {
 }
 
 
-// ===== TAB HTML is now inlined in index.html — no fetch needed =====
-// This function is kept as a no-op for compatibility.
+// ===== TAB HTML =====
+// Dynamically load tabs from external HTML files
 async function loadTabs() {
-    // Content is already in the DOM — nothing to load.
-    return Promise.resolve();
+    try {
+        const response = await fetch('tabs/sponsors.html');
+        if (response.ok) {
+            const html = await response.text();
+            const tab = document.getElementById('sponsors-tab');
+            if (tab) tab.innerHTML = html;
+        }
+    } catch (e) {
+        console.error('Failed to load sponsors tab:', e);
+    }
 }
 
 // ===== SIMULATION CAROUSEL (GSAP) =====
@@ -984,14 +999,6 @@ function makeResizable(resizerId, targetId) {
         isResizing = true;
         resizer.classList.add('resizing');
         document.body.style.cursor = 'col-resize';
-        e.preventDefault(); // prevent text selection
-    });
-
-    document.addEventListener('mousemove', (e) => {
-        if (!isResizing) return;
-
-        let newWidth = window.innerWidth - e.clientX;
-        if (newWidth < 200) newWidth = 200;
         if (newWidth > window.innerWidth * 0.8) newWidth = window.innerWidth * 0.8;
 
         target.style.width = newWidth + 'px';
@@ -1008,5 +1015,16 @@ function makeResizable(resizerId, targetId) {
             document.body.style.cursor = '';
         }
     });
+} tyle.width = newWidth + 'px';
+
+if (planMap && targetId === 'team-sidebar') {
+    planMap.invalidateSize();
 }
 
+document.addEventListener('mouseup', () => {
+    if (isResizing) {
+        isResizing = false;
+        resizer.classList.remove('resizing');
+        document.body.style.cursor = '';
+    }
+});

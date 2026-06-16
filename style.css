@@ -1,3 +1,12 @@
+/* ===== ELIOS REGULAR ===== */
+@font-face {
+    font-family: 'Elios Regular';
+    src: url('fonts/Elios.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* ===== HELVETICA NEUE FONT FACES ===== */
 
 /* Ultra Light — 100 */
@@ -909,7 +918,6 @@ body {
 
 /* ===== OTHER TABS ===== */
 #sim-tab,
-#sponsors-tab,
 #vehicles-tab {
     width: 100%;
     height: 100%;
@@ -1464,408 +1472,112 @@ body {
     flex-direction: column;
 }
 
-/* ── Hero strip ── */
+/* ── Sponsors Hero — */
 #sp-hero {
     position: relative;
     width: 100%;
-    padding: 56px 60px 44px;
-    background: linear-gradient(160deg, #111 0%, #000 60%, #0a0f00 100%);
-    border-bottom: 1px solid #1e1e1e;
+    padding: 260px 60px 24px 35px;
+    background: #000;
+    border-bottom: 1px solid #1a1a1a;
     overflow: hidden;
     flex-shrink: 0;
-}
-
-#sp-hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(0deg,
-            transparent, transparent 28px,
-            rgba(200, 200, 0, 0.022) 28px, rgba(200, 200, 0, 0.022) 29px);
-    pointer-events: none;
-}
-
-#sp-scanline {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(200, 200, 0, 0.45), transparent);
-    animation: spScan 4s ease-in-out infinite;
-    top: 0;
-}
-
-@keyframes spScan {
-    0% {
-        top: 0%;
-        opacity: 0;
-    }
-
-    8% {
-        opacity: 1;
-    }
-
-    92% {
-        opacity: 1;
-    }
-
-    100% {
-        top: 100%;
-        opacity: 0;
-    }
-}
-
-#sp-hero-inner {
-    position: relative;
-    z-index: 2;
-    max-width: 720px;
-}
-
-#sp-hero-badge {
-    display: inline-block;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: #c8c800;
-    border: 1px solid #c8c800;
-    padding: 3px 10px;
-    margin-bottom: 18px;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-#sp-hero-title {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: clamp(26px, 4vw, 50px);
-    font-weight: 900;
-    color: #fff;
-    margin: 0 0 16px;
-    line-height: 1.1;
-}
-
-.sp-accent {
-    color: #c8c800;
-}
-
-#sp-hero-sub {
-    font-size: 13px;
-    color: #555;
-    line-height: 1.85;
-    max-width: 540px;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-/* ── Tier sections ── */
-.sp-tier {
-    padding: 40px 50px 30px;
-    border-bottom: 1px solid #171717;
-}
-
-.sp-tier-label {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 26px;
-}
-
-.sp-tier-line {
-    flex: 1;
-    height: 1px;
-    background: #1e1e1e;
-}
-
-.sp-tier-name {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: #3a3a3a;
-    white-space: nowrap;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    text-transform: uppercase;
-}
-
-.sp-gold {
-    color: #7a5f05 !important;
-}
-
-.sp-silver {
-    color: #505050 !important;
-}
-
-.sp-partner {
-    color: #333 !important;
-}
-
-/* Grids */
-.sp-tier-grid {
-    display: grid;
-    gap: 16px;
-}
-
-.sp-grid-1 {
-    grid-template-columns: 1fr;
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-.sp-grid-2 {
-    grid-template-columns: repeat(2, 1fr);
-}
-
-.sp-grid-3 {
-    grid-template-columns: repeat(3, 1fr);
-}
-
-.sp-grid-4 {
-    grid-template-columns: repeat(4, 1fr);
-}
-
-/* ── Sponsor card base ── */
-.sp-card {
-    background: #111;
-    border: 1px solid #1e1e1e;
-    border-radius: 3px;
-    padding: 28px 22px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    cursor: default;
-    transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
-    position: relative;
-    overflow: hidden;
+    gap: 0;
 }
 
-.sp-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 0.25s ease;
+/* Category eyebrow — "OUR PARTNERS" */
+#sp-hero-category {
+    font-family: 'Helvetica Neue';
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 45px;
+}
+
+/* Giant display headline — "Sponsors" */
+#sp-hero-display {
+    font-family: 'Helvetica Neue';
+    font-size: clamp(5rem, 10vw, 10rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 0.9;
+    letter-spacing: -3px;
+    margin-bottom: 3vh;
+}
+
+/* Outer bottom row: text-row takes all space, arrow pins to baseline */
+#sp-hero-bottom {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 2rem;
+    width: 100%;
+    margin-top: 48px;
+}
+
+/* Inner row: motto | desc | links — all top-aligned, spaced out */
+#sp-hero-text-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex: 1;
+    gap: 2rem;
+}
+
+/* Left: narrow motto column */
+#sp-hero-motto {
+    font-family: 'Elios Regular', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.32);
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    max-width: 400px;
+    flex-shrink: 0;
+}
+
+/* Center: wider description paragraph */
+#sp-hero-desc {
+    font-family: 'Helvetica Neue';
+    font-size: 13px;
+    font-weight: 430;
+    color: rgba(255, 255, 255, 0.308);
+    line-height: 1.5;
+    max-width: 460px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Far-right diagonal arrow */
+#sp-hero-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: auto;
+    width: 42px;
+    height: 42px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+#sp-hero-arrow svg {
+    width: 18px;
+    height: 18px;
     pointer-events: none;
 }
 
-/* Title sponsor */
-.sp-card-title {
-    border-color: #252500;
-}
-
-.sp-card-title::after {
-    background: radial-gradient(ellipse at 50% -10%, rgba(200, 200, 0, 0.10) 0%, transparent 65%);
-}
-
-.sp-card-title:hover {
-    border-color: #c8c800;
-    background: #121200;
-    box-shadow: 0 0 30px rgba(200, 200, 0, 0.10);
-}
-
-.sp-card-title:hover::after {
-    opacity: 1;
-}
-
-/* Gold */
-.sp-card-gold {
-    border-color: #1e1500;
-}
-
-.sp-card-gold::after {
-    background: radial-gradient(ellipse at 50% -10%, rgba(184, 146, 10, 0.10) 0%, transparent 65%);
-}
-
-.sp-card-gold:hover {
-    border-color: #b8920a;
-    background: #110d00;
-    box-shadow: 0 0 24px rgba(184, 146, 10, 0.10);
-}
-
-.sp-card-gold:hover::after {
-    opacity: 1;
-}
-
-/* Silver */
-.sp-card-silver {
-    border-color: #1e1e1e;
-}
-
-.sp-card-silver::after {
-    background: radial-gradient(ellipse at 50% -10%, rgba(110, 110, 110, 0.08) 0%, transparent 65%);
-}
-
-.sp-card-silver:hover {
-    border-color: #4a4a4a;
-    background: #131313;
-    box-shadow: 0 0 18px rgba(100, 100, 100, 0.08);
-}
-
-.sp-card-silver:hover::after {
-    opacity: 1;
-}
-
-/* Partner (compact horizontal) */
-.sp-card-partner {
-    flex-direction: row;
-    padding: 14px 14px;
-    gap: 12px;
-    align-items: center;
-}
-
-.sp-card-partner:hover {
-    border-color: #2e2e2e;
-    background: #131313;
-}
-
-/* Logo area */
-.sp-card-logo-wrap {
-    width: 100%;
-    min-height: 68px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.sp-card-logo-wrap img {
-    max-width: 100%;
-    max-height: 68px;
-    object-fit: contain;
-    filter: brightness(0.8) grayscale(0.15);
-    transition: filter 0.25s ease;
-}
-
-.sp-card:hover .sp-card-logo-wrap img {
-    filter: brightness(1) grayscale(0);
-}
-
-.sp-logo-placeholder {
-    width: 100%;
-    max-width: 180px;
-    opacity: 0.35;
-}
-
-.sp-logo-sm {
-    width: 72px;
-    flex-shrink: 0;
-    opacity: 0.3;
-}
-
-/* Card text */
-.sp-card-info {
-    text-align: center;
-    width: 100%;
-}
-
-.sp-card-org {
-    font-size: 14px;
-    font-weight: 700;
-    color: #d0d0d0;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-.sp-card-type {
-    font-size: 9px;
-    color: #3a3a3a;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-top: 4px;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-.sp-placeholder-text {
-    color: #2a2a2a !important;
-}
-
-/* ── CTA strip ── */
-#sp-cta {
-    margin-top: auto;
-    background: #0e0e0e;
-    border-top: 1px solid #1a1a1a;
-    padding: 26px 50px;
-}
-
-#sp-cta-inner {
-    display: flex;
-    align-items: center;
-    gap: 22px;
-}
-
-#sp-cta-icon {
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    border: 1px solid #2a2a00;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #c8c800;
-}
-
-#sp-cta-icon svg {
-    width: 20px;
-    height: 20px;
-}
-
-#sp-cta-text {
-    flex: 1;
-}
-
-#sp-cta-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: #d0d0d0;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-#sp-cta-desc {
-    font-size: 11px;
-    color: #444;
-    margin-top: 4px;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-#sp-cta-btn {
-    background: #c8c800;
-    color: #111;
-    border: none;
-    padding: 10px 28px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    cursor: pointer;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    transition: background 0.15s, box-shadow 0.15s;
-    border-radius: 2px;
-    flex-shrink: 0;
-    text-transform: uppercase;
-}
-
-#sp-cta-btn:hover {
-    background: #e2e200;
-    box-shadow: 0 0 18px rgba(200, 200, 0, 0.3);
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-
-    .sp-grid-3,
-    .sp-grid-4 {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .sp-tier {
-        padding: 28px 20px 20px;
-    }
-
-    #sp-hero {
-        padding: 36px 24px 28px;
-    }
-
-    #sp-cta {
-        padding: 20px 24px;
-    }
-
-    #sp-cta-inner {
-        flex-wrap: wrap;
-    }
+#sp-hero-arrow:hover {
+    border-color: rgba(255, 255, 255, 0.7);
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -1970,7 +1682,7 @@ body {
 .letter-inner {
     display: inline-block;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: clamp(3rem, 11vw, 14rem);
+    font-size: clamp(2rem, 7vw, 9rem);
     font-weight: 400;
     text-transform: uppercase;
     line-height: 0.85;
@@ -2028,15 +1740,11 @@ body {
 #home-video-bg {
     position: absolute;
     top: 0px;
-    bottom: 36px;
     left: 36px;
-    /* Increased left gap */
-    right: 36px;
-    /* Increased right gap */
-
-    /* Calculate dimensions based on the new gaps */
-    width: calc(100% - 64px);
-    height: calc(100% - 60px);
+    bottom: 36px;
+    width: calc(100% - 72px);
+    /* 100% minus the top and bottom gaps (0+36=36) */
+    height: calc(100% - 36px);
 
     object-fit: cover;
     z-index: 0;
@@ -2269,4 +1977,77 @@ body {
 #data-tab.home-visible #home-scroll-hint {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* ── Sponsors Light Theme Overrides ── */
+body.sponsors-light-theme {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+body.sponsors-light-theme #toolbar {
+    background: #ffffff !important;
+}
+
+body.sponsors-light-theme .toolbar-btn {
+    color: #000000 !important;
+}
+
+body.sponsors-light-theme .toolbar-btn span {
+    font-weight: 400 !important;
+}
+
+body.sponsors-light-theme .toolbar-btn:hover {
+    background: rgba(0, 0, 0, 0.05) !important;
+    color: #000000 !important;
+}
+
+body.sponsors-light-theme .toolbar-btn.active {
+    color: #000000 !important;
+}
+
+body.sponsors-light-theme #brand-accent {
+    color: #000000 !important;
+    font-weight: 400;
+}
+
+body.sponsors-light-theme #sp-hero {
+    background: #ffffff !important;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+body.sponsors-light-theme #sp-hero-display {
+    color: #000000 !important;
+    font-size: 90px;
+    font-weight: 600;
+}
+
+body.sponsors-light-theme #sp-hero-category {
+    color: rgba(0, 0, 0, 0.759) !important;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+body.sponsors-light-theme #sp-hero-motto {
+    color: rgba(0, 0, 0, 0.6) !important;
+}
+
+body.sponsors-light-theme #sp-hero-desc {
+    color: rgba(0, 0, 0, 0.426) !important;
+}
+
+body.sponsors-light-theme .sp-hero-link {
+    color: rgba(0, 0, 0, 0.6) !important;
+}
+
+body.sponsors-light-theme .sp-hero-link:hover {
+    color: #000000 !important;
+}
+
+body.sponsors-light-theme #sponsors-page {
+    background: #ffffff !important;
+}
+
+body.sponsors-light-theme #trinetra-logo {
+    filter: invert(1);
 }
