@@ -7,6 +7,16 @@
     font-display: swap;
 }
 
+/* ===== SIGURD ===== */
+
+@font-face {
+    font-family: 'Sigurd';
+    src: url('fonts/fonnts.com-Sigurd-Light.otf') format('opentype');
+    font-weight: 50;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* ===== HELVETICA NEUE FONT FACES ===== */
 
 /* Ultra Light — 100 */
@@ -483,6 +493,11 @@ body {
     height: 83px;
     gap: 13px;
     line-height: 1;
+    transition: margin-top 0.3s ease-in-out;
+}
+
+#toolbar.toolbar-hidden {
+    margin-top: -83px;
 }
 
 .toolbar-btn {
@@ -1454,15 +1469,15 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     background: #000;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
 #sponsors-tab::-webkit-scrollbar {
-    width: 4px;
-}
-
-#sponsors-tab::-webkit-scrollbar-thumb {
-    background: #2a2a2a;
-    border-radius: 2px;
+    display: none;
 }
 
 #sponsors-page {
@@ -1470,6 +1485,7 @@ body {
     min-height: 100%;
     display: flex;
     flex-direction: column;
+    container-type: inline-size;
 }
 
 /* ── Sponsors Hero — */
@@ -1478,7 +1494,6 @@ body {
     width: 100%;
     padding: 260px 60px 24px 35px;
     background: #000;
-    border-bottom: 1px solid #1a1a1a;
     overflow: hidden;
     flex-shrink: 0;
     display: flex;
@@ -1578,6 +1593,78 @@ body {
     border-color: rgba(255, 255, 255, 0.7);
     color: #ffffff;
     background: rgba(255, 255, 255, 0.05);
+}
+
+#sp-next-page {
+    --ribbon-size: 50px;
+    --heading-top: -2.0cqw;
+
+    width: calc(100% - (var(--ribbon-size) * 2));
+    margin: -1px auto auto;
+    min-height: 100vh;
+    background-color: #000000;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+#sp-carousel-heading {
+    position: absolute;
+    top: var(--heading-top);
+    
+    /* Lock the physical size of the text block to the original black box size */
+    width: calc((100cqw - 100px) * 1.015);
+    font-size: calc((100cqw - 100px) * 0.132);
+    
+    /* Keep it perfectly glued to the unmoving center of the screen, offset slightly for side-bearings */
+    left: 50%;
+    transform: translateX(calc(-50% - ((100cqw - 100px) * 0.0063)));
+
+    font-family: 'Sigurd', serif;
+    font-style: normal;
+    color: #ffffff;
+
+    letter-spacing: -1px;
+    word-spacing: calc((100cqw - 100px) * 0.015);
+    text-transform: uppercase;
+    line-height: 1;
+
+    text-align: justify;
+    text-align-last: justify;
+    white-space: nowrap;
+
+    margin: 0;
+    padding: 0;
+}
+
+/* Skiper 49 Swiper Styles */
+.Carousal_003 {
+    width: 100%;
+    max-width: 900px;
+    height: 350px;
+    padding-bottom: 50px !important;
+}
+
+.Carousal_003 .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 300px;
+    height: 300px;
+}
+
+.Carousal_003 .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#sp-next-page .swiper-pagination-bullet {
+    background-color: #fff !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -2013,7 +2100,6 @@ body.sponsors-light-theme #brand-accent {
 
 body.sponsors-light-theme #sp-hero {
     background: #ffffff !important;
-    border-bottom: 1px solid #e0e0e0;
 }
 
 body.sponsors-light-theme #sp-hero-display {
@@ -2044,8 +2130,13 @@ body.sponsors-light-theme .sp-hero-link:hover {
     color: #000000 !important;
 }
 
-body.sponsors-light-theme #sponsors-page {
+body.sponsors-light-theme #sponsors-page,
+body.sponsors-light-theme #sponsors-tab {
     background: #ffffff !important;
+}
+
+body.sponsors-light-theme #sp-next-page {
+    background: #000000 !important;
 }
 
 body.sponsors-light-theme #trinetra-logo {

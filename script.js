@@ -33,6 +33,13 @@ function showTabBase(name) {
         const btn = document.getElementById('btn-sponsors');
         if (btn) btn.classList.add('active');
         document.getElementById('sponsors-tab').style.display = 'flex';
+
+        // Update Swiper layout and reset to middle slide once the container is visible
+        const swiperEl = document.getElementById('sponsors-swiper');
+        if (swiperEl && swiperEl.swiper) {
+            swiperEl.swiper.update();
+            swiperEl.swiper.slideToLoop(2, 0);
+        }
     } else if (name === 'plan') {
         const btn = document.getElementById('btn-plan');
         if (btn) btn.classList.add('active');
@@ -123,7 +130,7 @@ const TEAM_MEMBERS = [
         city: 'Adityapuram, Gwalior',
         branch: 'IT', year: '2nd Year',
         work: 'Documentation and logic designing.',
-        image: 'videos/a.jpeg', portfolio: '#', github: '#', linkedin: '#'
+        image: 'images/a.jpeg', portfolio: '#', github: '#', linkedin: '#'
     },
     {
         id: 7,
@@ -793,7 +800,34 @@ async function loadTabs() {
         if (response.ok) {
             const html = await response.text();
             const tab = document.getElementById('sponsors-tab');
-            if (tab) tab.innerHTML = html;
+            if (tab) {
+                tab.innerHTML = html;
+
+                // Initialize Swiper for Sponsors Next Page (Skiper 49)
+                if (window.Swiper) {
+                    new Swiper('#sponsors-swiper', {
+                        effect: 'coverflow',
+                        grabCursor: true,
+                        centeredSlides: true,
+                        slidesPerView: 3,
+                        loop: true,
+                        initialSlide: 2,
+                        observer: true,
+                        observeParents: true,
+                        coverflowEffect: {
+                            rotate: 40,
+                            stretch: 0,
+                            depth: 100,
+                            modifier: 1,
+                            slideShadows: true,
+                        },
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                        }
+                    });
+                }
+            }
         }
     } catch (e) {
         console.error('Failed to load sponsors tab:', e);
@@ -972,7 +1006,7 @@ function initSimCarousel() {
 }
 
 // ===== INITIALISE ON LOAD =====
-window.addEventListener('load', async () => {
+document.addEventListener('DOMContentLoaded', async () => {
     await loadTabs();          // inject all tab HTML first
     runSplash(() => {
         initSimCarousel();
@@ -982,6 +1016,48 @@ window.addEventListener('load', async () => {
             const dt = document.getElementById('data-tab');
             if (dt) dt.classList.add('home-visible');
         }, 40);
+
+        // Hide/Show Toolbar on Scroll
+        const toolbar = document.getElementById('toolbar');
+        const scrollableTabs = ['data-tab', 'sim-tab', 'sponsors-tab', 'plan-tab', 'vehicles-tab'];
+
+        scrollableTabs.forEach(id => {
+            const tab = document.getElementById(id);
+            if (!tab) return;
+
+            let lastScrollTop = 0;
+            tab.addEventListener('scroll', () => {
+                const scrollTop = tab.scrollTop;
+
+                // 1. Always show if near the top
+                if (scrollTop <= 50) {
+                    toolbar?.classList.remove('toolbar-hidden');
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+                    return;
+                }
+
+                // 2. Ignore rubber-banding at the bottom (macOS/iOS)
+                const maxScroll = tab.scrollHeight - tab.clientHeight;
+                if (scrollTop >= maxScroll) {
+                    lastScrollTop = scrollTop;
+                    return;
+                }
+
+                // 3. Require a minimum scroll delta to prevent layout-shift stutters
+                if (Math.abs(scrollTop - lastScrollTop) < 15) {
+                    return;
+                }
+
+                // 4. Toggle based on direction
+                if (scrollTop > lastScrollTop) {
+                    toolbar?.classList.add('toolbar-hidden');
+                } else {
+                    toolbar?.classList.remove('toolbar-hidden');
+                }
+
+                lastScrollTop = scrollTop;
+            });
+        });
     });
 });
 
@@ -1015,16 +1091,32 @@ function makeResizable(resizerId, targetId) {
             document.body.style.cursor = '';
         }
     });
-} tyle.width = newWidth + 'px';
-
-if (planMap && targetId === 'team-sidebar') {
-    planMap.invalidateSize();
 }
 
-document.addEventListener('mouseup', () => {
-    if (isResizing) {
-        isResizing = false;
-        resizer.classList.remove('resizing');
-        document.body.style.cursor = '';
+// --- Sponsors Scroll Animation ---
+document.addEventListener('DOMContentLoaded', () => {
+    const sponsorsTab = document.getElementById('sponsors-tab');
+
+    if (sponsorsTab) {
+        sponsorsTab.addEventListener('scroll', () => {
+            const nextPage = document.getElementById('sp-next-page');
+            if (!nextPage) return;
+
+            const st = sponsorsTab.scrollTop;
+            const maxScroll = 400; // Complete animation over 400px of scrolling
+            let progress = Math.min(st / maxScroll, 1);
+
+            // Ease out cubic for a smoother, premium finish
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+
+            // Ribbon shrinks from 50px to 0px
+            const newRibbonSize = 50 * (1 - easeOut);
+
+            // Heading drops from -2.0cqw down to 0cqw (fully visible)
+            const newHeadingTop = -2.0 + (2.0 * easeOut);
+
+            nextPage.style.setProperty('--ribbon-size', `${newRibbonSize}px`);
+            nextPage.style.setProperty('--heading-top', `${newHeadingTop}cqw`);
+        });
     }
 });
