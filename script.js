@@ -1021,6 +1021,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         const toolbar = document.getElementById('toolbar');
         const scrollableTabs = ['data-tab', 'sim-tab', 'sponsors-tab', 'plan-tab', 'vehicles-tab'];
 
+        // Auto-hide timer: if toolbar was revealed by scroll-up but nobody
+        // interacts with it, collapse it again after 2 seconds.
+        let toolbarAutoHideTimer = null;
+
+        function scheduleToolbarAutoHide() {
+            clearTimeout(toolbarAutoHideTimer);
+            toolbarAutoHideTimer = setTimeout(() => {
+                toolbar?.classList.add('toolbar-hidden');
+            }, 2000);
+        }
+
+        function cancelToolbarAutoHide() {
+            clearTimeout(toolbarAutoHideTimer);
+        }
+
+        // Hovering over the toolbar cancels the auto-hide
+        toolbar?.addEventListener('mouseenter', cancelToolbarAutoHide);
+
         scrollableTabs.forEach(id => {
             const tab = document.getElementById(id);
             if (!tab) return;
@@ -1029,9 +1047,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             tab.addEventListener('scroll', () => {
                 const scrollTop = tab.scrollTop;
 
-                // 1. Always show if near the top
+                // 1. Always show if near the top — cancel any pending auto-hide
                 if (scrollTop <= 50) {
                     toolbar?.classList.remove('toolbar-hidden');
+                    cancelToolbarAutoHide();
                     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
                     return;
                 }
@@ -1050,9 +1069,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 // 4. Toggle based on direction
                 if (scrollTop > lastScrollTop) {
+                    // Scrolling down — hide toolbar immediately, cancel any pending auto-hide
                     toolbar?.classList.add('toolbar-hidden');
+                    cancelToolbarAutoHide();
                 } else {
+                    // Scrolling up — show toolbar, then auto-hide after 2s if untouched
                     toolbar?.classList.remove('toolbar-hidden');
+                    scheduleToolbarAutoHide();
                 }
 
                 lastScrollTop = scrollTop;
@@ -1100,7 +1123,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sponsorsTab) {
         sponsorsTab.addEventListener('scroll', () => {
             const nextPage = document.getElementById('sp-next-page');
-            if (!nextPage) return;
+            const heading = document.getElementById('sp-carousel-heading');
+            if (!nextPage || !heading) return;
 
             const st = sponsorsTab.scrollTop;
             const maxScroll = 400; // Complete animation over 400px of scrolling
@@ -1112,11 +1136,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Ribbon shrinks from 50px to 0px
             const newRibbonSize = 50 * (1 - easeOut);
 
-            // Heading drops from -2.0cqw down to 0cqw (fully visible)
-            const newHeadingTop = -2.0 + (2.0 * easeOut);
+            // Heading settles down by 30px as user scrolls in
+            const headingOffset = -25 + (30 * easeOut);
 
             nextPage.style.setProperty('--ribbon-size', `${newRibbonSize}px`);
-            nextPage.style.setProperty('--heading-top', `${newHeadingTop}cqw`);
+            nextPage.style.setProperty('--heading-offset', `${headingOffset}px`);
         });
     }
 });

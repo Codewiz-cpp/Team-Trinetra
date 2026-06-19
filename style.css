@@ -1655,22 +1655,22 @@ body {
 
 #sp-carousel-heading {
     position: absolute;
-    top: var(--heading-top);
+    top: 0;
 
     /* Lock the physical size of the text block to the original black box size */
     width: calc((100cqw - 100px) * 1.015);
-    font-size: calc((100cqw - 100px) * 0.132);
+    font-size: calc((100cqw - 100px) * 0.101);
 
-    /* Keep it perfectly glued to the unmoving center of the screen, offset slightly for side-bearings */
+    /* X-centering + Y slide-in driven by scroll via --heading-offset */
     left: 50%;
-    transform: translateX(calc(-50% - ((100cqw - 100px) * 0.0063)));
+    transform: translateX(calc(-50% - ((100cqw - 100px) * 0.0063))) translateY(var(--heading-offset, -30px));
 
     font-family: 'Sigurd', serif;
     font-style: normal;
     color: #ffffff;
 
     letter-spacing: -1px;
-    word-spacing: calc((100cqw - 100px) * 0.015);
+    word-spacing: calc((100cqw - 100px) * 0.0142);
     text-transform: uppercase;
     line-height: 1;
 
@@ -1684,15 +1684,15 @@ body {
 
 #sp-carousel-subheading {
     position: absolute;
-    top: calc(var(--heading-top) + calc((100cqw - 100px) * 0.16));
+    top: calc(var(--heading-top) + calc((100cqw - 100px) * 0.15));
     left: 50%;
     transform: translateX(-50%);
-    font-family: 'Sigurd', serif;
+    font-family: 'Helvetica Neue';
+    font-weight: 200;
     font-style: normal;
-    color: rgb(255, 255, 255);
-    font-size: calc((100cqw - 100px) * 0.05);
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.742);
+    font-size: calc((100cqw - 1000px) * 0.04);
+    letter-spacing: 0px;
     white-space: nowrap;
     text-align: center;
 }
@@ -1702,8 +1702,8 @@ body {
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    width: 95%;
-    max-width: 1500px;
+    /* Match left/right edges to #sp-carousel-heading */
+    width: calc((100cqw - 100px) * 1.015);
     margin: 40vh auto 5vh auto;
     background-color: #000000;
 }
@@ -1742,7 +1742,8 @@ body {
     justify-content: center;
     padding: 60px 50px;
     color: #ffffff;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Helvetica Neue';
+    letter-spacing: 1px;
     box-sizing: border-box;
 }
 
