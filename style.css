@@ -486,8 +486,7 @@ body {
 /* Top toolbar */
 #toolbar {
     background: rgba(15, 15, 15, 0.4);
-    /* Glass tint */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: none;
     -webkit-backdrop-filter: blur(40px);
     backdrop-filter: blur(40px);
     display: flex;
@@ -1850,8 +1849,7 @@ body {
 #sp-cta-section {
     width: 100%;
     margin: 0 auto;
-    min-height: 99vh;
-    padding: 20px 60px 0;
+    padding: 20px 60px 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2004,7 +2002,7 @@ body {
     background: #000;
     display: flex;
     flex-direction: column;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: none;
 }
 
 #sp-footer-inner {
