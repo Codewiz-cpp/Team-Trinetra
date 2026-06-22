@@ -1,0 +1,36 @@
+{
+  "name": "team-trinetra",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "esbuild src/mountSponsorButton.tsx --bundle --outfile=../dist/sponsorButtonBundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Codewiz-cpp/Team-Trinetra.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Codewiz-cpp/Team-Trinetra/issues"
+  },
+  "homepage": "https://github.com/Codewiz-cpp/Team-Trinetra#readme",
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.40.0",
+    "lucide-react": "^1.21.0",
+    "tailwind-merge": "^3.6.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "esbuild": "^0.28.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "typescript": "^6.0.3"
+  }
+}

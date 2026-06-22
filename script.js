@@ -803,6 +803,11 @@ async function loadTabs() {
             if (tab) {
                 tab.innerHTML = html;
 
+                // Mount React Sponsor Button
+                if (typeof window.mountSponsorButton === 'function') {
+                    window.mountSponsorButton();
+                }
+
                 // Initialize Swiper for Sponsors Next Page (Skiper 49)
                 if (window.Swiper) {
                     new Swiper('#sponsors-swiper', {
@@ -1145,3 +1150,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+

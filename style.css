@@ -1568,7 +1568,7 @@ body {
     align-items: flex-end;
     gap: 2rem;
     width: 100%;
-    margin-top: 48px;
+    margin-top: 40px;
 }
 
 /* Inner row: motto | desc | links — all top-aligned, spaced out */
@@ -1982,6 +1982,7 @@ body {
         margin-bottom: 56px;
     }
 }
+
 
 @media (max-width: 900px) {
     .sponsor-feature-section {
@@ -2626,4 +2627,150 @@ body.sponsors-light-theme #sp-next-page {
 
 body.sponsors-light-theme #trinetra-logo {
     filter: invert(1);
+}
+
+/* -- React Sponsor Component Styles -- */
+.react-sp-container {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.react-sp-button-collapsed {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+    padding: 16px 44px;
+    color: #ffffff;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.react-sp-button-collapsed:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: #ffffff !important;
+}
+
+.react-sp-form-expanded {
+    background: #ffffff;
+    color: #000000;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    padding: 40px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    cursor: default;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.react-sp-form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.react-sp-form-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.react-sp-close-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+    color: #555;
+}
+
+.react-sp-close-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #000;
+}
+
+.react-sp-form-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+}
+
+.react-sp-full-width {
+    grid-column: span 2;
+}
+
+.react-sp-field-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+}
+
+.react-sp-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #555;
+}
+
+.react-sp-input,
+.react-sp-textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #f9f9f9;
+    font-family: inherit;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.react-sp-input:focus,
+.react-sp-textarea:focus {
+    outline: none;
+    border-color: #000;
+}
+
+.react-sp-textarea {
+    resize: vertical;
+}
+
+.react-sp-submit-btn {
+    margin-top: 8px;
+    width: 100%;
+    background: #000000;
+    color: #ffffff;
+    border: none;
+    padding: 16px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.react-sp-submit-btn:hover {
+    background: #333333;
 }
