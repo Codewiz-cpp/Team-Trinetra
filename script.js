@@ -1137,10 +1137,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const newRibbonSize = 50 * (1 - easeOut);
 
             // Heading settles down by 30px as user scrolls in
-            const headingOffset = -25 + (30 * easeOut);
+            const headingOffset = -30 + (30 * easeOut);
 
             nextPage.style.setProperty('--ribbon-size', `${newRibbonSize}px`);
             nextPage.style.setProperty('--heading-offset', `${headingOffset}px`);
+            nextPage.style.setProperty('--subheading-opacity', easeOut);
         });
     }
 });

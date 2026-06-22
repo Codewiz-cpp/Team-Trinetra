@@ -454,7 +454,6 @@
     }
 }
 
-/* Leaflet popup — dark theme */
 .geo-popup .leaflet-popup-content-wrapper {
     background: #1e1e1e;
     border: 1px solid #3a3a3a;
@@ -483,7 +482,6 @@ body {
     flex-direction: column;
 }
 
-/* Top toolbar */
 #toolbar {
     background: rgba(15, 15, 15, 0.4);
     border-bottom: none;
@@ -1539,6 +1537,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0;
+    min-height: calc(100vh - 50px - ((100cqw - 100px) * 0.101));
 }
 
 /* Category eyebrow — "OUR PARTNERS" */
@@ -1640,8 +1639,9 @@ body {
     --heading-top: -2.0cqw;
 
     width: calc(100% - (var(--ribbon-size) * 2));
-    margin: -1px auto auto;
-    min-height: 100vh;
+    margin: -2px auto auto;
+    min-height: fit-content;
+    padding-bottom: 10vh;
     background-color: #000000;
     flex-shrink: 0;
     display: flex;
@@ -1694,6 +1694,8 @@ body {
     letter-spacing: 0px;
     white-space: nowrap;
     text-align: center;
+    opacity: var(--subheading-opacity, 0);
+    transition: opacity 0.1s ease-out;
 }
 
 /* Minimalist two-column feature section */
@@ -1849,7 +1851,7 @@ body {
 #sp-cta-section {
     width: 100%;
     margin: 0 auto;
-    padding: 20px 60px 80px;
+    padding: 90px 60px calc(80px + 30vh);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2003,14 +2005,51 @@ body {
     display: flex;
     flex-direction: column;
     border-top: none;
+    position: relative;
 }
 
 #sp-footer-inner {
     width: 100%;
-    padding: 64px 60px 48px;
+    padding: 64px 60px 100px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: stretch;
     box-sizing: border-box;
+}
+
+#sp-footer-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sp-footer-copyright {
+    color: #ffffff;
+    font-size: 16px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    position: absolute;
+    bottom: 20px;
+    left: 60px;
+}
+
+#sp-footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sp-footer-logo {
+    width: 37px;
+    height: 37px;
+}
+
+.sp-footer-brand-name {
+    color: #ffffff;
+    font-size: 30px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    letter-spacing: 1px;
 }
 
 #sp-footer-cols {
@@ -2026,10 +2065,11 @@ body {
 
 .sp-footer-col-head {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 3px;
-    color: rgba(255, 255, 255, 0.9);
+    padding-bottom: 15px;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.38);
     text-transform: uppercase;
     margin: 0;
 }
@@ -2045,9 +2085,9 @@ body {
 
 .sp-footer-link {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 12px;
+    font-size: 18px;
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.38);
+    color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
     letter-spacing: 0.5px;
     transition: color 0.2s ease;
