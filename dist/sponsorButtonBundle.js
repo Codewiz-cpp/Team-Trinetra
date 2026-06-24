@@ -1340,7 +1340,7 @@
           return dispatcher;
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var React2 = require_react(), Internals = {
+        var React3 = require_react(), Internals = {
           d: {
             f: noop2,
             r: function() {
@@ -1358,7 +1358,7 @@
           },
           p: 0,
           findDOMNode: null
-        }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+        }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
         "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
           "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
         );
@@ -2893,7 +2893,7 @@
           "number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
         }
         function validateOptionProps(element, props) {
-          null == props.value && ("object" === typeof props.children && null !== props.children ? React2.Children.forEach(props.children, function(child) {
+          null == props.value && ("object" === typeof props.children && null !== props.children ? React3.Children.forEach(props.children, function(child) {
             null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
               "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
             ));
@@ -18525,14 +18525,14 @@
           ));
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var Scheduler = require_scheduler(), React2 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
+        var Scheduler = require_scheduler(), React3 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
         /* @__PURE__ */ Symbol.for("react.scope");
         var REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity");
         /* @__PURE__ */ Symbol.for("react.legacy_hidden");
         /* @__PURE__ */ Symbol.for("react.tracing_marker");
         var REACT_MEMO_CACHE_SENTINEL = /* @__PURE__ */ Symbol.for("react.memo_cache_sentinel");
         /* @__PURE__ */ Symbol.for("react.view_transition");
-        var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+        var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
           pending: false,
           data: null,
           method: null,
@@ -21320,7 +21320,7 @@
           }
         };
         (function() {
-          var isomorphicReactPackageVersion = React2.version;
+          var isomorphicReactPackageVersion = React3.version;
           if ("19.2.7" !== isomorphicReactPackageVersion)
             throw Error(
               'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.7\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -21674,18 +21674,18 @@
         function isValidElement(object) {
           return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
         }
-        var React2 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+        var React3 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
           return null;
         };
-        React2 = {
+        React3 = {
           react_stack_bottom_frame: function(callStackForError) {
             return callStackForError();
           }
         };
         var specialPropKeyWarningShown;
         var didWarnAboutElementRef = {};
-        var unknownOwnerDebugStack = React2.react_stack_bottom_frame.bind(
-          React2,
+        var unknownOwnerDebugStack = React3.react_stack_bottom_frame.bind(
+          React3,
           UnknownOwner
         )();
         var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
@@ -33753,20 +33753,110 @@
     );
   }
 
-  // src/mountSponsorButton.tsx
+  // src/BentoSubtitleWrapper.tsx
+  var import_react24 = __toESM(require_react(), 1);
+
+  // src/TextRoll.tsx
   var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
+  var STAGGER = 0.015;
+  var TextRoll = ({ children, className, center = false, isHovered }) => {
+    return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+      motion.span,
+      {
+        initial: "initial",
+        animate: isHovered ? "hovered" : "initial",
+        className: className || "",
+        style: {
+          position: "relative",
+          display: "block",
+          overflow: "hidden",
+          lineHeight: 1.4
+          // changed from 0.75 to match bento subtitle design
+        },
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { children: children.split("").map((l, i) => {
+            const delay2 = center ? STAGGER * Math.abs(i - (children.length - 1) / 2) : STAGGER * i;
+            return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+              motion.span,
+              {
+                variants: {
+                  initial: { y: 0 },
+                  hovered: { y: "-100%" }
+                },
+                transition: { ease: "easeInOut", delay: delay2, duration: 0.15 },
+                style: { display: "inline-block", whiteSpace: "pre" },
+                children: l === " " ? "\xA0" : l
+              },
+              i
+            );
+          }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { style: { position: "absolute", top: 0, right: 0, bottom: 0, left: 0 }, children: children.split("").map((l, i) => {
+            const delay2 = center ? STAGGER * Math.abs(i - (children.length - 1) / 2) : STAGGER * i;
+            return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+              motion.span,
+              {
+                variants: {
+                  initial: { y: "100%" },
+                  hovered: { y: 0 }
+                },
+                transition: { ease: "easeInOut", delay: delay2, duration: 0.15 },
+                style: { display: "inline-block", whiteSpace: "pre" },
+                children: l === " " ? "\xA0" : l
+              },
+              i
+            );
+          }) })
+        ]
+      }
+    );
+  };
+
+  // src/BentoSubtitleWrapper.tsx
+  var import_jsx_runtime5 = __toESM(require_jsx_runtime(), 1);
+  var BentoSubtitleWrapper = ({ text, parentElement }) => {
+    const [isHovered, setIsHovered] = (0, import_react24.useState)(false);
+    (0, import_react24.useEffect)(() => {
+      const handleMouseEnter = () => setIsHovered(true);
+      const handleMouseLeave = () => setIsHovered(false);
+      parentElement.addEventListener("mouseenter", handleMouseEnter);
+      parentElement.addEventListener("mouseleave", handleMouseLeave);
+      return () => {
+        parentElement.removeEventListener("mouseenter", handleMouseEnter);
+        parentElement.removeEventListener("mouseleave", handleMouseLeave);
+      };
+    }, [parentElement]);
+    return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(TextRoll, { isHovered, center: false, children: text });
+  };
+
+  // src/mountSponsorButton.tsx
+  var import_jsx_runtime6 = __toESM(require_jsx_runtime(), 1);
   function initSponsorButton() {
     const container = document.getElementById("react-sponsor-button-root");
     if (container) {
       if (!container.hasChildNodes()) {
         const root = (0, import_client.createRoot)(container);
-        root.render(/* @__PURE__ */ (0, import_jsx_runtime4.jsx)(ExpandableSponsorButton, {}));
+        root.render(/* @__PURE__ */ (0, import_jsx_runtime6.jsx)(ExpandableSponsorButton, {}));
       }
     } else {
       console.warn("Could not find '#react-sponsor-button-root' to mount the React component.");
     }
   }
+  function initBentoSubtitles() {
+    const bentoItems = document.querySelectorAll(".bento-item");
+    bentoItems.forEach((item) => {
+      const subtitleEl = item.querySelector(".bento-subtitle");
+      if (subtitleEl && !subtitleEl.hasAttribute("data-react-mounted")) {
+        const text = subtitleEl.textContent || "";
+        subtitleEl.textContent = "";
+        const root = (0, import_client.createRoot)(subtitleEl);
+        root.render(/* @__PURE__ */ (0, import_jsx_runtime6.jsx)(BentoSubtitleWrapper, { text, parentElement: item }));
+        subtitleEl.setAttribute("data-react-mounted", "true");
+      }
+    });
+  }
   window.mountSponsorButton = initSponsorButton;
+  window.mountBentoSubtitles = initBentoSubtitles;
+  initBentoSubtitles();
 })();
 /*! Bundled license information:
 
