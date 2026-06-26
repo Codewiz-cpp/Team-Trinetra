@@ -1014,6 +1014,7 @@ function initSimCarousel() {
 document.addEventListener('DOMContentLoaded', async () => {
     await loadTabs();          // inject all tab HTML first
     runSplash(() => {
+        initHeroAnimation();
         initSimCarousel();
         initPlanMap();         // populates team cards immediately
         showTab('home');       // make home/data tab visible as default
@@ -1210,6 +1211,7 @@ function initHeroAnimation() {
                 }
             }
 
+            span.style.opacity = '0';
             lineDiv.appendChild(span);
             charElements.push({
                 element: span,
@@ -1304,11 +1306,6 @@ function initHeroAnimation() {
         }, "-=" + scrambleDuration);
     }
 
-    // Start the animation loop after a 1 second initial delay
-    setTimeout(runCycle, 5000);
+    // Start the animation loop after a 500ms initial delay
+    setTimeout(runCycle, 500);
 }
-
-// Initialise when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    initHeroAnimation();
-});
