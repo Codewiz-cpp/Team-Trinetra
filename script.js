@@ -1151,3 +1151,164 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// ===== HERO TYPOGRAPHY ANIMATION =====
+function initHeroAnimation() {
+    const heroTextContainer = document.getElementById('hero-text-container');
+    if (!heroTextContainer) return;
+
+    heroTextContainer.innerHTML = '';
+
+    const linesText = [
+        "© TEAM TRINETRA",
+        "SECURING THE SKIES",
+        "TO SAVE LIVES",
+        "AT SUAS ➤ 2026"
+    ];
+
+    const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+    const charElements = [];
+
+    linesText.forEach((text, lineIndex) => {
+        const lineDiv = document.createElement('div');
+        lineDiv.className = `hero-line hero-line-${lineIndex + 1}`;
+        heroTextContainer.appendChild(lineDiv);
+
+        for (let i = 0; i < text.length; i++) {
+            const span = document.createElement('span');
+            span.className = 'hero-char';
+
+            const isArrow = (lineIndex === 3 && i === 8);
+
+            if (isArrow) {
+                span.innerHTML = '<img src="arrow-right-svgrepo-com.svg" style="width: 1.2em; height: 1.2em; filter: invert(1); vertical-align: middle;">';
+            } else {
+                span.textContent = text[i] === ' ' ? '\u00A0' : text[i];
+            }
+
+            span.dataset.char = text[i];
+
+            if (lineIndex === 3) {
+                if (i >= 8) {
+                    span.style.fontSize = "0.5em";
+                    span.style.verticalAlign = "top";
+                    span.style.position = "relative";
+                    span.style.top = "-0.2em";
+                }
+
+                if (i === 8) {
+                    span.style.display = "inline-flex";
+                    span.style.alignItems = "center";
+                    span.style.margin = "0 1em 0 0.2em";
+                    span.style.top = "-0.3em";
+                }
+
+                if (i >= text.length - 4) {
+                    span.style.fontFamily = "'Elios Regular', sans-serif";
+                    span.style.textTransform = "none";
+                    span.style.fontWeight = "normal";
+                    span.style.top = "-0.1em";
+                }
+            }
+
+            lineDiv.appendChild(span);
+            charElements.push({
+                element: span,
+                char: text[i] === ' ' ? '\u00A0' : text[i],
+                isSpace: text[i] === ' ',
+                isArrow: isArrow
+            });
+        }
+    });
+
+    const N = charElements.length;
+    const scrambleDuration = 1.0;
+    const displayDuration = 4.0;
+    const hideDuration = 0.5;
+    const windowSize = 0.3; // 30% of the string is scrambling at any moment
+
+    function runCycle() {
+        const tl = gsap.timeline();
+
+        // --- ENTRANCE SCRAMBLE (Left to Right) ---
+        gsap.set('.hero-line', { opacity: 1 });
+        gsap.set('#hero-text-container', { scale: 1 });
+
+        const proxyEnter = { val: 0 };
+        tl.to(proxyEnter, {
+            val: 1 + windowSize,
+            duration: scrambleDuration,
+            ease: "power1.inOut",
+            onUpdate: () => {
+                const progress = proxyEnter.val;
+                charElements.forEach((item, i) => {
+                    const threshold = i / N;
+                    if (threshold < progress - windowSize) {
+                        if (!item.isArrow) item.element.textContent = item.char;
+                        item.element.style.opacity = 1;
+                    } else if (threshold <= progress) {
+                        item.element.style.opacity = 1;
+                        if (!item.isSpace && !item.isArrow && Math.random() < 0.5) {
+                            item.element.textContent = scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+                        }
+                    } else {
+                        item.element.style.opacity = 0;
+                    }
+                });
+            },
+            onComplete: () => {
+                charElements.forEach(item => {
+                    if (!item.isArrow) item.element.textContent = item.char;
+                    item.element.style.opacity = 1;
+                });
+            }
+        });
+
+        // --- HOLD PHASE ---
+        tl.to({}, { duration: displayDuration });
+
+        // --- EXIT SCRAMBLE (Right to Left) ---
+        // Slightly zoom out while scrambling
+        tl.to('#hero-text-container', {
+            scale: 1.05,
+            duration: scrambleDuration,
+            ease: 'power2.in'
+        }, "+=0");
+
+        const proxyExit = { val: 1 + windowSize };
+        tl.to(proxyExit, {
+            val: 0,
+            duration: scrambleDuration,
+            ease: "power1.inOut",
+            onUpdate: () => {
+                const progress = proxyExit.val;
+                charElements.forEach((item, i) => {
+                    const threshold = i / N;
+                    if (threshold >= progress) {
+                        item.element.style.opacity = 0;
+                    } else if (threshold >= progress - windowSize) {
+                        item.element.style.opacity = 1;
+                        if (!item.isSpace && !item.isArrow && Math.random() < 0.5) {
+                            item.element.textContent = scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+                        }
+                    } else {
+                        if (!item.isArrow) item.element.textContent = item.char;
+                        item.element.style.opacity = 1;
+                    }
+                });
+            },
+            onComplete: () => {
+                charElements.forEach(item => {
+                    item.element.style.opacity = 0;
+                });
+            }
+        }, "-=" + scrambleDuration);
+    }
+
+    // Start the animation loop after a 1 second initial delay
+    setTimeout(runCycle, 5000);
+}
+
+// Initialise when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    initHeroAnimation();
+});
