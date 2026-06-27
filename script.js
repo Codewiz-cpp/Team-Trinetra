@@ -56,9 +56,80 @@ function showTab(name) {
     showTabBase(name);
 }
 
+// ===== TEAM MEMBER DETAIL CONTENT =====
+// Domain label, three role paragraphs, and a showcase image per member
+const TEAM_MEMBER_DETAILS = {
+    1: {
+        domain: 'Electrical · Team Lead',
+        paras: [
+            'Oversees end-to-end electrical architecture of the UAV platform, including PCB layout, power distribution board design, and multi-rail voltage regulation for flight-critical subsystems.',
+            'Drives camera integration pipelines and communication link design, ensuring low-latency video telemetry and reliable command uplinks across field test conditions.',
+            'Coordinates cross-domain payload mechanism robotics and flight-time optimisation strategies, balancing power budgets against mission endurance requirements.'
+        ],
+        image: 'images/p.jpeg',
+        caption: 'Team Lead · Electrical'
+    },
+    2: {
+        domain: 'PCB Design · Communications',
+        paras: [
+            'Designs multi-layer PCBs for flight controllers, sensor buses, and custom carrier boards, ensuring signal integrity and EMI compliance in vibration-intensive airframes.',
+            'Responsible for power distribution board architecture, including eFuse protection, current sensing, and regulated output rails for avionics and payloads.',
+            'Integrates camera modules and RF communication subsystems into the electrical stack, managing antenna placement and coaxial routing for maximum link margin.'
+        ],
+        image: 'images/h.jpeg',
+        caption: 'Electrical · PCB Design'
+    },
+    3: {
+        domain: 'Ground Station · Telemetry',
+        paras: [
+            'Operates the ground control station during field missions, monitoring MAVLink telemetry streams and managing uplink commands to the autopilot in real time.',
+            'Designs and validates failsafe logic — including RTL triggers, geofence enforcement, and battery-critical land sequences — to ensure safe autonomous behaviour under edge-case conditions.',
+            'Maintains and tunes the RF telemetry link, configuring data rates, channel hopping, and RSSI thresholds to sustain reliable communication at extended operational ranges.'
+        ],
+        image: 'images/Rishab.jpeg',
+        caption: 'Electrical · Ground Station'
+    },
+    4: {
+        domain: 'Autonomous Navigation · AIML',
+        paras: [
+            'Develops autonomous waypoint path-planning algorithms and integrates ArduCopter mission scripting for fully autonomous sortie execution including payload release sequences.',
+            'Fuses LIDAR point-cloud data with IMU and GPS streams for precise obstacle-aware navigation, enabling safe low-altitude flight in cluttered environments.',
+            'Serves as the primary test pilot, executing hardware-in-the-loop simulation runs before transitioning algorithms to live flight trials on the competition platform.'
+        ],
+        image: 'images/ankitcopy.jpeg',
+        caption: 'AIML · Autonomous Navigation'
+    },
+    5: {
+        domain: 'Computer Vision · AI Systems',
+        paras: [
+            'Trains and deploys YOLOv8-based object detection pipelines for real-time aerial target identification, optimised for latency-constrained onboard inference on edge hardware.',
+            'Implements OpenCV-based image processing routines for target geolocation, coordinate projection, and mission-event triggering integrated with the autopilot command layer.',
+            'Manages ground station visual display overlays, providing operators with annotated live feeds, confidence scores, and bounding-box telemetry during autonomous search missions.'
+        ],
+        image: 'images/m.png',
+        caption: 'AIR · Computer Vision'
+    },
+    6: {
+        domain: 'IT · Web Development & Technical Documentation',
+        paras: [
+            'Hello, I am Aryan Bhadoriya, a third-year undergrad leading our web development and technical documentation.Handling these two critical pillars for SUAS pushed me out of my comfort zone and taught me a lot about my capabilities.',
+            'After focusing deeply on DSA during my first two years, this website marks my first major professional development project. Outside of coding and refining system schematics, I stay sharp and disciplined through chess and a love for fitness.',
+            'Ultimately, I am driven to give my team a competitive edge and secure a top 3 spot for both Website and Technical Design.',
+        ],
+        image: 'images/a.jpeg',
+        caption: 'IT · Web DEV & Documentation'
+    },
+    7: {
+        domain: 'Mechanical · Frame Design',
+        paras: [
+            'Hello, I am Kuldeep Sikarwar, a second-year Mechanical Engineering student at MITS Gwalior. As the CAD Designer for Team Trinetra, I design and validate our UAVs carbon fiber frame — using SolidWorks for precision modeling and ANSYS for structural, modal, and fatigue analysis. My mission is simple: build a structure that never fails when it matters most.',
+        ],
+        image: 'images/Kuldeepcopy.jpeg',
+        caption: 'Mechanical · Frame Design'
+    }
+};
+
 // ===== TEAM DATA =====
-// image: path to photo file, or null to show initials
-// Gwalior members are spread on the map so pins don't overlap
 const TEAM_MEMBERS = [
     {
         id: 1,
@@ -70,7 +141,7 @@ const TEAM_MEMBERS = [
         city: 'Dabra, Madhya Pradesh',
         branch: 'Electrical', year: '2nd Year',
         work: 'Camera integration, communication and PCB designing, power distribution board designing, voltage regulation, flight time optimisation and payload mechanism robotics.',
-        image: null, portfolio: '#', github: '#', linkedin: '#'
+        image: 'images/p.jpeg', portfolio: '#', github: '#', linkedin: '#'
     },
     {
         id: 2,
@@ -82,7 +153,7 @@ const TEAM_MEMBERS = [
         city: 'DD Nagar, Gwalior',
         branch: 'Electrical', year: '2nd Year',
         work: 'Communication and PCB designing, power distribution board designing, voltage regulation and camera integration.',
-        image: null, portfolio: '#', github: '#', linkedin: '#'
+        image: 'images/h.jpeg', portfolio: '#', github: '#', linkedin: '#'
     },
     {
         id: 3,
@@ -94,7 +165,7 @@ const TEAM_MEMBERS = [
         city: 'Isagarh, Madhya Pradesh',
         branch: 'Electrical', year: '2nd Year',
         work: 'Ground station operator, telemetry and fail safe system.',
-        image: null, portfolio: '#', github: '#', linkedin: '#'
+        image: 'images/r.jpeg', portfolio: '#', github: '#', linkedin: '#'
     },
     {
         id: 4,
@@ -106,7 +177,7 @@ const TEAM_MEMBERS = [
         city: 'Gwalior, Madhya Pradesh',
         branch: 'AIML', year: '2nd Year',
         work: 'Autonomous navigation and path planning, AI integration, pilot, sensor integration and LIDAR.',
-        image: null, portfolio: '#', github: '#', linkedin: '#'
+        image: 'images/an.jpeg', portfolio: '#', github: '#', linkedin: '#'
     },
     {
         id: 5,
@@ -118,7 +189,7 @@ const TEAM_MEMBERS = [
         city: 'Gwalior, Madhya Pradesh',
         branch: 'AIR', year: '4th Year',
         work: 'AI engineer, computer vision, YOLO, OpenCV and image processing, ground station handling.',
-        image: null, portfolio: '#', github: '#', linkedin: '#'
+        image: 'images/m.png', portfolio: '#', github: '#', linkedin: '#'
     },
     {
         id: 6,
@@ -142,7 +213,7 @@ const TEAM_MEMBERS = [
         city: 'Jaura, Madhya Pradesh',
         branch: 'Mechanical', year: '2nd Year',
         work: 'AutoCAD, frame design, weight optimisation and payload designing.',
-        image: null, portfolio: '#', github: '#', linkedin: '#'
+        image: 'images/k.jpeg', portfolio: '#', github: '#', linkedin: '#'
     }
 ];
 
@@ -227,6 +298,7 @@ function populateTeamCards() {
                 const firstNameWrap = textContainer.querySelector('.team-bg-text-wrap:not(.surname)');
                 if (firstNameWrap) gsap.to(firstNameWrap, { x: 0, duration: 0.5, ease: 'power3.out' });
 
+
                 if (surnameWrapRef) {
                     const surnameLetters = surnameWrapRef.querySelectorAll('.letter-inner');
                     gsap.killTweensOf(surnameLetters);
@@ -247,6 +319,9 @@ function populateTeamCards() {
                         duration: 0.5, ease: 'power3.out', overwrite: 'auto'
                     });
                 });
+
+                // Hide the detail panel
+                hideMemberDetailPanel();
                 return;
             }
 
@@ -310,6 +385,7 @@ function populateTeamCards() {
             gsap.set(surnameLetters, { yPercent: 105 });
             gsap.to(surnameLetters, { yPercent: 0, duration: 0.5, ease: 'power3.out', stagger: { amount: 0.12, from: "center" } });
 
+
             // Grayscale Wash & Snap Sizes
             const sizes = thumbsArray.map(t => t === thumb ? maxSize : baseSize);
             let currentX = (containerWidth - (sizes.reduce((a, b) => a + b, 0) + (gap * (sizes.length - 1)))) / 2;
@@ -324,6 +400,9 @@ function populateTeamCards() {
                 });
                 currentX += sizes[i] + gap;
             });
+
+            // Show the detail panel for this member
+            showMemberDetailPanel(member);
         });
 
         thumbsArray.push(thumb);
@@ -361,6 +440,71 @@ function populateTeamCards() {
             gsap.to(thumb, { x: startXOffset + (i * (baseSize + gap)), width: baseSize, height: baseSize, duration: 0.45, ease: 'back.out(1.2)', overwrite: 'auto' });
         });
     });
+}
+
+// ── Show team member detail panel ──
+function showMemberDetailPanel(member) {
+    const panel = document.getElementById('team-detail-panel');
+    if (!panel) return;
+
+    const details = TEAM_MEMBER_DETAILS[member.id] || {
+        domain: member.role.toUpperCase(),
+        paras: [member.work, '', ''],
+        image: member.image || '',
+        caption: member.role
+    };
+
+    // Counter: member index / total
+    const idx = TEAM_MEMBERS.findIndex(m => m.id === member.id) + 1;
+    const total = TEAM_MEMBERS.length;
+    const counter = document.getElementById('tdp-counter');
+    if (counter) counter.textContent =
+        String(idx).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+
+    // Domain label
+    const domainEl = document.getElementById('tdp-domain');
+    if (domainEl) domainEl.textContent = details.domain;
+
+    // Paragraphs
+    ['tdp-para-1', 'tdp-para-2', 'tdp-para-3'].forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = details.paras[i] || '';
+    });
+
+    // Image
+    const imgEl = document.getElementById('tdp-image');
+    const frame = imgEl ? imgEl.closest('.tdp-image-frame') : null;
+    const captionEl = document.getElementById('tdp-image-caption');
+
+    if (imgEl && frame) {
+        if (details.image) {
+            imgEl.src = details.image;
+            imgEl.style.display = '';
+            frame.classList.remove('tdp-no-image');
+        } else {
+            imgEl.src = '';
+            imgEl.style.display = 'none';
+            frame.classList.add('tdp-no-image');
+        }
+    }
+
+    if (captionEl) captionEl.textContent = details.caption || '';
+
+    // Trigger slide-up reveal
+    // Remove first to reset transitions on re-pin
+    panel.classList.remove('tdp-visible');
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            panel.classList.add('tdp-visible');
+        });
+    });
+}
+
+// ── Hide team member detail panel ──
+function hideMemberDetailPanel() {
+    const panel = document.getElementById('team-detail-panel');
+    if (!panel) return;
+    panel.classList.remove('tdp-visible');
 }
 
 // ── TEXT ANIMATION (With Aggressive Memory Cleanup) ──
