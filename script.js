@@ -1,4 +1,4 @@
-// ===== TAB SWITCHING =====
+﻿// ===== TAB SWITCHING =====
 function showTabBase(name) {
     if (name === 'sponsors') {
         document.body.classList.add('sponsors-light-theme');
@@ -66,7 +66,7 @@ const TEAM_MEMBER_DETAILS = {
             'Drives camera integration pipelines and communication link design, ensuring low-latency video telemetry and reliable command uplinks across field test conditions.',
             'Coordinates cross-domain payload mechanism robotics and flight-time optimisation strategies, balancing power budgets against mission endurance requirements.'
         ],
-        image: 'images/p.jpeg',
+        image: 'images/optimized/p.webp',
         caption: 'Team Lead · Electrical'
     },
     2: {
@@ -76,7 +76,7 @@ const TEAM_MEMBER_DETAILS = {
             'Responsible for power distribution board architecture, including eFuse protection, current sensing, and regulated output rails for avionics and payloads.',
             'Integrates camera modules and RF communication subsystems into the electrical stack, managing antenna placement and coaxial routing for maximum link margin.'
         ],
-        image: 'images/h.jpeg',
+        image: 'images/optimized/h.webp',
         caption: 'Electrical · PCB Design'
     },
     3: {
@@ -86,7 +86,7 @@ const TEAM_MEMBER_DETAILS = {
             'Designs and validates failsafe logic — including RTL triggers, geofence enforcement, and battery-critical land sequences — to ensure safe autonomous behaviour under edge-case conditions.',
             'Maintains and tunes the RF telemetry link, configuring data rates, channel hopping, and RSSI thresholds to sustain reliable communication at extended operational ranges.'
         ],
-        image: 'images/Rishab.jpeg',
+        image: 'images/optimized/Rishab.webp',
         caption: 'Electrical · Ground Station'
     },
     4: {
@@ -96,7 +96,7 @@ const TEAM_MEMBER_DETAILS = {
             'Fuses LIDAR point-cloud data with IMU and GPS streams for precise obstacle-aware navigation, enabling safe low-altitude flight in cluttered environments.',
             'Serves as the primary test pilot, executing hardware-in-the-loop simulation runs before transitioning algorithms to live flight trials on the competition platform.'
         ],
-        image: 'images/ankitcopy.jpeg',
+        image: 'images/optimized/ankitcopy.webp',
         caption: 'AIML · Autonomous Navigation'
     },
     5: {
@@ -106,7 +106,7 @@ const TEAM_MEMBER_DETAILS = {
             'Implements OpenCV-based image processing routines for target geolocation, coordinate projection, and mission-event triggering integrated with the autopilot command layer.',
             'Manages ground station visual display overlays, providing operators with annotated live feeds, confidence scores, and bounding-box telemetry during autonomous search missions.'
         ],
-        image: 'images/m.png',
+        image: 'images/optimized/m.webp',
         caption: 'AIR · Computer Vision'
     },
     6: {
@@ -116,7 +116,7 @@ const TEAM_MEMBER_DETAILS = {
             'After focusing deeply on DSA during my first two years, this website marks my first major professional development project. Outside of coding and refining system schematics, I stay sharp and disciplined through chess and a love for fitness.',
             'Ultimately, I am driven to give my team a competitive edge and secure a top 3 spot for both Website and Technical Design.',
         ],
-        image: 'images/a.jpeg',
+        image: 'images/optimized/a.webp',
         caption: 'IT · Web DEV & Documentation'
     },
     7: {
@@ -124,7 +124,7 @@ const TEAM_MEMBER_DETAILS = {
         paras: [
             'Hello, I am Kuldeep Sikarwar, a second-year Mechanical Engineering student at MITS Gwalior. As the CAD Designer for Team Trinetra, I design and validate our UAVs carbon fiber frame — using SolidWorks for precision modeling and ANSYS for structural, modal, and fatigue analysis. My mission is simple: build a structure that never fails when it matters most.',
         ],
-        image: 'images/Kuldeepcopy.jpeg',
+        image: 'images/optimized/Kuldeepcopy.webp',
         caption: 'Mechanical · Frame Design'
     }
 };
@@ -141,7 +141,7 @@ const TEAM_MEMBERS = [
         city: 'Dabra, Madhya Pradesh',
         branch: 'Electrical', year: '2nd Year',
         work: 'Camera integration, communication and PCB designing, power distribution board designing, voltage regulation, flight time optimisation and payload mechanism robotics.',
-        image: 'images/p.jpeg', portfolio: '#', github: '#', linkedin: '#'
+        image: 'images/optimized/p.webp', portfolio: '#', github: '#', linkedin: '#'
     },
     {
         id: 2,
@@ -153,7 +153,7 @@ const TEAM_MEMBERS = [
         city: 'DD Nagar, Gwalior',
         branch: 'Electrical', year: '2nd Year',
         work: 'Communication and PCB designing, power distribution board designing, voltage regulation and camera integration.',
-        image: 'images/h.jpeg', portfolio: '#', github: '#', linkedin: '#'
+        image: 'images/optimized/h.webp', portfolio: '#', github: '#', linkedin: '#'
     },
     {
         id: 3,
@@ -165,7 +165,7 @@ const TEAM_MEMBERS = [
         city: 'Isagarh, Madhya Pradesh',
         branch: 'Electrical', year: '2nd Year',
         work: 'Ground station operator, telemetry and fail safe system.',
-        image: 'images/r.jpeg', portfolio: '#', github: '#', linkedin: '#'
+        image: 'images/optimized/r.webp', portfolio: '#', github: '#', linkedin: '#'
     },
     {
         id: 4,
@@ -177,7 +177,7 @@ const TEAM_MEMBERS = [
         city: 'Gwalior, Madhya Pradesh',
         branch: 'AIML', year: '2nd Year',
         work: 'Autonomous navigation and path planning, AI integration, pilot, sensor integration and LIDAR.',
-        image: 'images/an.jpeg', portfolio: '#', github: '#', linkedin: '#'
+        image: 'images/optimized/an.webp', portfolio: '#', github: '#', linkedin: '#'
     },
     {
         id: 5,
@@ -189,7 +189,7 @@ const TEAM_MEMBERS = [
         city: 'Gwalior, Madhya Pradesh',
         branch: 'AIR', year: '4th Year',
         work: 'AI engineer, computer vision, YOLO, OpenCV and image processing, ground station handling.',
-        image: 'images/m.png', portfolio: '#', github: '#', linkedin: '#'
+        image: 'images/optimized/m.webp', portfolio: '#', github: '#', linkedin: '#'
     },
     {
         id: 6,
@@ -201,7 +201,7 @@ const TEAM_MEMBERS = [
         city: 'Adityapuram, Gwalior',
         branch: 'IT', year: '2nd Year',
         work: 'Documentation and logic designing.',
-        image: 'images/a.jpeg', portfolio: '#', github: '#', linkedin: '#'
+        image: 'images/optimized/a.webp', portfolio: '#', github: '#', linkedin: '#'
     },
     {
         id: 7,
@@ -213,7 +213,7 @@ const TEAM_MEMBERS = [
         city: 'Jaura, Madhya Pradesh',
         branch: 'Mechanical', year: '2nd Year',
         work: 'AutoCAD, frame design, weight optimisation and payload designing.',
-        image: 'images/k.jpeg', portfolio: '#', github: '#', linkedin: '#'
+        image: 'images/optimized/k.webp', portfolio: '#', github: '#', linkedin: '#'
     }
 ];
 
