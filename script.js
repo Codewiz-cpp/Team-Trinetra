@@ -1,4 +1,4 @@
-﻿// ===== TAB SWITCHING =====
+// ===== TAB SWITCHING =====
 function showTabBase(name) {
     if (name === 'sponsors') {
         document.body.classList.add('sponsors-light-theme');
@@ -320,17 +320,28 @@ function populateTeamCards() {
                     });
                 });
 
-                // Hide the detail panel
+                // Hide the detail panel & show the intro panel
                 hideMemberDetailPanel();
+                const introPanel = document.getElementById('team-intro-panel');
+                if (introPanel) introPanel.classList.remove('tip-hidden');
                 return;
             }
 
-            if (pinnedMember !== null) return;
+            // 🔄 SWITCH LOGIC: if a different member is already pinned, clear it and fall through to pin the new one
+            if (pinnedMember !== null && pinnedMember !== member) {
+                pinnedMember = null;
+                isCursorPinned = false;
+                // No need to restore cursor/thumbs — the PIN block below will immediately re-apply its own state
+            }
 
             // 🔴 PIN LOGIC: ABSOLUTE OVERRIDE
             pinnedMember = member;
             isCursorPinned = true;
             container.classList.add('is-frozen');
+
+            // Hide the intro panel when a member is pinned
+            const introPanel = document.getElementById('team-intro-panel');
+            if (introPanel) introPanel.classList.add('tip-hidden');
 
             // 1. Kill any pending hover animations so they don't corrupt the click!
             clearTimeout(hoverTimer);
