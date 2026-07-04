@@ -31377,7 +31377,6 @@
     { date: "JUNE 28, 2026", title: "Spreading the Word and Putting on the Finishing Touches", description: "With the heavy engineering and video submissions behind us, we took a moment to breathe and focus our energy on our social media channels, sharing our journey and insights with the wider community. A brief rest was definitely well-deserved. Meanwhile, the website was running incredibly smoothly, with the structural layout functioning perfectly and the new aesthetic beautifully integrated across every single page." }
   ];
   var TimelineCard = ({ data, index }) => {
-    const [expanded, setExpanded] = (0, import_react23.useState)(false);
     const isLeft = index % 2 === 0;
     const yStart = 50;
     const yEnd = 3950;
@@ -31392,16 +31391,13 @@
           width: "45vw",
           minWidth: "350px",
           maxWidth: "750px",
-          zIndex: expanded ? 50 : 10,
+          zIndex: 10,
           pointerEvents: "auto",
           fontFamily: "'Helvetica Neue', sans-serif",
           // Fixed Y transform (0) ensures connector NEVER moves when expanding
           transform: isLeft ? "translate(calc(-100% - 40px), 0)" : "translate(40px, 0)",
           scrollSnapAlign: "center"
         },
-        onMouseEnter: () => setExpanded(true),
-        onMouseLeave: () => setExpanded(false),
-        onClick: () => setExpanded(!expanded),
         children: [
           /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
             "div",
@@ -31432,18 +31428,12 @@
               }
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "relative cursor-pointer transition-opacity duration-300 opacity-80 hover:opacity-100", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "relative", children: [
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: `flex flex-col ${isLeft ? "text-right" : "text-left"}`, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "text-white tracking-wide leading-snug", children: [
               /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "font-semibold tracking-wider text-sm md:text-base text-[#00D084]", style: { fontFamily: "'Helvetica Neue', sans-serif" }, children: data.date }),
               /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "font-bold text-xl md:text-3xl mt-1", style: { fontFamily: "'Helvetica Neue', sans-serif" }, children: data.title })
             ] }) }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-              "div",
-              {
-                className: `grid transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] ${expanded ? "grid-rows-[1fr] opacity-100 mt-4" : "grid-rows-[0fr] opacity-0 mt-0"}`,
-                children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "overflow-visible", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: `text-gray-300 text-base md:text-lg leading-relaxed font-light ${isLeft ? "pr-5 border-r border-[#00D084]/40" : "pl-5 border-l border-[#00D084]/40"}`, style: { fontFamily: "'Helvetica Neue', sans-serif" }, children: data.description }) })
-              }
-            )
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "grid grid-rows-[1fr] opacity-100 mt-4", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "overflow-visible", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: `text-gray-300 text-base md:text-lg leading-relaxed font-light ${isLeft ? "pr-5 border-r border-[#00D084]/40 text-left" : "text-left"}`, style: { fontFamily: "'Helvetica Neue', sans-serif" }, children: data.description }) }) })
           ] })
         ]
       }

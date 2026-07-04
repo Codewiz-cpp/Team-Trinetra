@@ -25,8 +25,6 @@ const timelineData = [
 ];
 
 const TimelineCard = ({ data, index }) => {
-  const [expanded, setExpanded] = useState(false);
-
   // Alternate sides for a balanced look
   const isLeft = index % 2 === 0;
 
@@ -44,16 +42,13 @@ const TimelineCard = ({ data, index }) => {
         width: '45vw',
         minWidth: '350px',
         maxWidth: '750px',
-        zIndex: expanded ? 50 : 10,
+        zIndex: 10,
         pointerEvents: "auto",
         fontFamily: "'Helvetica Neue', sans-serif",
         // Fixed Y transform (0) ensures connector NEVER moves when expanding
         transform: isLeft ? "translate(calc(-100% - 40px), 0)" : "translate(40px, 0)",
         scrollSnapAlign: 'center',
       }}
-      onMouseEnter={() => setExpanded(true)}
-      onMouseLeave={() => setExpanded(false)}
-      onClick={() => setExpanded(!expanded)}
     >
       {/* Connector line fixed to the Date height */}
       <div
@@ -81,7 +76,7 @@ const TimelineCard = ({ data, index }) => {
         }}
       />
 
-      <div className="relative cursor-pointer transition-opacity duration-300 opacity-80 hover:opacity-100">
+      <div className="relative">
         <div className={`flex flex-col ${isLeft ? 'text-right' : 'text-left'}`}>
           <div className="text-white tracking-wide leading-snug">
             <span className="font-semibold tracking-wider text-sm md:text-base text-[#00D084]" style={{ fontFamily: "'Helvetica Neue', sans-serif" }}>{data.date}</span>
@@ -89,11 +84,9 @@ const TimelineCard = ({ data, index }) => {
           </div>
         </div>
 
-        <div
-          className={`grid transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] ${expanded ? 'grid-rows-[1fr] opacity-100 mt-4' : 'grid-rows-[0fr] opacity-0 mt-0'}`}
-        >
+        <div className="grid grid-rows-[1fr] opacity-100 mt-4">
           <div className="overflow-visible">
-            <p className={`text-gray-300 text-base md:text-lg leading-relaxed font-light ${isLeft ? 'pr-5 border-r border-[#00D084]/40' : 'pl-5 border-l border-[#00D084]/40'}`} style={{ fontFamily: "'Helvetica Neue', sans-serif" }}>
+            <p className={`text-gray-300 text-base md:text-lg leading-relaxed font-light ${isLeft ? 'pr-5 border-r border-[#00D084]/40 text-left' : 'text-left'}`} style={{ fontFamily: "'Helvetica Neue', sans-serif" }}>
               {data.description}
             </p>
           </div>
@@ -106,18 +99,18 @@ const TimelineCard = ({ data, index }) => {
 const Skiper19 = () => {
   const containerRef = useRef(null);
   const [lineStartY, setLineStartY] = useState(0);
-  
+
   // Draw the rough notation circle on mount
   useEffect(() => {
     const el = document.getElementById('annotate-journey');
     const container = containerRef.current;
-    
+
     if (el && container) {
       // Small timeout ensures fonts have loaded and bounding box is correct
       setTimeout(() => {
         const annotation = annotate(el, { type: 'circle', color: '#00D084', strokeWidth: 4, padding: [10, 20] });
         annotation.show();
-        
+
         // Calculate the bottom circumference of the circle relative to this container
         const elRect = el.getBoundingClientRect();
         const containerRect = container.getBoundingClientRect();
@@ -129,7 +122,7 @@ const Skiper19 = () => {
         const containerRect = container.getBoundingClientRect();
         setLineStartY(elRect.bottom - containerRect.top);
       };
-      
+
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
     }
