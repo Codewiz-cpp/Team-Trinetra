@@ -6,12 +6,17 @@ function showTabBase(name) {
         document.body.classList.remove('sponsors-light-theme');
     }
 
-    ['data-tab', 'sim-tab', 'sponsors-tab', 'plan-tab', 'vehicles-tab'].forEach(id => {
+    // Remove journey-active when switching to any tab
+    document.body.classList.remove('journey-active');
+    ['data-tab', 'sim-tab', 'sponsors-tab', 'plan-tab', 'vehicles-tab', 'journey-tab'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = 'none';
     });
+    // Reset #main overflow to hidden for all non-journey tabs
+    const mainEl = document.getElementById('main');
+    if (mainEl) mainEl.style.overflow = 'hidden';
     // Clear all toolbar buttons (btn-home, btn-plan, btn-setup, btn-sponsors, btn-simulation)
-    ['home', 'plan', 'setup', 'sponsors', 'simulation', 'help'].forEach(t => {
+    ['home', 'plan', 'setup', 'sponsors', 'simulation', 'help', 'journey'].forEach(t => {
         const btn = document.getElementById('btn-' + t);
         if (btn) btn.classList.remove('active');
     });
@@ -49,6 +54,21 @@ function showTabBase(name) {
         const btn = document.getElementById('btn-setup');
         if (btn) btn.classList.add('active');
         document.getElementById('vehicles-tab').style.display = 'flex';
+    } else if (name === 'journey') {
+        const btn = document.getElementById('btn-journey');
+        if (btn) btn.classList.add('active');
+        // Add body class to unlock overflow constraints for scrolling
+        document.body.classList.add('journey-active');
+        // Reset any inline overrides from previous sessions
+        const mainEl = document.getElementById('main');
+        if (mainEl) { mainEl.style.overflow = ''; mainEl.style.overflowX = ''; }
+        const tab = document.getElementById('journey-tab');
+        if (tab) {
+            tab.style.display = 'block';
+            // Scroll to top of tab so journey starts from the beginning
+            window.scrollTo(0, 0);
+            setTimeout(() => window.dispatchEvent(new Event('resize')), 50);
+        }
     }
 }
 
@@ -1464,3 +1484,81 @@ function initHeroAnimation() {
     // Start the animation loop after a 500ms initial delay
     setTimeout(runCycle, 500);
 }
+
+// ===== SMOOTH MOMENTUM SCROLL =====
+(function () {
+    // Ease-out factor: lower = slower deceleration, higher = snappier stop
+    const EASE = 1;
+    // Max pixels scrolled per wheel tick (caps flick speed)
+    const MAX_DELTA = 500;
+
+    let targetY = window.scrollY;
+    let rafId = null;
+    let isTouch = false;
+
+    // Detect touch so we don't override native touch momentum
+    window.addEventListener('touchstart', () => { isTouch = true; }, { passive: true });
+    window.addEventListener('touchend', () => { setTimeout(() => { isTouch = false; }, 300); }, { passive: true });
+
+    function getScrollContainer() {
+        // Find the active visible tab's scrollable element, fall back to window
+        const tabs = ['data-tab', 'sim-tab', 'sponsors-tab', 'plan-tab', 'vehicles-tab'];
+        for (const id of tabs) {
+            const el = document.getElementById(id);
+            if (el && el.style.display !== 'none' && el.scrollHeight > el.clientHeight) {
+                return el;
+            }
+        }
+        return null; // use window
+    }
+
+    function animate(container) {
+        if (container) {
+            const dist = targetY - container.scrollTop;
+            if (Math.abs(dist) < 0.5) {
+                container.scrollTop = targetY;
+                rafId = null;
+                return;
+            }
+            container.scrollTop += dist * EASE;
+        } else {
+            const dist = targetY - window.scrollY;
+            if (Math.abs(dist) < 0.5) {
+                window.scrollTo(0, targetY);
+                rafId = null;
+                return;
+            }
+            window.scrollBy(0, dist * EASE);
+        }
+        rafId = requestAnimationFrame(() => animate(container));
+    }
+
+    window.addEventListener('wheel', function (e) {
+        if (isTouch) return;
+
+        // Bypass custom scroll hijacker for Journey section to allow native CSS scroll snapping
+        const journeyTab = document.getElementById('journey-tab');
+        if (journeyTab && journeyTab.style.display !== 'none') return;
+        if (window.location.pathname.includes('journey.html')) return;
+
+        const container = getScrollContainer();
+        const scrollEl = container || document.documentElement;
+        const maxScroll = scrollEl.scrollHeight - scrollEl.clientHeight;
+
+        // Clamp the delta to avoid ultra-fast trackpad/mouse flick
+        const delta = Math.max(-MAX_DELTA, Math.min(MAX_DELTA, e.deltaY));
+
+        if (container) {
+            targetY = Math.max(0, Math.min(maxScroll, container.scrollTop + delta));
+        } else {
+            targetY = Math.max(0, Math.min(maxScroll, window.scrollY + delta));
+        }
+
+        e.preventDefault();
+
+        if (!rafId) {
+            rafId = requestAnimationFrame(() => animate(container));
+        }
+    }, { passive: false });
+})();
+

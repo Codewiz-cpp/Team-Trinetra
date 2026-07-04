@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" style="scroll-snap-type: y proximity;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journey - Team Trinetra</title>
+    <meta name="description" content="Team Trinetra Journey">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body,
+        body.journey-standalone {
+            margin: 0;
+            overflow-x: hidden;
+            overflow-y: auto !important;
+            height: auto !important;
+            min-height: 100vh;
+            background-color: black !important;
+            display: block !important;
+        }
+    </style>
+</head>
+
+<body class="journey-standalone">
+
+    <!-- ═══════════════════════════════════════════
+         TOP TOOLBAR (Standalone Version)
+    ════════════════════════════════════════════ -->
+    <div id="toolbar" style="position: fixed; z-index: 5000;">
+        <div class="toolbar-left" style="flex: 1;">
+            <div id="toolbar-brand" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <img src="Trinetra.svg" alt="Trinetra Logo" id="trinetra-logo">
+                <div id="toolbar-brand-text">
+                    <span id="brand-accent">TRINETRA</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="nav-tabs" style="display: flex; align-items: stretch;">
+            <div class="toolbar-btn" onclick="window.location.href='index.html'" id="btn-home">
+                <span>Home</span>
+            </div>
+            <div class="toolbar-btn" onclick="window.location.href='index.html'" id="btn-plan">
+                <span>Team</span>
+            </div>
+            <div class="toolbar-btn" onclick="window.location.href='index.html'" id="btn-setup">
+                <span>Vehicles</span>
+            </div>
+            <div class="toolbar-btn" onclick="window.location.href='index.html'" id="btn-sponsors">
+                <span>Sponsors</span>
+            </div>
+            <div class="toolbar-btn" onclick="window.location.href='index.html'" id="btn-simulation">
+                <span>Simulation</span>
+            </div>
+            <div class="toolbar-btn active" onclick="window.scrollTo(0,0)" id="btn-journey">
+                <span>Journey</span>
+            </div>
+        </div>
+
+        <div id="toolbar-right">
+            <div id="connect-wrap">
+                <div class="toolbar-btn" onclick="window.location.href='index.html'">
+                    <span>Connect With Us</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN SECTION MOVED FROM REACT -->
+    <section id="journey-section"
+        class="mx-auto flex min-h-screen w-full flex-col items-center bg-black px-4 text-white relative">
+        <div class="relative mt-[25vh] flex w-fit flex-col items-center justify-center gap-5 text-center" style="scroll-snap-align: center;">
+            <h1 class="font-jakarta-sans relative z-10 text-7xl font-medium tracking-[-0.08em] lg:text-9xl">
+                Our Journey <br /> Tells a greater story <br />
+                Than any blog or timeline
+            </h1>
+        </div>
+        <!-- REACT WILL MOUNT HERE -->
+        <div id="skiper19-root" class="relative w-full mt-20 z-0 pointer-events-none"></div>
+
+    </section>
+
+    <!-- ── Journey Footer ── -->
+    <footer id="jn-footer" style="scroll-snap-align: end;">
+        <div id="jn-footer-inner">
+            <div id="jn-footer-left">
+                <div id="jn-footer-brand">
+                    <img src="Trinetra.svg" alt="Trinetra Logo" class="jn-footer-logo">
+                    <span class="jn-footer-brand-name">TRINETRA</span>
+                </div>
+                <div class="jn-footer-copyright">COPYRIGHT &copy; 2026 TEAM TRINETRA</div>
+            </div>
+            <div id="jn-footer-cols">
+                <div class="jn-footer-col">
+                    <h4 class="jn-footer-col-head">SOCIAL</h4>
+                    <ul class="jn-footer-links">
+                        <li><a href="https://www.instagram.com/trinetra_team/" class="jn-footer-link">Instagram</a></li>
+                        <li><a href="#" class="jn-footer-link">LinkedIn</a></li>
+                        <li><a href="#" class="jn-footer-link">YouTube</a></li>
+                        <li><a href="#" class="jn-footer-link">X / Twitter</a></li>
+                    </ul>
+                </div>
+                <div class="jn-footer-col">
+                    <h4 class="jn-footer-col-head">CONTACT</h4>
+                    <ul class="jn-footer-links">
+                        <li><a href="mailto:team.trinetra2026@gmail.com"
+                                class="jn-footer-link">team.trinetra2026@gmail.com</a></li>
+                        <li><a href="#" class="jn-footer-link">Sponsor Enquiries</a></li>
+                        <li><a href="#" class="jn-footer-link">Join the Team</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="dist/skiper19Bundle.js"></script>
+</body>
+
+</html>
