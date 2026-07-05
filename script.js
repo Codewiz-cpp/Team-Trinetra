@@ -1,6 +1,6 @@
 // ===== TAB SWITCHING =====
 function showTabBase(name) {
-    if (name === 'sponsors') {
+    if (name === 'sponsors' || name === 'simulation') {
         document.body.classList.add('sponsors-light-theme');
     } else {
         document.body.classList.remove('sponsors-light-theme');
@@ -34,6 +34,16 @@ function showTabBase(name) {
         const btn = document.getElementById('btn-simulation');
         if (btn) btn.classList.add('active');
         document.getElementById('sim-tab').style.display = 'flex';
+        // Enable scrolling for ScrollTrigger
+        const mainEl = document.getElementById('main');
+        if (mainEl) mainEl.style.overflow = 'auto';
+        
+        // Refresh ScrollTrigger after a short delay to let React mount and measure
+        setTimeout(() => {
+            if (typeof ScrollTrigger !== 'undefined') {
+                ScrollTrigger.refresh();
+            }
+        }, 100);
     } else if (name === 'sponsors') {
         const btn = document.getElementById('btn-sponsors');
         if (btn) btn.classList.add('active');
@@ -1014,7 +1024,7 @@ async function loadTabs() {
     }
 }
 
-// ===== SIMULATION CAROUSEL (GSAP) =====
+// ===== SIMULATION CAROUSEL (GSAP) =========
 function initSimCarousel() {
     const slides = document.querySelectorAll('.sv-slide');
     if (!slides.length) return;

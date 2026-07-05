@@ -7,6 +7,7 @@
     <title>Team Trinetra</title>
     <meta name="description" content="Team Trinetra">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <link rel="stylesheet" href="vendor/swiper-bundle.min.css" />
     <script src="vendor/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="style.css">
@@ -28,9 +29,7 @@
         </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════
-         TOP TOOLBAR
-    ════════════════════════════════════════════ -->
+    <!-- TOP TOOLBAR -->
     <div id="toolbar">
 
         <div class="toolbar-left" style="flex: 1;">
@@ -76,7 +75,7 @@
                     <span>Connect With Us</span>
                 </div>
 
-                <!-- ── CONNECT DROPDOWN PANEL ── -->
+                <!-- â”€â”€ CONNECT DROPDOWN PANEL â”€â”€ -->
                 <div id="connect-panel">
                     <div id="cp-toggle-wrap">
                         <div id="cp-toggle-pill"></div>
@@ -181,7 +180,7 @@
 
     <div id="main">
 
-        <!-- ══ HOME / DATA TAB ══ -->
+        <!-- â•â• HOME / DATA TAB â•â• -->
         <div id="data-tab" style="display:none; width:100%;">
             <div id="home-hero">
                 <div id="home-video-wrapper">
@@ -194,7 +193,7 @@
                 </div>
             </div>
 
-            <!-- ══ BENTO BOX SECTION ══ -->
+            <!-- â•â• BENTO BOX SECTION â•â• -->
             <div id="bento-section">
                 <!-- Row 1 -->
                 <div class="bento-item">
@@ -265,7 +264,7 @@
                 </div>
             </div>
 
-            <!-- ══ OFF-WHITE CONTENT SECTION ══ -->
+            <!-- â•â• OFF-WHITE CONTENT SECTION â•â• -->
             <div id="off-white-section">
 
                 <!-- Editorial divider line -->
@@ -274,15 +273,15 @@
                 </div>
                 <div class="ed-section-rule"></div>
 
-                <!-- ── EDITORIAL ENTRY 1 · text-left / image-right ── -->
+                <!-- â”€â”€ EDITORIAL ENTRY 1 Â· text-left / image-right â”€â”€ -->
                 <div class="ed-entry ed-entry--text-left">
                     <div class="ed-text">
                         <h2 class="ed-headline">Team Trinetra & Mayoor: Engineering a Lifeline</h2>
                         <p class="ed-body">What started as a focused team of two has evolved into a powerhouse of seven
                             members and five mentors driven by a singular mission: saving lives. At the heart of our
                             operations is Mayoor, our custom-built uncrewed aerial system engineered for high-stakes
-                            environments. Mayoor is designed to deliver critical autonomous relief drops—such as
-                            essential water bottles, emergency beacons — providing immediate, precise
+                            environments. Mayoor is designed to deliver critical autonomous relief dropsâ€”such as
+                            essential water bottles, emergency beacons â€” providing immediate, precise
                             aid to human survivors in post-disaster scenarios.</p>
                         <a href="#" class="ed-read-more">Read More
                             <svg class="ed-link-icon" fill="none" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"
@@ -301,7 +300,7 @@
 
                 <div class="ed-rule"></div>
 
-                <!-- ── EDITORIAL ENTRY 2 · image-left / text-right ── -->
+                <!-- â”€â”€ EDITORIAL ENTRY 2 Â· image-left / text-right â”€â”€ -->
                 <div class="ed-entry ed-entry--image-left">
                     <div class="ed-image-wrap">
                         <div class="ed-image-placeholder" id="ed-img-2">
@@ -333,358 +332,242 @@
 
         <!-- ══ SIMULATION TAB ══ -->
         <div id="sim-tab" style="display:none; width:100%;">
-            <div id="sim-carousel-wrap">
-                <div id="sim-carousel-clip">
-                    <div id="sim-carousel-track">
-                        <div class="sv-slide" data-index="0">
-                            <div class="sv-card">
-                                <div class="sv-player-wrap">
-                                    <iframe class="sv-player"
-                                        src="https://drive.google.com/file/d/1utohRBS6-_Ky6VVxCwMF_ZywwugGIWv0/preview"
-                                        allow="autoplay; encrypted-media" allowfullscreen frameborder="0"></iframe>
-                                </div>
-                                <div class="sv-body">
-                                    <div class="sv-body-top">
-                                        <div class="sv-index">01</div>
-                                        <div class="sv-title">Payload Drop — Operator Command</div>
-                                        <div class="sv-desc">Added an additional operator command to trigger payload
-                                            release. Manually inputting <code class="sv-code">beacon</code> / <code
-                                                class="sv-code">bottle</code> executes a script that transitions the
-                                            drone to Loiter for 60 seconds, drops the payload, then reverts to Auto
-                                            mode.</div>
-                                    </div>
-                                    <div class="sv-footer">
-                                        <div class="sv-tags">
-                                            <span class="sv-tag">ArduCopter</span>
-                                            <span class="sv-tag">Payload Drop</span>
-                                            <span class="sv-tag">Loiter → Auto</span>
-                                            <span class="sv-tag">Operator CMD</span>
-                                        </div>
-                                        <span class="sv-date">2026-05-28</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="sv-slide" data-index="1">
-                            <div class="sv-card">
-                                <div class="sv-player-wrap">
-                                    <iframe class="sv-player"
-                                        src="https://drive.google.com/file/d/1xz_wz6I6Mvcvr-mVrlT7VaXCvZVnIURV/preview"
-                                        allow="autoplay; encrypted-media" allowfullscreen frameborder="0"></iframe>
-                                </div>
-                                <div class="sv-body">
-                                    <div class="sv-body-top">
-                                        <div class="sv-index">02</div>
-                                        <div class="sv-title">ESRI Imagery + YOLOv8 Automation Demo</div>
-                                        <div class="sv-desc">Map updated to ESRI 16 imagery. <code
-                                                class="sv-code">velocity_decay=13</code> applied. YOLOv8World-v2 model
-                                            demonstrates automated scripts — <code class="sv-code">RC 9</code> mapped to
-                                            bottle, <code class="sv-code">RC 10</code> to beacon.</div>
-                                    </div>
-                                    <div class="sv-footer">
-                                        <div class="sv-tags">
-                                            <span class="sv-tag">ESRI 16</span>
-                                            <span class="sv-tag">YOLOv8</span>
-                                            <span class="sv-tag">RC Mapping</span>
-                                            <span class="sv-tag">Auto Detection</span>
-                                        </div>
-                                        <span class="sv-date">2026-05-28</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="sv-slide" data-index="2">
-                            <div class="sv-card sv-card--empty">
-                                <div class="sv-player-wrap">
-                                    <div class="sv-no-src">Recording pending</div>
-                                </div>
-                                <div class="sv-body">
-                                    <div class="sv-body-top">
-                                        <div class="sv-index">03</div>
-                                        <div class="sv-title sv-placeholder">— upcoming —</div>
-                                        <div class="sv-desc sv-placeholder">Context will be added once the recording is
-                                            ready.</div>
-                                    </div>
-                                    <div class="sv-footer">
-                                        <div class="sv-tags"></div><span class="sv-date"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="sv-slide" data-index="3">
-                            <div class="sv-card sv-card--empty">
-                                <div class="sv-player-wrap">
-                                    <div class="sv-no-src">Recording pending</div>
-                                </div>
-                                <div class="sv-body">
-                                    <div class="sv-body-top">
-                                        <div class="sv-index">04</div>
-                                        <div class="sv-title sv-placeholder">— upcoming —</div>
-                                        <div class="sv-desc sv-placeholder">Context will be added once the recording is
-                                            ready.</div>
-                                    </div>
-                                    <div class="sv-footer">
-                                        <div class="sv-tags"></div><span class="sv-date"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- /track -->
-                    <button class="sv-arrow sv-arrow--prev" id="sv-prev" title="Previous">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                            stroke-linecap="round">
-                            <path d="M15 18l-6-6 6-6" />
-                        </svg>
-                    </button>
-                    <button class="sv-arrow sv-arrow--next" id="sv-next" title="Next">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                            stroke-linecap="round">
-                            <path d="M9 18l6-6-6-6" />
-                        </svg>
-                    </button>
-                </div><!-- /clip -->
-                <div id="sim-carousel-footer">
-                    <div id="sim-dots">
-                        <span class="sv-dot active" data-index="0"></span>
-                        <span class="sv-dot" data-index="1"></span>
-                        <span class="sv-dot" data-index="2"></span>
-                        <span class="sv-dot" data-index="3"></span>
-                    </div>
-                    <span id="sim-slide-counter">01 / 04</span>
-                </div>
-            </div><!-- /carousel-wrap -->
+            <div id="skiper30-root" style="width: 100%; min-height: 100vh;"></div>
         </div>
+    </div><!-- /sim-tab --><!-- /sim-tab -->
 
-        <!-- ══ SPONSORS TAB ══ -->
-        <div id="sponsors-tab" style="display:none; width:100%;">
-        </div>
+    <!-- â• â•  SPONSORS TAB â• â•  -->
+    <div id="sponsors-tab" style="display:none; width:100%;">
+    </div>
 
-        <!-- ══ TEAM TAB ══ -->
-        <div id="plan-tab" style="display:none; width:100%;">
-            <div id="new-team-section">
-                <div id="team-bg-text-container"></div>
-                <div id="team-thumbnails-container"></div>
-                <div id="team-cursor">
-                    <svg id="cursor-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="7" y1="17" x2="17" y2="7"></line>
-                        <polyline points="7 7 17 7 17 17"></polyline>
-                    </svg>
+    <!-- â•â• TEAM TAB â•â• -->
+    <div id="plan-tab" style="display:none; width:100%;">
+        <div id="new-team-section">
+            <div id="team-bg-text-container"></div>
+            <div id="team-thumbnails-container"></div>
+            <div id="team-cursor">
+                <svg id="cursor-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+            </div>
+
+            <!-- â•â• TEAM MEMBER DETAIL PANEL â•â• -->
+            <div id="team-detail-panel">
+                <!-- Left Column: Pagination Counter (~10%) -->
+                <div class="tdp-col-left">
+                    <span id="tdp-counter" class="tdp-counter">01 / 07</span>
                 </div>
 
-                <!-- ══ TEAM MEMBER DETAIL PANEL ══ -->
-                <div id="team-detail-panel">
-                    <!-- Left Column: Pagination Counter (~10%) -->
-                    <div class="tdp-col-left">
-                        <span id="tdp-counter" class="tdp-counter">01 / 07</span>
-                    </div>
-
-                    <!-- Middle Column: Content Area (~50%) -->
-                    <div class="tdp-col-mid">
-                        <div class="tdp-domain" id="tdp-domain">FLIGHT DYNAMICS &amp; CONTROL</div>
-                        <div class="tdp-paragraphs">
-                            <p class="tdp-para" id="tdp-para-1"></p>
-                            <p class="tdp-para" id="tdp-para-2"></p>
-                            <p class="tdp-para" id="tdp-para-3"></p>
-                        </div>
-                    </div>
-
-                    <div class="tdp-col-right">
-                        <div class="tdp-image-frame">
-                            <img id="tdp-image" src="" alt="Team member work" class="tdp-image">
-                            <div class="tdp-image-overlay"></div>
-                            <div class="tdp-image-caption" id="tdp-image-caption"></div>
-                        </div>
+                <!-- Middle Column: Content Area (~50%) -->
+                <div class="tdp-col-mid">
+                    <div class="tdp-domain" id="tdp-domain">FLIGHT DYNAMICS &amp; CONTROL</div>
+                    <div class="tdp-paragraphs">
+                        <p class="tdp-para" id="tdp-para-1"></p>
+                        <p class="tdp-para" id="tdp-para-2"></p>
+                        <p class="tdp-para" id="tdp-para-3"></p>
                     </div>
                 </div>
 
-                <div id="team-intro-panel">
-                    <div class="tdp-col-left">
-                        <span id="tip-counter" class="tdp-counter">00 / 07</span>
+                <div class="tdp-col-right">
+                    <div class="tdp-image-frame">
+                        <img id="tdp-image" src="" alt="Team member work" class="tdp-image">
+                        <div class="tdp-image-overlay"></div>
+                        <div class="tdp-image-caption" id="tdp-image-caption"></div>
                     </div>
+                </div>
+            </div>
 
-                    <div class="tdp-col-mid">
-                        <div class="tdp-domain">MITS &nbsp;·&nbsp; Dronex Aerotech Club</div>
-                        <div class="tdp-paragraphs">
-                            <p class="tdp-para">Representing the Madhav Institute of Technology &amp; Science under the
-                                banner of the Dronex Aerotech club, Team Trinetra UAV is a multidisciplinary student
-                                engineering team preparing for the international SUAS 2026 competition. The team's
-                                mission is to leverage autonomous systems to advance disaster recovery frameworks,
-                                specifically focusing on aerial area inspection, hazard monitoring, and critical rescue
-                                logistics.</p>
-                        </div>
+            <div id="team-intro-panel">
+                <div class="tdp-col-left">
+                    <span id="tip-counter" class="tdp-counter">00 / 07</span>
+                </div>
+
+                <div class="tdp-col-mid">
+                    <div class="tdp-domain">MITS &nbsp;Â·&nbsp; Dronex Aerotech Club</div>
+                    <div class="tdp-paragraphs">
+                        <p class="tdp-para">Representing the Madhav Institute of Technology &amp; Science under the
+                            banner of the Dronex Aerotech club, Team Trinetra UAV is a multidisciplinary student
+                            engineering team preparing for the international SUAS 2026 competition. The team's
+                            mission is to leverage autonomous systems to advance disaster recovery frameworks,
+                            specifically focusing on aerial area inspection, hazard monitoring, and critical rescue
+                            logistics.</p>
                     </div>
+                </div>
 
-                    <!-- Right Column: Visual Showcase (~40%) -->
-                    <div class="tdp-col-right">
-                        <div class="tdp-image-frame">
-                            <img src="images/Trinetrahome.jpeg" alt="Team Trinetra" class="tdp-image">
-                            <div class="tdp-image-overlay"></div>
-                            <div class="tdp-image-caption">Team Trinetra · SUAS 2026</div>
-                        </div>
+                <!-- Right Column: Visual Showcase (~40%) -->
+                <div class="tdp-col-right">
+                    <div class="tdp-image-frame">
+                        <img src="images/Trinetrahome.jpeg" alt="Team Trinetra" class="tdp-image">
+                        <div class="tdp-image-overlay"></div>
+                        <div class="tdp-image-caption">Team Trinetra Â· SUAS 2026</div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- ══ VEHICLES TAB ══ -->
-        <div id="vehicles-tab" style="display:none; width:100%;">
-            <div id="vehicles-page">
-                <div class="veh-entry veh-entry--odd">
-                    <div class="veh-text">
-                        <div class="veh-number">01</div>
-                        <div class="veh-name">Vehicle Name Here</div>
-                        <div class="veh-sub">Role / Classification</div>
-                        <div class="veh-divider"></div>
-                        <div class="veh-desc">Add description here — what this vehicle does, what it's used for in the
-                            competition, and any key operational notes. Keep it concise and mission-focused.</div>
-                        <div class="veh-specs">
-                            <div class="veh-spec"><span class="veh-spec-label">Airframe</span><span
-                                    class="veh-spec-val">—</span></div>
-                            <div class="veh-spec"><span class="veh-spec-label">FC</span><span
-                                    class="veh-spec-val">—</span></div>
-                            <div class="veh-spec"><span class="veh-spec-label">Max Payload</span><span
-                                    class="veh-spec-val">—</span></div>
-                            <div class="veh-spec"><span class="veh-spec-label">Endurance</span><span
-                                    class="veh-spec-val">—</span></div>
-                            <div class="veh-spec"><span class="veh-spec-label">Max Speed</span><span
-                                    class="veh-spec-val">—</span></div>
-                            <div class="veh-spec"><span class="veh-spec-label">Autopilot</span><span
-                                    class="veh-spec-val">ArduCopter</span></div>
-                        </div>
-                        <div class="veh-tags"><span class="veh-tag">Tag 1</span><span class="veh-tag">Tag 2</span><span
-                                class="veh-tag">Tag 3</span></div>
+    <!-- â•â• VEHICLES TAB â•â• -->
+    <div id="vehicles-tab" style="display:none; width:100%;">
+        <div id="vehicles-page">
+            <div class="veh-entry veh-entry--odd">
+                <div class="veh-text">
+                    <div class="veh-number">01</div>
+                    <div class="veh-name">Vehicle Name Here</div>
+                    <div class="veh-sub">Role / Classification</div>
+                    <div class="veh-divider"></div>
+                    <div class="veh-desc">Add description here â€” what this vehicle does, what it's used for in the
+                        competition, and any key operational notes. Keep it concise and mission-focused.</div>
+                    <div class="veh-specs">
+                        <div class="veh-spec"><span class="veh-spec-label">Airframe</span><span
+                                class="veh-spec-val">â€”</span></div>
+                        <div class="veh-spec"><span class="veh-spec-label">FC</span><span
+                                class="veh-spec-val">â€”</span></div>
+                        <div class="veh-spec"><span class="veh-spec-label">Max Payload</span><span
+                                class="veh-spec-val">â€”</span></div>
+                        <div class="veh-spec"><span class="veh-spec-label">Endurance</span><span
+                                class="veh-spec-val">â€”</span></div>
+                        <div class="veh-spec"><span class="veh-spec-label">Max Speed</span><span
+                                class="veh-spec-val">â€”</span></div>
+                        <div class="veh-spec"><span class="veh-spec-label">Autopilot</span><span
+                                class="veh-spec-val">ArduCopter</span></div>
                     </div>
-                    <div class="veh-image-wrap">
-                        <div class="veh-image-placeholder"><span>VEHICLE 01</span><span class="veh-img-hint">add image:
-                                images/vehicle1.jpg</span></div>
-                    </div>
+                    <div class="veh-tags"><span class="veh-tag">Tag 1</span><span class="veh-tag">Tag 2</span><span
+                            class="veh-tag">Tag 3</span></div>
                 </div>
-                <div class="veh-rule"></div>
-                <div class="veh-entry veh-entry--even">
-                    <div class="veh-image-wrap">
-                        <div class="veh-image-placeholder"><span>VEHICLE 02</span><span class="veh-img-hint">add image:
-                                images/vehicle2.jpg</span></div>
-                    </div>
-                    <div class="veh-text">
-                        <div class="veh-number">02</div>
-                        <div class="veh-name">Vehicle Name Here</div>
-                        <div class="veh-sub">Role / Classification</div>
-                        <div class="veh-divider"></div>
-                        <div class="veh-desc">Add description here — what this vehicle does, what it's used for in the
-                            competition, and any key operational notes.</div>
-                        <div class="veh-specs">
-                            <div class="veh-spec"><span class="veh-spec-label">Airframe</span><span
-                                    class="veh-spec-val">—</span></div>
-                            <div class="veh-spec"><span class="veh-spec-label">FC</span><span
-                                    class="veh-spec-val">—</span></div>
-                            <div class="veh-spec"><span class="veh-spec-label">Max Payload</span><span
-                                    class="veh-spec-val">—</span></div>
-                            <div class="veh-spec"><span class="veh-spec-label">Endurance</span><span
-                                    class="veh-spec-val">—</span></div>
-                            <div class="veh-spec"><span class="veh-spec-label">Max Speed</span><span
-                                    class="veh-spec-val">—</span></div>
-                            <div class="veh-spec"><span class="veh-spec-label">Autopilot</span><span
-                                    class="veh-spec-val">ArduCopter</span></div>
-                        </div>
-                        <div class="veh-tags"><span class="veh-tag">Tag 1</span><span class="veh-tag">Tag 2</span><span
-                                class="veh-tag">Tag 3</span></div>
-                    </div>
+                <div class="veh-image-wrap">
+                    <div class="veh-image-placeholder"><span>VEHICLE 01</span><span class="veh-img-hint">add image:
+                            images/vehicle1.jpg</span></div>
                 </div>
-                <div class="veh-rule"></div>
-                <div class="veh-entry veh-entry--odd">
-                    <div class="veh-text">
-                        <div class="veh-number">03</div>
-                        <div class="veh-name">Vehicle Name Here</div>
-                        <div class="veh-sub">Role / Classification</div>
-                        <div class="veh-divider"></div>
-                        <div class="veh-desc">Add description here — what this vehicle does, what it's used for in the
-                            competition, and any key operational notes.</div>
-                        <div class="veh-specs">
-                            <div class="veh-spec"><span class="veh-spec-label">Airframe</span><span
-                                    class="veh-spec-val">—</span></div>
-                            <div class="veh-spec"><span class="veh-spec-label">FC</span><span
-                                    class="veh-spec-val">—</span></div>
-                            <div class="veh-spec"><span class="veh-spec-label">Max Payload</span><span
-                                    class="veh-spec-val">—</span></div>
-                            <div class="veh-spec"><span class="veh-spec-label">Endurance</span><span
-                                    class="veh-spec-val">—</span></div>
-                            <div class="veh-spec"><span class="veh-spec-label">Max Speed</span><span
-                                    class="veh-spec-val">—</span></div>
-                            <div class="veh-spec"><span class="veh-spec-label">Autopilot</span><span
-                                    class="veh-spec-val">ArduCopter</span></div>
-                        </div>
-                        <div class="veh-tags"><span class="veh-tag">Tag 1</span><span class="veh-tag">Tag 2</span></div>
-                    </div>
-                    <div class="veh-image-wrap">
-                        <div class="veh-image-placeholder"><span>VEHICLE 03</span><span class="veh-img-hint">add image:
-                                images/vehicle3.jpg</span></div>
-                    </div>
+            </div>
+            <div class="veh-rule"></div>
+            <div class="veh-entry veh-entry--even">
+                <div class="veh-image-wrap">
+                    <div class="veh-image-placeholder"><span>VEHICLE 02</span><span class="veh-img-hint">add image:
+                            images/vehicle2.jpg</span></div>
                 </div>
-            </div><!-- /vehicles-page -->
-        </div>
+                <div class="veh-text">
+                    <div class="veh-number">02</div>
+                    <div class="veh-name">Vehicle Name Here</div>
+                    <div class="veh-sub">Role / Classification</div>
+                    <div class="veh-divider"></div>
+                    <div class="veh-desc">Add description here â€” what this vehicle does, what it's used for in the
+                        competition, and any key operational notes.</div>
+                    <div class="veh-specs">
+                        <div class="veh-spec"><span class="veh-spec-label">Airframe</span><span
+                                class="veh-spec-val">â€”</span></div>
+                        <div class="veh-spec"><span class="veh-spec-label">FC</span><span
+                                class="veh-spec-val">â€”</span></div>
+                        <div class="veh-spec"><span class="veh-spec-label">Max Payload</span><span
+                                class="veh-spec-val">â€”</span></div>
+                        <div class="veh-spec"><span class="veh-spec-label">Endurance</span><span
+                                class="veh-spec-val">â€”</span></div>
+                        <div class="veh-spec"><span class="veh-spec-label">Max Speed</span><span
+                                class="veh-spec-val">â€”</span></div>
+                        <div class="veh-spec"><span class="veh-spec-label">Autopilot</span><span
+                                class="veh-spec-val">ArduCopter</span></div>
+                    </div>
+                    <div class="veh-tags"><span class="veh-tag">Tag 1</span><span class="veh-tag">Tag 2</span><span
+                            class="veh-tag">Tag 3</span></div>
+                </div>
+            </div>
+            <div class="veh-rule"></div>
+            <div class="veh-entry veh-entry--odd">
+                <div class="veh-text">
+                    <div class="veh-number">03</div>
+                    <div class="veh-name">Vehicle Name Here</div>
+                    <div class="veh-sub">Role / Classification</div>
+                    <div class="veh-divider"></div>
+                    <div class="veh-desc">Add description here â€” what this vehicle does, what it's used for in the
+                        competition, and any key operational notes.</div>
+                    <div class="veh-specs">
+                        <div class="veh-spec"><span class="veh-spec-label">Airframe</span><span
+                                class="veh-spec-val">â€”</span></div>
+                        <div class="veh-spec"><span class="veh-spec-label">FC</span><span
+                                class="veh-spec-val">â€”</span></div>
+                        <div class="veh-spec"><span class="veh-spec-label">Max Payload</span><span
+                                class="veh-spec-val">â€”</span></div>
+                        <div class="veh-spec"><span class="veh-spec-label">Endurance</span><span
+                                class="veh-spec-val">â€”</span></div>
+                        <div class="veh-spec"><span class="veh-spec-label">Max Speed</span><span
+                                class="veh-spec-val">â€”</span></div>
+                        <div class="veh-spec"><span class="veh-spec-label">Autopilot</span><span
+                                class="veh-spec-val">ArduCopter</span></div>
+                    </div>
+                    <div class="veh-tags"><span class="veh-tag">Tag 1</span><span class="veh-tag">Tag 2</span></div>
+                </div>
+                <div class="veh-image-wrap">
+                    <div class="veh-image-placeholder"><span>VEHICLE 03</span><span class="veh-img-hint">add image:
+                            images/vehicle3.jpg</span></div>
+                </div>
+            </div>
+        </div><!-- /vehicles-page -->
+    </div>
 
-        <!-- ══ JOURNEY TAB ══ -->
-        <div id="journey-tab"
-            style="display:none; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; scroll-snap-type:y proximity; scroll-behavior:smooth;">
-            <section id="journey-section"
-                style="position:relative; min-height:100vh; padding-bottom:0px; width:100%; background:black; color:white; display:flex; flex-direction:column; align-items:center; flex-shrink:0;">
-                <!-- Text container -->
-                <div
-                    style="position:relative; margin-top:25vh; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; text-align:center; scroll-snap-align:center;">
-                    <h1
-                        style="font-size:clamp(60px, 8vw, 120px); font-weight:500; letter-spacing:-0.05em; line-height:1.05; color:white; position:relative; z-index:10; margin:0;">
-                        Our <span id="annotate-journey" style="display: inline-block; position: relative;">Journey</span> <br /> Tells a greater story <br />
-                        Than any blog or timeline
-                    </h1>
-                </div>
-                <!-- REACT MOUNTS HERE — positioned to naturally flow below text -->
-                <div id="skiper19-root"
-                    style="position:relative; width:100%; margin-top:80px; z-index:0; pointer-events:none;">
-                </div>
-            </section>
+    <!-- â•â• JOURNEY TAB â•â• -->
+    <div id="journey-tab"
+        style="display:none; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; scroll-snap-type:y proximity; scroll-behavior:smooth;">
+        <section id="journey-section"
+            style="position:relative; min-height:100vh; padding-bottom:0px; width:100%; background:black; color:white; display:flex; flex-direction:column; align-items:center; flex-shrink:0;">
+            <!-- Text container -->
+            <div
+                style="position:relative; margin-top:25vh; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; text-align:center; scroll-snap-align:center;">
+                <h1
+                    style="font-size:clamp(60px, 8vw, 120px); font-weight:500; letter-spacing:-0.05em; line-height:1.05; color:white; position:relative; z-index:10; margin:0;">
+                    Our <span id="annotate-journey" style="display: inline-block; position: relative;">Journey</span>
+                    <br /> Tells a greater
+                    story <br />
+                    Than any blog or timeline
+                </h1>
+            </div>
+            <!-- REACT MOUNTS HERE â€” positioned to naturally flow below text -->
+            <div id="skiper19-root"
+                style="position:relative; width:100%; margin-top:80px; z-index:0; pointer-events:none;">
+            </div>
+        </section>
 
-            <!-- ── Journey Footer ── -->
-            <footer id="jn-footer" style="scroll-snap-align: end;">
-                <div id="jn-footer-inner">
-                    <div id="jn-footer-left">
-                        <div id="jn-footer-brand">
-                            <img src="Trinetra.svg" alt="Trinetra Logo" class="jn-footer-logo">
-                            <span class="jn-footer-brand-name">TRINETRA</span>
-                        </div>
-                        <div class="jn-footer-copyright">COPYRIGHT &copy; 2026 TEAM TRINETRA</div>
+        <!-- â”€â”€ Journey Footer â”€â”€ -->
+        <footer id="jn-footer" style="scroll-snap-align: end;">
+            <div id="jn-footer-inner">
+                <div id="jn-footer-left">
+                    <div id="jn-footer-brand">
+                        <img src="Trinetra.svg" alt="Trinetra Logo" class="jn-footer-logo">
+                        <span class="jn-footer-brand-name">TRINETRA</span>
                     </div>
-                    <div id="jn-footer-cols">
-                        <div class="jn-footer-col">
-                            <h4 class="jn-footer-col-head">SOCIAL</h4>
-                            <ul class="jn-footer-links">
-                                <li><a href="https://www.instagram.com/trinetra_team/"
-                                        class="jn-footer-link">Instagram</a></li>
-                                <li><a href="#" class="jn-footer-link">LinkedIn</a></li>
-                                <li><a href="#" class="jn-footer-link">YouTube</a></li>
-                                <li><a href="#" class="jn-footer-link">X / Twitter</a></li>
-                            </ul>
-                        </div>
-                        <div class="jn-footer-col">
-                            <h4 class="jn-footer-col-head">CONTACT</h4>
-                            <ul class="jn-footer-links">
-                                <li><a href="mailto:team.trinetra2026@gmail.com"
-                                        class="jn-footer-link">team.trinetra2026@gmail.com</a></li>
-                                <li><a href="#" class="jn-footer-link">Sponsor Enquiries</a></li>
-                                <li><a href="#" class="jn-footer-link">Join the Team</a></li>
-                            </ul>
-                        </div>
+                    <div class="jn-footer-copyright">COPYRIGHT &copy; 2026 TEAM TRINETRA</div>
+                </div>
+                <div id="jn-footer-cols">
+                    <div class="jn-footer-col">
+                        <h4 class="jn-footer-col-head">SOCIAL</h4>
+                        <ul class="jn-footer-links">
+                            <li><a href="https://www.instagram.com/trinetra_team/" class="jn-footer-link">Instagram</a>
+                            </li>
+                            <li><a href="#" class="jn-footer-link">LinkedIn</a></li>
+                            <li><a href="#" class="jn-footer-link">YouTube</a></li>
+                            <li><a href="#" class="jn-footer-link">X / Twitter</a></li>
+                        </ul>
+                    </div>
+                    <div class="jn-footer-col">
+                        <h4 class="jn-footer-col-head">CONTACT</h4>
+                        <ul class="jn-footer-links">
+                            <li><a href="mailto:team.trinetra2026@gmail.com"
+                                    class="jn-footer-link">team.trinetra2026@gmail.com</a></li>
+                            <li><a href="#" class="jn-footer-link">Sponsor Enquiries</a></li>
+                            <li><a href="#" class="jn-footer-link">Join the Team</a></li>
+                        </ul>
                     </div>
                 </div>
-            </footer>
-        </div>
+            </div>
+        </footer>
+    </div>
 
     </div>
 
 
-    <!-- ═══════════════════════════════════════════
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
          MODALS (kept here as they are app-global)
-    ════════════════════════════════════════════ -->
+    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 
     <!-- Sponsors modal -->
     <div class="mp-modal-overlay" id="modal-sponsors" onclick="closeModalOutside(event,'modal-sponsors')">
@@ -803,6 +686,7 @@
 
     <script src="dist/sponsorButtonBundle.js"></script>
     <script src="dist/skiper19Bundle.js"></script>
+    <script src="dist/skiper30Bundle.js"></script>
 </body>
 
 </html>

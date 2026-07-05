@@ -1,4 +1,4 @@
-/* ===== ELIOS REGULAR ===== */
+﻿/* ===== ELIOS REGULAR ===== */
 @font-face {
     font-family: 'Elios Regular';
     src: url('fonts/Elios.ttf') format('truetype');
@@ -19,7 +19,7 @@
 
 /* ===== HELVETICA NEUE FONT FACES ===== */
 
-/* Ultra Light — 100 */
+/* Ultra Light â€” 100 */
 @font-face {
     font-family: 'Helvetica Neue';
     src: url('fonts/HelveticaNeueUltraLight.otf') format('opentype');
@@ -36,7 +36,7 @@
     font-display: swap;
 }
 
-/* Thin — 200 */
+/* Thin â€” 200 */
 @font-face {
     font-family: 'Helvetica Neue';
     src: url('fonts/HelveticaNeueThin.otf') format('opentype');
@@ -53,7 +53,7 @@
     font-display: swap;
 }
 
-/* Light — 300 */
+/* Light â€” 300 */
 @font-face {
     font-family: 'Helvetica Neue';
     src: url('fonts/HelveticaNeueLight.otf') format('opentype');
@@ -70,7 +70,7 @@
     font-display: swap;
 }
 
-/* Regular / Roman — 400 */
+/* Regular / Roman â€” 400 */
 @font-face {
     font-family: 'Helvetica Neue';
     src: url('fonts/HelveticaNeueRoman.otf') format('opentype');
@@ -87,7 +87,7 @@
     font-display: swap;
 }
 
-/* Medium — 500 */
+/* Medium â€” 500 */
 @font-face {
     font-family: 'Helvetica Neue';
     src: url('fonts/HelveticaNeueMedium.otf') format('opentype');
@@ -104,7 +104,7 @@
     font-display: swap;
 }
 
-/* Bold — 700 */
+/* Bold â€” 700 */
 @font-face {
     font-family: 'Helvetica Neue';
     src: url('fonts/HelveticaNeueBold.otf') format('opentype');
@@ -121,7 +121,7 @@
     font-display: swap;
 }
 
-/* Heavy — 800 */
+/* Heavy â€” 800 */
 @font-face {
     font-family: 'Helvetica Neue';
     src: url('fonts/HelveticaNeueHeavy.otf') format('opentype');
@@ -138,7 +138,7 @@
     font-display: swap;
 }
 
-/* Black — 900 */
+/* Black â€” 900 */
 @font-face {
     font-family: 'Helvetica Neue';
     src: url('fonts/HelveticaNeueBlack.otf') format('opentype');
@@ -234,13 +234,13 @@ body {
     user-select: none;
 }
 
-/* ── View Transitions API: circle-blur from top-left ──
+/* â”€â”€ View Transitions API: circle-blur from top-left â”€â”€
    Fires twice:
-     1. light → dark theme swap (splash stays visible, text inverts)
-     2. dark splash → app reveal (splash removed, home section appears)
+     1. light â†’ dark theme swap (splash stays visible, text inverts)
+     2. dark splash â†’ app reveal (splash removed, home section appears)
    The old snapshot freezes; the new state expands as a blurring circle
    originating from the top-left corner.
-── */
+â”€â”€ */
 ::view-transition-old(root) {
     animation: none;
 }
@@ -583,7 +583,7 @@ body {
     padding-right: 13px;
 }
 
-/* Brand block — left side of navbar */
+/* Brand block â€” left side of navbar */
 #toolbar-brand {
     display: flex;
     align-items: center;
@@ -663,7 +663,7 @@ body {
     border-color: #7ab000;
 }
 
-/* CONNECT button — same font/style as nav tabs, green background like Mission Planner */
+/* CONNECT button â€” same font/style as nav tabs, green background like Mission Planner */
 .conn-btn {
     display: flex;
     flex-direction: column;
@@ -988,324 +988,15 @@ body {
     box-sizing: border-box;
 }
 
-/* ===== SIMULATION TAB — Horizontal Carousel ===== */
+/* ===== SIMULATION TAB ===== */
 #sim-tab {
-    display: flex;
-    flex-direction: column;
     width: 100%;
     height: 100%;
-    overflow: hidden;
-}
-
-/* Outer wrapper */
-#sim-carousel-wrap {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    background: #000;
-}
-
-/* ── Clip: overflow:hidden boundary for peek effect ── */
-#sim-carousel-clip {
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-    /* this is the ONLY clip boundary */
-}
-
-/* Track fills the clip — slides are positioned inside it */
-#sim-carousel-track {
-    position: absolute;
-    inset: 0;
-}
-
-/* ── Each slide is 80% wide with 10% margin each side ──
-   Adjacent cards naturally peek 10% into the clip on each side.
-   xPercent:(i-current)*100 means next card left edge = 10%+80% = 90%  → 10% visible
-   prev card right edge = 10%-80%+80% = 10%                             → 10% visible */
-.sv-slide {
-    position: absolute;
-    top: 0;
-    left: 10%;
-    width: 80%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 0;
-    will-change: transform;
-}
-
-
-
-/* ── Card — horizontal layout ──
-   Left: video  |  Right: info                */
-.sv-card {
-    width: 100%;
-    /* fills the full slide width so peek shows the card, not empty space */
-    height: min(420px, calc(100vh - 180px));
-    background: #161616;
-    border: 1px solid #222;
-    display: flex;
-    flex-direction: row;
-    overflow: hidden;
-    position: relative;
-    will-change: transform, filter, opacity;
-}
-
-/* Green top-accent line draws on hover */
-.sv-card:not(.sv-card--empty)::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 2px;
-    width: 0%;
-    background: #7ab000;
-    transition: width 0.4s ease;
-    z-index: 4;
-}
-
-.sv-card:not(.sv-card--empty):hover::before {
-    width: 100%;
-}
-
-.sv-card:not(.sv-card--empty):hover {
-    border-color: #2a3818;
-}
-
-/* ── Left: video panel (58%) ── */
-.sv-player-wrap {
-    flex: 0 0 58%;
-    position: relative;
-    background: #080808;
-    overflow: hidden;
-}
-
-.sv-player {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: contain;
-    border: none;
-    background: #080808;
-}
-
-.sv-no-src {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    color: #1e1e1e;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-/* ── Right: info panel ── */
-.sv-body {
-    flex: 1;
-    padding: 26px 28px 22px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
-    border-left: 1px solid #1c1c1c;
-}
-
-.sv-body-top {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* Slide number e.g. "01" */
-.sv-index {
-    font-size: 10px;
-    color: #555;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    letter-spacing: 1.5px;
-}
-
-.sv-title {
-    font-size: 13px;
-    color: #e8e8e8;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: 600;
-    line-height: 1.45;
-}
-
-.sv-desc {
-    font-size: 11px;
-    color: #909090;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    line-height: 1.75;
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    line-clamp: 5;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-/* Footer: tags + date */
-.sv-footer {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding-top: 14px;
-    border-top: 1px solid #1a1a1a;
-    flex-shrink: 0;
-}
-
-.sv-tags {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-}
-
-.sv-tag {
-    font-size: 10px;
-    color: #7ab000;
-    border: 1px solid #2a4400;
-    padding: 1px 7px;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    letter-spacing: 0.3px;
-}
-
-.sv-date {
-    font-size: 10px;
-    color: #555;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-/* Inline code chip */
-.sv-code {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 10px;
-    color: #7ab000;
-    background: #0f1a00;
-    border: 1px solid #253300;
-    padding: 0 4px;
-    border-radius: 2px;
-}
-
-/* Empty / pending card */
-.sv-card--empty {
-    border-style: dashed;
-    border-color: #181818;
-    opacity: 0.3;
-}
-
-.sv-placeholder {
-    color: #222 !important;
-    font-style: italic;
-}
-
-/* ── Navigation arrows — live in #sim-carousel-clip's 120px peek zones ── */
-.sv-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(15, 15, 15, 0.9);
-    border: 1px solid #2a2a2a;
-    color: #666;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-    z-index: 30;
-    border-radius: 0;
-}
-
-.sv-arrow svg {
-    width: 18px;
-    height: 18px;
-    pointer-events: none;
-}
-
-.sv-arrow:hover {
-    background: #1e1e1e;
-    color: #ddd;
-    border-color: #444;
-}
-
-.sv-arrow--prev {
-    left: 42px;
-}
-
-.sv-arrow--next {
-    right: 42px;
-}
-
-/* ── Footer bar: dots + counter ── */
-#sim-carousel-footer {
-    flex-shrink: 0;
-    height: 38px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #000;
-    border-top: 1px solid #181818;
-    position: relative;
-}
-
-#sim-dots {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-
-.sv-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: #252525;
-    cursor: pointer;
-    transition: background 0.25s, transform 0.25s;
-}
-
-.sv-dot.active {
-    background: #7ab000;
-    transform: scale(1.4);
-}
-
-.sv-dot:not(.active):hover {
-    background: #3a3a3a;
-}
-
-#sim-slide-counter {
-    position: absolute;
-    right: 20px;
-    font-size: 10px;
-    color: #555;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    letter-spacing: 1px;
-}
-
-
-/* ===== VEHICLES TAB ===== */
-#vehicles-tab {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-#vehicles-page {
-    flex: 1;
     overflow-y: auto;
-    background: #000;
-    padding: 0;
-    scrollbar-width: thin;
-    scrollbar-color: #222 #0d0d0d;
+    overflow-x: hidden;
 }
+
+/* Track fills the clip slides are positioned inside it */
 
 #vehicles-page::before {
     content: '';
@@ -1316,7 +1007,7 @@ body {
     flex-shrink: 0;
 }
 
-/* ── Each vehicle row ── */
+/* â”€â”€ Each vehicle row â”€â”€ */
 .veh-entry {
     display: flex;
     align-items: stretch;
@@ -1340,7 +1031,7 @@ body {
     flex-direction: row;
 }
 
-/* ── Text panel ── */
+/* â”€â”€ Text panel â”€â”€ */
 .veh-text {
     flex: 0 0 60%;
     padding: 32px 36px 28px;
@@ -1414,7 +1105,7 @@ body {
     margin-bottom: 18px;
 }
 
-/* ── Specs grid ── */
+/* â”€â”€ Specs grid â”€â”€ */
 .veh-specs {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1444,7 +1135,7 @@ body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-/* ── Tags ── */
+/* â”€â”€ Tags â”€â”€ */
 .veh-tags {
     display: flex;
     gap: 5px;
@@ -1460,7 +1151,7 @@ body {
     letter-spacing: 0.3px;
 }
 
-/* ── Image panel ── */
+/* â”€â”€ Image panel â”€â”€ */
 .veh-image-wrap {
     flex: 0 0 40%;
     position: relative;
@@ -1556,7 +1247,7 @@ body {
     container-type: inline-size;
 }
 
-/* ── Sponsors Hero — */
+/* â”€â”€ Sponsors Hero â€” */
 #sp-hero {
     position: relative;
     width: 100%;
@@ -1570,7 +1261,7 @@ body {
     min-height: calc(100vh - 50px - ((100cqw - 100px) * 0.101));
 }
 
-/* Category eyebrow — "OUR PARTNERS" */
+/* Category eyebrow â€” "OUR PARTNERS" */
 #sp-hero-category {
     font-family: 'Helvetica Neue';
     font-size: 11px;
@@ -1580,7 +1271,7 @@ body {
     margin-bottom: 45px;
 }
 
-/* Giant display headline — "Sponsors" */
+/* Giant display headline â€” "Sponsors" */
 #sp-hero-display {
     font-family: 'Helvetica Neue';
     font-size: clamp(5rem, 10vw, 10rem);
@@ -1601,7 +1292,7 @@ body {
     margin-top: 40px;
 }
 
-/* Inner row: motto | desc | links — all top-aligned, spaced out */
+/* Inner row: motto | desc | links â€” all top-aligned, spaced out */
 #sp-hero-text-row {
     display: flex;
     flex-direction: row;
@@ -1877,7 +1568,7 @@ body {
     opacity: 0;
 }
 
-/* ── Sponsor CTA Section ── */
+/* â”€â”€ Sponsor CTA Section â”€â”€ */
 #sp-cta-section {
     width: 100%;
     margin: 0 auto;
@@ -2029,7 +1720,7 @@ body {
     }
 }
 
-/* ── Journey Footer (white bg / black text) ── */
+/* â”€â”€ Journey Footer (white bg / black text) â”€â”€ */
 #jn-footer {
     width: 100%;
     background: #fff;
@@ -2161,7 +1852,7 @@ body {
     }
 }
 
-/* ── Site Footer ── */
+/* â”€â”€ Site Footer â”€â”€ */
 
 #sp-footer {
     width: 100%;
@@ -2314,9 +2005,9 @@ body {
     }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   NEW TEAM SECTION — Mapless Grid Card Layout & GSAP Animations
-   ═══════════════════════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   NEW TEAM SECTION â€” Mapless Grid Card Layout & GSAP Animations
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 /* 1. Remove the global cursor: none so your normal mouse works everywhere else */
 
 #new-team-section {
@@ -2330,7 +2021,7 @@ body {
     justify-content: center;
 }
 
-/* ── The GPU-Accelerated Container ── */
+/* â”€â”€ The GPU-Accelerated Container â”€â”€ */
 #team-thumbnails-container {
     position: absolute;
     top: 30px;
@@ -2347,13 +2038,13 @@ body {
     cursor: none !important;
 }
 
-/* 🔴 NEW: When pinned, restore the normal system hardware cursor! */
+/* ðŸ”´ NEW: When pinned, restore the normal system hardware cursor! */
 #team-thumbnails-container.is-frozen,
 #team-thumbnails-container.is-frozen * {
     cursor: auto !important;
 }
 
-/* ── The Absolute Positioned Thumbnails ── */
+/* â”€â”€ The Absolute Positioned Thumbnails â”€â”€ */
 .new-team-thumb {
     position: absolute;
     top: 50%;
@@ -2377,7 +2068,7 @@ body {
     pointer-events: none;
 }
 
-/* ── Background Text Container ── */
+/* â”€â”€ Background Text Container â”€â”€ */
 
 #team-bg-text-container {
     position: absolute;
@@ -2413,7 +2104,7 @@ body {
     line-height: 0.85;
 }
 
-/* ── The Text Itself ── */
+/* â”€â”€ The Text Itself â”€â”€ */
 .letter-inner {
     display: inline-block;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -2432,7 +2123,7 @@ body {
     cursor: auto !important;
 }
 
-/* ── Custom Cursor ── */
+/* â”€â”€ Custom Cursor â”€â”€ */
 #team-cursor {
     position: fixed;
     top: 0;
@@ -2730,7 +2421,7 @@ body {
     transform: translateY(0);
 }
 
-/* ── Sponsors Light Theme Overrides ── */
+/* â”€â”€ Sponsors Light Theme Overrides â”€â”€ */
 body.sponsors-light-theme {
     background: #ffffff !important;
     color: #000000 !important;
@@ -3129,14 +2820,14 @@ body.sponsors-light-theme #trinetra-logo {
     min-width: 0.25em;
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   TEAM MEMBER DETAIL PANEL  — Asymmetric 3-Column Info Strip
-   ═══════════════════════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   TEAM MEMBER DETAIL PANEL  â€” Asymmetric 3-Column Info Strip
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 #team-detail-panel {
     position: absolute;
     top: 320px;
-    /* safely below name text area (~180px–420px) */
+    /* safely below name text area (~180pxâ€“420px) */
     left: 0;
     right: 0;
     bottom: 0;
@@ -3149,7 +2840,7 @@ body.sponsors-light-theme #trinetra-logo {
     gap: 0;
     z-index: 5;
 
-    /* Hidden by default — slides up on pin */
+    /* Hidden by default â€” slides up on pin */
     opacity: 0;
     transform: translateY(100%);
     pointer-events: none;
@@ -3163,7 +2854,7 @@ body.sponsors-light-theme #trinetra-logo {
     pointer-events: auto;
 }
 
-/* ── Left Column: ~10% — Minimalist counter, no border ── */
+/* â”€â”€ Left Column: ~10% â€” Minimalist counter, no border â”€â”€ */
 .tdp-col-left {
     flex: 0 0 10%;
     display: flex;
@@ -3171,7 +2862,7 @@ body.sponsors-light-theme #trinetra-logo {
     justify-content: flex-start;
     padding-top: 32px;
     padding-right: 20px;
-    /* NO border-right — clean negative space */
+    /* NO border-right â€” clean negative space */
 }
 
 .tdp-counter {
@@ -3194,7 +2885,7 @@ body.sponsors-light-theme #trinetra-logo {
     transform: translateY(0);
 }
 
-/* ── Middle Column: ~48% — Domain label + paragraphs, no border ── */
+/* â”€â”€ Middle Column: ~48% â€” Domain label + paragraphs, no border â”€â”€ */
 .tdp-col-mid {
     flex: 0 0 48%;
     display: flex;
@@ -3203,7 +2894,7 @@ body.sponsors-light-theme #trinetra-logo {
     padding: 32px 40px 28px 28px;
     gap: 0;
     overflow: hidden;
-    /* NO border — clean layout */
+    /* NO border â€” clean layout */
 }
 
 .tdp-domain {
@@ -3268,7 +2959,7 @@ body.sponsors-light-theme #trinetra-logo {
     transition-delay: 0.42s;
 }
 
-/* ── Right Column: ~42% — Image showcase, no border ── */
+/* â”€â”€ Right Column: ~42% â€” Image showcase, no border â”€â”€ */
 .tdp-col-right {
     flex: 1;
     display: flex;
@@ -3298,7 +2989,7 @@ body.sponsors-light-theme #trinetra-logo {
     transform: translateX(0) scale(1);
 }
 
-/* ── Image: always colorful, zoom on hover ── */
+/* â”€â”€ Image: always colorful, zoom on hover â”€â”€ */
 .tdp-image {
     width: 100%;
     height: 100%;
@@ -3355,9 +3046,9 @@ body.sponsors-light-theme #trinetra-logo {
     display: none;
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   TEAM INTRO PANEL  — Default state info strip below TRINETRA
-   ═══════════════════════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   TEAM INTRO PANEL  â€” Default state info strip below TRINETRA
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 #team-intro-panel {
     position: absolute;
@@ -3373,7 +3064,7 @@ body.sponsors-light-theme #trinetra-logo {
     gap: 0;
     z-index: 4;
 
-    /* Visible by default — slides out when a member is pinned */
+    /* Visible by default â€” slides out when a member is pinned */
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
@@ -3387,7 +3078,7 @@ body.sponsors-light-theme #trinetra-logo {
     pointer-events: none;
 }
 
-/* ── Force tdp-* elements visible inside the intro panel (they default to opacity:0) ── */
+/* â”€â”€ Force tdp-* elements visible inside the intro panel (they default to opacity:0) â”€â”€ */
 #team-intro-panel .tdp-counter {
     opacity: 1;
     transform: translateY(0);
@@ -3494,7 +3185,7 @@ body.sponsors-light-theme #trinetra-logo {
     margin: 0;
 }
 
-/* Editorial entry — shared layout */
+/* Editorial entry â€” shared layout */
 .ed-entry {
     display: grid;
     gap: 0;
