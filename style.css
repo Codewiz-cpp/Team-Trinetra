@@ -1,4 +1,13 @@
-﻿/* ===== ELIOS REGULAR ===== */
+/* ===== GALLERY ===== */
+@font-face {
+    font-family: 'gallery';
+    src: url('fonts/Gallery.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ===== ELIOS REGULAR ===== */
 @font-face {
     font-family: 'Elios Regular';
     src: url('fonts/Elios.ttf') format('truetype');
@@ -171,25 +180,14 @@ html {
 body {
     overflow-x: hidden;
     overscroll-behavior-y: none;
+    scrollbar-width: none; /* Firefox */
 }
 
 /* ===== CUSTOM SCROLLBAR ===== */
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-}
-
-::-webkit-scrollbar-track {
-    background: #111;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #444;
-    border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #666;
+    display: none;
+    width: 0;
+    height: 0;
 }
 
 /* ===== CINEMATIC LOADING SCREEN ===== */
@@ -512,10 +510,10 @@ body {
 }
 
 #toolbar {
-    background: rgba(15, 15, 15, 0.4);
-    border-bottom: none;
-    -webkit-backdrop-filter: blur(40px);
-    backdrop-filter: blur(40px);
+    background: rgba(0, 0, 0, 0.85);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     display: flex;
     align-items: stretch;
     padding: 0;
@@ -523,7 +521,7 @@ body {
     height: 83px;
     gap: 13px;
     line-height: 1;
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, background-color 0.4s ease, border-color 0.4s ease;
     position: absolute;
     top: 0;
     left: 0;
@@ -952,6 +950,17 @@ body {
     filter: blur(10px);
 }
 
+/* Simulation Navbar State */
+body.simulation-active #toolbar {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+body.simulation-active #toolbar:hover {
+    background-color: rgba(0, 0, 0, 0.85);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
 /* ===== DATA TAB ===== */
 #data-tab {
     display: none;
@@ -984,7 +993,6 @@ body {
 }
 
 #sim-tab {
-    padding-top: 83px;
     box-sizing: border-box;
 }
 

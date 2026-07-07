@@ -2,6 +2,7 @@
 
 import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
 import Lenis from "lenis";
+import SideRays from './SideRays';
 import { useEffect, useRef, useState } from "react";
 
 const images = [
@@ -62,18 +63,37 @@ const Skiper30 = () => {
   }, []);
 
   return (
-    <main className="w-full bg-white text-black">
-      <div className="font-geist flex h-screen items-center justify-center gap-2">
-        <div className="absolute left-1/2 bottom-[10%] grid -translate-x-1/2 content-start justify-items-center gap-6 text-center text-black">
-          <span className="relative max-w-[12ch] text-xs uppercase leading-tight">
-            scroll down to see
+    <main className="relative w-full bg-black text-white">
+      <div className="absolute top-0 left-0 w-full h-screen z-[5001] pointer-events-none overflow-hidden">
+        <SideRays
+          speed={2.5}
+          rayColor1="#EAB308"
+          rayColor2="#96c8ff"
+          intensity={2}
+          spread={1.9}
+          origin="top-right"
+          tilt={0}
+          saturation={1.5}
+          blend={0.8}
+          falloff={1.7}
+          opacity={1.0}
+        />
+      </div>
+      <div className="absolute top-[163px] left-1/2 -translate-x-1/2 z-10 text-center w-full pointer-events-none flex flex-col items-center">
+        <h1 style={{ fontFamily: 'gallery', fontSize: 'clamp(80px, 12vw, 250px)', fontWeight: 200, lineHeight: 1 }}>Galleria</h1>
+        <p className="font-geist text-sm md:text-base uppercase tracking-[0.3em] text-gray-400 mt-4">The work behind the spotlight</p>
+      </div>
+      <div className="font-geist relative flex h-screen items-center justify-center gap-2">
+        <div className="absolute left-1/2 bottom-[30px] grid -translate-x-1/2 content-start justify-items-center gap-6 text-center text-white z-20">
+          <span className="relative text-xs uppercase leading-tight font-medium">
+            SCROLL DOWN
           </span>
         </div>
       </div>
 
       <div
         ref={gallery}
-        className="relative box-border flex h-[175vh] gap-[2vw] overflow-hidden bg-white p-[2vw]"
+        className="relative box-border flex h-[175vh] gap-[2vw] overflow-hidden bg-black p-[2vw]"
       >
         <Column images={[images[0], images[1], images[2]]} y={y} />
         <Column images={[images[3], images[4], images[5]]} y={y2} />

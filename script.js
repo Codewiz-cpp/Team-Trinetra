@@ -1,9 +1,15 @@
 // ===== TAB SWITCHING =====
 function showTabBase(name) {
-    if (name === 'sponsors' || name === 'simulation') {
+    if (name === 'sponsors') {
         document.body.classList.add('sponsors-light-theme');
     } else {
         document.body.classList.remove('sponsors-light-theme');
+    }
+
+    if (name === 'simulation') {
+        document.body.classList.add('simulation-active');
+    } else {
+        document.body.classList.remove('simulation-active');
     }
 
     // Remove journey-active when switching to any tab
