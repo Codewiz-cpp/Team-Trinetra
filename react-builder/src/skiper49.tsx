@@ -21,47 +21,47 @@ import { cn } from "@/lib/utils";
 const Skiper49 = () => {
   const images = [
     {
-      src: "/images/x.com/13.jpeg",
+      src: "/images/x.com/13.webp",
       alt: "Illustrations by my fav AarzooAly",
     },
     {
-      src: "/images/x.com/32.jpeg",
+      src: "/images/x.com/32.webp",
       alt: "Illustrations by my fav AarzooAly",
     },
     {
-      src: "/images/x.com/20.jpeg",
+      src: "/images/x.com/20.webp",
       alt: "Illustrations by my fav AarzooAly",
     },
     {
-      src: "/images/x.com/21.jpeg",
+      src: "/images/x.com/21.webp",
       alt: "Illustrations by my fav AarzooAly",
     },
     {
-      src: "/images/x.com/19.jpeg",
+      src: "/images/x.com/19.webp",
       alt: "Illustrations by my fav AarzooAly",
     },
     {
-      src: "/images/x.com/1.jpeg",
+      src: "/images/x.com/1.webp",
       alt: "Illustrations by my fav AarzooAly",
     },
     {
-      src: "/images/x.com/2.jpeg",
+      src: "/images/x.com/2.webp",
       alt: "Illustrations by my fav AarzooAly",
     },
     {
-      src: "/images/x.com/3.jpeg",
+      src: "/images/x.com/3.webp",
       alt: "Illustrations by my fav AarzooAly",
     },
     {
-      src: "/images/x.com/4.jpeg",
+      src: "/images/x.com/4.webp",
       alt: "Illustrations by my fav AarzooAly",
     },
     {
-      src: "/images/x.com/5.jpeg",
+      src: "/images/x.com/5.webp",
       alt: "Illustrations by my fav AarzooAly",
     },
     {
-      src: "/images/x.com/6.jpeg",
+      src: "/images/x.com/6.webp",
       alt: "Illustrations by my fav AarzooAly",
     },
   ];

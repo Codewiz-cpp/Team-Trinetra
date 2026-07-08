@@ -10,17 +10,17 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 const images = [
-  "images/p1.jpeg",
-  "images/p2.jpeg",
-  "images/p3.jpeg",
-  "images/p21.jpeg",
-  "images/p22.jpeg",
-  "images/p23.jpeg",
-  "images/p32.jpeg",
-  "images/p31.jpeg",
-  "images/p33.jpeg",
+  "images/p1.webp",
+  "images/p2.webp",
+  "images/p3.webp",
+  "images/p21.webp",
+  "images/p22.webp",
+  "images/p23.webp",
+  "images/p32.webp",
+  "images/p31.webp",
+  "images/p33.webp",
   "images/optimized/gazebo_sim.webp",
-  "images/p41.png",
+  "images/p41.webp",
   "images/optimized/payload.webp",
 ];
 
@@ -92,17 +92,17 @@ const Skiper30 = () => {
         <div className="absolute inset-0 z-0 flex items-end justify-center gap-[18px] p-[36px] pointer-events-none opacity-60 pb-[10vh] overflow-hidden">
           {/* Column 1 */}
           <div className="flex flex-col justify-end items-end gap-[18px]">
-            <img src="images/g1.jpeg" alt="g1" className="h-auto max-h-[35vh] w-auto object-contain" />
-            <img src="images/g2.jpeg" alt="g2" className="h-auto max-h-[35vh] w-auto object-contain" />
+            <img src="images/g1.webp" alt="g1" className="h-auto max-h-[35vh] w-auto object-contain" />
+            <img src="images/g2.webp" alt="g2" className="h-auto max-h-[35vh] w-auto object-contain" />
           </div>
           {/* Column 2 */}
           <div className="flex flex-col justify-end items-center gap-[18px]">
-            <img src="images/Trinetrahome.jpeg" alt="Trinetrahome" className="h-auto max-h-[40vh] w-auto object-contain" />
+            <img src="images/Trinetrahome.webp" alt="Trinetrahome" className="h-auto max-h-[40vh] w-auto object-contain" />
             <img src="images/optimized/team.webp" alt="team" className="h-auto max-h-[45vh] w-auto object-contain" />
           </div>
           {/* Column 3 */}
           <div className="flex flex-col justify-end items-start gap-[18px]">
-            <img src="images/g3.jpeg" alt="g3" className="h-auto max-h-[35vh] w-auto object-contain" />
+            <img src="images/g3.webp" alt="g3" className="h-auto max-h-[35vh] w-auto object-contain" />
           </div>
         </div>
         {/* Dark gradient overlay so left is more opaque than right */}

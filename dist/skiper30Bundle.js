@@ -39672,17 +39672,17 @@ void main() {
   // src/skiper30.tsx
   var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
   var images = [
-    "images/p1.jpeg",
-    "images/p2.jpeg",
-    "images/p3.jpeg",
-    "images/p21.jpeg",
-    "images/p22.jpeg",
-    "images/p23.jpeg",
-    "images/p32.jpeg",
-    "images/p31.jpeg",
-    "images/p33.jpeg",
+    "images/p1.webp",
+    "images/p2.webp",
+    "images/p3.webp",
+    "images/p21.webp",
+    "images/p22.webp",
+    "images/p23.webp",
+    "images/p32.webp",
+    "images/p31.webp",
+    "images/p33.webp",
     "images/optimized/gazebo_sim.webp",
-    "images/p41.png",
+    "images/p41.webp",
     "images/optimized/payload.webp"
   ];
   var Skiper30 = () => {
@@ -39743,14 +39743,14 @@ void main() {
       /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "font-geist relative flex h-screen items-center justify-center gap-2 overflow-hidden", children: [
         /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "absolute inset-0 z-0 flex items-end justify-center gap-[18px] p-[36px] pointer-events-none opacity-60 pb-[10vh] overflow-hidden", children: [
           /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "flex flex-col justify-end items-end gap-[18px]", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/g1.jpeg", alt: "g1", className: "h-auto max-h-[35vh] w-auto object-contain" }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/g2.jpeg", alt: "g2", className: "h-auto max-h-[35vh] w-auto object-contain" })
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/g1.webp", alt: "g1", className: "h-auto max-h-[35vh] w-auto object-contain" }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/g2.webp", alt: "g2", className: "h-auto max-h-[35vh] w-auto object-contain" })
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "flex flex-col justify-end items-center gap-[18px]", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/Trinetrahome.jpeg", alt: "Trinetrahome", className: "h-auto max-h-[40vh] w-auto object-contain" }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/Trinetrahome.webp", alt: "Trinetrahome", className: "h-auto max-h-[40vh] w-auto object-contain" }),
             /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/optimized/team.webp", alt: "team", className: "h-auto max-h-[45vh] w-auto object-contain" })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "flex flex-col justify-end items-start gap-[18px]", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/g3.jpeg", alt: "g3", className: "h-auto max-h-[35vh] w-auto object-contain" }) })
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "flex flex-col justify-end items-start gap-[18px]", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/g3.webp", alt: "g3", className: "h-auto max-h-[35vh] w-auto object-contain" }) })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "absolute inset-0 bg-gradient-to-r from-black/95 to-black/70 z-0" }),
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "absolute left-1/2 bottom-[30px] grid -translate-x-1/2 content-start justify-items-center gap-6 text-center text-white z-20", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "relative text-sm uppercase leading-tight font-light tracking-widest", children: "SCROLL DOWN" }) })
