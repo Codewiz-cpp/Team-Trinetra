@@ -7,7 +7,7 @@
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
   var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
-    get: (a2, b) => (typeof require !== "undefined" ? require : a2)[b]
+    get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
   }) : x)(function(x) {
     if (typeof require !== "undefined") return require.apply(this, arguments);
     throw Error('Dynamic require of "' + x + '" is not supported');
@@ -15,8 +15,8 @@
   var __commonJS = (cb, mod) => function __require2() {
     try {
       return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-    } catch (e2) {
-      throw mod = 0, e2;
+    } catch (e) {
+      throw mod = 0, e;
     }
   };
   var __copyProps = (to, from, except, desc) => {
@@ -126,9 +126,9 @@
           }
           return first;
         }
-        function compare(a2, b) {
-          var diff = a2.sortIndex - b.sortIndex;
-          return 0 !== diff ? diff : a2.id - b.id;
+        function compare(a, b) {
+          var diff = a.sortIndex - b.sortIndex;
+          return 0 !== diff ? diff : a.id - b.id;
         }
         function advanceTimers(currentTime) {
           for (var timer = peek(timerQueue); null !== timer; ) {
@@ -361,7 +361,7 @@
           try {
             testStringCoercion(value);
             var JSCompiler_inline_result = false;
-          } catch (e2) {
+          } catch (e) {
             JSCompiler_inline_result = true;
           }
           if (JSCompiler_inline_result) {
@@ -591,8 +591,8 @@
             invokeCallback = children;
             callback = callback(invokeCallback);
             var childKey = "" === nameSoFar ? "." + getElementKey(invokeCallback, 0) : nameSoFar;
-            isArrayImpl(callback) ? (escapedPrefix = "", null != childKey && (escapedPrefix = childKey.replace(userProvidedKeyEscapeRegex, "$&/") + "/"), mapIntoArray(callback, array, escapedPrefix, "", function(c2) {
-              return c2;
+            isArrayImpl(callback) ? (escapedPrefix = "", null != childKey && (escapedPrefix = childKey.replace(userProvidedKeyEscapeRegex, "$&/") + "/"), mapIntoArray(callback, array, escapedPrefix, "", function(c) {
+              return c;
             })) : null != callback && (isValidElement(callback) && (null != callback.key && (invokeCallback && invokeCallback.key === callback.key || checkKeyStringCoercion(callback.key)), escapedPrefix = cloneAndReplaceKey(
               callback,
               escapedPrefix + (null == callback.key || invokeCallback && invokeCallback.key === callback.key ? "" : ("" + callback.key).replace(
@@ -605,19 +605,19 @@
           invokeCallback = 0;
           childKey = "" === nameSoFar ? "." : nameSoFar + ":";
           if (isArrayImpl(children))
-            for (var i2 = 0; i2 < children.length; i2++)
-              nameSoFar = children[i2], type = childKey + getElementKey(nameSoFar, i2), invokeCallback += mapIntoArray(
+            for (var i = 0; i < children.length; i++)
+              nameSoFar = children[i], type = childKey + getElementKey(nameSoFar, i), invokeCallback += mapIntoArray(
                 nameSoFar,
                 array,
                 escapedPrefix,
                 type,
                 callback
               );
-          else if (i2 = getIteratorFn(children), "function" === typeof i2)
-            for (i2 === children.entries && (didWarnAboutMaps || console.warn(
+          else if (i = getIteratorFn(children), "function" === typeof i)
+            for (i === children.entries && (didWarnAboutMaps || console.warn(
               "Using Maps as children is not supported. Use an array of keyed ReactElements instead."
-            ), didWarnAboutMaps = true), children = i2.call(children), i2 = 0; !(nameSoFar = children.next()).done; )
-              nameSoFar = nameSoFar.value, type = childKey + getElementKey(nameSoFar, i2++), invokeCallback += mapIntoArray(
+            ), didWarnAboutMaps = true), children = i.call(children), i = 0; !(nameSoFar = children.next()).done; )
+              nameSoFar = nameSoFar.value, type = childKey + getElementKey(nameSoFar, i++), invokeCallback += mapIntoArray(
                 nameSoFar,
                 array,
                 escapedPrefix,
@@ -750,17 +750,17 @@
         function flushActQueue(queue) {
           if (!isFlushing) {
             isFlushing = true;
-            var i2 = 0;
+            var i = 0;
             try {
-              for (; i2 < queue.length; i2++) {
-                var callback = queue[i2];
+              for (; i < queue.length; i++) {
+                var callback = queue[i];
                 do {
                   ReactSharedInternals.didUsePromise = false;
                   var continuation = callback(false);
                   if (null !== continuation) {
                     if (ReactSharedInternals.didUsePromise) {
-                      queue[i2] = callback;
-                      queue.splice(0, i2);
+                      queue[i] = callback;
+                      queue.splice(0, i);
                       return;
                     }
                     callback = continuation;
@@ -769,7 +769,7 @@
               }
               queue.length = 0;
             } catch (error) {
-              queue.splice(0, i2 + 1), ReactSharedInternals.thrownErrors.push(error);
+              queue.splice(0, i + 1), ReactSharedInternals.thrownErrors.push(error);
             } finally {
               isFlushing = false;
             }
@@ -884,11 +884,11 @@
             );
           },
           count: function(children) {
-            var n2 = 0;
+            var n = 0;
             mapChildren(children, function() {
-              n2++;
+              n++;
             });
-            return n2;
+            return n;
           },
           toArray: function(children) {
             return mapChildren(children, function(child) {
@@ -1029,8 +1029,8 @@
           if (1 === propName) props.children = children;
           else if (1 < propName) {
             JSCompiler_inline_result = Array(propName);
-            for (var i2 = 0; i2 < propName; i2++)
-              JSCompiler_inline_result[i2] = arguments[i2 + 2];
+            for (var i = 0; i < propName; i++)
+              JSCompiler_inline_result[i] = arguments[i + 2];
             props.children = JSCompiler_inline_result;
           }
           props = ReactElement(
@@ -1064,35 +1064,35 @@
           return defaultValue;
         };
         exports.createElement = function(type, config, children) {
-          for (var i2 = 2; i2 < arguments.length; i2++)
-            validateChildKeys(arguments[i2]);
-          i2 = {};
+          for (var i = 2; i < arguments.length; i++)
+            validateChildKeys(arguments[i]);
+          i = {};
           var key = null;
           if (null != config)
             for (propName in didWarnAboutOldJSXRuntime || !("__self" in config) || "key" in config || (didWarnAboutOldJSXRuntime = true, console.warn(
               "Your app (or one of its dependencies) is using an outdated JSX transform. Update to the modern JSX transform for faster performance: https://react.dev/link/new-jsx-transform"
             )), hasValidKey(config) && (checkKeyStringCoercion(config.key), key = "" + config.key), config)
-              hasOwnProperty.call(config, propName) && "key" !== propName && "__self" !== propName && "__source" !== propName && (i2[propName] = config[propName]);
+              hasOwnProperty.call(config, propName) && "key" !== propName && "__self" !== propName && "__source" !== propName && (i[propName] = config[propName]);
           var childrenLength = arguments.length - 2;
-          if (1 === childrenLength) i2.children = children;
+          if (1 === childrenLength) i.children = children;
           else if (1 < childrenLength) {
             for (var childArray = Array(childrenLength), _i = 0; _i < childrenLength; _i++)
               childArray[_i] = arguments[_i + 2];
             Object.freeze && Object.freeze(childArray);
-            i2.children = childArray;
+            i.children = childArray;
           }
           if (type && type.defaultProps)
             for (propName in childrenLength = type.defaultProps, childrenLength)
-              void 0 === i2[propName] && (i2[propName] = childrenLength[propName]);
+              void 0 === i[propName] && (i[propName] = childrenLength[propName]);
           key && defineKeyPropWarningGetter(
-            i2,
+            i,
             "function" === typeof type ? type.displayName || type.name || "Unknown" : type
           );
           var propName = 1e4 > ReactSharedInternals.recentlyCreatedOwnerStacks++;
           return ReactElement(
             type,
             key,
-            i2,
+            i,
             getOwner(),
             propName ? Error("react-stack-top-frame") : unknownOwnerDebugStack,
             propName ? createTask(getTaskName(type)) : unknownOwnerDebugTask
@@ -1306,7 +1306,7 @@
           try {
             testStringCoercion(key);
             var JSCompiler_inline_result = false;
-          } catch (e2) {
+          } catch (e) {
             JSCompiler_inline_result = true;
           }
           JSCompiler_inline_result && (console.error(
@@ -1520,8 +1520,8 @@
         exports.requestFormReset = function(form) {
           Internals.d.r(form);
         };
-        exports.unstable_batchedUpdates = function(fn, a2) {
-          return fn(a2);
+        exports.unstable_batchedUpdates = function(fn, a) {
+          return fn(a);
         };
         exports.useFormState = function(action, initialState, permalink) {
           return resolveDispatcher().useFormState(action, initialState, permalink);
@@ -1568,8 +1568,8 @@
           if (oldPath.length !== newPath.length)
             console.warn("copyWithRename() expects paths of the same length");
           else {
-            for (var i2 = 0; i2 < newPath.length - 1; i2++)
-              if (oldPath[i2] !== newPath[i2]) {
+            for (var i = 0; i < newPath.length - 1; i++)
+              if (oldPath[i] !== newPath[i]) {
                 console.warn(
                   "copyWithRename() expects paths to be the same except for the deepest key"
                 );
@@ -1686,55 +1686,55 @@
               throw Error("Unable to find node on an unmounted component.");
             return alternate !== fiber ? null : fiber;
           }
-          for (var a2 = fiber, b = alternate; ; ) {
-            var parentA = a2.return;
+          for (var a = fiber, b = alternate; ; ) {
+            var parentA = a.return;
             if (null === parentA) break;
             var parentB = parentA.alternate;
             if (null === parentB) {
               b = parentA.return;
               if (null !== b) {
-                a2 = b;
+                a = b;
                 continue;
               }
               break;
             }
             if (parentA.child === parentB.child) {
               for (parentB = parentA.child; parentB; ) {
-                if (parentB === a2) return assertIsMounted(parentA), fiber;
+                if (parentB === a) return assertIsMounted(parentA), fiber;
                 if (parentB === b) return assertIsMounted(parentA), alternate;
                 parentB = parentB.sibling;
               }
               throw Error("Unable to find node on an unmounted component.");
             }
-            if (a2.return !== b.return) a2 = parentA, b = parentB;
+            if (a.return !== b.return) a = parentA, b = parentB;
             else {
               for (var didFindChild = false, _child = parentA.child; _child; ) {
-                if (_child === a2) {
+                if (_child === a) {
                   didFindChild = true;
-                  a2 = parentA;
+                  a = parentA;
                   b = parentB;
                   break;
                 }
                 if (_child === b) {
                   didFindChild = true;
                   b = parentA;
-                  a2 = parentB;
+                  a = parentB;
                   break;
                 }
                 _child = _child.sibling;
               }
               if (!didFindChild) {
                 for (_child = parentB.child; _child; ) {
-                  if (_child === a2) {
+                  if (_child === a) {
                     didFindChild = true;
-                    a2 = parentB;
+                    a = parentB;
                     b = parentA;
                     break;
                   }
                   if (_child === b) {
                     didFindChild = true;
                     b = parentB;
-                    a2 = parentA;
+                    a = parentA;
                     break;
                   }
                   _child = _child.sibling;
@@ -1745,14 +1745,14 @@
                   );
               }
             }
-            if (a2.alternate !== b)
+            if (a.alternate !== b)
               throw Error(
                 "Return fibers should always be each others' alternates. This error is likely caused by a bug in React. Please file an issue."
               );
           }
-          if (3 !== a2.tag)
+          if (3 !== a.tag)
             throw Error("Unable to find node on an unmounted component.");
-          return a2.stateNode.current === a2 ? fiber : alternate;
+          return a.stateNode.current === a ? fiber : alternate;
         }
         function findCurrentHostFiberImpl(node) {
           var tag = node.tag;
@@ -1873,8 +1873,8 @@
             case 29:
               type = fiber._debugInfo;
               if (null != type) {
-                for (var i2 = type.length - 1; 0 <= i2; i2--)
-                  if ("string" === typeof type[i2].name) return type[i2].name;
+                for (var i = type.length - 1; 0 <= i; i--)
+                  if ("string" === typeof type[i].name) return type[i].name;
               }
               if (null !== fiber.return)
                 return getComponentNameFromFiber(fiber.return);
@@ -1893,11 +1893,11 @@
           fiberStack[index$jscomp$0] = fiber;
           cursor.current = value;
         }
-        function requiredContext(c2) {
-          null === c2 && console.error(
+        function requiredContext(c) {
+          null === c && console.error(
             "Expected host context to exist. This error is likely caused by a bug in React. Please file an issue."
           );
-          return c2;
+          return c;
         }
         function pushHostContainer(fiber, nextRootInstance) {
           push(rootInstanceStackCursor, nextRootInstance, fiber);
@@ -2170,8 +2170,8 @@
               info += describeFiber(workInProgress2, previous);
               var debugInfo = workInProgress2._debugInfo;
               if (debugInfo)
-                for (var i2 = debugInfo.length - 1; 0 <= i2; i2--) {
-                  var entry = debugInfo[i2];
+                for (var i = debugInfo.length - 1; 0 <= i; i--) {
+                  var entry = debugInfo[i];
                   if ("string" === typeof entry.name) {
                     var JSCompiler_temp_const = info;
                     a: {
@@ -2284,7 +2284,7 @@
         function willCoercionThrow(value) {
           try {
             return testStringCoercion(value), false;
-          } catch (e2) {
+          } catch (e) {
             return true;
           }
         }
@@ -2464,7 +2464,7 @@
           return lane;
         }
         function createLaneMap(initial) {
-          for (var laneMap = [], i2 = 0; 31 > i2; i2++) laneMap.push(initial);
+          for (var laneMap = [], i = 0; 31 > i; i++) laneMap.push(initial);
           return laneMap;
         }
         function markRootUpdated$1(root2, updateLane) {
@@ -2830,7 +2830,7 @@
           if ("undefined" === typeof doc) return null;
           try {
             return doc.activeElement || doc.body;
-          } catch (e2) {
+          } catch (e) {
             return doc.body;
           }
         }
@@ -2912,20 +2912,20 @@
           node = node.options;
           if (multiple) {
             multiple = {};
-            for (var i2 = 0; i2 < propValue.length; i2++)
-              multiple["$" + propValue[i2]] = true;
+            for (var i = 0; i < propValue.length; i++)
+              multiple["$" + propValue[i]] = true;
             for (propValue = 0; propValue < node.length; propValue++)
-              i2 = multiple.hasOwnProperty("$" + node[propValue].value), node[propValue].selected !== i2 && (node[propValue].selected = i2), i2 && setDefaultSelected && (node[propValue].defaultSelected = true);
+              i = multiple.hasOwnProperty("$" + node[propValue].value), node[propValue].selected !== i && (node[propValue].selected = i), i && setDefaultSelected && (node[propValue].defaultSelected = true);
           } else {
             propValue = "" + getToStringValue(propValue);
             multiple = null;
-            for (i2 = 0; i2 < node.length; i2++) {
-              if (node[i2].value === propValue) {
-                node[i2].selected = true;
-                setDefaultSelected && (node[i2].defaultSelected = true);
+            for (i = 0; i < node.length; i++) {
+              if (node[i].value === propValue) {
+                node[i].selected = true;
+                setDefaultSelected && (node[i].defaultSelected = true);
                 return;
               }
-              null !== multiple || node[i2].disabled || (multiple = node[i2]);
+              null !== multiple || node[i].disabled || (multiple = node[i]);
             }
             null !== multiple && (multiple.selected = true);
           }
@@ -3187,21 +3187,21 @@
           skipToNode = "";
           var debugInfo = node.fiber._debugInfo;
           if (debugInfo)
-            for (var i2 = 0; i2 < debugInfo.length; i2++) {
-              var serverComponentName = debugInfo[i2].name;
+            for (var i = 0; i < debugInfo.length; i++) {
+              var serverComponentName = debugInfo[i].name;
               "string" === typeof serverComponentName && (skipToNode += indentation(indent) + "<" + serverComponentName + ">\n", indent++);
             }
           debugInfo = "";
-          i2 = node.fiber.pendingProps;
+          i = node.fiber.pendingProps;
           if (6 === node.fiber.tag)
-            debugInfo = describeTextDiff(i2, node.serverProps, indent), indent++;
+            debugInfo = describeTextDiff(i, node.serverProps, indent), indent++;
           else if (serverComponentName = describeFiberType(node.fiber), null !== serverComponentName)
             if (void 0 === node.serverProps) {
               debugInfo = indent;
               var maxLength = 120 - 2 * debugInfo - serverComponentName.length - 2, content = "";
-              for (propName in i2)
-                if (i2.hasOwnProperty(propName) && "children" !== propName) {
-                  var propValue = describePropValue(i2[propName], 15);
+              for (propName in i)
+                if (i.hasOwnProperty(propName) && "children" !== propName) {
+                  var propValue = describePropValue(i[propName], 15);
                   maxLength -= propName.length + propValue.length + 2;
                   if (0 > maxLength) {
                     content += " ...";
@@ -3214,25 +3214,25 @@
             } else
               null === node.serverProps ? (debugInfo = describeExpandedElement(
                 serverComponentName,
-                i2,
+                i,
                 added(indent)
               ), indent++) : "string" === typeof node.serverProps ? console.error(
                 "Should not have matched a non HostText fiber to a Text node. This is a bug in React."
               ) : (debugInfo = describeElementDiff(
                 serverComponentName,
-                i2,
+                i,
                 node.serverProps,
                 indent
               ), indent++);
           var propName = "";
-          i2 = node.fiber.child;
-          for (serverComponentName = 0; i2 && serverComponentName < node.children.length; )
-            maxLength = node.children[serverComponentName], maxLength.fiber === i2 ? (propName += describeNode(maxLength, indent), serverComponentName++) : propName += describeSiblingFiber(i2, indent), i2 = i2.sibling;
-          i2 && 0 < node.children.length && (propName += indentation(indent) + "...\n");
-          i2 = node.serverTail;
+          i = node.fiber.child;
+          for (serverComponentName = 0; i && serverComponentName < node.children.length; )
+            maxLength = node.children[serverComponentName], maxLength.fiber === i ? (propName += describeNode(maxLength, indent), serverComponentName++) : propName += describeSiblingFiber(i, indent), i = i.sibling;
+          i && 0 < node.children.length && (propName += indentation(indent) + "...\n");
+          i = node.serverTail;
           null === node.serverProps && indent--;
-          for (node = 0; node < i2.length; node++)
-            serverComponentName = i2[node], propName = "string" === typeof serverComponentName ? propName + (removed(indent) + describeTextNode(serverComponentName, 120 - 2 * indent) + "\n") : propName + describeExpandedElement(
+          for (node = 0; node < i.length; node++)
+            serverComponentName = i[node], propName = "string" === typeof serverComponentName ? propName + (removed(indent) + describeTextNode(serverComponentName, 120 - 2 * indent) + "\n") : propName + describeExpandedElement(
               serverComponentName.type,
               serverComponentName.props,
               removed(indent)
@@ -3471,7 +3471,7 @@
           node.textContent = text;
         }
         function camelize(string) {
-          return string.replace(hyphenPattern, function(_2, character) {
+          return string.replace(hyphenPattern, function(_, character) {
             return character.toUpperCase();
           });
         }
@@ -3511,8 +3511,8 @@
               if (prevStyles) {
                 for (var key in prevStyles)
                   if (prevStyles.hasOwnProperty(key) && !styles.hasOwnProperty(key))
-                    for (var longhands = shorthandToLonghand[key] || [key], i2 = 0; i2 < longhands.length; i2++)
-                      expandedUpdates[longhands[i2]] = key;
+                    for (var longhands = shorthandToLonghand[key] || [key], i = 0; i < longhands.length; i++)
+                      expandedUpdates[longhands[i]] = key;
               }
               for (var _key in styles)
                 if (styles.hasOwnProperty(_key) && (!prevStyles || prevStyles[_key] !== styles[_key]))
@@ -3524,12 +3524,12 @@
                   _key[key[longhands]] = key$jscomp$0;
               key$jscomp$0 = {};
               for (var _key2 in expandedUpdates)
-                if (key = expandedUpdates[_key2], (longhands = _key[_key2]) && key !== longhands && (i2 = key + "," + longhands, !key$jscomp$0[i2])) {
-                  key$jscomp$0[i2] = true;
-                  i2 = console;
+                if (key = expandedUpdates[_key2], (longhands = _key[_key2]) && key !== longhands && (i = key + "," + longhands, !key$jscomp$0[i])) {
+                  key$jscomp$0[i] = true;
+                  i = console;
                   var value = styles[key];
-                  i2.error.call(
-                    i2,
+                  i.error.call(
+                    i,
                     "%s a style property during rerender (%s) when a conflicting property is set (%s) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values.",
                     null == value || "boolean" === typeof value || "" === value ? "Removing" : "Updating",
                     key,
@@ -3888,16 +3888,16 @@
             }
           }
         }
-        function batchedUpdates$1(fn, a2, b) {
-          if (isInsideEventHandler) return fn(a2, b);
+        function batchedUpdates$1(fn, a, b) {
+          if (isInsideEventHandler) return fn(a, b);
           isInsideEventHandler = true;
           try {
-            var JSCompiler_inline_result = fn(a2);
+            var JSCompiler_inline_result = fn(a);
             return JSCompiler_inline_result;
           } finally {
             if (isInsideEventHandler = false, null !== restoreTarget || null !== restoreQueue) {
-              if (flushSyncWork$1(), restoreTarget && (a2 = restoreTarget, fn = restoreQueue, restoreQueue = restoreTarget = null, restoreStateOfTarget(a2), fn))
-                for (a2 = 0; a2 < fn.length; a2++) restoreStateOfTarget(fn[a2]);
+              if (flushSyncWork$1(), restoreTarget && (a = restoreTarget, fn = restoreQueue, restoreQueue = restoreTarget = null, restoreStateOfTarget(a), fn))
+                for (a = 0; a < fn.length; a++) restoreStateOfTarget(fn[a]);
             }
           }
         }
@@ -4202,8 +4202,8 @@
           registerTwoPhaseEvent(reactName, [domEventName]);
         }
         function getArrayKind(array) {
-          for (var kind = EMPTY_ARRAY, i2 = 0; i2 < array.length; i2++) {
-            var value = array[i2];
+          for (var kind = EMPTY_ARRAY, i = 0; i < array.length; i++) {
+            var value = array[i];
             if ("object" === typeof value && null !== value)
               if (isArrayImpl(value) && 2 === value.length && "string" === typeof value[0]) {
                 if (kind !== EMPTY_ARRAY && kind !== ENTRIES_ARRAY)
@@ -4481,8 +4481,8 @@
           if (supportsUserTiming) {
             var name = getComponentNameFromFiber(fiber);
             if (null !== name) {
-              for (var debugTask = null, properties = [], i2 = 0; i2 < errors.length; i2++) {
-                var capturedValue = errors[i2];
+              for (var debugTask = null, properties = [], i = 0; i < errors.length; i++) {
+                var capturedValue = errors[i];
                 null == debugTask && null !== capturedValue.source && (debugTask = capturedValue.source._debugTask);
                 capturedValue = capturedValue.value;
                 properties.push([
@@ -4517,8 +4517,8 @@
               var name = getComponentNameFromFiber(fiber);
               if (null !== name) {
                 selfTime = [];
-                for (var i2 = 0; i2 < errors.length; i2++) {
-                  var error = errors[i2].value;
+                for (var i = 0; i < errors.length; i++) {
+                  var error = errors[i].value;
                   selfTime.push([
                     "Error",
                     "object" === typeof error && null !== error && "string" === typeof error.message ? String(error.message) : String(error)
@@ -4634,8 +4634,8 @@
         function logRecoveredRenderPhase(startTime, endTime, lanes, recoverableErrors, hydrationFailed, debugTask) {
           if (supportsUserTiming && !(endTime <= startTime)) {
             lanes = [];
-            for (var i2 = 0; i2 < recoverableErrors.length; i2++) {
-              var error = recoverableErrors[i2].value;
+            for (var i = 0; i < recoverableErrors.length; i++) {
+              var error = recoverableErrors[i].value;
               lanes.push([
                 "Recoverable Error",
                 "object" === typeof error && null !== error && "string" === typeof error.message ? String(error.message) : String(error)
@@ -4701,8 +4701,8 @@
         }
         function logCommitErrored(startTime, endTime, errors, passive, debugTask) {
           if (supportsUserTiming && !(endTime <= startTime)) {
-            for (var properties = [], i2 = 0; i2 < errors.length; i2++) {
-              var error = errors[i2].value;
+            for (var properties = [], i = 0; i < errors.length; i++) {
+              var error = errors[i].value;
               properties.push([
                 "Error",
                 "object" === typeof error && null !== error && "string" === typeof error.message ? String(error.message) : String(error)
@@ -4747,15 +4747,15 @@
           ));
         }
         function finishQueueingConcurrentUpdates() {
-          for (var endIndex = concurrentQueuesIndex, i2 = concurrentlyUpdatedLanes = concurrentQueuesIndex = 0; i2 < endIndex; ) {
-            var fiber = concurrentQueues[i2];
-            concurrentQueues[i2++] = null;
-            var queue = concurrentQueues[i2];
-            concurrentQueues[i2++] = null;
-            var update = concurrentQueues[i2];
-            concurrentQueues[i2++] = null;
-            var lane = concurrentQueues[i2];
-            concurrentQueues[i2++] = null;
+          for (var endIndex = concurrentQueuesIndex, i = concurrentlyUpdatedLanes = concurrentQueuesIndex = 0; i < endIndex; ) {
+            var fiber = concurrentQueues[i];
+            concurrentQueues[i++] = null;
+            var queue = concurrentQueues[i];
+            concurrentQueues[i++] = null;
+            var update = concurrentQueues[i];
+            concurrentQueues[i++] = null;
+            var lane = concurrentQueues[i];
+            concurrentQueues[i++] = null;
             if (null !== queue && null !== update) {
               var pending = queue.pending;
               null === pending ? update.next = update : (update.next = pending.next, pending.next = update);
@@ -5389,8 +5389,8 @@
               a: for (; null !== list; ) {
                 var dependency = list;
                 list = fiber;
-                for (var i2 = 0; i2 < contexts.length; i2++)
-                  if (dependency.context === contexts[i2]) {
+                for (var i = 0; i < contexts.length; i++)
+                  if (dependency.context === contexts[i]) {
                     list.lanes |= renderLanes2;
                     dependency = list.alternate;
                     null !== dependency && (dependency.lanes |= renderLanes2);
@@ -5678,7 +5678,7 @@
             currentEntangledListeners = null;
             currentEntangledLane = 0;
             currentEntangledActionThenable = null;
-            for (var i2 = 0; i2 < listeners.length; i2++) (0, listeners[i2])();
+            for (var i = 0; i < listeners.length; i++) (0, listeners[i])();
           }
         }
         function chainThenableValue(thenable, result) {
@@ -5694,7 +5694,7 @@
             function() {
               thenableWithOverride.status = "fulfilled";
               thenableWithOverride.value = result;
-              for (var i2 = 0; i2 < listeners.length; i2++) (0, listeners[i2])(result);
+              for (var i = 0; i < listeners.length; i++) (0, listeners[i])(result);
             },
             function(error) {
               thenableWithOverride.status = "rejected";
@@ -5821,17 +5821,17 @@
         function getCurrentDebugTask() {
           var debugInfo = currentDebugInfo;
           if (null != debugInfo) {
-            for (var i2 = debugInfo.length - 1; 0 <= i2; i2--)
-              if (null != debugInfo[i2].name) {
-                var debugTask = debugInfo[i2].debugTask;
+            for (var i = debugInfo.length - 1; 0 <= i; i--)
+              if (null != debugInfo[i].name) {
+                var debugTask = debugInfo[i].debugTask;
                 if (null != debugTask) return debugTask;
               }
           }
           return null;
         }
         function validateFragmentProps(element, fiber, returnFiber) {
-          for (var keys2 = Object.keys(element.props), i2 = 0; i2 < keys2.length; i2++) {
-            var key = keys2[i2];
+          for (var keys2 = Object.keys(element.props), i = 0; i < keys2.length; i++) {
+            var key = keys2[i];
             if ("children" !== key && "key" !== key) {
               null === fiber && (fiber = createFiberFromElement(element, returnFiber.mode, 0), fiber._debugInfo = currentDebugInfo, fiber.return = returnFiber);
               runWithFiberInDEV(
@@ -6520,10 +6520,10 @@
               fiber._debugOwner = returnFiber._debugOwner;
               fiber._debugTask = returnFiber._debugTask;
               if (null != debugInfo) {
-                for (var i2 = debugInfo.length - 1; 0 <= i2; i2--)
-                  if ("string" === typeof debugInfo[i2].stack) {
-                    fiber._debugOwner = debugInfo[i2];
-                    fiber._debugTask = debugInfo[i2].debugTask;
+                for (var i = debugInfo.length - 1; 0 <= i; i--)
+                  if ("string" === typeof debugInfo[i].stack) {
+                    fiber._debugOwner = debugInfo[i];
+                    fiber._debugTask = debugInfo[i].debugTask;
                     break;
                   }
               }
@@ -6853,9 +6853,9 @@
           if (null !== hookTypesDev && (hookTypesUpdateIndexDev++, hookTypesDev[hookTypesUpdateIndexDev] !== hookName)) {
             var componentName2 = getComponentNameFromFiber(currentlyRenderingFiber);
             if (!didWarnAboutMismatchedHooksForComponent.has(componentName2) && (didWarnAboutMismatchedHooksForComponent.add(componentName2), null !== hookTypesDev)) {
-              for (var table = "", i2 = 0; i2 <= hookTypesUpdateIndexDev; i2++) {
-                var oldHookName = hookTypesDev[i2], newHookName = i2 === hookTypesUpdateIndexDev ? hookName : oldHookName;
-                for (oldHookName = i2 + 1 + ". " + oldHookName; 30 > oldHookName.length; )
+              for (var table = "", i = 0; i <= hookTypesUpdateIndexDev; i++) {
+                var oldHookName = hookTypesDev[i], newHookName = i === hookTypesUpdateIndexDev ? hookName : oldHookName;
+                for (oldHookName = i + 1 + ". " + oldHookName; 30 > oldHookName.length; )
                   oldHookName += " ";
                 oldHookName += newHookName + "\n";
                 table += oldHookName;
@@ -6900,8 +6900,8 @@
             "[" + prevDeps.join(", ") + "]",
             "[" + nextDeps.join(", ") + "]"
           );
-          for (var i2 = 0; i2 < prevDeps.length && i2 < nextDeps.length; i2++)
-            if (!objectIs(nextDeps[i2], prevDeps[i2])) return false;
+          for (var i = 0; i < prevDeps.length && i < nextDeps.length; i++)
+            if (!objectIs(nextDeps[i], prevDeps[i])) return false;
           return true;
         }
         function renderWithHooks(current2, workInProgress2, Component2, props, secondArg, nextRenderLanes) {
@@ -7525,7 +7525,7 @@
         }
         function notifyActionListeners(actionNode) {
           actionNode = actionNode.listeners;
-          for (var i2 = 0; i2 < actionNode.length; i2++) (0, actionNode[i2])();
+          for (var i = 0; i < actionNode.length; i++) (0, actionNode[i])();
         }
         function actionStateReducer(oldState, newState) {
           return newState;
@@ -10688,11 +10688,11 @@
                   addendum = null === lastEffect ? " You returned null. If your effect does not require clean up, return undefined (or nothing)." : "function" === typeof lastEffect.then ? "\n\nIt looks like you wrote " + hookName + "(async () => ...) or returned a Promise. Instead, write the async function inside your effect and call it immediately:\n\n" + hookName + "(() => {\n  async function fetchData() {\n    // You can await here\n    const response = await MyAPI.getData(someId);\n    // ...\n  }\n  fetchData();\n}, [someId]); // Or [] if effect doesn't need props or state\n\nLearn more about data fetching with Hooks: https://react.dev/link/hooks-data-fetching" : " You returned: " + lastEffect;
                   runWithFiberInDEV(
                     finishedWork,
-                    function(n2, a2) {
+                    function(n, a) {
                       console.error(
                         "%s must not return anything besides a function, which is used for clean-up.%s",
-                        n2,
-                        a2
+                        n,
+                        a
                       );
                     },
                     hookName,
@@ -11618,8 +11618,8 @@
         function recursivelyTraverseMutationEffects(root$jscomp$0, parentFiber) {
           var deletions = parentFiber.deletions;
           if (null !== deletions)
-            for (var i2 = 0; i2 < deletions.length; i2++) {
-              var root2 = root$jscomp$0, returnFiber = parentFiber, deletedFiber = deletions[i2], prevEffectStart = pushComponentEffectStart(), parent = returnFiber;
+            for (var i = 0; i < deletions.length; i++) {
+              var root2 = root$jscomp$0, returnFiber = parentFiber, deletedFiber = deletions[i], prevEffectStart = pushComponentEffectStart(), parent = returnFiber;
               a: for (; null !== parent; ) {
                 switch (parent.tag) {
                   case 27:
@@ -11731,9 +11731,9 @@
                               existingHiddenCallbacks
                             ).get(flags + (current2.href || ""));
                             if (maybeNodes) {
-                              for (var i2 = 0; i2 < maybeNodes.length; i2++)
-                                if (currentResource = maybeNodes[i2], currentResource.getAttribute("href") === (null == current2.href || "" === current2.href ? null : current2.href) && currentResource.getAttribute("rel") === (null == current2.rel ? null : current2.rel) && currentResource.getAttribute("title") === (null == current2.title ? null : current2.title) && currentResource.getAttribute("crossorigin") === (null == current2.crossOrigin ? null : current2.crossOrigin)) {
-                                  maybeNodes.splice(i2, 1);
+                              for (var i = 0; i < maybeNodes.length; i++)
+                                if (currentResource = maybeNodes[i], currentResource.getAttribute("href") === (null == current2.href || "" === current2.href ? null : current2.href) && currentResource.getAttribute("rel") === (null == current2.rel ? null : current2.rel) && currentResource.getAttribute("title") === (null == current2.title ? null : current2.title) && currentResource.getAttribute("crossorigin") === (null == current2.crossOrigin ? null : current2.crossOrigin)) {
+                                  maybeNodes.splice(i, 1);
                                   break b;
                                 }
                             }
@@ -11749,12 +11749,12 @@
                               "content",
                               existingHiddenCallbacks
                             ).get(flags + (current2.content || ""))) {
-                              for (i2 = 0; i2 < maybeNodes.length; i2++)
-                                if (currentResource = maybeNodes[i2], checkAttributeStringCoercion(
+                              for (i = 0; i < maybeNodes.length; i++)
+                                if (currentResource = maybeNodes[i], checkAttributeStringCoercion(
                                   current2.content,
                                   "content"
                                 ), currentResource.getAttribute("content") === (null == current2.content ? null : "" + current2.content) && currentResource.getAttribute("name") === (null == current2.name ? null : current2.name) && currentResource.getAttribute("property") === (null == current2.property ? null : current2.property) && currentResource.getAttribute("http-equiv") === (null == current2.httpEquiv ? null : current2.httpEquiv) && currentResource.getAttribute("charset") === (null == current2.charSet ? null : current2.charSet)) {
-                                  maybeNodes.splice(i2, 1);
+                                  maybeNodes.splice(i, 1);
                                   break b;
                                 }
                             }
@@ -11971,10 +11971,10 @@
                     if (null === current2) {
                       wasHidden = root2;
                       try {
-                        i2 = wasHidden.stateNode, existingHiddenCallbacks ? runWithFiberInDEV(
+                        i = wasHidden.stateNode, existingHiddenCallbacks ? runWithFiberInDEV(
                           wasHidden,
                           hideDehydratedBoundary,
-                          i2
+                          i
                         ) : runWithFiberInDEV(
                           wasHidden,
                           unhideDehydratedBoundary,
@@ -12728,8 +12728,8 @@
           var deletions = parentFiber.deletions;
           if (0 !== (parentFiber.flags & 16)) {
             if (null !== deletions)
-              for (var i2 = 0; i2 < deletions.length; i2++) {
-                var childToDelete = deletions[i2], prevEffectStart = pushComponentEffectStart();
+              for (var i = 0; i < deletions.length; i++) {
+                var childToDelete = deletions[i], prevEffectStart = pushComponentEffectStart();
                 nextEffect = childToDelete;
                 commitPassiveUnmountEffectsInsideOfDeletedTree_begin(
                   childToDelete,
@@ -12800,8 +12800,8 @@
           var deletions = parentFiber.deletions;
           if (0 !== (parentFiber.flags & 16)) {
             if (null !== deletions)
-              for (var i2 = 0; i2 < deletions.length; i2++) {
-                var childToDelete = deletions[i2], prevEffectStart = pushComponentEffectStart();
+              for (var i = 0; i < deletions.length; i++) {
+                var childToDelete = deletions[i], prevEffectStart = pushComponentEffectStart();
                 nextEffect = childToDelete;
                 commitPassiveUnmountEffectsInsideOfDeletedTree_begin(
                   childToDelete,
@@ -13303,8 +13303,8 @@
           for (var node = finishedWork; ; ) {
             var tag = node.tag;
             if ((0 === tag || 11 === tag || 15 === tag) && node.flags & 16384 && (tag = node.updateQueue, null !== tag && (tag = tag.stores, null !== tag)))
-              for (var i2 = 0; i2 < tag.length; i2++) {
-                var check = tag[i2], getSnapshot = check.getSnapshot;
+              for (var i = 0; i < tag.length; i++) {
+                var check = tag[i], getSnapshot = check.getSnapshot;
                 check = check.value;
                 try {
                   if (!objectIs(getSnapshot(), check)) return false;
@@ -14896,8 +14896,8 @@
         }
         function processDispatchQueue(dispatchQueue, eventSystemFlags) {
           eventSystemFlags = 0 !== (eventSystemFlags & 4);
-          for (var i2 = 0; i2 < dispatchQueue.length; i2++) {
-            var _dispatchQueue$i = dispatchQueue[i2];
+          for (var i = 0; i < dispatchQueue.length; i++) {
+            var _dispatchQueue$i = dispatchQueue[i];
             a: {
               var previousInstance = void 0, event = _dispatchQueue$i.event;
               _dispatchQueue$i = _dispatchQueue$i.listeners;
@@ -16346,8 +16346,8 @@
         function getStylesObjectFromElement(domElement) {
           var serverValueInObjectForm = {};
           domElement = domElement.style;
-          for (var i2 = 0; i2 < domElement.length; i2++) {
-            var styleName = domElement[i2];
+          for (var i = 0; i < domElement.length; i++) {
+            var styleName = domElement[i];
             serverValueInObjectForm[styleName] = domElement.getPropertyValue(styleName);
           }
           return serverValueInObjectForm;
@@ -16483,8 +16483,8 @@
           warnForPropDifference(propKey, domElement, value, serverDifferences);
         }
         function diffHydratedProperties(domElement, tag, props, hostContext) {
-          for (var serverDifferences = {}, extraAttributes = /* @__PURE__ */ new Set(), attributes = domElement.attributes, i2 = 0; i2 < attributes.length; i2++)
-            switch (attributes[i2].name.toLowerCase()) {
+          for (var serverDifferences = {}, extraAttributes = /* @__PURE__ */ new Set(), attributes = domElement.attributes, i = 0; i < attributes.length; i++)
+            switch (attributes[i].name.toLowerCase()) {
               case "value":
                 break;
               case "checked":
@@ -16492,7 +16492,7 @@
               case "selected":
                 break;
               default:
-                extraAttributes.add(attributes[i2].name);
+                extraAttributes.add(attributes[i].name);
             }
           if (isCustomElement(tag))
             for (var propKey in props) {
@@ -16795,11 +16795,11 @@
                     case "capture":
                     case "download":
                       a: {
-                        i2 = domElement;
+                        i = domElement;
                         var attributeName = attributes = value, serverDifferences$jscomp$0 = serverDifferences;
                         extraAttributes.delete(attributeName);
-                        i2 = i2.getAttribute(attributeName);
-                        if (null === i2)
+                        i = i.getAttribute(attributeName);
+                        if (null === i)
                           switch (typeof propKey) {
                             case "undefined":
                             case "function":
@@ -16814,15 +16814,15 @@
                             case "symbol":
                               break;
                             case "boolean":
-                              if (true === propKey && "" === i2) break a;
+                              if (true === propKey && "" === i) break a;
                               break;
                             default:
-                              if (checkAttributeStringCoercion(propKey, attributes), i2 === "" + propKey)
+                              if (checkAttributeStringCoercion(propKey, attributes), i === "" + propKey)
                                 break a;
                           }
                         warnForPropDifference(
                           attributes,
-                          i2,
+                          i,
                           propKey,
                           serverDifferences$jscomp$0
                         );
@@ -16833,12 +16833,12 @@
                     case "size":
                     case "span":
                       a: {
-                        i2 = domElement;
+                        i = domElement;
                         attributeName = attributes = value;
                         serverDifferences$jscomp$0 = serverDifferences;
                         extraAttributes.delete(attributeName);
-                        i2 = i2.getAttribute(attributeName);
-                        if (null === i2)
+                        i = i.getAttribute(attributeName);
+                        if (null === i)
                           switch (typeof propKey) {
                             case "undefined":
                             case "function":
@@ -16855,12 +16855,12 @@
                             case "boolean":
                               break;
                             default:
-                              if (!(isNaN(propKey) || 1 > propKey) && (checkAttributeStringCoercion(propKey, attributes), i2 === "" + propKey))
+                              if (!(isNaN(propKey) || 1 > propKey) && (checkAttributeStringCoercion(propKey, attributes), i === "" + propKey))
                                 break a;
                           }
                         warnForPropDifference(
                           attributes,
-                          i2,
+                          i,
                           propKey,
                           serverDifferences$jscomp$0
                         );
@@ -17002,21 +17002,21 @@
                       continue;
                     default:
                       if (!(2 < value.length) || "o" !== value[0] && "O" !== value[0] || "n" !== value[1] && "N" !== value[1]) {
-                        i2 = getAttributeAlias(value);
+                        i = getAttributeAlias(value);
                         attributes = false;
-                        hostContext.context === HostContextNamespaceNone && "svg" !== tag && "math" !== tag ? extraAttributes.delete(i2.toLowerCase()) : (attributeName = value.toLowerCase(), attributeName = possibleStandardNames.hasOwnProperty(
+                        hostContext.context === HostContextNamespaceNone && "svg" !== tag && "math" !== tag ? extraAttributes.delete(i.toLowerCase()) : (attributeName = value.toLowerCase(), attributeName = possibleStandardNames.hasOwnProperty(
                           attributeName
-                        ) ? possibleStandardNames[attributeName] || null : null, null !== attributeName && attributeName !== value && (attributes = true, extraAttributes.delete(attributeName)), extraAttributes.delete(i2));
-                        a: if (attributeName = domElement, serverDifferences$jscomp$0 = i2, i2 = propKey, isAttributeNameSafe(serverDifferences$jscomp$0))
+                        ) ? possibleStandardNames[attributeName] || null : null, null !== attributeName && attributeName !== value && (attributes = true, extraAttributes.delete(attributeName)), extraAttributes.delete(i));
+                        a: if (attributeName = domElement, serverDifferences$jscomp$0 = i, i = propKey, isAttributeNameSafe(serverDifferences$jscomp$0))
                           if (attributeName.hasAttribute(serverDifferences$jscomp$0))
                             attributeName = attributeName.getAttribute(
                               serverDifferences$jscomp$0
                             ), checkAttributeStringCoercion(
-                              i2,
+                              i,
                               serverDifferences$jscomp$0
-                            ), i2 = attributeName === "" + i2 ? i2 : attributeName;
+                            ), i = attributeName === "" + i ? i : attributeName;
                           else {
-                            switch (typeof i2) {
+                            switch (typeof i) {
                               case "function":
                               case "symbol":
                                 break a;
@@ -17024,12 +17024,12 @@
                                 if (attributeName = serverDifferences$jscomp$0.toLowerCase().slice(0, 5), "data-" !== attributeName && "aria-" !== attributeName)
                                   break a;
                             }
-                            i2 = void 0 === i2 ? void 0 : null;
+                            i = void 0 === i ? void 0 : null;
                           }
-                        else i2 = void 0;
+                        else i = void 0;
                         attributes || warnForPropDifference(
                           value,
-                          i2,
+                          i,
                           propKey,
                           serverDifferences
                         );
@@ -17067,18 +17067,18 @@
         }
         function estimateBandwidth() {
           if ("function" === typeof performance.getEntriesByType) {
-            for (var count = 0, bits = 0, resourceEntries = performance.getEntriesByType("resource"), i2 = 0; i2 < resourceEntries.length; i2++) {
-              var entry = resourceEntries[i2], transferSize = entry.transferSize, initiatorType = entry.initiatorType, duration = entry.duration;
+            for (var count = 0, bits = 0, resourceEntries = performance.getEntriesByType("resource"), i = 0; i < resourceEntries.length; i++) {
+              var entry = resourceEntries[i], transferSize = entry.transferSize, initiatorType = entry.initiatorType, duration = entry.duration;
               if (transferSize && duration && isLikelyStaticResource(initiatorType)) {
                 initiatorType = 0;
                 duration = entry.responseEnd;
-                for (i2 += 1; i2 < resourceEntries.length; i2++) {
-                  var overlapEntry = resourceEntries[i2], overlapStartTime = overlapEntry.startTime;
+                for (i += 1; i < resourceEntries.length; i++) {
+                  var overlapEntry = resourceEntries[i], overlapStartTime = overlapEntry.startTime;
                   if (overlapStartTime > duration) break;
                   var overlapTransferSize = overlapEntry.transferSize, overlapInitiatorType = overlapEntry.initiatorType;
                   overlapTransferSize && isLikelyStaticResource(overlapInitiatorType) && (overlapEntry = overlapEntry.responseEnd, initiatorType += overlapTransferSize * (overlapEntry < duration ? 1 : (duration - overlapStartTime) / (overlapEntry - overlapStartTime)));
                 }
-                --i2;
+                --i;
                 bits += 8 * (transferSize + initiatorType) / (entry.duration / 1e3);
                 count++;
                 if (10 < count) break;
@@ -17377,8 +17377,8 @@
         }
         function describeHydratableInstanceForDevWarnings(instance) {
           if (1 === instance.nodeType) {
-            for (var JSCompiler_temp_const = instance.nodeName.toLowerCase(), serverDifferences = {}, attributes = instance.attributes, i2 = 0; i2 < attributes.length; i2++) {
-              var attr = attributes[i2];
+            for (var JSCompiler_temp_const = instance.nodeName.toLowerCase(), serverDifferences = {}, attributes = instance.attributes, i = 0; i < attributes.length; i++) {
+              var attr = attributes[i];
               serverDifferences[getPropNameFromAttributeName(attr.name)] = "style" === attr.name.toLowerCase() ? getStylesObjectFromElement(instance) : attr.value;
             }
             return { type: JSCompiler_temp_const, props: serverDifferences };
@@ -17678,8 +17678,8 @@
         function insertStylesheet(instance, precedence, root2) {
           for (var nodes = root2.querySelectorAll(
             'link[rel="stylesheet"][data-precedence],style[data-precedence]'
-          ), last = nodes.length ? nodes[nodes.length - 1] : null, prior = last, i2 = 0; i2 < nodes.length; i2++) {
-            var node = nodes[i2];
+          ), last = nodes.length ? nodes[nodes.length - 1] : null, prior = last, i = 0; i < nodes.length; i++) {
+            var node = nodes[i];
             if (node.dataset.precedence === precedence) prior = node;
             else if (prior !== last) break;
           }
@@ -17890,8 +17890,8 @@
               precedencesByRoot.set(root2, precedences);
               for (var nodes = root2.querySelectorAll(
                 "link[data-precedence],style[data-precedence]"
-              ), i2 = 0; i2 < nodes.length; i2++) {
-                var node = nodes[i2];
+              ), i = 0; i < nodes.length; i++) {
+                var node = nodes[i];
                 if ("LINK" === node.nodeName || "not all" !== node.getAttribute("media"))
                   precedences.set(node.dataset.precedence, node), last = node;
               }
@@ -17899,14 +17899,14 @@
             }
             nodes = resource.instance;
             node = nodes.getAttribute("data-precedence");
-            i2 = precedences.get(node) || last;
-            i2 === last && precedences.set(LAST_PRECEDENCE, nodes);
+            i = precedences.get(node) || last;
+            i === last && precedences.set(LAST_PRECEDENCE, nodes);
             precedences.set(node, nodes);
             this.count++;
             last = onUnsuspend.bind(this);
             nodes.addEventListener("load", last);
             nodes.addEventListener("error", last);
-            i2 ? i2.parentNode.insertBefore(nodes, i2.nextSibling) : (root2 = 9 === root2.nodeType ? root2.head : root2, root2.insertBefore(nodes, root2.firstChild));
+            i ? i.parentNode.insertBefore(nodes, i.nextSibling) : (root2 = 9 === root2.nodeType ? root2.head : root2, root2.insertBefore(nodes, root2.firstChild));
             resource.state.loading |= Inserted;
           }
         }
@@ -17999,8 +17999,8 @@
         function markRetryLaneImpl(fiber, retryLane) {
           fiber = fiber.memoizedState;
           if (null !== fiber && null !== fiber.dehydrated) {
-            var a2 = fiber.retryLane;
-            fiber.retryLane = 0 !== a2 && a2 < retryLane ? a2 : retryLane;
+            var a = fiber.retryLane;
+            fiber.retryLane = 0 !== a && a < retryLane ? a : retryLane;
           }
         }
         function markRetryLaneIfNotHydrated(fiber, retryLane) {
@@ -18407,14 +18407,14 @@
             Scheduler.unstable_NormalPriority,
             function() {
               lastScheduledReplayQueue === formReplayingQueue && (lastScheduledReplayQueue = null);
-              for (var i2 = 0; i2 < formReplayingQueue.length; i2 += 3) {
-                var form = formReplayingQueue[i2], submitterOrAction = formReplayingQueue[i2 + 1], formData = formReplayingQueue[i2 + 2];
+              for (var i = 0; i < formReplayingQueue.length; i += 3) {
+                var form = formReplayingQueue[i], submitterOrAction = formReplayingQueue[i + 1], formData = formReplayingQueue[i + 2];
                 if ("function" !== typeof submitterOrAction)
                   if (null === findInstanceBlockingTarget(submitterOrAction || form))
                     continue;
                   else break;
                 var formInst = getInstanceFromNode(form);
-                null !== formInst && (formReplayingQueue.splice(i2, 3), i2 -= 3, form = {
+                null !== formInst && (formReplayingQueue.splice(i, 3), i -= 3, form = {
                   pending: true,
                   data: formData,
                   method: form.method,
@@ -18438,18 +18438,18 @@
           null !== queuedMouse && scheduleCallbackIfUnblocked(queuedMouse, unblocked);
           queuedPointers.forEach(unblock);
           queuedPointerCaptures.forEach(unblock);
-          for (var i2 = 0; i2 < queuedExplicitHydrationTargets.length; i2++) {
-            var queuedTarget = queuedExplicitHydrationTargets[i2];
+          for (var i = 0; i < queuedExplicitHydrationTargets.length; i++) {
+            var queuedTarget = queuedExplicitHydrationTargets[i];
             queuedTarget.blockedOn === unblocked && (queuedTarget.blockedOn = null);
           }
-          for (; 0 < queuedExplicitHydrationTargets.length && (i2 = queuedExplicitHydrationTargets[0], null === i2.blockedOn); )
-            attemptExplicitHydrationTarget(i2), null === i2.blockedOn && queuedExplicitHydrationTargets.shift();
-          i2 = (unblocked.ownerDocument || unblocked).$$reactFormReplay;
-          if (null != i2)
-            for (queuedTarget = 0; queuedTarget < i2.length; queuedTarget += 3) {
-              var form = i2[queuedTarget], submitterOrAction = i2[queuedTarget + 1], formProps = form[internalPropsKey] || null;
+          for (; 0 < queuedExplicitHydrationTargets.length && (i = queuedExplicitHydrationTargets[0], null === i.blockedOn); )
+            attemptExplicitHydrationTarget(i), null === i.blockedOn && queuedExplicitHydrationTargets.shift();
+          i = (unblocked.ownerDocument || unblocked).$$reactFormReplay;
+          if (null != i)
+            for (queuedTarget = 0; queuedTarget < i.length; queuedTarget += 3) {
+              var form = i[queuedTarget], submitterOrAction = i[queuedTarget + 1], formProps = form[internalPropsKey] || null;
               if ("function" === typeof submitterOrAction)
-                formProps || scheduleReplayQueueIfNeeded(i2);
+                formProps || scheduleReplayQueueIfNeeded(i);
               else if (formProps) {
                 var action = null;
                 if (submitterOrAction && submitterOrAction.hasAttribute("formAction"))
@@ -18459,8 +18459,8 @@
                     if (null !== findInstanceBlockingTarget(form)) continue;
                   }
                 else action = formProps.action;
-                "function" === typeof action ? i2[queuedTarget + 1] = action : (i2.splice(queuedTarget, 3), queuedTarget -= 3);
-                scheduleReplayQueueIfNeeded(i2);
+                "function" === typeof action ? i[queuedTarget + 1] = action : (i.splice(queuedTarget, 3), queuedTarget -= 3);
+                scheduleReplayQueueIfNeeded(i);
               }
             }
         }
@@ -19349,7 +19349,7 @@
             });
             window.addEventListener("test", options$jscomp$0, options$jscomp$0);
             window.removeEventListener("test", options$jscomp$0, options$jscomp$0);
-          } catch (e2) {
+          } catch (e) {
             passiveBrowserEventsSupported = false;
           }
         var root = null, startText = null, fallbackText = null, EventInterface = {
@@ -20999,8 +20999,8 @@
         var didWarnAboutUpdateInRenderForAnotherComponent = /* @__PURE__ */ new Set();
         var fakeActCallbackNode$1 = {}, firstScheduledRoot = null, lastScheduledRoot = null, didScheduleMicrotask = false, didScheduleMicrotask_act = false, mightHavePendingSyncWork = false, isFlushingWork = false, currentEventTransitionLane = 0, fakeActCallbackNode = {};
         (function() {
-          for (var i2 = 0; i2 < simpleEventPluginEvents.length; i2++) {
-            var eventName = simpleEventPluginEvents[i2], domEventName = eventName.toLowerCase();
+          for (var i = 0; i < simpleEventPluginEvents.length; i++) {
+            var eventName = simpleEventPluginEvents[i], domEventName = eventName.toLowerCase();
             eventName = eventName[0].toUpperCase() + eventName.slice(1);
             registerSimpleEvent(domEventName, "on" + eventName);
           }
@@ -21314,9 +21314,9 @@
           if (target) {
             var updatePriority = resolveUpdatePriority();
             target = { blockedOn: null, target, priority: updatePriority };
-            for (var i2 = 0; i2 < queuedExplicitHydrationTargets.length && 0 !== updatePriority && updatePriority < queuedExplicitHydrationTargets[i2].priority; i2++) ;
-            queuedExplicitHydrationTargets.splice(i2, 0, target);
-            0 === i2 && attemptExplicitHydrationTarget(target);
+            for (var i = 0; i < queuedExplicitHydrationTargets.length && 0 !== updatePriority && updatePriority < queuedExplicitHydrationTargets[i].priority; i++) ;
+            queuedExplicitHydrationTargets.splice(i, 0, target);
+            0 === i && attemptExplicitHydrationTarget(target);
           }
         };
         (function() {
@@ -21518,7 +21518,7 @@
           try {
             testStringCoercion(value);
             var JSCompiler_inline_result = false;
-          } catch (e2) {
+          } catch (e) {
             JSCompiler_inline_result = true;
           }
           if (JSCompiler_inline_result) {
@@ -21829,7 +21829,7 @@
   var noop = /* @__NO_SIDE_EFFECTS__ */ (any) => any;
 
   // node_modules/motion-utils/dist/es/pipe.mjs
-  var pipe = (...transformers) => transformers.reduce((a2, b) => (v) => b(a2(v)));
+  var pipe = (...transformers) => transformers.reduce((a, b) => (v) => b(a(v)));
 
   // node_modules/motion-utils/dist/es/progress.mjs
   var progress = /* @__NO_SIDE_EFFECTS__ */ (from, to, value) => {
@@ -21846,16 +21846,16 @@
       addUniqueItem(this.subscriptions, handler);
       return () => removeItem(this.subscriptions, handler);
     }
-    notify(a2, b, c2) {
+    notify(a, b, c) {
       const numSubscriptions = this.subscriptions.length;
       if (!numSubscriptions)
         return;
       if (numSubscriptions === 1) {
-        this.subscriptions[0](a2, b, c2);
+        this.subscriptions[0](a, b, c);
       } else {
-        for (let i2 = 0; i2 < numSubscriptions; i2++) {
-          const handler = this.subscriptions[i2];
-          handler && handler(a2, b, c2);
+        for (let i = 0; i < numSubscriptions; i++) {
+          const handler = this.subscriptions[i];
+          handler && handler(a, b, c);
         }
       }
     }
@@ -21884,13 +21884,13 @@
   }
 
   // node_modules/motion-utils/dist/es/easing/cubic-bezier.mjs
-  var calcBezier = (t2, a1, a2) => (((1 - 3 * a2 + 3 * a1) * t2 + (3 * a2 - 6 * a1)) * t2 + 3 * a1) * t2;
+  var calcBezier = (t, a1, a2) => (((1 - 3 * a2 + 3 * a1) * t + (3 * a2 - 6 * a1)) * t + 3 * a1) * t;
   var subdivisionPrecision = 1e-7;
   var subdivisionMaxIterations = 12;
   function binarySubdivide(x, lowerBound, upperBound, mX1, mX2) {
     let currentX;
     let currentT;
-    let i2 = 0;
+    let i = 0;
     do {
       currentT = lowerBound + (upperBound - lowerBound) / 2;
       currentX = calcBezier(currentT, mX1, mX2) - x;
@@ -21899,7 +21899,7 @@
       } else {
         lowerBound = currentT;
       }
-    } while (Math.abs(currentX) > subdivisionPrecision && ++i2 < subdivisionMaxIterations);
+    } while (Math.abs(currentX) > subdivisionPrecision && ++i < subdivisionMaxIterations);
     return currentT;
   }
   // @__NO_SIDE_EFFECTS__
@@ -21907,14 +21907,14 @@
     if (mX1 === mY1 && mX2 === mY2)
       return noop;
     const getTForX = (aX) => binarySubdivide(aX, 0, 1, mX1, mX2);
-    return (t2) => t2 === 0 || t2 === 1 ? t2 : calcBezier(getTForX(t2), mY1, mY2);
+    return (t) => t === 0 || t === 1 ? t : calcBezier(getTForX(t), mY1, mY2);
   }
 
   // node_modules/motion-utils/dist/es/easing/modifiers/mirror.mjs
-  var mirrorEasing = /* @__NO_SIDE_EFFECTS__ */ (easing) => (p2) => p2 <= 0.5 ? easing(2 * p2) / 2 : (2 - easing(2 * (1 - p2))) / 2;
+  var mirrorEasing = /* @__NO_SIDE_EFFECTS__ */ (easing) => (p) => p <= 0.5 ? easing(2 * p) / 2 : (2 - easing(2 * (1 - p))) / 2;
 
   // node_modules/motion-utils/dist/es/easing/modifiers/reverse.mjs
-  var reverseEasing = /* @__NO_SIDE_EFFECTS__ */ (easing) => (p2) => 1 - easing(1 - p2);
+  var reverseEasing = /* @__NO_SIDE_EFFECTS__ */ (easing) => (p) => 1 - easing(1 - p);
 
   // node_modules/motion-utils/dist/es/easing/back.mjs
   var backOut = /* @__PURE__ */ cubicBezier(0.33, 1.53, 0.69, 0.99);
@@ -21922,10 +21922,10 @@
   var backInOut = /* @__PURE__ */ mirrorEasing(backIn);
 
   // node_modules/motion-utils/dist/es/easing/anticipate.mjs
-  var anticipate = (p2) => p2 >= 1 ? 1 : (p2 *= 2) < 1 ? 0.5 * backIn(p2) : 0.5 * (2 - Math.pow(2, -10 * (p2 - 1)));
+  var anticipate = (p) => p >= 1 ? 1 : (p *= 2) < 1 ? 0.5 * backIn(p) : 0.5 * (2 - Math.pow(2, -10 * (p - 1)));
 
   // node_modules/motion-utils/dist/es/easing/circ.mjs
-  var circIn = (p2) => 1 - Math.sin(Math.acos(p2));
+  var circIn = (p) => 1 - Math.sin(Math.acos(p));
   var circOut = reverseEasing(circIn);
   var circInOut = mirrorEasing(circIn);
 
@@ -22122,8 +22122,8 @@
       return acc;
     }, {});
     const cancel = (process2) => {
-      for (let i2 = 0; i2 < stepsOrder.length; i2++) {
-        steps[stepsOrder[i2]].cancel(process2);
+      for (let i = 0; i < stepsOrder.length; i++) {
+        steps[stepsOrder[i]].cancel(process2);
       }
     };
     return { schedule, cancel, state, steps };
@@ -22210,11 +22210,11 @@
   var splitColor = (aName, bName, cName) => (v) => {
     if (typeof v !== "string")
       return v;
-    const [a2, b, c2, alpha2] = v.match(floatRegex);
+    const [a, b, c, alpha2] = v.match(floatRegex);
     return {
-      [aName]: parseFloat(a2),
+      [aName]: parseFloat(a),
       [bName]: parseFloat(b),
-      [cName]: parseFloat(c2),
+      [cName]: parseFloat(c),
       alpha: alpha2 !== void 0 ? parseFloat(alpha2) : 1
     };
   };
@@ -22233,30 +22233,30 @@
 
   // node_modules/motion-dom/dist/es/value/types/color/hex.mjs
   function parseHex(v) {
-    let r2 = "";
-    let g2 = "";
+    let r = "";
+    let g = "";
     let b = "";
-    let a2 = "";
+    let a = "";
     if (v.length > 5) {
-      r2 = v.substring(1, 3);
-      g2 = v.substring(3, 5);
+      r = v.substring(1, 3);
+      g = v.substring(3, 5);
       b = v.substring(5, 7);
-      a2 = v.substring(7, 9);
+      a = v.substring(7, 9);
     } else {
-      r2 = v.substring(1, 2);
-      g2 = v.substring(2, 3);
+      r = v.substring(1, 2);
+      g = v.substring(2, 3);
       b = v.substring(3, 4);
-      a2 = v.substring(4, 5);
-      r2 += r2;
-      g2 += g2;
+      a = v.substring(4, 5);
+      r += r;
+      g += g;
       b += b;
-      a2 += a2;
+      a += a;
     }
     return {
-      red: parseInt(r2, 16),
-      green: parseInt(g2, 16),
+      red: parseInt(r, 16),
+      green: parseInt(g, 16),
       blue: parseInt(b, 16),
-      alpha: a2 ? parseInt(a2, 16) / 255 : 1
+      alpha: a ? parseInt(a, 16) / 255 : 1
     };
   }
   var hex = {
@@ -22335,22 +22335,22 @@
       var: []
     };
     const types = [];
-    let i2 = 0;
+    let i = 0;
     const tokenised = originalValue.replace(complexRegex, (parsedValue) => {
       if (color.test(parsedValue)) {
-        indexes.color.push(i2);
+        indexes.color.push(i);
         types.push(COLOR_TOKEN);
         values.push(color.parse(parsedValue));
       } else if (parsedValue.startsWith(VAR_FUNCTION_TOKEN)) {
-        indexes.var.push(i2);
+        indexes.var.push(i);
         types.push(VAR_TOKEN);
         values.push(parsedValue);
       } else {
-        indexes.number.push(i2);
+        indexes.number.push(i);
         types.push(NUMBER_TOKEN);
         values.push(parseFloat(parsedValue));
       }
-      ++i2;
+      ++i;
       return SPLIT_TOKEN;
     });
     const split = tokenised.split(SPLIT_TOKEN);
@@ -22363,16 +22363,16 @@
     const numSections = split.length;
     return (v) => {
       let output = "";
-      for (let i2 = 0; i2 < numSections; i2++) {
-        output += split[i2];
-        if (v[i2] !== void 0) {
-          const type = types[i2];
+      for (let i = 0; i < numSections; i++) {
+        output += split[i];
+        if (v[i] !== void 0) {
+          const type = types[i];
           if (type === NUMBER_TOKEN) {
-            output += sanitize(v[i2]);
+            output += sanitize(v[i]);
           } else if (type === COLOR_TOKEN) {
-            output += color.transform(v[i2]);
+            output += color.transform(v[i]);
           } else {
-            output += v[i2];
+            output += v[i];
           }
         }
       }
@@ -22392,7 +22392,7 @@
   function getAnimatableNone(v) {
     const info = analyseComplexValue(v);
     const transformer = buildTransformer(info);
-    return transformer(info.values.map((value, i2) => convertToZero(value, info.split[i2])));
+    return transformer(info.values.map((value, i) => convertToZero(value, info.split[i])));
   }
   var complex = {
     test,
@@ -22402,18 +22402,18 @@
   };
 
   // node_modules/motion-dom/dist/es/value/types/color/hsla-to-rgba.mjs
-  function hueToRgb(p2, q, t2) {
-    if (t2 < 0)
-      t2 += 1;
-    if (t2 > 1)
-      t2 -= 1;
-    if (t2 < 1 / 6)
-      return p2 + (q - p2) * 6 * t2;
-    if (t2 < 1 / 2)
+  function hueToRgb(p, q, t) {
+    if (t < 0)
+      t += 1;
+    if (t > 1)
+      t -= 1;
+    if (t < 1 / 6)
+      return p + (q - p) * 6 * t;
+    if (t < 1 / 2)
       return q;
-    if (t2 < 2 / 3)
-      return p2 + (q - p2) * (2 / 3 - t2) * 6;
-    return p2;
+    if (t < 2 / 3)
+      return p + (q - p) * (2 / 3 - t) * 6;
+    return p;
   }
   function hslaToRgba({ hue, saturation, lightness, alpha: alpha2 }) {
     hue /= 360;
@@ -22426,10 +22426,10 @@
       red = green = blue = lightness;
     } else {
       const q = lightness < 0.5 ? lightness * (1 + saturation) : lightness + saturation - lightness * saturation;
-      const p2 = 2 * lightness - q;
-      red = hueToRgb(p2, q, hue + 1 / 3);
-      green = hueToRgb(p2, q, hue);
-      blue = hueToRgb(p2, q, hue - 1 / 3);
+      const p = 2 * lightness - q;
+      red = hueToRgb(p, q, hue + 1 / 3);
+      green = hueToRgb(p, q, hue);
+      blue = hueToRgb(p, q, hue - 1 / 3);
     }
     return {
       red: Math.round(red * 255),
@@ -22440,8 +22440,8 @@
   }
 
   // node_modules/motion-dom/dist/es/utils/mix/immediate.mjs
-  function mixImmediate(a2, b) {
-    return (p2) => p2 > 0 ? b : a2;
+  function mixImmediate(a, b) {
+    return (p) => p > 0 ? b : a;
   }
 
   // node_modules/motion-dom/dist/es/utils/mix/number.mjs
@@ -22488,45 +22488,45 @@
   var invisibleValues = /* @__PURE__ */ new Set(["none", "hidden"]);
   function mixVisibility(origin, target) {
     if (invisibleValues.has(origin)) {
-      return (p2) => p2 <= 0 ? origin : target;
+      return (p) => p <= 0 ? origin : target;
     } else {
-      return (p2) => p2 >= 1 ? target : origin;
+      return (p) => p >= 1 ? target : origin;
     }
   }
 
   // node_modules/motion-dom/dist/es/utils/mix/complex.mjs
-  function mixNumber2(a2, b) {
-    return (p2) => mixNumber(a2, b, p2);
+  function mixNumber2(a, b) {
+    return (p) => mixNumber(a, b, p);
   }
-  function getMixer(a2) {
-    if (typeof a2 === "number") {
+  function getMixer(a) {
+    if (typeof a === "number") {
       return mixNumber2;
-    } else if (typeof a2 === "string") {
-      return isCSSVariableToken(a2) ? mixImmediate : color.test(a2) ? mixColor : mixComplex;
-    } else if (Array.isArray(a2)) {
+    } else if (typeof a === "string") {
+      return isCSSVariableToken(a) ? mixImmediate : color.test(a) ? mixColor : mixComplex;
+    } else if (Array.isArray(a)) {
       return mixArray;
-    } else if (typeof a2 === "object") {
-      return color.test(a2) ? mixColor : mixObject;
+    } else if (typeof a === "object") {
+      return color.test(a) ? mixColor : mixObject;
     }
     return mixImmediate;
   }
-  function mixArray(a2, b) {
-    const output = [...a2];
+  function mixArray(a, b) {
+    const output = [...a];
     const numValues = output.length;
-    const blendValue = a2.map((v, i2) => getMixer(v)(v, b[i2]));
-    return (p2) => {
-      for (let i2 = 0; i2 < numValues; i2++) {
-        output[i2] = blendValue[i2](p2);
+    const blendValue = a.map((v, i) => getMixer(v)(v, b[i]));
+    return (p) => {
+      for (let i = 0; i < numValues; i++) {
+        output[i] = blendValue[i](p);
       }
       return output;
     };
   }
-  function mixObject(a2, b) {
-    const output = { ...a2, ...b };
+  function mixObject(a, b) {
+    const output = { ...a, ...b };
     const blendValue = {};
     for (const key in output) {
-      if (a2[key] !== void 0 && b[key] !== void 0) {
-        blendValue[key] = getMixer(a2[key])(a2[key], b[key]);
+      if (a[key] !== void 0 && b[key] !== void 0) {
+        blendValue[key] = getMixer(a[key])(a[key], b[key]);
       }
     }
     return (v) => {
@@ -22539,11 +22539,11 @@
   function matchOrder(origin, target) {
     const orderedOrigin = [];
     const pointers = { color: 0, var: 0, number: 0 };
-    for (let i2 = 0; i2 < target.values.length; i2++) {
-      const type = target.types[i2];
+    for (let i = 0; i < target.values.length; i++) {
+      const type = target.types[i];
       const originIndex = origin.indexes[type][pointers[type]];
       const originValue = origin.values[originIndex] ?? 0;
-      orderedOrigin[i2] = originValue;
+      orderedOrigin[i] = originValue;
       pointers[type]++;
     }
     return orderedOrigin;
@@ -22565,9 +22565,9 @@
   };
 
   // node_modules/motion-dom/dist/es/utils/mix/index.mjs
-  function mix(from, to, p2) {
-    if (typeof from === "number" && typeof to === "number" && typeof p2 === "number") {
-      return mixNumber(from, to, p2);
+  function mix(from, to, p) {
+    if (typeof from === "number" && typeof to === "number" && typeof p === "number") {
+      return mixNumber(from, to, p);
     }
     const mixer = getMixer(from);
     return mixer(from, to);
@@ -22591,8 +22591,8 @@
   var generateLinearEasing = (easing, duration, resolution = 10) => {
     let points = "";
     const numPoints = Math.max(Math.round(duration / resolution), 2);
-    for (let i2 = 0; i2 < numPoints; i2++) {
-      points += Math.round(easing(i2 / (numPoints - 1)) * 1e4) / 1e4 + ", ";
+    for (let i = 0; i < numPoints; i++) {
+      points += Math.round(easing(i / (numPoints - 1)) * 1e4) / 1e4 + ", ";
     }
     return `linear(${points.substring(0, points.length - 2)})`;
   };
@@ -22659,7 +22659,7 @@
   var rootIterations = 12;
   function approximateRoot(envelope, derivative, initialGuess) {
     let result = initialGuess;
-    for (let i2 = 1; i2 < rootIterations; i2++) {
+    for (let i = 1; i < rootIterations; i++) {
       result = result - envelope(result) / derivative(result);
     }
     return result;
@@ -22676,31 +22676,31 @@
       envelope = (undampedFreq2) => {
         const exponentialDecay = undampedFreq2 * dampingRatio;
         const delta = exponentialDecay * duration;
-        const a2 = exponentialDecay - velocity;
+        const a = exponentialDecay - velocity;
         const b = calcAngularFreq(undampedFreq2, dampingRatio);
-        const c2 = Math.exp(-delta);
-        return safeMin - a2 / b * c2;
+        const c = Math.exp(-delta);
+        return safeMin - a / b * c;
       };
       derivative = (undampedFreq2) => {
         const exponentialDecay = undampedFreq2 * dampingRatio;
         const delta = exponentialDecay * duration;
-        const d2 = delta * velocity + velocity;
-        const e2 = Math.pow(dampingRatio, 2) * Math.pow(undampedFreq2, 2) * duration;
-        const f2 = Math.exp(-delta);
-        const g2 = calcAngularFreq(Math.pow(undampedFreq2, 2), dampingRatio);
+        const d = delta * velocity + velocity;
+        const e = Math.pow(dampingRatio, 2) * Math.pow(undampedFreq2, 2) * duration;
+        const f = Math.exp(-delta);
+        const g = calcAngularFreq(Math.pow(undampedFreq2, 2), dampingRatio);
         const factor = -envelope(undampedFreq2) + safeMin > 0 ? -1 : 1;
-        return factor * ((d2 - e2) * f2) / g2;
+        return factor * ((d - e) * f) / g;
       };
     } else {
       envelope = (undampedFreq2) => {
-        const a2 = Math.exp(-undampedFreq2 * duration);
+        const a = Math.exp(-undampedFreq2 * duration);
         const b = (undampedFreq2 - velocity) * duration + 1;
-        return -safeMin + a2 * b;
+        return -safeMin + a * b;
       };
       derivative = (undampedFreq2) => {
-        const a2 = Math.exp(-undampedFreq2 * duration);
+        const a = Math.exp(-undampedFreq2 * duration);
         const b = (velocity - undampedFreq2) * (duration * duration);
-        return a2 * b;
+        return a * b;
       };
     }
     const initialGuess = 5 / duration;
@@ -22790,56 +22790,56 @@
     if (dampingRatio < 1) {
       angularFreq = calcAngularFreq(undampedAngularFreq, dampingRatio);
       A = (initialVelocity + dampingRatio * undampedAngularFreq * initialDelta) / angularFreq;
-      resolveSpring = (t2) => {
-        const envelope = Math.exp(-dampingRatio * undampedAngularFreq * t2);
-        return target - envelope * (A * Math.sin(angularFreq * t2) + initialDelta * Math.cos(angularFreq * t2));
+      resolveSpring = (t) => {
+        const envelope = Math.exp(-dampingRatio * undampedAngularFreq * t);
+        return target - envelope * (A * Math.sin(angularFreq * t) + initialDelta * Math.cos(angularFreq * t));
       };
       sinCoeff = dampingRatio * undampedAngularFreq * A + initialDelta * angularFreq;
       cosCoeff = dampingRatio * undampedAngularFreq * initialDelta - A * angularFreq;
-      resolveVelocity = (t2) => {
-        const envelope = Math.exp(-dampingRatio * undampedAngularFreq * t2);
-        return envelope * (sinCoeff * Math.sin(angularFreq * t2) + cosCoeff * Math.cos(angularFreq * t2));
+      resolveVelocity = (t) => {
+        const envelope = Math.exp(-dampingRatio * undampedAngularFreq * t);
+        return envelope * (sinCoeff * Math.sin(angularFreq * t) + cosCoeff * Math.cos(angularFreq * t));
       };
     } else if (dampingRatio === 1) {
-      resolveSpring = (t2) => target - Math.exp(-undampedAngularFreq * t2) * (initialDelta + (initialVelocity + undampedAngularFreq * initialDelta) * t2);
+      resolveSpring = (t) => target - Math.exp(-undampedAngularFreq * t) * (initialDelta + (initialVelocity + undampedAngularFreq * initialDelta) * t);
       const C = initialVelocity + undampedAngularFreq * initialDelta;
-      resolveVelocity = (t2) => Math.exp(-undampedAngularFreq * t2) * (undampedAngularFreq * C * t2 - initialVelocity);
+      resolveVelocity = (t) => Math.exp(-undampedAngularFreq * t) * (undampedAngularFreq * C * t - initialVelocity);
     } else {
       const dampedAngularFreq = undampedAngularFreq * Math.sqrt(dampingRatio * dampingRatio - 1);
-      resolveSpring = (t2) => {
-        const envelope = Math.exp(-dampingRatio * undampedAngularFreq * t2);
-        const freqForT = Math.min(dampedAngularFreq * t2, 300);
+      resolveSpring = (t) => {
+        const envelope = Math.exp(-dampingRatio * undampedAngularFreq * t);
+        const freqForT = Math.min(dampedAngularFreq * t, 300);
         return target - envelope * ((initialVelocity + dampingRatio * undampedAngularFreq * initialDelta) * Math.sinh(freqForT) + dampedAngularFreq * initialDelta * Math.cosh(freqForT)) / dampedAngularFreq;
       };
       const P = (initialVelocity + dampingRatio * undampedAngularFreq * initialDelta) / dampedAngularFreq;
       const sinhCoeff = dampingRatio * undampedAngularFreq * P - initialDelta * dampedAngularFreq;
       const coshCoeff = dampingRatio * undampedAngularFreq * initialDelta - P * dampedAngularFreq;
-      resolveVelocity = (t2) => {
-        const envelope = Math.exp(-dampingRatio * undampedAngularFreq * t2);
-        const freqForT = Math.min(dampedAngularFreq * t2, 300);
+      resolveVelocity = (t) => {
+        const envelope = Math.exp(-dampingRatio * undampedAngularFreq * t);
+        const freqForT = Math.min(dampedAngularFreq * t, 300);
         return envelope * (sinhCoeff * Math.sinh(freqForT) + coshCoeff * Math.cosh(freqForT));
       };
     }
     const generator = {
       calculatedDuration: isResolvedFromDuration ? duration || null : null,
-      velocity: (t2) => secondsToMilliseconds(resolveVelocity(t2)),
-      next: (t2) => {
+      velocity: (t) => secondsToMilliseconds(resolveVelocity(t)),
+      next: (t) => {
         if (!isResolvedFromDuration && dampingRatio < 1) {
-          const envelope = Math.exp(-dampingRatio * undampedAngularFreq * t2);
-          const sin = Math.sin(angularFreq * t2);
-          const cos = Math.cos(angularFreq * t2);
+          const envelope = Math.exp(-dampingRatio * undampedAngularFreq * t);
+          const sin = Math.sin(angularFreq * t);
+          const cos = Math.cos(angularFreq * t);
           const current2 = target - envelope * (A * sin + initialDelta * cos);
           const currentVelocity = secondsToMilliseconds(envelope * (sinCoeff * sin + cosCoeff * cos));
           state.done = Math.abs(currentVelocity) <= restSpeed && Math.abs(target - current2) <= restDelta;
           state.value = state.done ? target : current2;
           return state;
         }
-        const current = resolveSpring(t2);
+        const current = resolveSpring(t);
         if (!isResolvedFromDuration) {
-          const currentVelocity = secondsToMilliseconds(resolveVelocity(t2));
+          const currentVelocity = secondsToMilliseconds(resolveVelocity(t));
           state.done = Math.abs(currentVelocity) <= restSpeed && Math.abs(target - current) <= restDelta;
         } else {
-          state.done = t2 >= duration;
+          state.done = t >= duration;
         }
         state.value = state.done ? target : current;
         return state;
@@ -22864,9 +22864,9 @@
 
   // node_modules/motion-dom/dist/es/animation/generators/utils/velocity.mjs
   var velocitySampleDuration = 5;
-  function getGeneratorVelocity(resolveValue, t2, current) {
-    const prevT = Math.max(t2 - velocitySampleDuration, 0);
-    return velocityPerSecond(current - resolveValue(prevT), t2 - prevT);
+  function getGeneratorVelocity(resolveValue, t, current) {
+    const prevT = Math.max(t - velocitySampleDuration, 0);
+    return velocityPerSecond(current - resolveValue(prevT), t - prevT);
   }
 
   // node_modules/motion-dom/dist/es/animation/generators/inertia.mjs
@@ -22889,23 +22889,23 @@
     const target = modifyTarget === void 0 ? ideal : modifyTarget(ideal);
     if (target !== ideal)
       amplitude = target - origin;
-    const calcDelta = (t2) => -amplitude * Math.exp(-t2 / timeConstant);
-    const calcLatest = (t2) => target + calcDelta(t2);
-    const applyFriction = (t2) => {
-      const delta = calcDelta(t2);
-      const latest = calcLatest(t2);
+    const calcDelta = (t) => -amplitude * Math.exp(-t / timeConstant);
+    const calcLatest = (t) => target + calcDelta(t);
+    const applyFriction = (t) => {
+      const delta = calcDelta(t);
+      const latest = calcLatest(t);
       state.done = Math.abs(delta) <= restDelta;
       state.value = state.done ? target : latest;
     };
     let timeReachedBoundary;
     let spring$1;
-    const checkCatchBoundary = (t2) => {
+    const checkCatchBoundary = (t) => {
       if (!isOutOfBounds(state.value))
         return;
-      timeReachedBoundary = t2;
+      timeReachedBoundary = t;
       spring$1 = spring({
         keyframes: [state.value, nearestBoundary(state.value)],
-        velocity: getGeneratorVelocity(calcLatest, t2, state.value),
+        velocity: getGeneratorVelocity(calcLatest, t, state.value),
         // TODO: This should be passing * 1000
         damping: bounceDamping,
         stiffness: bounceStiffness,
@@ -22916,17 +22916,17 @@
     checkCatchBoundary(0);
     return {
       calculatedDuration: null,
-      next: (t2) => {
+      next: (t) => {
         let hasUpdatedFrame = false;
         if (!spring$1 && timeReachedBoundary === void 0) {
           hasUpdatedFrame = true;
-          applyFriction(t2);
-          checkCatchBoundary(t2);
+          applyFriction(t);
+          checkCatchBoundary(t);
         }
-        if (timeReachedBoundary !== void 0 && t2 >= timeReachedBoundary) {
-          return spring$1.next(t2 - timeReachedBoundary);
+        if (timeReachedBoundary !== void 0 && t >= timeReachedBoundary) {
+          return spring$1.next(t - timeReachedBoundary);
         } else {
-          !hasUpdatedFrame && applyFriction(t2);
+          !hasUpdatedFrame && applyFriction(t);
           return state;
         }
       }
@@ -22938,10 +22938,10 @@
     const mixers = [];
     const mixerFactory = customMixer || MotionGlobalConfig.mix || mix;
     const numMixers = output.length - 1;
-    for (let i2 = 0; i2 < numMixers; i2++) {
-      let mixer = mixerFactory(output[i2], output[i2 + 1]);
+    for (let i = 0; i < numMixers; i++) {
+      let mixer = mixerFactory(output[i], output[i + 1]);
       if (ease2) {
-        const easingFunction = Array.isArray(ease2) ? ease2[i2] || noop : ease2;
+        const easingFunction = Array.isArray(ease2) ? ease2[i] || noop : ease2;
         mixer = pipe(easingFunction, mixer);
       }
       mixers.push(mixer);
@@ -22965,15 +22965,15 @@
     const interpolator = (v) => {
       if (isZeroDeltaRange && v < input[0])
         return output[0];
-      let i2 = 0;
+      let i = 0;
       if (numMixers > 1) {
-        for (; i2 < input.length - 2; i2++) {
-          if (v < input[i2 + 1])
+        for (; i < input.length - 2; i++) {
+          if (v < input[i + 1])
             break;
         }
       }
-      const progressInRange = progress(input[i2], input[i2 + 1], v);
-      return mixers[i2](progressInRange);
+      const progressInRange = progress(input[i], input[i + 1], v);
+      return mixers[i](progressInRange);
     };
     return isClamp ? (v) => interpolator(clamp(input[0], input[inputLength - 1], v)) : interpolator;
   }
@@ -22981,8 +22981,8 @@
   // node_modules/motion-dom/dist/es/animation/keyframes/offsets/fill.mjs
   function fillOffset(offset, remaining) {
     const min = offset[offset.length - 1];
-    for (let i2 = 1; i2 <= remaining; i2++) {
-      const offsetProgress = progress(0, remaining, i2);
+    for (let i = 1; i <= remaining; i++) {
+      const offsetProgress = progress(0, remaining, i);
       offset.push(mixNumber(min, 1, offsetProgress));
     }
   }
@@ -22996,7 +22996,7 @@
 
   // node_modules/motion-dom/dist/es/animation/keyframes/offsets/time.mjs
   function convertOffsetToTimes(offset, duration) {
-    return offset.map((o2) => o2 * duration);
+    return offset.map((o) => o * duration);
   }
 
   // node_modules/motion-dom/dist/es/animation/generators/keyframes.mjs
@@ -23020,9 +23020,9 @@
     });
     return {
       calculatedDuration: duration,
-      next: (t2) => {
-        state.value = mapTimeToKeyframe(t2);
-        state.done = t2 >= duration;
+      next: (t) => {
+        state.value = mapTimeToKeyframe(t);
+        state.done = t >= duration;
         return state;
       }
     };
@@ -23260,14 +23260,14 @@
      * the MotionValue's frame-dependent velocity estimation.
      */
     getGeneratorVelocity() {
-      const t2 = this.currentTime;
-      if (t2 <= 0)
+      const t = this.currentTime;
+      if (t <= 0)
         return this.options.velocity || 0;
       if (this.generator.velocity) {
-        return this.generator.velocity(t2);
+        return this.generator.velocity(t);
       }
-      const current = this.generator.next(t2).value;
-      return getGeneratorVelocity((s2) => this.generator.next(s2).value, t2, current);
+      const current = this.generator.next(t).value;
+      return getGeneratorVelocity((s) => this.generator.next(s).value, t, current);
     }
     get speed() {
       return this.playbackSpeed;
@@ -23360,8 +23360,8 @@
 
   // node_modules/motion-dom/dist/es/animation/keyframes/utils/fill-wildcards.mjs
   function fillWildcards(keyframes2) {
-    for (let i2 = 1; i2 < keyframes2.length; i2++) {
-      keyframes2[i2] ?? (keyframes2[i2] = keyframes2[i2 - 1]);
+    for (let i = 1; i < keyframes2.length; i++) {
+      keyframes2[i] ?? (keyframes2[i] = keyframes2[i - 1]);
     }
   }
 
@@ -23654,14 +23654,14 @@
   var supportsLinearEasing = /* @__PURE__ */ memoSupports(() => {
     try {
       document.createElement("div").animate({ opacity: 0 }, { easing: "linear(0, 1)" });
-    } catch (e2) {
+    } catch (e) {
       return false;
     }
     return true;
   }, "linearEasing");
 
   // node_modules/motion-dom/dist/es/animation/waapi/easing/cubic-bezier.mjs
-  var cubicBezierAsString = ([a2, b, c2, d2]) => `cubic-bezier(${a2}, ${b}, ${c2}, ${d2})`;
+  var cubicBezierAsString = ([a, b, c, d]) => `cubic-bezier(${a}, ${b}, ${c}, ${d})`;
 
   // node_modules/motion-dom/dist/es/animation/waapi/easing/supported.mjs
   var supportedWaapiEasing = {
@@ -23790,7 +23790,7 @@
     cancel() {
       try {
         this.animation.cancel();
-      } catch (e2) {
+      } catch (e) {
       }
     }
     stop() {
@@ -23966,8 +23966,8 @@
     const current = keyframes2[0];
     if (keyframes2.length === 1)
       return true;
-    for (let i2 = 0; i2 < keyframes2.length; i2++) {
-      if (keyframes2[i2] !== current)
+    for (let i = 0; i < keyframes2.length; i++) {
+      if (keyframes2[i] !== current)
         return true;
     }
   }
@@ -24008,8 +24008,8 @@
   // node_modules/motion-dom/dist/es/animation/waapi/utils/is-browser-color.mjs
   var browserColorFunctions = /^(?:oklch|oklab|lab|lch|color|color-mix|light-dark)\(/;
   function hasBrowserOnlyColors(keyframes2) {
-    for (let i2 = 0; i2 < keyframes2.length; i2++) {
-      if (typeof keyframes2[i2] === "string" && browserColorFunctions.test(keyframes2[i2])) {
+    for (let i = 0; i < keyframes2.length; i++) {
+      if (typeof keyframes2[i] === "string" && browserColorFunctions.test(keyframes2[i])) {
         return true;
       }
     }
@@ -24191,7 +24191,7 @@
 
   // node_modules/motion-dom/dist/es/animation/utils/calc-child-stagger.mjs
   function calcChildStagger(children, child, delayChildren, staggerChildren = 0, staggerDirection = 1) {
-    const index = Array.from(children).sort((a2, b) => a2.sortNodePosition(b)).indexOf(child);
+    const index = Array.from(children).sort((a, b) => a.sortNodePosition(b)).indexOf(child);
     const numChildren = children.size;
     const maxStaggerDuration = (numChildren - 1) * staggerChildren;
     const delayIsFunction = typeof delayChildren === "function";
@@ -24486,7 +24486,7 @@
   // node_modules/motion-dom/dist/es/animation/utils/resolve-transition.mjs
   function resolveTransition(transition, parentTransition) {
     if (transition?.inherit && parentTransition) {
-      const { inherit: _2, ...rest } = transition;
+      const { inherit: _, ...rest } = transition;
       return { ...parentTransition, ...rest };
     }
     return transition;
@@ -25054,14 +25054,14 @@
   // node_modules/motion-dom/dist/es/animation/keyframes/utils/make-none-animatable.mjs
   var invalidTemplates = /* @__PURE__ */ new Set(["auto", "none", "0"]);
   function makeNoneKeyframesAnimatable(unresolvedKeyframes, noneKeyframeIndexes, name) {
-    let i2 = 0;
+    let i = 0;
     let animatableTemplate = void 0;
-    while (i2 < unresolvedKeyframes.length && !animatableTemplate) {
-      const keyframe = unresolvedKeyframes[i2];
+    while (i < unresolvedKeyframes.length && !animatableTemplate) {
+      const keyframe = unresolvedKeyframes[i];
       if (typeof keyframe === "string" && !invalidTemplates.has(keyframe) && analyseComplexValue(keyframe).values.length) {
-        animatableTemplate = unresolvedKeyframes[i2];
+        animatableTemplate = unresolvedKeyframes[i];
       }
-      i2++;
+      i++;
     }
     if (animatableTemplate && name) {
       for (const noneIndex of noneKeyframeIndexes) {
@@ -25080,16 +25080,16 @@
       if (!element || !element.current)
         return;
       super.readKeyframes();
-      for (let i2 = 0; i2 < unresolvedKeyframes.length; i2++) {
-        let keyframe = unresolvedKeyframes[i2];
+      for (let i = 0; i < unresolvedKeyframes.length; i++) {
+        let keyframe = unresolvedKeyframes[i];
         if (typeof keyframe === "string") {
           keyframe = keyframe.trim();
           if (isCSSVariableToken(keyframe)) {
             const resolved = getVariableValue(keyframe, element.current);
             if (resolved !== void 0) {
-              unresolvedKeyframes[i2] = resolved;
+              unresolvedKeyframes[i] = resolved;
             }
-            if (i2 === unresolvedKeyframes.length - 1) {
+            if (i === unresolvedKeyframes.length - 1) {
               this.finalKeyframe = keyframe;
             }
           }
@@ -25111,10 +25111,10 @@
       if (originType === targetType)
         return;
       if (isNumOrPxType(originType) && isNumOrPxType(targetType)) {
-        for (let i2 = 0; i2 < unresolvedKeyframes.length; i2++) {
-          const value = unresolvedKeyframes[i2];
+        for (let i = 0; i < unresolvedKeyframes.length; i++) {
+          const value = unresolvedKeyframes[i];
           if (typeof value === "string") {
-            unresolvedKeyframes[i2] = parseFloat(value);
+            unresolvedKeyframes[i] = parseFloat(value);
           }
         }
       } else if (positionalValues[name]) {
@@ -25124,9 +25124,9 @@
     resolveNoneKeyframes() {
       const { unresolvedKeyframes, name } = this;
       const noneKeyframeIndexes = [];
-      for (let i2 = 0; i2 < unresolvedKeyframes.length; i2++) {
-        if (unresolvedKeyframes[i2] === null || isNone(unresolvedKeyframes[i2])) {
-          noneKeyframeIndexes.push(i2);
+      for (let i = 0; i < unresolvedKeyframes.length; i++) {
+        if (unresolvedKeyframes[i] === null || isNone(unresolvedKeyframes[i])) {
+          noneKeyframeIndexes.push(i);
         }
       }
       if (noneKeyframeIndexes.length) {
@@ -25519,8 +25519,8 @@
   }
 
   // node_modules/motion-dom/dist/es/resize/index.mjs
-  function resize(a2, b) {
-    return typeof a2 === "function" ? resizeWindow(a2) : resizeElement(a2, b);
+  function resize(a, b) {
+    return typeof a === "function" ? resizeWindow(a) : resizeElement(a, b);
   }
 
   // node_modules/motion-dom/dist/es/scroll/observe.mjs
@@ -25980,8 +25980,8 @@
       this.props = props;
       this.prevPresenceContext = this.presenceContext;
       this.presenceContext = presenceContext;
-      for (let i2 = 0; i2 < propEventHandlers.length; i2++) {
-        const key = propEventHandlers[i2];
+      for (let i = 0; i < propEventHandlers.length; i++) {
+        const key = propEventHandlers[i];
         if (this.propEventSubscriptions[key]) {
           this.propEventSubscriptions[key]();
           delete this.propEventSubscriptions[key];
@@ -26138,8 +26138,8 @@
       super(...arguments);
       this.KeyframeResolver = DOMKeyframesResolver;
     }
-    sortInstanceNodePosition(a2, b) {
-      return a2.compareDocumentPosition(b) & 2 ? 1 : -1;
+    sortInstanceNodePosition(a, b) {
+      return a.compareDocumentPosition(b) & 2 ? 1 : -1;
     }
     getBaseTargetFromProps(props, key) {
       const style = props.style;
@@ -26244,8 +26244,8 @@
     treeScale.x = treeScale.y = 1;
     let node;
     let delta;
-    for (let i2 = 0; i2 < treeLength; i2++) {
-      node = treePath[i2];
+    for (let i = 0; i < treeLength; i++) {
+      node = treePath[i];
       delta = node.projectionDelta;
       const { visualElement } = node.options;
       if (visualElement && visualElement.props.style && visualElement.props.style.display === "contents") {
@@ -26316,8 +26316,8 @@
   function buildTransform(latestValues, transform2, transformTemplate) {
     let transformString = "";
     let transformIsDefault = true;
-    for (let i2 = 0; i2 < numTransforms; i2++) {
-      const key = transformPropOrder[i2];
+    for (let i = 0; i < numTransforms; i++) {
+      const key = transformPropOrder[i];
       const value = latestValues[key];
       if (value === void 0)
         continue;
@@ -26685,8 +26685,8 @@
       return context2;
     }
     const context = {};
-    for (let i2 = 0; i2 < numVariantProps; i2++) {
-      const name = variantProps[i2];
+    for (let i = 0; i < numVariantProps; i++) {
+      const name = variantProps[i];
       const prop = visualElement.props[name];
       if (isVariantLabel(prop) || prop === false) {
         context[name] = prop;
@@ -26702,8 +26702,8 @@
     const prevLength = prev.length;
     if (prevLength !== next.length)
       return false;
-    for (let i2 = 0; i2 < prevLength; i2++) {
-      if (prev[i2] !== next[i2])
+    for (let i = 0; i < prevLength; i++) {
+      if (prev[i] !== next[i])
         return false;
     }
     return true;
@@ -26740,14 +26740,14 @@
       const removedKeys = /* @__PURE__ */ new Set();
       let encounteredKeys = {};
       let removedVariantIndex = Infinity;
-      for (let i2 = 0; i2 < numAnimationTypes; i2++) {
-        const type = reversePriorityOrder[i2];
+      for (let i = 0; i < numAnimationTypes; i++) {
+        const type = reversePriorityOrder[i];
         const typeState = state[type];
         const prop = props[type] !== void 0 ? props[type] : context[type];
         const propIsVariant = isVariantLabel(prop);
         const activeDelta = type === changedActiveType ? typeState.isActive : null;
         if (activeDelta === false)
-          removedVariantIndex = i2;
+          removedVariantIndex = i;
         let isInherited = prop === context[type] && prop !== props[type] && propIsVariant;
         if (isInherited && (isInitialRender || wasReset) && visualElement.manuallyAnimateOnMount) {
           isInherited = false;
@@ -26773,7 +26773,7 @@
         const variantDidChange = checkVariantsDidChange(typeState.prevProp, prop);
         let shouldAnimateType = variantDidChange || // If we're making this variant active, we want to always make it active
         type === changedActiveType && typeState.isActive && !isInherited && propIsVariant || // If we removed a higher-priority variant (i is in reverse order)
-        i2 > removedVariantIndex && propIsVariant;
+        i > removedVariantIndex && propIsVariant;
         let handledRemovedValues = false;
         const definitionList = Array.isArray(prop) ? prop : [prop];
         let resolvedValues = definitionList.reduce(buildResolvedTypeValues(type), {});
@@ -27025,23 +27025,23 @@
   function isDeltaZero(delta) {
     return isAxisDeltaZero(delta.x) && isAxisDeltaZero(delta.y);
   }
-  function axisEquals(a2, b) {
-    return a2.min === b.min && a2.max === b.max;
+  function axisEquals(a, b) {
+    return a.min === b.min && a.max === b.max;
   }
-  function boxEquals(a2, b) {
-    return axisEquals(a2.x, b.x) && axisEquals(a2.y, b.y);
+  function boxEquals(a, b) {
+    return axisEquals(a.x, b.x) && axisEquals(a.y, b.y);
   }
-  function axisEqualsRounded(a2, b) {
-    return Math.round(a2.min) === Math.round(b.min) && Math.round(a2.max) === Math.round(b.max);
+  function axisEqualsRounded(a, b) {
+    return Math.round(a.min) === Math.round(b.min) && Math.round(a.max) === Math.round(b.max);
   }
-  function boxEqualsRounded(a2, b) {
-    return axisEqualsRounded(a2.x, b.x) && axisEqualsRounded(a2.y, b.y);
+  function boxEqualsRounded(a, b) {
+    return axisEqualsRounded(a.x, b.x) && axisEqualsRounded(a.y, b.y);
   }
   function aspectRatio(box) {
     return calcLength(box.x) / calcLength(box.y);
   }
-  function axisDeltaEquals(a2, b) {
-    return a2.translate === b.translate && a2.scale === b.scale && a2.originPoint === b.originPoint;
+  function axisDeltaEquals(a, b) {
+    return a.translate === b.translate && a.scale === b.scale && a.originPoint === b.originPoint;
   }
 
   // node_modules/motion-dom/dist/es/projection/utils/each-axis.mjs
@@ -27103,8 +27103,8 @@
     } else if (isOnlyMember) {
       target.opacity = mixNumber(follow.opacity ?? 1, lead.opacity ?? 1, progress2);
     }
-    for (let i2 = 0; i2 < numBorders; i2++) {
-      const borderLabel = borderLabels[i2];
+    for (let i = 0; i < numBorders; i++) {
+      const borderLabel = borderLabels[i];
       let followRadius = getRadius(follow, borderLabel);
       let leadRadius = getRadius(lead, borderLabel);
       if (followRadius === void 0 && leadRadius === void 0)
@@ -27131,12 +27131,12 @@
   var easeCrossfadeIn = /* @__PURE__ */ compress(0, 0.5, circOut);
   var easeCrossfadeOut = /* @__PURE__ */ compress(0.5, 0.95, noop);
   function compress(min, max, easing) {
-    return (p2) => {
-      if (p2 < min)
+    return (p) => {
+      if (p < min)
         return 0;
-      if (p2 > max)
+      if (p > max)
         return 1;
-      return easing(progress(min, max, p2));
+      return easing(progress(min, max, p));
     };
   }
 
@@ -27154,7 +27154,7 @@
   }
 
   // node_modules/motion-dom/dist/es/projection/utils/compare-by-depth.mjs
-  var compareByDepth = (a2, b) => a2.depth - b.depth;
+  var compareByDepth = (a, b) => a.depth - b.depth;
 
   // node_modules/motion-dom/dist/es/projection/utils/flat-tree.mjs
   var FlatTree = class {
@@ -27203,8 +27203,8 @@
     }
     add(node) {
       addUniqueItem(this.members, node);
-      for (let i2 = this.members.length - 1; i2 >= 0; i2--) {
-        const member = this.members[i2];
+      for (let i = this.members.length - 1; i >= 0; i--) {
+        const member = this.members[i];
         if (member === node || member === this.lead || member === this.prevLead)
           continue;
         const inst = member.instance;
@@ -27226,8 +27226,8 @@
       }
     }
     relegate(node) {
-      for (let i2 = this.members.indexOf(node) - 1; i2 >= 0; i2--) {
-        const member = this.members[i2];
+      for (let i = this.members.indexOf(node) - 1; i >= 0; i--) {
+        const member = this.members[i];
         if (member.isPresent !== false && member.instance?.isConnected !== false) {
           this.promote(member);
           return true;
@@ -27385,8 +27385,8 @@
         this.path = parent ? [...parent.path, parent] : [];
         this.parent = parent;
         this.depth = parent ? parent.depth + 1 : 0;
-        for (let i2 = 0; i2 < this.path.length; i2++) {
-          this.path[i2].shouldResetTransform = true;
+        for (let i = 0; i < this.path.length; i++) {
+          this.path[i].shouldResetTransform = true;
         }
         if (this.root === this)
           this.nodes = new FlatTree();
@@ -27532,8 +27532,8 @@
         if (this.isLayoutDirty)
           return;
         this.isLayoutDirty = true;
-        for (let i2 = 0; i2 < this.path.length; i2++) {
-          const node = this.path[i2];
+        for (let i = 0; i < this.path.length; i++) {
+          const node = this.path[i];
           node.shouldResetTransform = true;
           if (typeof node.latestValues.x === "string" || typeof node.latestValues.y === "string") {
             node.isLayoutDirty = true;
@@ -27633,8 +27633,8 @@
           return;
         }
         if (this.resumeFrom && !this.resumeFrom.instance) {
-          for (let i2 = 0; i2 < this.path.length; i2++) {
-            const node = this.path[i2];
+          for (let i = 0; i < this.path.length; i++) {
+            const node = this.path[i];
             node.updateScroll();
           }
         }
@@ -27715,8 +27715,8 @@
         if (this.scroll?.wasRoot) {
           return boxWithoutScroll;
         }
-        for (let i2 = 0; i2 < this.path.length; i2++) {
-          const node = this.path[i2];
+        for (let i = 0; i < this.path.length; i++) {
+          const node = this.path[i];
           const { scroll: scroll2, options } = node;
           if (node !== this.root && scroll2 && options.layoutScroll) {
             if (scroll2.wasRoot) {
@@ -27731,8 +27731,8 @@
       applyTransform(box, transformOnly = false, output) {
         const withTransforms = output || createBox();
         copyBoxInto(withTransforms, box);
-        for (let i2 = 0; i2 < this.path.length; i2++) {
-          const node = this.path[i2];
+        for (let i = 0; i < this.path.length; i++) {
+          const node = this.path[i];
           if (!transformOnly && node.options.layoutScroll && node.scroll && node !== node.root) {
             translateAxis(withTransforms.x, -node.scroll.offset.x);
             translateAxis(withTransforms.y, -node.scroll.offset.y);
@@ -27749,8 +27749,8 @@
       removeTransform(box) {
         const boxWithoutTransform = createBox();
         copyBoxInto(boxWithoutTransform, box);
-        for (let i2 = 0; i2 < this.path.length; i2++) {
-          const node = this.path[i2];
+        for (let i = 0; i < this.path.length; i++) {
+          const node = this.path[i];
           if (!hasTransform(node.latestValues))
             continue;
           let sourceBox;
@@ -28144,9 +28144,9 @@
         if (latestValues.z) {
           resetDistortingTransform("z", visualElement, resetValues, this.animationValues);
         }
-        for (let i2 = 0; i2 < transformAxes.length; i2++) {
-          resetDistortingTransform(`rotate${transformAxes[i2]}`, visualElement, resetValues, this.animationValues);
-          resetDistortingTransform(`skew${transformAxes[i2]}`, visualElement, resetValues, this.animationValues);
+        for (let i = 0; i < transformAxes.length; i++) {
+          resetDistortingTransform(`rotate${transformAxes[i]}`, visualElement, resetValues, this.animationValues);
+          resetDistortingTransform(`skew${transformAxes[i]}`, visualElement, resetValues, this.animationValues);
         }
         visualElement.render();
         for (const key in resetValues) {
@@ -28207,8 +28207,8 @@
           const corrected = transform2 === "none" ? valuesToRender[key] : correct(valuesToRender[key], lead);
           if (applyTo) {
             const num = applyTo.length;
-            for (let i2 = 0; i2 < num; i2++) {
-              targetStyle[applyTo[i2]] = corrected;
+            for (let i = 0; i < num; i++) {
+              targetStyle[applyTo[i]] = corrected;
             }
           } else {
             if (isCSSVariable) {
@@ -28366,19 +28366,19 @@
   function removeLeadSnapshots(stack) {
     stack.removeLeadSnapshot();
   }
-  function mixAxisDeltaLinear(output, delta, p2) {
-    output.translate = mixNumber(delta.translate, 0, p2);
-    output.scale = mixNumber(delta.scale, 1, p2);
+  function mixAxisDeltaLinear(output, delta, p) {
+    output.translate = mixNumber(delta.translate, 0, p);
+    output.scale = mixNumber(delta.scale, 1, p);
     output.origin = delta.origin;
     output.originPoint = delta.originPoint;
   }
-  function mixAxis(output, from, to, p2) {
-    output.min = mixNumber(from.min, to.min, p2);
-    output.max = mixNumber(from.max, to.max, p2);
+  function mixAxis(output, from, to, p) {
+    output.min = mixNumber(from.min, to.min, p);
+    output.max = mixNumber(from.max, to.max, p);
   }
-  function mixBox(output, from, to, p2) {
-    mixAxis(output.x, from.x, to.x, p2);
-    mixAxis(output.y, from.y, to.y, p2);
+  function mixBox(output, from, to, p) {
+    mixAxis(output.x, from.x, to.x, p);
+    mixAxis(output.y, from.y, to.y, p);
   }
   function hasOpacityCrossfade(node) {
     return node.animationValues && node.animationValues.opacityExit !== void 0;
@@ -28441,7 +28441,7 @@
   // node_modules/framer-motion/dist/es/context/MotionConfigContext.mjs
   var import_react5 = __toESM(require_react(), 1);
   var MotionConfigContext = (0, import_react5.createContext)({
-    transformPagePoint: (p2) => p2,
+    transformPagePoint: (p) => p,
     isStatic: false,
     reducedMotion: "never"
   });
@@ -28792,8 +28792,8 @@
     const variantToSet = isInitialAnimationBlocked ? animate : initial;
     if (variantToSet && typeof variantToSet !== "boolean" && !isAnimationControls(variantToSet)) {
       const list = Array.isArray(variantToSet) ? variantToSet : [variantToSet];
-      for (let i2 = 0; i2 < list.length; i2++) {
-        const resolved = resolveVariantFromProps(props, list[i2]);
+      for (let i = 0; i < list.length; i++) {
+        const resolved = resolveVariantFromProps(props, list[i]);
         if (resolved) {
           const { transitionEnd, transition, ...target } = resolved;
           for (const key in target) {
@@ -29195,10 +29195,10 @@
   };
 
   // node_modules/framer-motion/dist/es/utils/distance.mjs
-  var distance = (a2, b) => Math.abs(a2 - b);
-  function distance2D(a2, b) {
-    const xDelta = distance(a2.x, b.x);
-    const yDelta = distance(a2.y, b.y);
+  var distance = (a, b) => Math.abs(a - b);
+  function distance2D(a, b) {
+    const xDelta = distance(a.x, b.x);
+    const yDelta = distance(a.y, b.y);
     return Math.sqrt(xDelta ** 2 + yDelta ** 2);
   }
 
@@ -29355,8 +29355,8 @@
   function transformPoint(info, transformPagePoint) {
     return transformPagePoint ? { point: transformPagePoint(info.point) } : info;
   }
-  function subtractPoint(a2, b) {
-    return { x: a2.x - b.x, y: a2.y - b.y };
+  function subtractPoint(a, b) {
+    return { x: a.x - b.x, y: a.y - b.y };
   }
   function getPanInfo({ point: point2 }, history) {
     return {
@@ -29376,15 +29376,15 @@
     if (history.length < 2) {
       return { x: 0, y: 0 };
     }
-    let i2 = history.length - 1;
+    let i = history.length - 1;
     let timestampedPoint = null;
     const lastPoint = lastDevicePoint(history);
-    while (i2 >= 0) {
-      timestampedPoint = history[i2];
+    while (i >= 0) {
+      timestampedPoint = history[i];
       if (lastPoint.timestamp - timestampedPoint.timestamp > secondsToMilliseconds(timeDelta)) {
         break;
       }
-      i2--;
+      i--;
     }
     if (!timestampedPoint) {
       return { x: 0, y: 0 };
@@ -30125,7 +30125,7 @@
       let isFocusVisible = false;
       try {
         isFocusVisible = this.node.current.matches(":focus-visible");
-      } catch (e2) {
+      } catch (e) {
         isFocusVisible = true;
       }
       if (!isFocusVisible || !this.node.animationState)
@@ -30489,12 +30489,12 @@
     info[axis].offset.length = 0;
     let hasChanged = !info[axis].interpolate;
     const numOffsets = offsetDefinition.length;
-    for (let i2 = 0; i2 < numOffsets; i2++) {
-      const offset = resolveOffset(offsetDefinition[i2], containerSize[lengthLabel], targetSize[lengthLabel], inset[axis]);
-      if (!hasChanged && offset !== info[axis].interpolatorOffsets[i2]) {
+    for (let i = 0; i < numOffsets; i++) {
+      const offset = resolveOffset(offsetDefinition[i], containerSize[lengthLabel], targetSize[lengthLabel], inset[axis]);
+      if (!hasChanged && offset !== info[axis].interpolatorOffsets[i]) {
         hasChanged = true;
       }
-      info[axis].offset[i2] = offset;
+      info[axis].offset[i] = offset;
     }
     if (hasChanged) {
       info[axis].interpolate = interpolate(info[axis].offset, defaultOffset(offsetDefinition), { clamp: false });
@@ -30634,15 +30634,15 @@
     start: 0,
     end: 1
   };
-  function parseStringOffset(s2) {
-    const parts = s2.trim().split(/\s+/);
+  function parseStringOffset(s) {
+    const parts = s.trim().split(/\s+/);
     if (parts.length !== 2)
       return void 0;
-    const a2 = stringToProgress[parts[0]];
+    const a = stringToProgress[parts[0]];
     const b = stringToProgress[parts[1]];
-    if (a2 === void 0 || b === void 0)
+    if (a === void 0 || b === void 0)
       return void 0;
-    return [a2, b];
+    return [a, b];
   }
   function normaliseOffset(offset) {
     if (offset.length !== 2)
@@ -30666,10 +30666,10 @@
     const normalised = normaliseOffset(offset);
     if (!normalised)
       return false;
-    for (let i2 = 0; i2 < 2; i2++) {
-      const o2 = normalised[i2];
-      const p2 = preset[i2];
-      if (o2[0] !== p2[0] || o2[1] !== p2[1])
+    for (let i = 0; i < 2; i++) {
+      const o = normalised[i];
+      const p = preset[i];
+      if (o[0] !== p[0] || o[1] !== p[1])
         return false;
     }
     return true;
@@ -30956,8 +30956,8 @@
     return useCombineMotionValues(values, () => {
       latest.length = 0;
       const numValues = values.length;
-      for (let i2 = 0; i2 < numValues; i2++) {
-        latest[i2] = values[i2].get();
+      for (let i = 0; i < numValues; i++) {
+        latest[i] = values[i].get();
       }
       return transformer(latest);
     });
@@ -30992,370 +30992,6 @@
 
   // src/skiper19.tsx
   var import_react23 = __toESM(require_react(), 1);
-
-  // node_modules/rough-notation/lib/rough-notation.esm.js
-  var t = "http://www.w3.org/2000/svg";
-  var e = class {
-    constructor(t2) {
-      this.seed = t2;
-    }
-    next() {
-      return this.seed ? (2 ** 31 - 1 & (this.seed = Math.imul(48271, this.seed))) / 2 ** 31 : Math.random();
-    }
-  };
-  function s(t2, e2, s2, i2, n2) {
-    return { type: "path", ops: c(t2, e2, s2, i2, n2) };
-  }
-  function i(t2, e2, i2) {
-    const n2 = (t2 || []).length;
-    if (n2 > 2) {
-      const s2 = [];
-      for (let e3 = 0; e3 < n2 - 1; e3++) s2.push(...c(t2[e3][0], t2[e3][1], t2[e3 + 1][0], t2[e3 + 1][1], i2));
-      return e2 && s2.push(...c(t2[n2 - 1][0], t2[n2 - 1][1], t2[0][0], t2[0][1], i2)), { type: "path", ops: s2 };
-    }
-    return 2 === n2 ? s(t2[0][0], t2[0][1], t2[1][0], t2[1][1], i2) : { type: "path", ops: [] };
-  }
-  function n(t2, e2, s2, n2, o2) {
-    return (function(t3, e3) {
-      return i(t3, true, e3);
-    })([[t2, e2], [t2 + s2, e2], [t2 + s2, e2 + n2], [t2, e2 + n2]], o2);
-  }
-  function o(t2, e2, s2, i2, n2) {
-    return (function(t3, e3, s3, i3) {
-      const [n3, o2] = l(i3.increment, t3, e3, i3.rx, i3.ry, 1, i3.increment * h(0.1, h(0.4, 1, s3), s3), s3);
-      let r2 = f(n3, null, s3);
-      if (!s3.disableMultiStroke) {
-        const [n4] = l(i3.increment, t3, e3, i3.rx, i3.ry, 1.5, 0, s3), o3 = f(n4, null, s3);
-        r2 = r2.concat(o3);
-      }
-      return { estimatedPoints: o2, opset: { type: "path", ops: r2 } };
-    })(t2, e2, n2, (function(t3, e3, s3) {
-      const i3 = Math.sqrt(2 * Math.PI * Math.sqrt((Math.pow(t3 / 2, 2) + Math.pow(e3 / 2, 2)) / 2)), n3 = Math.max(s3.curveStepCount, s3.curveStepCount / Math.sqrt(200) * i3), o2 = 2 * Math.PI / n3;
-      let r2 = Math.abs(t3 / 2), h2 = Math.abs(e3 / 2);
-      const c2 = 1 - s3.curveFitting;
-      return r2 += a(r2 * c2, s3), h2 += a(h2 * c2, s3), { increment: o2, rx: r2, ry: h2 };
-    })(s2, i2, n2)).opset;
-  }
-  function r(t2) {
-    return t2.randomizer || (t2.randomizer = new e(t2.seed || 0)), t2.randomizer.next();
-  }
-  function h(t2, e2, s2, i2 = 1) {
-    return s2.roughness * i2 * (r(s2) * (e2 - t2) + t2);
-  }
-  function a(t2, e2, s2 = 1) {
-    return h(-t2, t2, e2, s2);
-  }
-  function c(t2, e2, s2, i2, n2, o2 = false) {
-    const r2 = o2 ? n2.disableMultiStrokeFill : n2.disableMultiStroke, h2 = u(t2, e2, s2, i2, n2, true, false);
-    if (r2) return h2;
-    const a2 = u(t2, e2, s2, i2, n2, true, true);
-    return h2.concat(a2);
-  }
-  function u(t2, e2, s2, i2, n2, o2, h2) {
-    const c2 = Math.pow(t2 - s2, 2) + Math.pow(e2 - i2, 2), u2 = Math.sqrt(c2);
-    let f2 = 1;
-    f2 = u2 < 200 ? 1 : u2 > 500 ? 0.4 : -16668e-7 * u2 + 1.233334;
-    let l2 = n2.maxRandomnessOffset || 0;
-    l2 * l2 * 100 > c2 && (l2 = u2 / 10);
-    const g2 = l2 / 2, d2 = 0.2 + 0.2 * r(n2);
-    let p2 = n2.bowing * n2.maxRandomnessOffset * (i2 - e2) / 200, _2 = n2.bowing * n2.maxRandomnessOffset * (t2 - s2) / 200;
-    p2 = a(p2, n2, f2), _2 = a(_2, n2, f2);
-    const m = [], w = () => a(g2, n2, f2), v = () => a(l2, n2, f2);
-    return o2 && (h2 ? m.push({ op: "move", data: [t2 + w(), e2 + w()] }) : m.push({ op: "move", data: [t2 + a(l2, n2, f2), e2 + a(l2, n2, f2)] })), h2 ? m.push({ op: "bcurveTo", data: [p2 + t2 + (s2 - t2) * d2 + w(), _2 + e2 + (i2 - e2) * d2 + w(), p2 + t2 + 2 * (s2 - t2) * d2 + w(), _2 + e2 + 2 * (i2 - e2) * d2 + w(), s2 + w(), i2 + w()] }) : m.push({ op: "bcurveTo", data: [p2 + t2 + (s2 - t2) * d2 + v(), _2 + e2 + (i2 - e2) * d2 + v(), p2 + t2 + 2 * (s2 - t2) * d2 + v(), _2 + e2 + 2 * (i2 - e2) * d2 + v(), s2 + v(), i2 + v()] }), m;
-  }
-  function f(t2, e2, s2) {
-    const i2 = t2.length, n2 = [];
-    if (i2 > 3) {
-      const o2 = [], r2 = 1 - s2.curveTightness;
-      n2.push({ op: "move", data: [t2[1][0], t2[1][1]] });
-      for (let e3 = 1; e3 + 2 < i2; e3++) {
-        const s3 = t2[e3];
-        o2[0] = [s3[0], s3[1]], o2[1] = [s3[0] + (r2 * t2[e3 + 1][0] - r2 * t2[e3 - 1][0]) / 6, s3[1] + (r2 * t2[e3 + 1][1] - r2 * t2[e3 - 1][1]) / 6], o2[2] = [t2[e3 + 1][0] + (r2 * t2[e3][0] - r2 * t2[e3 + 2][0]) / 6, t2[e3 + 1][1] + (r2 * t2[e3][1] - r2 * t2[e3 + 2][1]) / 6], o2[3] = [t2[e3 + 1][0], t2[e3 + 1][1]], n2.push({ op: "bcurveTo", data: [o2[1][0], o2[1][1], o2[2][0], o2[2][1], o2[3][0], o2[3][1]] });
-      }
-      if (e2 && 2 === e2.length) {
-        const t3 = s2.maxRandomnessOffset;
-        n2.push({ op: "lineTo", data: [e2[0] + a(t3, s2), e2[1] + a(t3, s2)] });
-      }
-    } else 3 === i2 ? (n2.push({ op: "move", data: [t2[1][0], t2[1][1]] }), n2.push({ op: "bcurveTo", data: [t2[1][0], t2[1][1], t2[2][0], t2[2][1], t2[2][0], t2[2][1]] })) : 2 === i2 && n2.push(...c(t2[0][0], t2[0][1], t2[1][0], t2[1][1], s2));
-    return n2;
-  }
-  function l(t2, e2, s2, i2, n2, o2, r2, h2) {
-    const c2 = [], u2 = [], f2 = a(0.5, h2) - Math.PI / 2;
-    u2.push([a(o2, h2) + e2 + 0.9 * i2 * Math.cos(f2 - t2), a(o2, h2) + s2 + 0.9 * n2 * Math.sin(f2 - t2)]);
-    for (let r3 = f2; r3 < 2 * Math.PI + f2 - 0.01; r3 += t2) {
-      const t3 = [a(o2, h2) + e2 + i2 * Math.cos(r3), a(o2, h2) + s2 + n2 * Math.sin(r3)];
-      c2.push(t3), u2.push(t3);
-    }
-    return u2.push([a(o2, h2) + e2 + i2 * Math.cos(f2 + 2 * Math.PI + 0.5 * r2), a(o2, h2) + s2 + n2 * Math.sin(f2 + 2 * Math.PI + 0.5 * r2)]), u2.push([a(o2, h2) + e2 + 0.98 * i2 * Math.cos(f2 + r2), a(o2, h2) + s2 + 0.98 * n2 * Math.sin(f2 + r2)]), u2.push([a(o2, h2) + e2 + 0.9 * i2 * Math.cos(f2 + 0.5 * r2), a(o2, h2) + s2 + 0.9 * n2 * Math.sin(f2 + 0.5 * r2)]), [u2, c2];
-  }
-  function g(t2, e2) {
-    return { maxRandomnessOffset: 2, roughness: "highlight" === t2 ? 3 : 1.5, bowing: 1, stroke: "#000", strokeWidth: 1.5, curveTightness: 0, curveFitting: 0.95, curveStepCount: 9, fillStyle: "hachure", fillWeight: -1, hachureAngle: -41, hachureGap: -1, dashOffset: -1, dashGap: -1, zigzagOffset: -1, combineNestedSvgPaths: false, disableMultiStroke: "double" !== t2, disableMultiStrokeFill: false, seed: e2 };
-  }
-  function d(e2, r2, h2, a2, c2, u2) {
-    const f2 = [];
-    let l2 = h2.strokeWidth || 2;
-    const d2 = (function(t2) {
-      const e3 = t2.padding;
-      if (e3 || 0 === e3) {
-        if ("number" == typeof e3) return [e3, e3, e3, e3];
-        if (Array.isArray(e3)) {
-          const t3 = e3;
-          if (t3.length) switch (t3.length) {
-            case 4:
-              return [...t3];
-            case 1:
-              return [t3[0], t3[0], t3[0], t3[0]];
-            case 2:
-              return [...t3, ...t3];
-            case 3:
-              return [...t3, t3[1]];
-            default:
-              return [t3[0], t3[1], t3[2], t3[3]];
-          }
-        }
-      }
-      return [5, 5, 5, 5];
-    })(h2), p2 = void 0 === h2.animate || !!h2.animate, _2 = h2.iterations || 2, m = h2.rtl ? 1 : 0, w = g("single", u2);
-    switch (h2.type) {
-      case "underline": {
-        const t2 = r2.y + r2.h + d2[2];
-        for (let e3 = m; e3 < _2 + m; e3++) e3 % 2 ? f2.push(s(r2.x + r2.w, t2, r2.x, t2, w)) : f2.push(s(r2.x, t2, r2.x + r2.w, t2, w));
-        break;
-      }
-      case "strike-through": {
-        const t2 = r2.y + r2.h / 2;
-        for (let e3 = m; e3 < _2 + m; e3++) e3 % 2 ? f2.push(s(r2.x + r2.w, t2, r2.x, t2, w)) : f2.push(s(r2.x, t2, r2.x + r2.w, t2, w));
-        break;
-      }
-      case "box": {
-        const t2 = r2.x - d2[3], e3 = r2.y - d2[0], s2 = r2.w + (d2[1] + d2[3]), i2 = r2.h + (d2[0] + d2[2]);
-        for (let o2 = 0; o2 < _2; o2++) f2.push(n(t2, e3, s2, i2, w));
-        break;
-      }
-      case "bracket": {
-        const t2 = Array.isArray(h2.brackets) ? h2.brackets : h2.brackets ? [h2.brackets] : ["right"], e3 = r2.x - 2 * d2[3], s2 = r2.x + r2.w + 2 * d2[1], n2 = r2.y - 2 * d2[0], o2 = r2.y + r2.h + 2 * d2[2];
-        for (const h3 of t2) {
-          let t3;
-          switch (h3) {
-            case "bottom":
-              t3 = [[e3, r2.y + r2.h], [e3, o2], [s2, o2], [s2, r2.y + r2.h]];
-              break;
-            case "top":
-              t3 = [[e3, r2.y], [e3, n2], [s2, n2], [s2, r2.y]];
-              break;
-            case "left":
-              t3 = [[r2.x, n2], [e3, n2], [e3, o2], [r2.x, o2]];
-              break;
-            case "right":
-              t3 = [[r2.x + r2.w, n2], [s2, n2], [s2, o2], [r2.x + r2.w, o2]];
-          }
-          t3 && f2.push(i(t3, false, w));
-        }
-        break;
-      }
-      case "crossed-off": {
-        const t2 = r2.x, e3 = r2.y, i2 = t2 + r2.w, n2 = e3 + r2.h;
-        for (let o2 = m; o2 < _2 + m; o2++) o2 % 2 ? f2.push(s(i2, n2, t2, e3, w)) : f2.push(s(t2, e3, i2, n2, w));
-        for (let o2 = m; o2 < _2 + m; o2++) o2 % 2 ? f2.push(s(t2, n2, i2, e3, w)) : f2.push(s(i2, e3, t2, n2, w));
-        break;
-      }
-      case "circle": {
-        const t2 = g("double", u2), e3 = r2.w + (d2[1] + d2[3]), s2 = r2.h + (d2[0] + d2[2]), i2 = r2.x - d2[3] + e3 / 2, n2 = r2.y - d2[0] + s2 / 2, h3 = Math.floor(_2 / 2), a3 = _2 - 2 * h3;
-        for (let r3 = 0; r3 < h3; r3++) f2.push(o(i2, n2, e3, s2, t2));
-        for (let t3 = 0; t3 < a3; t3++) f2.push(o(i2, n2, e3, s2, w));
-        break;
-      }
-      case "highlight": {
-        const t2 = g("highlight", u2);
-        l2 = 0.95 * r2.h;
-        const e3 = r2.y + r2.h / 2;
-        for (let i2 = m; i2 < _2 + m; i2++) i2 % 2 ? f2.push(s(r2.x + r2.w, e3, r2.x, e3, t2)) : f2.push(s(r2.x, e3, r2.x + r2.w, e3, t2));
-        break;
-      }
-    }
-    if (f2.length) {
-      const s2 = (function(t2) {
-        const e3 = [];
-        for (const s3 of t2) {
-          let t3 = "";
-          for (const i3 of s3.ops) {
-            const s4 = i3.data;
-            switch (i3.op) {
-              case "move":
-                t3.trim() && e3.push(t3.trim()), t3 = `M${s4[0]} ${s4[1]} `;
-                break;
-              case "bcurveTo":
-                t3 += `C${s4[0]} ${s4[1]}, ${s4[2]} ${s4[3]}, ${s4[4]} ${s4[5]} `;
-                break;
-              case "lineTo":
-                t3 += `L${s4[0]} ${s4[1]} `;
-            }
-          }
-          t3.trim() && e3.push(t3.trim());
-        }
-        return e3;
-      })(f2), i2 = [], n2 = [];
-      let o2 = 0;
-      const r3 = (t2, e3, s3) => t2.setAttribute(e3, s3);
-      for (const a3 of s2) {
-        const s3 = document.createElementNS(t, "path");
-        if (r3(s3, "d", a3), r3(s3, "fill", "none"), r3(s3, "stroke", h2.color || "currentColor"), r3(s3, "stroke-width", "" + l2), p2) {
-          const t2 = s3.getTotalLength();
-          i2.push(t2), o2 += t2;
-        }
-        e2.appendChild(s3), n2.push(s3);
-      }
-      if (p2) {
-        let t2 = 0;
-        for (let e3 = 0; e3 < n2.length; e3++) {
-          const s3 = n2[e3], r4 = i2[e3], h3 = o2 ? c2 * (r4 / o2) : 0, u3 = a2 + t2, f3 = s3.style;
-          f3.strokeDashoffset = "" + r4, f3.strokeDasharray = "" + r4, f3.animation = `rough-notation-dash ${h3}ms ease-out ${u3}ms forwards`, t2 += h3;
-        }
-      }
-    }
-  }
-  var p = class {
-    constructor(t2, e2) {
-      this._state = "unattached", this._resizing = false, this._seed = Math.floor(Math.random() * 2 ** 31), this._lastSizes = [], this._animationDelay = 0, this._resizeListener = () => {
-        this._resizing || (this._resizing = true, setTimeout(() => {
-          this._resizing = false, "showing" === this._state && this.haveRectsChanged() && this.show();
-        }, 400));
-      }, this._e = t2, this._config = JSON.parse(JSON.stringify(e2)), this.attach();
-    }
-    get animate() {
-      return this._config.animate;
-    }
-    set animate(t2) {
-      this._config.animate = t2;
-    }
-    get animationDuration() {
-      return this._config.animationDuration;
-    }
-    set animationDuration(t2) {
-      this._config.animationDuration = t2;
-    }
-    get iterations() {
-      return this._config.iterations;
-    }
-    set iterations(t2) {
-      this._config.iterations = t2;
-    }
-    get color() {
-      return this._config.color;
-    }
-    set color(t2) {
-      this._config.color !== t2 && (this._config.color = t2, this.refresh());
-    }
-    get strokeWidth() {
-      return this._config.strokeWidth;
-    }
-    set strokeWidth(t2) {
-      this._config.strokeWidth !== t2 && (this._config.strokeWidth = t2, this.refresh());
-    }
-    get padding() {
-      return this._config.padding;
-    }
-    set padding(t2) {
-      this._config.padding !== t2 && (this._config.padding = t2, this.refresh());
-    }
-    attach() {
-      if ("unattached" === this._state && this._e.parentElement) {
-        !(function() {
-          if (!window.__rno_kf_s) {
-            const t2 = window.__rno_kf_s = document.createElement("style");
-            t2.textContent = "@keyframes rough-notation-dash { to { stroke-dashoffset: 0; } }", document.head.appendChild(t2);
-          }
-        })();
-        const e2 = this._svg = document.createElementNS(t, "svg");
-        e2.setAttribute("class", "rough-annotation");
-        const s2 = e2.style;
-        s2.position = "absolute", s2.top = "0", s2.left = "0", s2.overflow = "visible", s2.pointerEvents = "none", s2.width = "100px", s2.height = "100px";
-        const i2 = "highlight" === this._config.type;
-        if (this._e.insertAdjacentElement(i2 ? "beforebegin" : "afterend", e2), this._state = "not-showing", i2) {
-          const t2 = window.getComputedStyle(this._e).position;
-          (!t2 || "static" === t2) && (this._e.style.position = "relative");
-        }
-        this.attachListeners();
-      }
-    }
-    detachListeners() {
-      window.removeEventListener("resize", this._resizeListener), this._ro && this._ro.unobserve(this._e);
-    }
-    attachListeners() {
-      this.detachListeners(), window.addEventListener("resize", this._resizeListener, { passive: true }), !this._ro && "ResizeObserver" in window && (this._ro = new window.ResizeObserver((t2) => {
-        for (const e2 of t2) e2.contentRect && this._resizeListener();
-      })), this._ro && this._ro.observe(this._e);
-    }
-    haveRectsChanged() {
-      if (this._lastSizes.length) {
-        const t2 = this.rects();
-        if (t2.length !== this._lastSizes.length) return true;
-        for (let e2 = 0; e2 < t2.length; e2++) if (!this.isSameRect(t2[e2], this._lastSizes[e2])) return true;
-      }
-      return false;
-    }
-    isSameRect(t2, e2) {
-      const s2 = (t3, e3) => Math.round(t3) === Math.round(e3);
-      return s2(t2.x, e2.x) && s2(t2.y, e2.y) && s2(t2.w, e2.w) && s2(t2.h, e2.h);
-    }
-    isShowing() {
-      return "not-showing" !== this._state;
-    }
-    refresh() {
-      this.isShowing() && !this.pendingRefresh && (this.pendingRefresh = Promise.resolve().then(() => {
-        this.isShowing() && this.show(), delete this.pendingRefresh;
-      }));
-    }
-    show() {
-      switch (this._state) {
-        case "unattached":
-          break;
-        case "showing":
-          this.hide(), this._svg && this.render(this._svg, true);
-          break;
-        case "not-showing":
-          this.attach(), this._svg && this.render(this._svg, false);
-      }
-    }
-    hide() {
-      if (this._svg) for (; this._svg.lastChild; ) this._svg.removeChild(this._svg.lastChild);
-      this._state = "not-showing";
-    }
-    remove() {
-      this._svg && this._svg.parentElement && this._svg.parentElement.removeChild(this._svg), this._svg = void 0, this._state = "unattached", this.detachListeners();
-    }
-    render(t2, e2) {
-      let s2 = this._config;
-      e2 && (s2 = JSON.parse(JSON.stringify(this._config)), s2.animate = false);
-      const i2 = this.rects();
-      let n2 = 0;
-      i2.forEach((t3) => n2 += t3.w);
-      const o2 = s2.animationDuration || 800;
-      let r2 = 0;
-      for (let e3 = 0; e3 < i2.length; e3++) {
-        const h2 = o2 * (i2[e3].w / n2);
-        d(t2, i2[e3], s2, r2 + this._animationDelay, h2, this._seed), r2 += h2;
-      }
-      this._lastSizes = i2, this._state = "showing";
-    }
-    rects() {
-      const t2 = [];
-      if (this._svg) if (this._config.multiline) {
-        const e2 = this._e.getClientRects();
-        for (let s2 = 0; s2 < e2.length; s2++) t2.push(this.svgRect(this._svg, e2[s2]));
-      } else t2.push(this.svgRect(this._svg, this._e.getBoundingClientRect()));
-      return t2;
-    }
-    svgRect(t2, e2) {
-      const s2 = t2.getBoundingClientRect(), i2 = e2;
-      return { x: (i2.x || i2.left) - (s2.x || s2.left), y: (i2.y || i2.top) - (s2.y || s2.top), w: i2.width, h: i2.height };
-    }
-  };
-  function _(t2, e2) {
-    return new p(t2, e2);
-  }
-
-  // src/skiper19.tsx
   var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
   var timelineData = [
     { date: "DECEMBER 19, 2025", title: "The Foundation of Dronex", description: "The club Dronex was officially founded with just 4 members, united by a shared vision and hope to help aerial systems achieve greater heights." },
@@ -31441,27 +31077,6 @@
   };
   var Skiper19 = () => {
     const containerRef = (0, import_react23.useRef)(null);
-    const [lineStartY, setLineStartY] = (0, import_react23.useState)(0);
-    (0, import_react23.useEffect)(() => {
-      const el = document.getElementById("annotate-journey");
-      const container2 = containerRef.current;
-      if (el && container2) {
-        setTimeout(() => {
-          const annotation = _(el, { type: "circle", color: "#00D084", strokeWidth: 4, padding: [10, 20] });
-          annotation.show();
-          const elRect = el.getBoundingClientRect();
-          const containerRect = container2.getBoundingClientRect();
-          setLineStartY(elRect.bottom - containerRect.top);
-        }, 500);
-        const handleResize = () => {
-          const elRect = el.getBoundingClientRect();
-          const containerRect = container2.getBoundingClientRect();
-          setLineStartY(elRect.bottom - containerRect.top);
-        };
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-      }
-    }, []);
     const { scrollYProgress } = useScroll({
       target: containerRef,
       offset: ["start 85%", "end bottom"]
@@ -31495,7 +31110,7 @@
             motion.line,
             {
               x1: "2",
-              y1: lineStartY,
+              y1: 0,
               x2: "2",
               y2: "4400",
               stroke: "#00D084",

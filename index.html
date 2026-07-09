@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -175,6 +175,50 @@
                 </div>
             </div>
         </div>
+
+        <!-- Mobile Hamburger Menu Button -->
+        <div id="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay">
+        <div id="mobile-menu-header">
+            <span class="mobile-menu-title">TRINETRA</span>
+            <div class="mobile-menu-close" onclick="toggleMobileMenu()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </div>
+        </div>
+        <div class="mobile-menu-links">
+            <a href="#" onclick="showTab('home'); toggleMobileMenu();">Home</a>
+            <a href="#" onclick="showTab('plan'); toggleMobileMenu();">Team</a>
+            <a href="#" onclick="showTab('vehicles'); toggleMobileMenu();">Vehicles</a>
+            <a href="#" onclick="showTab('sponsors'); toggleMobileMenu();">Sponsors</a>
+            <a href="#" onclick="showTab('simulation'); toggleMobileMenu();">Gallery</a>
+            <a href="#" onclick="showTab('journey'); toggleMobileMenu();">Journey</a>
+            <a href="#" onclick="toggleConnectPanel(); toggleMobileMenu();">Connect With Us</a>
+        </div>
+        <div class="mobile-menu-footer">
+            <div class="mobile-menu-contact">
+                <div class="mm-heading">CONTACT</div>
+                <div>team.trinetra2026@gmail.com</div>
+            </div>
+            <div class="mobile-menu-social">
+                <div class="mm-heading">SOCIAL</div>
+                <div class="mm-social-links">
+                    <a href="#">IG</a>
+                    <a href="#">IN</a>
+                    <a href="#">YT</a>
+                    <a href="#">X</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="main">
@@ -206,12 +250,12 @@
                     </div>
                 </div>
                 <div class="bento-item">
-                    <div class="bento-bg" style="background-image: url('https://picsum.photos/800/600?random=2');">
+                    <div class="bento-bg" style="background-image: url('images/ed-img-1.webp');">
                     </div>
                     <div class="bento-overlay"></div>
                     <div class="bento-content">
-                        <h3 class="bento-title">Perception & Mapping</h3>
-                        <p class="bento-subtitle">Seeing the Environment</p>
+                        <h3 class="bento-title">Mayoor</h3>
+                        <p class="bento-subtitle">Ready To Take off</p>
                     </div>
                 </div>
                 <div class="bento-item">
@@ -279,16 +323,10 @@
                         <p class="ed-body">What started as a focused team of two has evolved into a powerhouse of seven
                             members and five mentors driven by a singular mission: saving lives. At the heart of our
                             operations is Mayoor, our custom-built uncrewed aerial system engineered for high-stakes
-                            environments. Mayoor is designed to deliver critical autonomous relief dropsâ€”such as
+                            environments. Mayoor is designed to deliver critical autonomous relief drops such as
                             essential water bottles, emergency beacons” providing immediate, precise
                             aid to human survivors in post-disaster scenarios.</p>
-                        <a href="#" class="ed-read-more">Read More
-                            <svg class="ed-link-icon" fill="none" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"
-                                aria-hidden="true">
-                                <path d="M1.004 9.166 9.337.833m0 0v8.333m0-8.333H1.004" stroke="currentColor"
-                                    stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                        </a>
+
                     </div>
                     <div class="ed-image-wrap">
                         <div class="ed-image-placeholder" id="ed-img-1">
@@ -315,13 +353,7 @@
                             fields to deploy supplies, and collecting public safety data to support first responders. We
                             aren't just restoring what was lost; we are leveraging technology with purpose to rebuild
                             smarter.</p>
-                        <a href="#" class="ed-read-more">Read More
-                            <svg class="ed-link-icon" fill="none" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"
-                                aria-hidden="true">
-                                <path d="M1.004 9.166 9.337.833m0 0v8.333m0-8.333H1.004" stroke="currentColor"
-                                    stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                        </a>
+
                     </div>
                 </div>
 
@@ -356,17 +388,17 @@
                     </div>
 
                     <!-- Bottom Info -->
-                    <div class="flex flex-col md:flex-row justify-between items-start mt-2">
+                    <div class="flex flex-col md:flex-row justify-between items-start mt-8 md:mt-12 px-[36px]">
                         <div style="font-family: 'Elios Regular', sans-serif;"
-                            class="text-xs md:text-sm tracking-[0.25em] uppercase text-gray-200 leading-relaxed pl-[36px]">
+                            class="text-xs md:text-sm tracking-[0.25em] uppercase text-gray-200 leading-relaxed mb-8 md:mb-0">
                             MADE BY TRINETRA<br>EDITED IN GWALIOR
                         </div>
-                        <div class="text-left w-full md:w-[45%] lg:w-[40%] mt-4 md:mt-0 pr-[36px]">
-                            <h3 class="text-sm md:text-base font-bold mb-1 md:mb-2 tracking-wider uppercase text-white">
+                        <div class="text-left w-full md:w-[45%] lg:w-[40%]">
+                            <h3 class="text-sm md:text-base font-bold mb-2 tracking-wider uppercase text-white">
                                 TEAM TRINETRA</h3>
                             <p
-                                class="text-base md:text-lg lg:text-xl text-gray-100 leading-relaxed font-light tracking-tight">
-                                Watch our Mayoor demonstrate advanced autonomous navigation, precise payload delivery,
+                                class="text-lg md:text-xl lg:text-2xl text-gray-100 leading-snug font-light tracking-wide">
+                                Watch our Mayoor demonstrate advanced autonomous navigation
                                 and robust system readiness for the upcoming SUAS 2026 competition.
                             </p>
                         </div>
@@ -436,6 +468,98 @@
                 </div>
             </footer>
 
+            <!-- ── Mobile Footer (Accordion) ── -->
+            <footer id="mobile-footer"
+                class="hidden md:hidden w-full bg-black text-white px-6 py-12 flex-col font-['Helvetica_Neue',Helvetica,Arial,sans-serif]">
+                <!-- Brand & Sponsors -->
+                <div class="mb-16 flex flex-col gap-10">
+                    <div class="flex items-center gap-2">
+                        <img src="Trinetra.svg" alt="Trinetra Logo" class="w-6 h-6"
+                            style="filter: brightness(0) invert(1);">
+                        <span class="text-xl font-bold tracking-widest">TRINETRA</span>
+                    </div>
+
+                    <!-- Sponsored By -->
+                    <div class="relative group w-[250px]"
+                        style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+                        <h4 class="text-xs tracking-[0.25em] text-gray-500 mb-2 uppercase font-bold">SPONSORED BY
+                        </h4>
+                        <div class="relative w-full h-16">
+                            <img src="images/optimized/vyomdrones.webp" alt="Vyom Drones"
+                                class="absolute inset-0 w-full h-full object-contain object-left opacity-90">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion Items -->
+                <div class="footer-accordion w-full flex flex-col gap-6">
+                    <div class="acc-item">
+                        <div class="acc-header py-2 flex justify-between items-center cursor-pointer text-sm font-bold tracking-widest text-gray-400 hover:text-white transition-colors"
+                            onclick="toggleAccordion(this)">
+                            <span>WORK WITH US</span>
+                            <div class="plus-minus-btn">
+                                <div class="bar horizontal"></div>
+                                <div class="bar vertical"></div>
+                            </div>
+                        </div>
+                        <div class="acc-grid">
+                            <div class="acc-inner">
+                                <div class="acc-content pt-4 pb-4 text-xl text-white flex flex-col gap-4 font-medium">
+                                    <a href="#" class="hover:text-gray-300 transition-colors">Join the Team</a>
+                                    <a href="#" class="hover:text-gray-300 transition-colors">Sponsor Enquiries</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="acc-item">
+                        <div class="acc-header py-2 flex justify-between items-center cursor-pointer text-sm font-bold tracking-widest text-gray-400 hover:text-white transition-colors"
+                            onclick="toggleAccordion(this)">
+                            <span>SOCIAL</span>
+                            <div class="plus-minus-btn">
+                                <div class="bar horizontal"></div>
+                                <div class="bar vertical"></div>
+                            </div>
+                        </div>
+                        <div class="acc-grid">
+                            <div class="acc-inner">
+                                <div class="acc-content pt-4 pb-4 text-xl text-white flex flex-col gap-4 font-medium">
+                                    <a href="#" class="hover:text-gray-300 transition-colors">X</a>
+                                    <a href="#" class="hover:text-gray-300 transition-colors">YouTube</a>
+                                    <a href="https://www.instagram.com/trinetra_team/"
+                                        class="hover:text-gray-300 transition-colors">Instagram</a>
+                                    <a href="#" class="hover:text-gray-300 transition-colors">Facebook</a>
+                                    <a href="#" class="hover:text-gray-300 transition-colors">LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="acc-item">
+                        <div class="acc-header py-2 flex justify-between items-center cursor-pointer text-sm font-bold tracking-widest text-gray-400 hover:text-white transition-colors"
+                            onclick="toggleAccordion(this)">
+                            <span>CONTACT</span>
+                            <div class="plus-minus-btn">
+                                <div class="bar horizontal"></div>
+                                <div class="bar vertical"></div>
+                            </div>
+                        </div>
+                        <div class="acc-grid">
+                            <div class="acc-inner">
+                                <div class="acc-content pt-4 pb-4 text-xl text-white flex flex-col gap-4 font-medium">
+                                    <a href="mailto:team.trinetra2026@gmail.com"
+                                        class="hover:text-gray-300 transition-colors">team.trinetra2026@gmail.com</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Info -->
+                <div class="mt-20 text-sm text-gray-400 font-medium tracking-wider">
+                    <div class="mb-4 text-white uppercase">COPYRIGHT &copy; 2026 TEAM TRINETRA</div>
+                </div>
+            </footer>
         </div>
 
         <!-- ══ SIMULATION TAB ══ -->
@@ -493,7 +617,7 @@
                 </div>
 
                 <div class="tdp-col-mid">
-                    <div class="tdp-domain">MITS &nbsp;Â·&nbsp; Dronex Aerotech Club</div>
+                    <div class="tdp-domain">MITS &nbsp;&nbsp; TEAM TRINETRA</div>
                     <div class="tdp-paragraphs">
                         <p class="tdp-para">Representing the Madhav Institute of Technology &amp; Science under the
                             banner of the Dronex Aerotech club, Team Trinetra UAV is a multidisciplinary student
@@ -509,14 +633,14 @@
                     <div class="tdp-image-frame">
                         <img src="images/Trinetrahome.webp" alt="Team Trinetra" class="tdp-image">
                         <div class="tdp-image-overlay"></div>
-                        <div class="tdp-image-caption">Team Trinetra Â· SUAS 2026</div>
+                        <div class="tdp-image-caption">Team Trinetra SUAS 2026</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- â•â• VEHICLES TAB â•â• -->
+    <!--VEHICLES TAB-->
     <div id="vehicles-tab" style="display:none; width:100%;">
         <div id="vehicles-page">
             <div class="veh-entry veh-entry--odd">

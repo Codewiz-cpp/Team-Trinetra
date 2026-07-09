@@ -6,7 +6,7 @@ async function watch() {
     bundle: true,
     outfile: "../dist/sponsorButtonBundle.js",
   });
-  
+
   const ctx2 = await esbuild.context({
     entryPoints: ["src/mountSkiper19.tsx"],
     bundle: true,

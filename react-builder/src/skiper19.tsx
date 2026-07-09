@@ -1,8 +1,7 @@
 "use client";
 
 import { motion, useScroll, useSpring } from "framer-motion";
-import React, { useRef, useState, useEffect } from "react";
-import { annotate } from "rough-notation";
+import React, { useRef } from "react";
 
 const timelineData = [
   { date: "DECEMBER 19, 2025", title: "The Foundation of Dronex", description: "The club Dronex was officially founded with just 4 members, united by a shared vision and hope to help aerial systems achieve greater heights." },
@@ -98,35 +97,6 @@ const TimelineCard = ({ data, index }) => {
 
 const Skiper19 = () => {
   const containerRef = useRef(null);
-  const [lineStartY, setLineStartY] = useState(0);
-
-  // Draw the rough notation circle on mount
-  useEffect(() => {
-    const el = document.getElementById('annotate-journey');
-    const container = containerRef.current;
-
-    if (el && container) {
-      // Small timeout ensures fonts have loaded and bounding box is correct
-      setTimeout(() => {
-        const annotation = annotate(el, { type: 'circle', color: '#00D084', strokeWidth: 4, padding: [10, 20] });
-        annotation.show();
-
-        // Calculate the bottom circumference of the circle relative to this container
-        const elRect = el.getBoundingClientRect();
-        const containerRect = container.getBoundingClientRect();
-        setLineStartY(elRect.bottom - containerRect.top);
-      }, 500);
-
-      const handleResize = () => {
-        const elRect = el.getBoundingClientRect();
-        const containerRect = container.getBoundingClientRect();
-        setLineStartY(elRect.bottom - containerRect.top);
-      };
-
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }
-  }, []);
 
   // Track scroll exactly within the bounds of this component container
   const { scrollYProgress } = useScroll({
@@ -164,7 +134,7 @@ const Skiper19 = () => {
       >
         <motion.line
           x1="2"
-          y1={lineStartY}
+          y1={0}
           x2="2"
           y2="4400"
           stroke="#00D084"

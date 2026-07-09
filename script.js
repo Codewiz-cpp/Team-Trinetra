@@ -43,7 +43,7 @@ function showTabBase(name) {
         // Enable scrolling for ScrollTrigger
         const mainEl = document.getElementById('main');
         if (mainEl) mainEl.style.overflow = 'auto';
-        
+
         // Refresh ScrollTrigger after a short delay to let React mount and measure
         setTimeout(() => {
             if (typeof ScrollTrigger !== 'undefined') {
@@ -1270,9 +1270,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                     toolbar?.classList.add('toolbar-hidden');
                     cancelToolbarAutoHide();
                 } else {
-                    // Scrolling up — show toolbar, then auto-hide after 2s if untouched
+                    // Scrolling up — show toolbar
                     toolbar?.classList.remove('toolbar-hidden');
-                    scheduleToolbarAutoHide();
+
+                    if (window.innerWidth > 768) {
+                        // On desktop, auto-hide after 2s if untouched
+                        scheduleToolbarAutoHide();
+                    } else {
+                        // On mobile, cancel any pending auto-hide so it stays visible
+                        cancelToolbarAutoHide();
+                    }
                 }
 
                 lastScrollTop = scrollTop;
@@ -1578,3 +1585,36 @@ function initHeroAnimation() {
     }, { passive: false });
 })();
 
+// ===== MOBILE MENU LOGIC =====
+let mobileMenuOpen = false;
+window.toggleMobileMenu = function () {
+    const overlay = document.getElementById('mobile-menu-overlay');
+    if (!overlay) return;
+    mobileMenuOpen = !mobileMenuOpen;
+    if (mobileMenuOpen) {
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    } else {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+};
+
+// ===== MINIMAL MOBILE ACCORDION LOGIC =====
+window.toggleAccordion = function (headerElement) {
+    const item = headerElement.parentElement;
+    
+    // Close other accordions
+    document.querySelectorAll('.acc-item').forEach(otherItem => {
+        if (otherItem !== item) {
+            otherItem.classList.remove('active');
+        }
+    });
+
+    // Toggle current
+    if (item.classList.contains('active')) {
+        item.classList.remove('active');
+    } else {
+        item.classList.add('active');
+    }
+};
