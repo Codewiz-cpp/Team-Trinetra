@@ -39736,36 +39736,39 @@ void main() {
           opacity: 1
         }
       ) }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "absolute top-[163px] left-1/2 -translate-x-1/2 z-10 text-center w-full pointer-events-none flex flex-col items-center", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "absolute top-[50vh] md:top-[163px] left-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-y-0 z-[60] text-center w-full pointer-events-none flex flex-col items-center", children: [
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h1", { style: { fontFamily: "gallery", fontSize: "clamp(80px, 12vw, 250px)", fontWeight: 200, lineHeight: 1 }, children: "Galleria" }),
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "font-geist text-sm md:text-base uppercase tracking-[0.3em] text-gray-400 mt-4", children: "The work behind the spotlight" })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "font-geist relative flex h-screen items-center justify-center gap-2 overflow-hidden", children: [
         /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "absolute inset-0 z-0 flex items-end justify-center gap-[18px] p-[36px] pointer-events-none opacity-60 pb-[10vh] overflow-hidden", children: [
           /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "flex flex-col justify-end items-end gap-[18px]", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/g1.webp", alt: "g1", className: "h-auto max-h-[35vh] w-auto object-contain" }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/g2.webp", alt: "g2", className: "h-auto max-h-[35vh] w-auto object-contain" })
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/g1.webp", alt: "g1", className: "h-auto max-h-[35vh] max-w-[40vw] md:max-w-none w-auto object-contain" }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/g2.webp", alt: "g2", className: "h-auto max-h-[35vh] max-w-[40vw] md:max-w-none w-auto object-contain" })
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "flex flex-col justify-end items-center gap-[18px]", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/Trinetrahome.webp", alt: "Trinetrahome", className: "h-auto max-h-[40vh] w-auto object-contain" }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/optimized/team.webp", alt: "team", className: "h-auto max-h-[45vh] w-auto object-contain" })
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/Trinetrahome.webp", alt: "Trinetrahome", className: "h-auto max-h-[40vh] max-w-[40vw] md:max-w-none w-auto object-contain" }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/optimized/team.webp", alt: "team", className: "h-auto max-h-[45vh] max-w-[40vw] md:max-w-none w-auto object-contain" })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "flex flex-col justify-end items-start gap-[18px]", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/g3.webp", alt: "g3", className: "h-auto max-h-[35vh] w-auto object-contain" }) })
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "hidden md:flex flex-col justify-end items-start gap-[18px]", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/g3.webp", alt: "g3", className: "h-auto max-h-[35vh] w-auto object-contain" }) })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "absolute inset-0 bg-gradient-to-r from-black/95 to-black/70 z-0" }),
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "absolute left-1/2 bottom-[30px] grid -translate-x-1/2 content-start justify-items-center gap-6 text-center text-white z-20", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "relative text-sm uppercase leading-tight font-light tracking-widest", children: "SCROLL DOWN" }) })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
         "div",
         {
           ref: gallery,
           className: "relative box-border flex h-[175vh] gap-[2vw] overflow-hidden bg-black p-[2vw]",
-          children: [
+          children: dimension.width > 0 && dimension.width < 768 ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_jsx_runtime4.Fragment, { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Column, { images: [images[0], images[1], images[2], images[3], images[4], images[5]], y }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Column, { images: [images[6], images[7], images[8], images[9], images[10], images[11]], y: y2 })
+          ] }) : /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_jsx_runtime4.Fragment, { children: [
             /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Column, { images: [images[0], images[1], images[2]], y }),
             /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Column, { images: [images[3], images[4], images[5]], y: y2 }),
             /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Column, { images: [images[6], images[7], images[8]], y: y3 }),
             /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Column, { images: [images[9], images[10], images[11]], y: y4 })
-          ]
+          ] })
         }
       ),
       /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("style", { dangerouslySetInnerHTML: {
@@ -39842,7 +39845,7 @@ void main() {
           ]
         }
       ) }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("footer", { id: "sp-footer", className: "relative z-50", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { id: "sp-footer-inner", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("footer", { id: "sp-footer", className: "hidden md:flex flex-col relative z-50", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { id: "sp-footer-inner", children: [
         /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { id: "sp-footer-left", children: [
           /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { id: "sp-footer-brand", children: [
             /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "Trinetra.svg", alt: "Trinetra Logo", className: "sp-footer-logo" }),
@@ -39869,14 +39872,64 @@ void main() {
             ] })
           ] })
         ] })
-      ] }) })
+      ] }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(MobileFooter, {})
     ] });
   };
-  var Column = ({ images: images2, y }) => {
+  var AccordionItem = ({ title, children }) => {
+    const [isOpen, setIsOpen] = (0, import_react24.useState)(false);
+    return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: `acc-item ${isOpen ? "active" : ""}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+        "div",
+        {
+          className: "acc-header py-2 flex justify-between items-center cursor-pointer text-sm font-bold tracking-widest text-gray-400 hover:text-white transition-colors",
+          onClick: () => setIsOpen(!isOpen),
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: title }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "plus-minus-btn", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "bar horizontal" }),
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "bar vertical" })
+            ] })
+          ]
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "acc-grid", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "acc-inner", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "acc-content pt-4 pb-4 text-xl text-white flex flex-col gap-4 font-medium", children }) }) })
+    ] });
+  };
+  var MobileFooter = () => {
+    return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("footer", { id: "mobile-footer", className: "flex md:hidden relative z-[9999] w-full bg-black text-white px-6 py-12 flex-col font-['Helvetica_Neue',Helvetica,Arial,sans-serif]", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "mb-16 flex flex-col gap-10", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "flex items-center gap-2", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "Trinetra.svg", alt: "Trinetra Logo", className: "w-6 h-6", style: { filter: "brightness(0) invert(1)" } }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "text-xl font-bold tracking-widest", children: "TRINETRA" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "relative group w-[250px]", style: { fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h4", { className: "text-xs tracking-[0.25em] text-gray-500 mb-2 uppercase font-bold", children: "SPONSORED BY" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "relative w-full h-16", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("img", { src: "images/optimized/vyomdrones.webp", alt: "Vyom Drones", className: "absolute inset-0 w-full h-full object-contain object-left opacity-90" }) })
+        ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "footer-accordion w-full flex flex-col gap-6", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(AccordionItem, { title: "WORK WITH US", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("a", { href: "#", className: "hover:text-gray-300 transition-colors", children: "Join the Team" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("a", { href: "#", className: "hover:text-gray-300 transition-colors", children: "Sponsor Enquiries" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(AccordionItem, { title: "SOCIAL", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("a", { href: "#", className: "hover:text-gray-300 transition-colors", children: "X" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("a", { href: "#", className: "hover:text-gray-300 transition-colors", children: "YouTube" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("a", { href: "https://www.instagram.com/trinetra_team/", className: "hover:text-gray-300 transition-colors", children: "Instagram" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("a", { href: "#", className: "hover:text-gray-300 transition-colors", children: "Facebook" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("a", { href: "#", className: "hover:text-gray-300 transition-colors", children: "LinkedIn" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(AccordionItem, { title: "CONTACT", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("a", { href: "mailto:team.trinetra2026@gmail.com", className: "hover:text-gray-300 transition-colors", children: "team.trinetra2026@gmail.com" }) })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "mt-20 text-sm text-gray-400 font-medium tracking-wider", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "mb-4 text-white uppercase", children: "COPYRIGHT \xA9 2026 TEAM TRINETRA" }) })
+    ] });
+  };
+  var Column = ({ images: images2, y, className = "" }) => {
     return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
       motion.div,
       {
-        className: "relative -top-[45%] flex h-full w-1/4 min-w-[250px] flex-col gap-[2vw] first:top-[-45%] [&:nth-child(2)]:top-[-95%] [&:nth-child(3)]:top-[-45%] [&:nth-child(4)]:top-[-75%]",
+        className: `relative -top-[45%] flex h-full w-1/2 md:w-1/4 min-w-[45vw] md:min-w-[250px] flex-col gap-[2vw] first:top-[-45%] [&:nth-child(2)]:top-[-95%] [&:nth-child(3)]:top-[-45%] [&:nth-child(4)]:top-[-75%] ${className}`,
         style: { y },
         children: images2.map((src, i) => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "relative h-full w-full overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
           "img",

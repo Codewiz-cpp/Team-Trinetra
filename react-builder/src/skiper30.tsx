@@ -83,7 +83,7 @@ const Skiper30 = () => {
           opacity={1.0}
         />
       </div>
-      <div className="absolute top-[163px] left-1/2 -translate-x-1/2 z-10 text-center w-full pointer-events-none flex flex-col items-center">
+      <div className="absolute top-[50vh] md:top-[163px] left-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-y-0 z-[60] text-center w-full pointer-events-none flex flex-col items-center">
         <h1 style={{ fontFamily: 'gallery', fontSize: 'clamp(80px, 12vw, 250px)', fontWeight: 200, lineHeight: 1 }}>Galleria</h1>
         <p className="font-geist text-sm md:text-base uppercase tracking-[0.3em] text-gray-400 mt-4">The work behind the spotlight</p>
       </div>
@@ -92,16 +92,16 @@ const Skiper30 = () => {
         <div className="absolute inset-0 z-0 flex items-end justify-center gap-[18px] p-[36px] pointer-events-none opacity-60 pb-[10vh] overflow-hidden">
           {/* Column 1 */}
           <div className="flex flex-col justify-end items-end gap-[18px]">
-            <img src="images/g1.webp" alt="g1" className="h-auto max-h-[35vh] w-auto object-contain" />
-            <img src="images/g2.webp" alt="g2" className="h-auto max-h-[35vh] w-auto object-contain" />
+            <img src="images/g1.webp" alt="g1" className="h-auto max-h-[35vh] max-w-[40vw] md:max-w-none w-auto object-contain" />
+            <img src="images/g2.webp" alt="g2" className="h-auto max-h-[35vh] max-w-[40vw] md:max-w-none w-auto object-contain" />
           </div>
           {/* Column 2 */}
           <div className="flex flex-col justify-end items-center gap-[18px]">
-            <img src="images/Trinetrahome.webp" alt="Trinetrahome" className="h-auto max-h-[40vh] w-auto object-contain" />
-            <img src="images/optimized/team.webp" alt="team" className="h-auto max-h-[45vh] w-auto object-contain" />
+            <img src="images/Trinetrahome.webp" alt="Trinetrahome" className="h-auto max-h-[40vh] max-w-[40vw] md:max-w-none w-auto object-contain" />
+            <img src="images/optimized/team.webp" alt="team" className="h-auto max-h-[45vh] max-w-[40vw] md:max-w-none w-auto object-contain" />
           </div>
           {/* Column 3 */}
-          <div className="flex flex-col justify-end items-start gap-[18px]">
+          <div className="hidden md:flex flex-col justify-end items-start gap-[18px]">
             <img src="images/g3.webp" alt="g3" className="h-auto max-h-[35vh] w-auto object-contain" />
           </div>
         </div>
@@ -119,10 +119,19 @@ const Skiper30 = () => {
         ref={gallery}
         className="relative box-border flex h-[175vh] gap-[2vw] overflow-hidden bg-black p-[2vw]"
       >
-        <Column images={[images[0], images[1], images[2]]} y={y} />
-        <Column images={[images[3], images[4], images[5]]} y={y2} />
-        <Column images={[images[6], images[7], images[8]]} y={y3} />
-        <Column images={[images[9], images[10], images[11]]} y={y4} />
+        {dimension.width > 0 && dimension.width < 768 ? (
+          <>
+            <Column images={[images[0], images[1], images[2], images[3], images[4], images[5]]} y={y} />
+            <Column images={[images[6], images[7], images[8], images[9], images[10], images[11]]} y={y2} />
+          </>
+        ) : (
+          <>
+            <Column images={[images[0], images[1], images[2]]} y={y} />
+            <Column images={[images[3], images[4], images[5]]} y={y2} />
+            <Column images={[images[6], images[7], images[8]]} y={y3} />
+            <Column images={[images[9], images[10], images[11]]} y={y4} />
+          </>
+        )}
       </div>
 
       {/* Spacer and Horizontal Video Scroll above Footer */}
@@ -231,7 +240,7 @@ const Skiper30 = () => {
       </div>
 
       {/* ── Site Footer ── */}
-      <footer id="sp-footer" className="relative z-50">
+      <footer id="sp-footer" className="hidden md:flex flex-col relative z-50">
         <div id="sp-footer-inner">
           <div id="sp-footer-left">
             <div id="sp-footer-brand">
@@ -261,6 +270,7 @@ const Skiper30 = () => {
           </div>
         </div>
       </footer>
+      <MobileFooter />
     </main>
   );
 };
@@ -268,12 +278,79 @@ const Skiper30 = () => {
 type ColumnProps = {
   images: string[];
   y: MotionValue<number>;
+  className?: string;
 };
 
-const Column = ({ images, y }: ColumnProps) => {
+const AccordionItem = ({ title, children }: { title: string, children: React.ReactNode }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className={`acc-item ${isOpen ? 'active' : ''}`}>
+      <div 
+        className="acc-header py-2 flex justify-between items-center cursor-pointer text-sm font-bold tracking-widest text-gray-400 hover:text-white transition-colors"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span>{title}</span>
+        <div className="plus-minus-btn">
+          <div className="bar horizontal"></div>
+          <div className="bar vertical"></div>
+        </div>
+      </div>
+      <div className="acc-grid">
+        <div className="acc-inner">
+          <div className="acc-content pt-4 pb-4 text-xl text-white flex flex-col gap-4 font-medium">
+            {children}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const MobileFooter = () => {
+  return (
+    <footer id="mobile-footer" className="flex md:hidden relative z-[9999] w-full bg-black text-white px-6 py-12 flex-col font-['Helvetica_Neue',Helvetica,Arial,sans-serif]">
+      <div className="mb-16 flex flex-col gap-10">
+        <div className="flex items-center gap-2">
+          <img src="Trinetra.svg" alt="Trinetra Logo" className="w-6 h-6" style={{ filter: 'brightness(0) invert(1)' }} />
+          <span className="text-xl font-bold tracking-widest">TRINETRA</span>
+        </div>
+
+        <div className="relative group w-[250px]" style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}>
+          <h4 className="text-xs tracking-[0.25em] text-gray-500 mb-2 uppercase font-bold">SPONSORED BY</h4>
+          <div className="relative w-full h-16">
+            <img src="images/optimized/vyomdrones.webp" alt="Vyom Drones" className="absolute inset-0 w-full h-full object-contain object-left opacity-90" />
+          </div>
+        </div>
+      </div>
+
+      <div className="footer-accordion w-full flex flex-col gap-6">
+        <AccordionItem title="WORK WITH US">
+          <a href="#" className="hover:text-gray-300 transition-colors">Join the Team</a>
+          <a href="#" className="hover:text-gray-300 transition-colors">Sponsor Enquiries</a>
+        </AccordionItem>
+        <AccordionItem title="SOCIAL">
+          <a href="#" className="hover:text-gray-300 transition-colors">X</a>
+          <a href="#" className="hover:text-gray-300 transition-colors">YouTube</a>
+          <a href="https://www.instagram.com/trinetra_team/" className="hover:text-gray-300 transition-colors">Instagram</a>
+          <a href="#" className="hover:text-gray-300 transition-colors">Facebook</a>
+          <a href="#" className="hover:text-gray-300 transition-colors">LinkedIn</a>
+        </AccordionItem>
+        <AccordionItem title="CONTACT">
+          <a href="mailto:team.trinetra2026@gmail.com" className="hover:text-gray-300 transition-colors">team.trinetra2026@gmail.com</a>
+        </AccordionItem>
+      </div>
+
+      <div className="mt-20 text-sm text-gray-400 font-medium tracking-wider">
+        <div className="mb-4 text-white uppercase">COPYRIGHT &copy; 2026 TEAM TRINETRA</div>
+      </div>
+    </footer>
+  );
+};
+
+const Column = ({ images, y, className = "" }: ColumnProps) => {
   return (
     <motion.div
-      className="relative -top-[45%] flex h-full w-1/4 min-w-[250px] flex-col gap-[2vw] first:top-[-45%] [&:nth-child(2)]:top-[-95%] [&:nth-child(3)]:top-[-45%] [&:nth-child(4)]:top-[-75%]"
+      className={`relative -top-[45%] flex h-full w-1/2 md:w-1/4 min-w-[45vw] md:min-w-[250px] flex-col gap-[2vw] first:top-[-45%] [&:nth-child(2)]:top-[-95%] [&:nth-child(3)]:top-[-45%] [&:nth-child(4)]:top-[-75%] ${className}`}
       style={{ y }}
     >
       {images.map((src, i) => (

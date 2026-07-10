@@ -5,9 +5,9 @@
         <div id="sp-hero-bottom">
             <div id="sp-hero-text-row">
                 <div id="sp-hero-motto">
-                    True capability is built<br>not in isolation, but<br>through an allied network<br>bound
+                    True capability is built <br>not in isolation, but <br>through an allied network <br>bound
                     by
-                    precision<br>and shared purpose.
+                    precision <br>and shared purpose.
                 </div>
                 <div id="sp-hero-desc">
                     Every flight we execute is made possible by the organisations and individuals who
@@ -21,9 +21,9 @@
     <div id="sp-next-page">
         <div id="sp-carousel-heading">PROUDLY BACKED BY</div>
         <div id="sp-carousel-subheading">We extend our deepest gratitude to the partners who empowered our journey
-            through the timely delivery of materials and expert mentorship.<br>
+            through the timely delivery of materials and expert mentorship. <br>
             Their steadfast support and reassuring oversight have served as an unwavering guiding force through every
-            critical technical challenge.<br>
+            critical technical challenge. <br>
             We are committed to bringing enduring distinction to their names, with the sincere hope of continuing this
             cherished partnership.</div>
         <div class="sponsor-feature-section">
@@ -61,7 +61,7 @@
             </blockquote>
             <p id="sp-cta-hook">Be the Giant.</p>
             <div id="react-sponsor-button-root" class="flex justify-center mt-12 w-full"
-                style="height: 50px; position: relative; z-index: 50; overflow: visible;"></div>
+                style="min-height: 50px; position: relative; z-index: 50; overflow: visible;"></div>
         </div>
     </div>
 
@@ -95,6 +95,99 @@
                     </ul>
                 </div>
             </div>
+        </div>
+    </footer>
+
+    <!-- ── Mobile Footer (Accordion) ── -->
+    <footer id="mobile-footer"
+        class="hidden md:hidden w-full bg-black text-white px-6 py-12 flex-col font-['Helvetica_Neue',Helvetica,Arial,sans-serif]">
+        <!-- Brand & Sponsors -->
+        <div class="mb-16 flex flex-col gap-10">
+            <div class="flex items-center gap-2">
+                <img src="Trinetra.svg" alt="Trinetra Logo" class="w-6 h-6"
+                    style="filter: brightness(0) invert(1);">
+                <span class="text-xl font-bold tracking-widest">TRINETRA</span>
+            </div>
+
+            <!-- Sponsored By -->
+            <div class="relative group w-[250px]"
+                style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+                <h4 class="text-xs tracking-[0.25em] text-gray-500 mb-2 uppercase font-bold">SPONSORED BY
+                </h4>
+                <div class="relative w-full h-16">
+                    <img src="images/optimized/vyomdrones.webp" alt="Vyom Drones"
+                        class="absolute inset-0 w-full h-full object-contain object-left opacity-90">
+                </div>
+            </div>
+        </div>
+
+        <!-- Accordion Items -->
+        <div class="footer-accordion w-full flex flex-col gap-6">
+            <div class="acc-item">
+                <div class="acc-header py-2 flex justify-between items-center cursor-pointer text-sm font-bold tracking-widest text-gray-400 hover:text-white transition-colors"
+                    onclick="toggleAccordion(this)">
+                    <span>WORK WITH US</span>
+                    <div class="plus-minus-btn">
+                        <div class="bar horizontal"></div>
+                        <div class="bar vertical"></div>
+                    </div>
+                </div>
+                <div class="acc-grid">
+                    <div class="acc-inner">
+                        <div class="acc-content pt-4 pb-4 text-xl text-white flex flex-col gap-4 font-medium">
+                            <a href="#" class="hover:text-gray-300 transition-colors">Join the Team</a>
+                            <a href="#" class="hover:text-gray-300 transition-colors">Sponsor Enquiries</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="acc-item">
+                <div class="acc-header py-2 flex justify-between items-center cursor-pointer text-sm font-bold tracking-widest text-gray-400 hover:text-white transition-colors"
+                    onclick="toggleAccordion(this)">
+                    <span>SOCIAL</span>
+                    <div class="plus-minus-btn">
+                        <div class="bar horizontal"></div>
+                        <div class="bar vertical"></div>
+                    </div>
+                </div>
+                <div class="acc-grid">
+                    <div class="acc-inner">
+                        <div class="acc-content pt-4 pb-4 text-xl text-white flex flex-col gap-4 font-medium">
+                            <a href="#" class="hover:text-gray-300 transition-colors">X</a>
+                            <a href="#" class="hover:text-gray-300 transition-colors">YouTube</a>
+                            <a href="https://www.instagram.com/trinetra_team/"
+                                class="hover:text-gray-300 transition-colors">Instagram</a>
+                            <a href="#" class="hover:text-gray-300 transition-colors">Facebook</a>
+                            <a href="#" class="hover:text-gray-300 transition-colors">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="acc-item">
+                <div class="acc-header py-2 flex justify-between items-center cursor-pointer text-sm font-bold tracking-widest text-gray-400 hover:text-white transition-colors"
+                    onclick="toggleAccordion(this)">
+                    <span>CONTACT</span>
+                    <div class="plus-minus-btn">
+                        <div class="bar horizontal"></div>
+                        <div class="bar vertical"></div>
+                    </div>
+                </div>
+                <div class="acc-grid">
+                    <div class="acc-inner">
+                        <div class="acc-content pt-4 pb-4 text-xl text-white flex flex-col gap-4 font-medium">
+                            <a href="mailto:team.trinetra2026@gmail.com"
+                                class="hover:text-gray-300 transition-colors">team.trinetra2026@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Info -->
+        <div class="mt-20 text-sm text-gray-400 font-medium tracking-wider">
+            <div class="mb-4 text-white uppercase">COPYRIGHT &copy; 2026 TEAM TRINETRA</div>
         </div>
     </footer>
 </div>
