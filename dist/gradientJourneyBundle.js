@@ -1340,7 +1340,7 @@
           return dispatcher;
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var React2 = require_react(), Internals = {
+        var React = require_react(), Internals = {
           d: {
             f: noop2,
             r: function() {
@@ -1358,16 +1358,16 @@
           },
           p: 0,
           findDOMNode: null
-        }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+        }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
         "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
           "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
         );
         exports.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE = Internals;
-        exports.createPortal = function(children, container2) {
+        exports.createPortal = function(children, container) {
           var key = 2 < arguments.length && void 0 !== arguments[2] ? arguments[2] : null;
-          if (!container2 || 1 !== container2.nodeType && 9 !== container2.nodeType && 11 !== container2.nodeType)
+          if (!container || 1 !== container.nodeType && 9 !== container.nodeType && 11 !== container.nodeType)
             throw Error("Target container is not a DOM element.");
-          return createPortal$1(children, container2, null, key);
+          return createPortal$1(children, container, null, key);
         };
         exports.flushSync = function(fn) {
           var previousTransition = ReactSharedInternals.T, previousUpdatePriority = Internals.p;
@@ -2893,7 +2893,7 @@
           "number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
         }
         function validateOptionProps(element, props) {
-          null == props.value && ("object" === typeof props.children && null !== props.children ? React2.Children.forEach(props.children, function(child) {
+          null == props.value && ("object" === typeof props.children && null !== props.children ? React.Children.forEach(props.children, function(child) {
             null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
               "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
             ));
@@ -3826,7 +3826,7 @@
         }
         function noop$1() {
         }
-        function getEventTarget2(nativeEvent) {
+        function getEventTarget(nativeEvent) {
           nativeEvent = nativeEvent.target || nativeEvent.srcElement || window;
           nativeEvent.correspondingUseElement && (nativeEvent = nativeEvent.correspondingUseElement);
           return 3 === nativeEvent.nodeType ? nativeEvent.parentNode : nativeEvent;
@@ -4083,7 +4083,7 @@
               dispatchQueue,
               activeElementInst$1,
               nativeEvent,
-              getEventTarget2(nativeEvent)
+              getEventTarget(nativeEvent)
             );
             batchedUpdates$1(runEventInBatch, dispatchQueue);
           }
@@ -5830,8 +5830,8 @@
           return null;
         }
         function validateFragmentProps(element, fiber, returnFiber) {
-          for (var keys2 = Object.keys(element.props), i = 0; i < keys2.length; i++) {
-            var key = keys2[i];
+          for (var keys = Object.keys(element.props), i = 0; i < keys.length; i++) {
+            var key = keys[i];
             if ("children" !== key && "key" !== key) {
               null === fiber && (fiber = createFiberFromElement(element, returnFiber.mode, 0), fiber._debugInfo = currentDebugInfo, fiber.return = returnFiber);
               runWithFiberInDEV(
@@ -15007,8 +15007,8 @@
               if (null === targetInst$jscomp$0) return;
               var nodeTag = targetInst$jscomp$0.tag;
               if (3 === nodeTag || 4 === nodeTag) {
-                var container2 = targetInst$jscomp$0.stateNode.containerInfo;
-                if (container2 === targetContainer) break;
+                var container = targetInst$jscomp$0.stateNode.containerInfo;
+                if (container === targetContainer) break;
                 if (4 === nodeTag)
                   for (nodeTag = targetInst$jscomp$0.return; null !== nodeTag; ) {
                     var grandTag = nodeTag.tag;
@@ -15016,21 +15016,21 @@
                       return;
                     nodeTag = nodeTag.return;
                   }
-                for (; null !== container2; ) {
-                  nodeTag = getClosestInstanceFromNode(container2);
+                for (; null !== container; ) {
+                  nodeTag = getClosestInstanceFromNode(container);
                   if (null === nodeTag) return;
                   grandTag = nodeTag.tag;
                   if (5 === grandTag || 6 === grandTag || 26 === grandTag || 27 === grandTag) {
                     targetInst$jscomp$0 = ancestorInst = nodeTag;
                     continue a;
                   }
-                  container2 = container2.parentNode;
+                  container = container.parentNode;
                 }
               }
               targetInst$jscomp$0 = targetInst$jscomp$0.return;
             }
           batchedUpdates$1(function() {
-            var targetInst = ancestorInst, nativeEventTarget = getEventTarget2(nativeEvent), dispatchQueue = [];
+            var targetInst = ancestorInst, nativeEventTarget = getEventTarget(nativeEvent), dispatchQueue = [];
             a: {
               var reactName = topLevelEventsToReactNames.get(domEventName);
               if (void 0 !== reactName) {
@@ -17163,16 +17163,16 @@
         function commitTextUpdate(textInstance, oldText, newText) {
           textInstance.nodeValue = newText;
         }
-        function warnForReactChildrenConflict(container2) {
-          if (!container2.__reactWarnedAboutChildrenConflict) {
-            var props = container2[internalPropsKey] || null;
+        function warnForReactChildrenConflict(container) {
+          if (!container.__reactWarnedAboutChildrenConflict) {
+            var props = container[internalPropsKey] || null;
             if (null !== props) {
-              var fiber = getInstanceFromNode(container2);
-              null !== fiber && ("string" === typeof props.children || "number" === typeof props.children ? (container2.__reactWarnedAboutChildrenConflict = true, runWithFiberInDEV(fiber, function() {
+              var fiber = getInstanceFromNode(container);
+              null !== fiber && ("string" === typeof props.children || "number" === typeof props.children ? (container.__reactWarnedAboutChildrenConflict = true, runWithFiberInDEV(fiber, function() {
                 console.error(
                   'Cannot use a ref on a React element as a container to `createRoot` or `createPortal` if that element also sets "children" text content using React. It should be a leaf with no children. Otherwise it\'s ambiguous which children should be used.'
                 );
-              })) : null != props.dangerouslySetInnerHTML && (container2.__reactWarnedAboutChildrenConflict = true, runWithFiberInDEV(fiber, function() {
+              })) : null != props.dangerouslySetInnerHTML && (container.__reactWarnedAboutChildrenConflict = true, runWithFiberInDEV(fiber, function() {
                 console.error(
                   'Cannot use a ref on a React element as a container to `createRoot` or `createPortal` if that element also sets "dangerouslySetInnerHTML" using React. It should be a leaf with no children. Otherwise it\'s ambiguous which children should be used.'
                 );
@@ -17186,8 +17186,8 @@
         function removeChild(parentInstance, child) {
           parentInstance.removeChild(child);
         }
-        function removeChildFromContainer(container2, child) {
-          (9 === container2.nodeType ? container2.body : "HTML" === container2.nodeName ? container2.ownerDocument.body : container2).removeChild(child);
+        function removeChildFromContainer(container, child) {
+          (9 === container.nodeType ? container.body : "HTML" === container.nodeName ? container.ownerDocument.body : container).removeChild(child);
         }
         function clearHydrationBoundary(parentInstance, hydrationInstance) {
           var node = hydrationInstance, depth = 0;
@@ -17258,8 +17258,8 @@
         function unhideTextInstance(textInstance, text) {
           textInstance.nodeValue = text;
         }
-        function clearContainerSparingly(container2) {
-          var nextNode = container2.firstChild;
+        function clearContainerSparingly(container) {
+          var nextNode = container.firstChild;
           nextNode && 10 === nextNode.nodeType && (nextNode = nextNode.nextSibling);
           for (; nextNode; ) {
             var node = nextNode;
@@ -17277,7 +17277,7 @@
               case "LINK":
                 if ("stylesheet" === node.rel.toLowerCase()) continue;
             }
-            container2.removeChild(node);
+            container.removeChild(node);
           }
         }
         function canHydrateInstance(instance, type, props, inRootOrSingleton) {
@@ -17419,8 +17419,8 @@
           }
           return null;
         }
-        function commitHydratedContainer(container2) {
-          retryIfBlockedOn(container2);
+        function commitHydratedContainer(container) {
+          retryIfBlockedOn(container);
         }
         function commitHydratedActivityInstance(activityInstance) {
           retryIfBlockedOn(activityInstance);
@@ -17490,8 +17490,8 @@
             instance.removeAttributeNode(attributes[0]);
           detachDeletedInstance(instance);
         }
-        function getHoistableRoot(container2) {
-          return "function" === typeof container2.getRootNode ? container2.getRootNode() : 9 === container2.nodeType ? container2 : container2.ownerDocument;
+        function getHoistableRoot(container) {
+          return "function" === typeof container.getRootNode ? container.getRootNode() : 9 === container.nodeType ? container : container.ownerDocument;
         }
         function preconnectAs(rel, href, crossOrigin) {
           var ownerDocument = globalDocument;
@@ -17970,10 +17970,10 @@
           parentComponent = emptyContextObject;
           return parentComponent;
         }
-        function updateContainerImpl(rootFiber, lane, element, container2, parentComponent, callback) {
+        function updateContainerImpl(rootFiber, lane, element, container, parentComponent, callback) {
           if (injectedHook && "function" === typeof injectedHook.onScheduleFiberRoot)
             try {
-              injectedHook.onScheduleFiberRoot(rendererID, container2, element);
+              injectedHook.onScheduleFiberRoot(rendererID, container, element);
             } catch (err) {
               hasLoggedError || (hasLoggedError = true, console.error(
                 "React instrumentation encountered an error: %o",
@@ -17981,19 +17981,19 @@
               ));
             }
           parentComponent = getContextForSubtree(parentComponent);
-          null === container2.context ? container2.context = parentComponent : container2.pendingContext = parentComponent;
+          null === container.context ? container.context = parentComponent : container.pendingContext = parentComponent;
           isRendering && null !== current && !didWarnAboutNestedUpdates && (didWarnAboutNestedUpdates = true, console.error(
             "Render methods should be a pure function of props and state; triggering nested component updates from render is not allowed. If necessary, trigger nested updates in componentDidUpdate.\n\nCheck the render method of %s.",
             getComponentNameFromFiber(current) || "Unknown"
           ));
-          container2 = createUpdate(lane);
-          container2.payload = { element };
+          container = createUpdate(lane);
+          container.payload = { element };
           callback = void 0 === callback ? null : callback;
           null !== callback && ("function" !== typeof callback && console.error(
             "Expected the last optional `callback` argument to be a function. Instead received: %s.",
             callback
-          ), container2.callback = callback);
-          element = enqueueUpdate(rootFiber, container2, lane);
+          ), container.callback = callback);
+          element = enqueueUpdate(rootFiber, container, lane);
           null !== element && (startUpdateTimerByLane(lane, "root.render()", null), scheduleUpdateOnFiber(element, rootFiber, lane), entangleTransitions(element, rootFiber, lane));
         }
         function markRetryLaneImpl(fiber, retryLane) {
@@ -18026,22 +18026,22 @@
         function getCurrentFiberForDevTools() {
           return current;
         }
-        function dispatchDiscreteEvent(domEventName, eventSystemFlags, container2, nativeEvent) {
+        function dispatchDiscreteEvent(domEventName, eventSystemFlags, container, nativeEvent) {
           var prevTransition = ReactSharedInternals.T;
           ReactSharedInternals.T = null;
           var previousPriority = ReactDOMSharedInternals.p;
           try {
-            ReactDOMSharedInternals.p = DiscreteEventPriority, dispatchEvent(domEventName, eventSystemFlags, container2, nativeEvent);
+            ReactDOMSharedInternals.p = DiscreteEventPriority, dispatchEvent(domEventName, eventSystemFlags, container, nativeEvent);
           } finally {
             ReactDOMSharedInternals.p = previousPriority, ReactSharedInternals.T = prevTransition;
           }
         }
-        function dispatchContinuousEvent(domEventName, eventSystemFlags, container2, nativeEvent) {
+        function dispatchContinuousEvent(domEventName, eventSystemFlags, container, nativeEvent) {
           var prevTransition = ReactSharedInternals.T;
           ReactSharedInternals.T = null;
           var previousPriority = ReactDOMSharedInternals.p;
           try {
-            ReactDOMSharedInternals.p = ContinuousEventPriority, dispatchEvent(domEventName, eventSystemFlags, container2, nativeEvent);
+            ReactDOMSharedInternals.p = ContinuousEventPriority, dispatchEvent(domEventName, eventSystemFlags, container, nativeEvent);
           } finally {
             ReactDOMSharedInternals.p = previousPriority, ReactSharedInternals.T = prevTransition;
           }
@@ -18114,7 +18114,7 @@
           }
         }
         function findInstanceBlockingEvent(nativeEvent) {
-          nativeEvent = getEventTarget2(nativeEvent);
+          nativeEvent = getEventTarget(nativeEvent);
           return findInstanceBlockingTarget(nativeEvent);
         }
         function findInstanceBlockingTarget(targetNode) {
@@ -18517,22 +18517,22 @@
         function ReactDOMHydrationRoot(internalRoot) {
           this._internalRoot = internalRoot;
         }
-        function warnIfReactDOMContainerInDEV(container2) {
-          container2[internalContainerInstanceKey] && (container2._reactRootContainer ? console.error(
+        function warnIfReactDOMContainerInDEV(container) {
+          container[internalContainerInstanceKey] && (container._reactRootContainer ? console.error(
             "You are calling ReactDOMClient.createRoot() on a container that was previously passed to ReactDOM.render(). This is not supported."
           ) : console.error(
             "You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it."
           ));
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var Scheduler = require_scheduler(), React2 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
+        var Scheduler = require_scheduler(), React = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
         /* @__PURE__ */ Symbol.for("react.scope");
         var REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity");
         /* @__PURE__ */ Symbol.for("react.legacy_hidden");
         /* @__PURE__ */ Symbol.for("react.tracing_marker");
         var REACT_MEMO_CACHE_SENTINEL = /* @__PURE__ */ Symbol.for("react.memo_cache_sentinel");
         /* @__PURE__ */ Symbol.for("react.view_transition");
-        var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+        var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
           pending: false,
           data: null,
           method: null,
@@ -21301,13 +21301,13 @@
           args = this._internalRoot;
           if (null !== args) {
             this._internalRoot = null;
-            var container2 = args.containerInfo;
+            var container = args.containerInfo;
             (executionContext & (RenderContext | CommitContext)) !== NoContext && console.error(
               "Attempted to synchronously unmount a root while React was already rendering. React cannot finish unmounting the root until the current render has completed, which may lead to a race condition."
             );
             updateContainerImpl(args.current, 2, null, args, null, null);
             flushSyncWork$1();
-            container2[internalContainerInstanceKey] = null;
+            container[internalContainerInstanceKey] = null;
           }
         };
         ReactDOMHydrationRoot.prototype.unstable_scheduleHydration = function(target) {
@@ -21320,7 +21320,7 @@
           }
         };
         (function() {
-          var isomorphicReactPackageVersion = React2.version;
+          var isomorphicReactPackageVersion = React.version;
           if ("19.2.7" !== isomorphicReactPackageVersion)
             throw Error(
               'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.7\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -21374,10 +21374,10 @@
             "font-weight:bold"
           );
         }
-        exports.createRoot = function(container2, options) {
-          if (!isValidContainer(container2))
+        exports.createRoot = function(container, options) {
+          if (!isValidContainer(container))
             throw Error("Target container is not a DOM element.");
-          warnIfReactDOMContainerInDEV(container2);
+          warnIfReactDOMContainerInDEV(container);
           var isStrictMode = false, identifierPrefix = "", onUncaughtError = defaultOnUncaughtError, onCaughtError = defaultOnCaughtError, onRecoverableError = defaultOnRecoverableError;
           null !== options && void 0 !== options && (options.hydrate ? console.warn(
             "hydrate through createRoot is deprecated. Use ReactDOMClient.hydrateRoot(container, <App />) instead."
@@ -21385,7 +21385,7 @@
             "You passed a JSX element to createRoot. You probably meant to call root.render instead. Example usage:\n\n  let root = createRoot(domContainer);\n  root.render(<App />);"
           ), true === options.unstable_strictMode && (isStrictMode = true), void 0 !== options.identifierPrefix && (identifierPrefix = options.identifierPrefix), void 0 !== options.onUncaughtError && (onUncaughtError = options.onUncaughtError), void 0 !== options.onCaughtError && (onCaughtError = options.onCaughtError), void 0 !== options.onRecoverableError && (onRecoverableError = options.onRecoverableError));
           options = createFiberRoot(
-            container2,
+            container,
             1,
             false,
             null,
@@ -21398,21 +21398,21 @@
             onRecoverableError,
             defaultOnDefaultTransitionIndicator
           );
-          container2[internalContainerInstanceKey] = options.current;
-          listenToAllSupportedEvents(container2);
+          container[internalContainerInstanceKey] = options.current;
+          listenToAllSupportedEvents(container);
           return new ReactDOMRoot(options);
         };
-        exports.hydrateRoot = function(container2, initialChildren, options) {
-          if (!isValidContainer(container2))
+        exports.hydrateRoot = function(container, initialChildren, options) {
+          if (!isValidContainer(container))
             throw Error("Target container is not a DOM element.");
-          warnIfReactDOMContainerInDEV(container2);
+          warnIfReactDOMContainerInDEV(container);
           void 0 === initialChildren && console.error(
             "Must provide initial children as second argument to hydrateRoot. Example usage: hydrateRoot(domContainer, <App />)"
           );
           var isStrictMode = false, identifierPrefix = "", onUncaughtError = defaultOnUncaughtError, onCaughtError = defaultOnCaughtError, onRecoverableError = defaultOnRecoverableError, formState = null;
           null !== options && void 0 !== options && (true === options.unstable_strictMode && (isStrictMode = true), void 0 !== options.identifierPrefix && (identifierPrefix = options.identifierPrefix), void 0 !== options.onUncaughtError && (onUncaughtError = options.onUncaughtError), void 0 !== options.onCaughtError && (onCaughtError = options.onCaughtError), void 0 !== options.onRecoverableError && (onRecoverableError = options.onRecoverableError), void 0 !== options.formState && (formState = options.formState));
           initialChildren = createFiberRoot(
-            container2,
+            container,
             1,
             true,
             initialChildren,
@@ -21437,8 +21437,8 @@
           initialChildren.current.lanes = options;
           markRootUpdated$1(initialChildren, options);
           ensureRootIsScheduled(initialChildren);
-          container2[internalContainerInstanceKey] = initialChildren.current;
-          listenToAllSupportedEvents(container2);
+          container[internalContainerInstanceKey] = initialChildren.current;
+          listenToAllSupportedEvents(container);
           return new ReactDOMHydrationRoot(initialChildren);
         };
         exports.version = "19.2.7";
@@ -21635,15 +21635,15 @@
             else validateChildKeys(children);
           if (hasOwnProperty.call(config, "key")) {
             children = getComponentNameFromType(type);
-            var keys2 = Object.keys(config).filter(function(k) {
+            var keys = Object.keys(config).filter(function(k) {
               return "key" !== k;
             });
-            isStaticChildren = 0 < keys2.length ? "{key: someKey, " + keys2.join(": ..., ") + ": ...}" : "{key: someKey}";
-            didWarnAboutKeySpread[children + isStaticChildren] || (keys2 = 0 < keys2.length ? "{" + keys2.join(": ..., ") + ": ...}" : "{}", console.error(
+            isStaticChildren = 0 < keys.length ? "{key: someKey, " + keys.join(": ..., ") + ": ...}" : "{key: someKey}";
+            didWarnAboutKeySpread[children + isStaticChildren] || (keys = 0 < keys.length ? "{" + keys.join(": ..., ") + ": ...}" : "{}", console.error(
               'A props object containing a "key" prop is being spread into JSX:\n  let props = %s;\n  <%s {...props} />\nReact keys must be passed directly to JSX without using spread:\n  let props = %s;\n  <%s key={someKey} {...props} />',
               isStaticChildren,
               children,
-              keys2,
+              keys,
               children
             ), didWarnAboutKeySpread[children + isStaticChildren] = true);
           }
@@ -21674,18 +21674,18 @@
         function isValidElement(object) {
           return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
         }
-        var React2 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+        var React = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
           return null;
         };
-        React2 = {
+        React = {
           react_stack_bottom_frame: function(callStackForError) {
             return callStackForError();
           }
         };
         var specialPropKeyWarningShown;
         var didWarnAboutElementRef = {};
-        var unknownOwnerDebugStack = React2.react_stack_bottom_frame.bind(
-          React2,
+        var unknownOwnerDebugStack = React.react_stack_bottom_frame.bind(
+          React,
           UnknownOwner
         )();
         var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
@@ -21729,8 +21729,11 @@
     }
   });
 
-  // src/mountSkiper19.tsx
+  // src/mountGradientJourney.tsx
   var import_client = __toESM(require_client(), 1);
+
+  // src/GradientText.tsx
+  var import_react22 = __toESM(require_react(), 1);
 
   // node_modules/framer-motion/dist/es/context/LayoutGroupContext.mjs
   var import_react = __toESM(require_react(), 1);
@@ -22723,8 +22726,8 @@
   }
   var durationKeys = ["duration", "bounce"];
   var physicsKeys = ["stiffness", "damping", "mass"];
-  function isSpringType(options, keys2) {
-    return keys2.some((key) => options[key] !== void 0);
+  function isSpringType(options, keys) {
+    return keys.some((key) => options[key] !== void 0);
   }
   function getSpringOptions(options) {
     let springOptions = {
@@ -23648,7 +23651,6 @@
 
   // node_modules/motion-dom/dist/es/utils/supports/scroll-timeline.mjs
   var supportsScrollTimeline = /* @__PURE__ */ memoSupports(() => window.ScrollTimeline !== void 0, "scrollTimeline");
-  var supportsViewTimeline = /* @__PURE__ */ memoSupports(() => window.ViewTimeline !== void 0, "viewTimeline");
 
   // node_modules/motion-dom/dist/es/utils/supports/linear-easing.mjs
   var supportsLinearEasing = /* @__PURE__ */ memoSupports(() => {
@@ -25523,22 +25525,6 @@
     return typeof a === "function" ? resizeWindow(a) : resizeElement(a, b);
   }
 
-  // node_modules/motion-dom/dist/es/scroll/observe.mjs
-  function observeTimeline(update, timeline) {
-    let prevProgress;
-    const onFrame = () => {
-      const { currentTime } = timeline;
-      const percentage = currentTime === null ? 0 : currentTime.value;
-      const progress2 = percentage / 100;
-      if (prevProgress !== progress2) {
-        update(progress2);
-      }
-      prevProgress = progress2;
-    };
-    frame.preUpdate(onFrame, true);
-    return () => cancelFrame(onFrame);
-  }
-
   // node_modules/motion-dom/dist/es/utils/is-svg-svg-element.mjs
   function isSVGSVGElement(element) {
     return isSVGElement(element) && element.tagName === "svg";
@@ -25554,79 +25540,6 @@
     const options = args[3 + argOffset];
     const interpolator = interpolate(inputRange, outputRange, options);
     return useImmediate ? interpolator(inputValue) : interpolator;
-  }
-
-  // node_modules/motion-dom/dist/es/value/follow-value.mjs
-  function attachFollow(value, source, options = {}) {
-    const initialValue = value.get();
-    let activeAnimation = null;
-    let latestValue = initialValue;
-    let latestSetter;
-    const unit = typeof initialValue === "string" ? initialValue.replace(/[\d.-]/g, "") : void 0;
-    const stopAnimation = () => {
-      if (activeAnimation) {
-        activeAnimation.stop();
-        activeAnimation = null;
-      }
-      value.animation = void 0;
-    };
-    const startAnimation = () => {
-      const currentValue = asNumber(value.get());
-      const targetValue = asNumber(latestValue);
-      if (currentValue === targetValue) {
-        stopAnimation();
-        return;
-      }
-      const velocity = activeAnimation ? activeAnimation.getGeneratorVelocity() : value.getVelocity();
-      stopAnimation();
-      activeAnimation = new JSAnimation({
-        keyframes: [currentValue, targetValue],
-        velocity,
-        // Default to spring if no type specified (matches useSpring behavior)
-        type: "spring",
-        restDelta: 1e-3,
-        restSpeed: 0.01,
-        ...options,
-        onUpdate: latestSetter
-      });
-    };
-    const scheduleAnimation = () => {
-      startAnimation();
-      value.animation = activeAnimation ?? void 0;
-      value["events"].animationStart?.notify();
-      activeAnimation?.then(() => {
-        value.animation = void 0;
-        value["events"].animationComplete?.notify();
-      });
-    };
-    value.attach((v, set) => {
-      latestValue = v;
-      latestSetter = (latest) => set(parseValue(latest, unit));
-      frame.postRender(scheduleAnimation);
-    }, stopAnimation);
-    if (isMotionValue(source)) {
-      let skipNextAnimation = options.skipInitialAnimation === true;
-      const removeSourceOnChange = source.on("change", (v) => {
-        if (skipNextAnimation) {
-          skipNextAnimation = false;
-          value.jump(parseValue(v, unit), false);
-        } else {
-          value.set(parseValue(v, unit));
-        }
-      });
-      const removeValueOnDestroy = value.on("destroy", removeSourceOnChange);
-      return () => {
-        removeSourceOnChange();
-        removeValueOnDestroy();
-      };
-    }
-    return stopAnimation;
-  }
-  function parseValue(v, unit) {
-    return unit ? v + unit : v;
-  }
-  function asNumber(v) {
-    return typeof v === "number" ? v : parseFloat(v);
   }
 
   // node_modules/motion-dom/dist/es/value/types/utils/find.mjs
@@ -26185,11 +26098,11 @@
   function convertBoxToBoundingBox({ x, y }) {
     return { top: y.min, right: x.max, bottom: y.max, left: x.min };
   }
-  function transformBoxPoints(point2, transformPoint2) {
+  function transformBoxPoints(point, transformPoint2) {
     if (!transformPoint2)
-      return point2;
-    const topLeft = transformPoint2({ x: point2.left, y: point2.top });
-    const bottomRight = transformPoint2({ x: point2.right, y: point2.bottom });
+      return point;
+    const topLeft = transformPoint2({ x: point.left, y: point.top });
+    const bottomRight = transformPoint2({ x: point.right, y: point.bottom });
     return {
       top: topLeft.y,
       left: topLeft.x,
@@ -26216,16 +26129,16 @@
   }
 
   // node_modules/motion-dom/dist/es/projection/geometry/delta-apply.mjs
-  function scalePoint(point2, scale2, originPoint) {
-    const distanceFromOrigin = point2 - originPoint;
+  function scalePoint(point, scale2, originPoint) {
+    const distanceFromOrigin = point - originPoint;
     const scaled = scale2 * distanceFromOrigin;
     return originPoint + scaled;
   }
-  function applyPointDelta(point2, translate, scale2, originPoint, boxScale) {
+  function applyPointDelta(point, translate, scale2, originPoint, boxScale) {
     if (boxScale !== void 0) {
-      point2 = scalePoint(point2, boxScale, originPoint);
+      point = scalePoint(point, boxScale, originPoint);
     }
-    return scalePoint(point2, scale2, originPoint) + translate;
+    return scalePoint(point, scale2, originPoint) + translate;
   }
   function applyAxisDelta(axis, translate = 0, scale2 = 1, originPoint, boxScale) {
     axis.min = applyPointDelta(axis.min, translate, scale2, originPoint, boxScale);
@@ -26297,10 +26210,10 @@
   }
   function measurePageBox(element, rootProjectionNode2, transformPagePoint) {
     const viewportBox = measureViewportBox(element, transformPagePoint);
-    const { scroll: scroll2 } = rootProjectionNode2;
-    if (scroll2) {
-      translateAxis(viewportBox.x, scroll2.offset.x);
-      translateAxis(viewportBox.y, scroll2.offset.y);
+    const { scroll } = rootProjectionNode2;
+    if (scroll) {
+      translateAxis(viewportBox.x, scroll.offset.x);
+      translateAxis(viewportBox.y, scroll.offset.y);
     }
     return viewportBox;
   }
@@ -26527,9 +26440,9 @@
   };
   function buildSVGPath(attrs, length, spacing = 1, offset = 0, useDashCase = true) {
     attrs.pathLength = 1;
-    const keys2 = useDashCase ? dashKeys : camelKeys;
-    attrs[keys2.offset] = `${-offset}`;
-    attrs[keys2.array] = `${length} ${spacing}`;
+    const keys = useDashCase ? dashKeys : camelKeys;
+    attrs[keys.offset] = `${-offset}`;
+    attrs[keys.array] = `${length} ${spacing}`;
   }
 
   // node_modules/motion-dom/dist/es/render/svg/utils/build-attrs.mjs
@@ -26986,13 +26899,13 @@
   }
 
   // node_modules/motion-dom/dist/es/projection/geometry/delta-remove.mjs
-  function removePointDelta(point2, translate, scale2, originPoint, boxScale) {
-    point2 -= translate;
-    point2 = scalePoint(point2, 1 / scale2, originPoint);
+  function removePointDelta(point, translate, scale2, originPoint, boxScale) {
+    point -= translate;
+    point = scalePoint(point, 1 / scale2, originPoint);
     if (boxScale !== void 0) {
-      point2 = scalePoint(point2, 1 / boxScale, originPoint);
+      point = scalePoint(point, 1 / boxScale, originPoint);
     }
-    return point2;
+    return point;
   }
   function removeAxisDelta(axis, translate = 0, scale2 = 1, origin = 0.5, boxScale, originAxis = axis, sourceAxis = axis) {
     if (percent.test(translate)) {
@@ -27094,7 +27007,7 @@
     "borderBottomRightRadius"
   ];
   var numBorders = borderLabels.length;
-  var asNumber2 = (value) => typeof value === "string" ? parseFloat(value) : value;
+  var asNumber = (value) => typeof value === "string" ? parseFloat(value) : value;
   var isPx = (value) => typeof value === "number" || px.test(value);
   function mixValues(target, follow, lead, progress2, shouldCrossfadeOpacity, isOnlyMember) {
     if (shouldCrossfadeOpacity) {
@@ -27113,7 +27026,7 @@
       leadRadius || (leadRadius = 0);
       const canMix = followRadius === 0 || leadRadius === 0 || isPx(followRadius) === isPx(leadRadius);
       if (canMix) {
-        target[borderLabel] = Math.max(mixNumber(asNumber2(followRadius), asNumber2(leadRadius), progress2), 0);
+        target[borderLabel] = Math.max(mixNumber(asNumber(followRadius), asNumber(leadRadius), progress2), 0);
         if (percent.test(leadRadius) || percent.test(followRadius)) {
           target[borderLabel] += "%";
         }
@@ -27701,10 +27614,10 @@
         const box = visualElement.measureViewportBox();
         const wasInScrollRoot = this.scroll?.wasRoot || this.path.some(checkNodeWasScrollRoot);
         if (!wasInScrollRoot) {
-          const { scroll: scroll2 } = this.root;
-          if (scroll2) {
-            translateAxis(box.x, scroll2.offset.x);
-            translateAxis(box.y, scroll2.offset.y);
+          const { scroll } = this.root;
+          if (scroll) {
+            translateAxis(box.x, scroll.offset.x);
+            translateAxis(box.y, scroll.offset.y);
           }
         }
         return box;
@@ -27717,13 +27630,13 @@
         }
         for (let i = 0; i < this.path.length; i++) {
           const node = this.path[i];
-          const { scroll: scroll2, options } = node;
-          if (node !== this.root && scroll2 && options.layoutScroll) {
-            if (scroll2.wasRoot) {
+          const { scroll, options } = node;
+          if (node !== this.root && scroll && options.layoutScroll) {
+            if (scroll.wasRoot) {
               copyBoxInto(boxWithoutScroll, box);
             }
-            translateAxis(boxWithoutScroll.x, scroll2.offset.x);
-            translateAxis(boxWithoutScroll.y, scroll2.offset.y);
+            translateAxis(boxWithoutScroll.x, scroll.offset.x);
+            translateAxis(boxWithoutScroll.y, scroll.offset.y);
           }
         }
         return boxWithoutScroll;
@@ -27970,13 +27883,13 @@
         const interpolate2 = pathFn?.interpolateProjection(delta);
         this.mixTargetDelta = (latest) => {
           const progress2 = latest / 1e3;
-          const point2 = interpolate2?.(progress2);
-          if (point2) {
-            targetDelta.x.translate = point2.x;
+          const point = interpolate2?.(progress2);
+          if (point) {
+            targetDelta.x.translate = point.x;
             targetDelta.x.scale = mixNumber(delta.x.scale, 1, progress2);
             targetDelta.x.origin = delta.x.origin;
             targetDelta.x.originPoint = delta.x.originPoint;
-            targetDelta.y.translate = point2.y;
+            targetDelta.y.translate = point.y;
             targetDelta.y.scale = mixNumber(delta.y.scale, 1, progress2);
             targetDelta.y.origin = delta.y.origin;
             targetDelta.y.originPoint = delta.y.originPoint;
@@ -27999,10 +27912,10 @@
             this.animationValues = mixedValues;
             mixValues(mixedValues, snapshotLatestValues, this.latestValues, progress2, shouldCrossfadeOpacity, isOnlyMember);
           }
-          if (point2 && point2.rotate !== void 0) {
+          if (point && point.rotate !== void 0) {
             if (!this.animationValues)
               this.animationValues = mixedValues;
-            this.animationValues.pathRotation = point2.rotate;
+            this.animationValues.pathRotation = point.rotate;
           }
           this.root.scheduleUpdateProjection();
           this.scheduleRender();
@@ -29231,9 +29144,9 @@
         const isDistancePastThreshold = distance2D(info2.offset, { x: 0, y: 0 }) >= this.distanceThreshold;
         if (!isPanStarted && !isDistancePastThreshold)
           return;
-        const { point: point3 } = info2;
+        const { point: point2 } = info2;
         const { timestamp: timestamp2 } = frameData;
-        this.history.push({ ...point3, timestamp: timestamp2 });
+        this.history.push({ ...point2, timestamp: timestamp2 });
         const { onStart, onMove } = this.handlers;
         if (!isPanStarted) {
           onStart && onStart(this.lastMoveEvent, info2);
@@ -29270,9 +29183,9 @@
       this.contextWindow = contextWindow || window;
       const info = extractEventInfo(event);
       const initialInfo = transformPoint(info, this.transformPagePoint);
-      const { point: point2 } = initialInfo;
+      const { point } = initialInfo;
       const { timestamp } = frameData;
-      this.history = [{ ...point2, timestamp }];
+      this.history = [{ ...point, timestamp }];
       const { onSessionStart } = handlers;
       onSessionStart && onSessionStart(event, getPanInfo(initialInfo, this.history));
       this.removeListeners = pipe(addPointerEvent(this.contextWindow, "pointermove", this.handlePointerMove), addPointerEvent(this.contextWindow, "pointerup", this.handlePointerUp), addPointerEvent(this.contextWindow, "pointercancel", this.handlePointerUp));
@@ -29358,11 +29271,11 @@
   function subtractPoint(a, b) {
     return { x: a.x - b.x, y: a.y - b.y };
   }
-  function getPanInfo({ point: point2 }, history) {
+  function getPanInfo({ point }, history) {
     return {
-      point: point2,
-      delta: subtractPoint(point2, lastDevicePoint(history)),
-      offset: subtractPoint(point2, startDevicePoint(history)),
+      point,
+      delta: subtractPoint(point, lastDevicePoint(history)),
+      offset: subtractPoint(point, startDevicePoint(history)),
       velocity: getVelocity(history, 0.1)
     };
   }
@@ -29410,13 +29323,13 @@
   }
 
   // node_modules/framer-motion/dist/es/gestures/drag/utils/constraints.mjs
-  function applyConstraints(point2, { min, max }, elastic) {
-    if (min !== void 0 && point2 < min) {
-      point2 = elastic ? mixNumber(min, point2, elastic.min) : Math.max(point2, min);
-    } else if (max !== void 0 && point2 > max) {
-      point2 = elastic ? mixNumber(max, point2, elastic.max) : Math.min(point2, max);
+  function applyConstraints(point, { min, max }, elastic) {
+    if (min !== void 0 && point < min) {
+      point = elastic ? mixNumber(min, point, elastic.min) : Math.max(point, min);
+    } else if (max !== void 0 && point > max) {
+      point = elastic ? mixNumber(max, point, elastic.max) : Math.min(point, max);
     }
-    return point2;
+    return point;
   }
   function calcRelativeAxisConstraints(axis, min, max) {
     return {
@@ -29750,7 +29663,7 @@
       const externalMotionValue = props[dragKey];
       return externalMotionValue ? externalMotionValue : this.visualElement.getValue(axis, this.visualElement.latestValues[axis] ?? 0);
     }
-    snapToCursor(point2) {
+    snapToCursor(point) {
       eachAxis((axis) => {
         const { drag: drag2 } = this.getProps();
         if (!shouldDrag(axis, drag2, this.currentDirection))
@@ -29760,7 +29673,7 @@
         if (projection && projection.layout) {
           const { min, max } = projection.layout.layoutBox[axis];
           const current = axisValue.get() || 0;
-          axisValue.set(point2[axis] - mixNumber(min, max, 0.5) + current);
+          axisValue.set(point[axis] - mixNumber(min, max, 0.5) + current);
         }
       });
     }
@@ -30307,594 +30220,14 @@
   // node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs
   var motion = /* @__PURE__ */ createMotionProxy(featureBundle, createDomVisualElement);
 
-  // node_modules/framer-motion/dist/es/value/use-scroll.mjs
-  var import_react20 = __toESM(require_react(), 1);
-
-  // node_modules/framer-motion/dist/es/render/dom/scroll/utils/can-use-native-timeline.mjs
-  function canUseNativeTimeline(target) {
-    if (typeof window === "undefined")
-      return false;
-    return target ? supportsViewTimeline() : supportsScrollTimeline();
-  }
-
-  // node_modules/framer-motion/dist/es/render/dom/scroll/info.mjs
-  var maxElapsed2 = 50;
-  var createAxisInfo = () => ({
-    current: 0,
-    offset: [],
-    progress: 0,
-    scrollLength: 0,
-    targetOffset: 0,
-    targetLength: 0,
-    containerLength: 0,
-    velocity: 0
-  });
-  var createScrollInfo = () => ({
-    time: 0,
-    x: createAxisInfo(),
-    y: createAxisInfo()
-  });
-  var keys = {
-    x: {
-      length: "Width",
-      position: "Left"
-    },
-    y: {
-      length: "Height",
-      position: "Top"
-    }
-  };
-  function updateAxisInfo(element, axisName, info, time2) {
-    const axis = info[axisName];
-    const { length, position } = keys[axisName];
-    const prev = axis.current;
-    const prevTime = info.time;
-    axis.current = Math.abs(element[`scroll${position}`]);
-    axis.scrollLength = element[`scroll${length}`] - element[`client${length}`];
-    axis.offset.length = 0;
-    axis.offset[0] = 0;
-    axis.offset[1] = axis.scrollLength;
-    axis.progress = progress(0, axis.scrollLength, axis.current);
-    const elapsed = time2 - prevTime;
-    axis.velocity = elapsed > maxElapsed2 ? 0 : velocityPerSecond(axis.current - prev, elapsed);
-  }
-  function updateScrollInfo(element, info, time2) {
-    updateAxisInfo(element, "x", info, time2);
-    updateAxisInfo(element, "y", info, time2);
-    info.time = time2;
-  }
-
-  // node_modules/framer-motion/dist/es/render/dom/scroll/offsets/inset.mjs
-  function calcInset(element, container2) {
-    const inset = { x: 0, y: 0 };
-    let current = element;
-    while (current && current !== container2) {
-      if (isHTMLElement(current)) {
-        inset.x += current.offsetLeft;
-        inset.y += current.offsetTop;
-        current = current.offsetParent;
-      } else if (current.tagName === "svg") {
-        const svgBoundingBox = current.getBoundingClientRect();
-        current = current.parentElement;
-        const parentBoundingBox = current.getBoundingClientRect();
-        inset.x += svgBoundingBox.left - parentBoundingBox.left;
-        inset.y += svgBoundingBox.top - parentBoundingBox.top;
-      } else if (current instanceof SVGGraphicsElement) {
-        const { x, y } = current.getBBox();
-        inset.x += x;
-        inset.y += y;
-        let svg = null;
-        let parent = current.parentNode;
-        while (!svg) {
-          if (parent.tagName === "svg") {
-            svg = parent;
-          }
-          parent = current.parentNode;
-        }
-        current = svg;
-      } else {
-        break;
-      }
-    }
-    return inset;
-  }
-
-  // node_modules/framer-motion/dist/es/render/dom/scroll/offsets/edge.mjs
-  var namedEdges = {
-    start: 0,
-    center: 0.5,
-    end: 1
-  };
-  function resolveEdge(edge, length, inset = 0) {
-    let delta = 0;
-    if (edge in namedEdges) {
-      edge = namedEdges[edge];
-    }
-    if (typeof edge === "string") {
-      const asNumber3 = parseFloat(edge);
-      if (edge.endsWith("px")) {
-        delta = asNumber3;
-      } else if (edge.endsWith("%")) {
-        edge = asNumber3 / 100;
-      } else if (edge.endsWith("vw")) {
-        delta = asNumber3 / 100 * document.documentElement.clientWidth;
-      } else if (edge.endsWith("vh")) {
-        delta = asNumber3 / 100 * document.documentElement.clientHeight;
-      } else {
-        edge = asNumber3;
-      }
-    }
-    if (typeof edge === "number") {
-      delta = length * edge;
-    }
-    return inset + delta;
-  }
-
-  // node_modules/framer-motion/dist/es/render/dom/scroll/offsets/offset.mjs
-  var defaultOffset2 = [0, 0];
-  function resolveOffset(offset, containerLength, targetLength, targetInset) {
-    let offsetDefinition = Array.isArray(offset) ? offset : defaultOffset2;
-    let targetPoint = 0;
-    let containerPoint = 0;
-    if (typeof offset === "number") {
-      offsetDefinition = [offset, offset];
-    } else if (typeof offset === "string") {
-      offset = offset.trim();
-      if (offset.includes(" ")) {
-        offsetDefinition = offset.split(" ");
-      } else {
-        offsetDefinition = [offset, namedEdges[offset] ? offset : `0`];
-      }
-    }
-    targetPoint = resolveEdge(offsetDefinition[0], targetLength, targetInset);
-    containerPoint = resolveEdge(offsetDefinition[1], containerLength);
-    return targetPoint - containerPoint;
-  }
-
-  // node_modules/framer-motion/dist/es/render/dom/scroll/offsets/presets.mjs
-  var ScrollOffset = {
-    Enter: [
-      [0, 1],
-      [1, 1]
-    ],
-    Exit: [
-      [0, 0],
-      [1, 0]
-    ],
-    Any: [
-      [1, 0],
-      [0, 1]
-    ],
-    All: [
-      [0, 0],
-      [1, 1]
-    ]
-  };
-
-  // node_modules/framer-motion/dist/es/render/dom/scroll/offsets/index.mjs
-  var point = { x: 0, y: 0 };
-  function getTargetSize(target) {
-    return "getBBox" in target && target.tagName !== "svg" ? target.getBBox() : { width: target.clientWidth, height: target.clientHeight };
-  }
-  function resolveOffsets(container2, info, options) {
-    const { offset: offsetDefinition = ScrollOffset.All } = options;
-    const { target = container2, axis = "y" } = options;
-    const lengthLabel = axis === "y" ? "height" : "width";
-    const inset = target !== container2 ? calcInset(target, container2) : point;
-    const targetSize = target === container2 ? { width: container2.scrollWidth, height: container2.scrollHeight } : getTargetSize(target);
-    const containerSize = {
-      width: container2.clientWidth,
-      height: container2.clientHeight
-    };
-    info[axis].offset.length = 0;
-    let hasChanged = !info[axis].interpolate;
-    const numOffsets = offsetDefinition.length;
-    for (let i = 0; i < numOffsets; i++) {
-      const offset = resolveOffset(offsetDefinition[i], containerSize[lengthLabel], targetSize[lengthLabel], inset[axis]);
-      if (!hasChanged && offset !== info[axis].interpolatorOffsets[i]) {
-        hasChanged = true;
-      }
-      info[axis].offset[i] = offset;
-    }
-    if (hasChanged) {
-      info[axis].interpolate = interpolate(info[axis].offset, defaultOffset(offsetDefinition), { clamp: false });
-      info[axis].interpolatorOffsets = [...info[axis].offset];
-    }
-    info[axis].progress = clamp(0, 1, info[axis].interpolate(info[axis].current));
-  }
-
-  // node_modules/framer-motion/dist/es/render/dom/scroll/on-scroll-handler.mjs
-  function measure(container2, target = container2, info) {
-    info.x.targetOffset = 0;
-    info.y.targetOffset = 0;
-    if (target !== container2) {
-      let node = target;
-      while (node && node !== container2) {
-        info.x.targetOffset += node.offsetLeft;
-        info.y.targetOffset += node.offsetTop;
-        node = node.offsetParent;
-      }
-    }
-    info.x.targetLength = target === container2 ? target.scrollWidth : target.clientWidth;
-    info.y.targetLength = target === container2 ? target.scrollHeight : target.clientHeight;
-    info.x.containerLength = container2.clientWidth;
-    info.y.containerLength = container2.clientHeight;
-    if (true) {
-      if (container2 && target && target !== container2 && container2 !== document.documentElement && container2 !== document.scrollingElement && container2 !== document.body) {
-        warnOnce(getComputedStyle(container2).position !== "static", "Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.");
-      }
-    }
-  }
-  function createOnScrollHandler(element, onScroll, info, options = {}) {
-    return {
-      measure: (time2) => {
-        measure(element, options.target, info);
-        updateScrollInfo(element, info, time2);
-        if (options.offset || options.target) {
-          resolveOffsets(element, info, options);
-        }
-      },
-      notify: () => onScroll(info)
-    };
-  }
-
-  // node_modules/framer-motion/dist/es/render/dom/scroll/track.mjs
-  var scrollListeners = /* @__PURE__ */ new WeakMap();
-  var resizeListeners = /* @__PURE__ */ new WeakMap();
-  var onScrollHandlers = /* @__PURE__ */ new WeakMap();
-  var scrollSize = /* @__PURE__ */ new WeakMap();
-  var dimensionCheckProcesses = /* @__PURE__ */ new WeakMap();
-  var getEventTarget = (element) => element === document.scrollingElement ? window : element;
-  function scrollInfo(onScroll, { container: container2 = document.scrollingElement, trackContentSize = false, ...options } = {}) {
-    if (!container2)
-      return noop;
-    let containerHandlers = onScrollHandlers.get(container2);
-    if (!containerHandlers) {
-      containerHandlers = /* @__PURE__ */ new Set();
-      onScrollHandlers.set(container2, containerHandlers);
-    }
-    const info = createScrollInfo();
-    const containerHandler = createOnScrollHandler(container2, onScroll, info, options);
-    containerHandlers.add(containerHandler);
-    if (!scrollListeners.has(container2)) {
-      const measureAll = () => {
-        for (const handler of containerHandlers) {
-          handler.measure(frameData.timestamp);
-        }
-        frame.preUpdate(notifyAll2);
-      };
-      const notifyAll2 = () => {
-        for (const handler of containerHandlers) {
-          handler.notify();
-        }
-      };
-      const listener2 = () => frame.read(measureAll);
-      scrollListeners.set(container2, listener2);
-      const target = getEventTarget(container2);
-      window.addEventListener("resize", listener2);
-      if (container2 !== document.documentElement) {
-        resizeListeners.set(container2, resize(container2, listener2));
-      }
-      target.addEventListener("scroll", listener2);
-      listener2();
-    }
-    if (trackContentSize && !dimensionCheckProcesses.has(container2)) {
-      const listener2 = scrollListeners.get(container2);
-      const size = {
-        width: container2.scrollWidth,
-        height: container2.scrollHeight
-      };
-      scrollSize.set(container2, size);
-      const checkScrollDimensions = () => {
-        const newWidth = container2.scrollWidth;
-        const newHeight = container2.scrollHeight;
-        if (size.width !== newWidth || size.height !== newHeight) {
-          listener2();
-          size.width = newWidth;
-          size.height = newHeight;
-        }
-      };
-      const dimensionCheckProcess = frame.read(checkScrollDimensions, true);
-      dimensionCheckProcesses.set(container2, dimensionCheckProcess);
-    }
-    const listener = scrollListeners.get(container2);
-    frame.read(listener, false, true);
-    return () => {
-      cancelFrame(listener);
-      const currentHandlers = onScrollHandlers.get(container2);
-      if (!currentHandlers)
-        return;
-      currentHandlers.delete(containerHandler);
-      if (currentHandlers.size)
-        return;
-      const scrollListener = scrollListeners.get(container2);
-      scrollListeners.delete(container2);
-      if (scrollListener) {
-        getEventTarget(container2).removeEventListener("scroll", scrollListener);
-        resizeListeners.get(container2)?.();
-        window.removeEventListener("resize", scrollListener);
-      }
-      const dimensionCheckProcess = dimensionCheckProcesses.get(container2);
-      if (dimensionCheckProcess) {
-        cancelFrame(dimensionCheckProcess);
-        dimensionCheckProcesses.delete(container2);
-      }
-      scrollSize.delete(container2);
-    };
-  }
-
-  // node_modules/framer-motion/dist/es/render/dom/scroll/utils/offset-to-range.mjs
-  var presets = [
-    [ScrollOffset.Enter, "entry"],
-    [ScrollOffset.Exit, "exit"],
-    [ScrollOffset.Any, "cover"],
-    [ScrollOffset.All, "contain"]
-  ];
-  var stringToProgress = {
-    start: 0,
-    end: 1
-  };
-  function parseStringOffset(s) {
-    const parts = s.trim().split(/\s+/);
-    if (parts.length !== 2)
-      return void 0;
-    const a = stringToProgress[parts[0]];
-    const b = stringToProgress[parts[1]];
-    if (a === void 0 || b === void 0)
-      return void 0;
-    return [a, b];
-  }
-  function normaliseOffset(offset) {
-    if (offset.length !== 2)
-      return void 0;
-    const result = [];
-    for (const item of offset) {
-      if (Array.isArray(item)) {
-        result.push(item);
-      } else if (typeof item === "string") {
-        const parsed = parseStringOffset(item);
-        if (!parsed)
-          return void 0;
-        result.push(parsed);
-      } else {
-        return void 0;
-      }
-    }
-    return result;
-  }
-  function matchesPreset(offset, preset) {
-    const normalised = normaliseOffset(offset);
-    if (!normalised)
-      return false;
-    for (let i = 0; i < 2; i++) {
-      const o = normalised[i];
-      const p = preset[i];
-      if (o[0] !== p[0] || o[1] !== p[1])
-        return false;
-    }
-    return true;
-  }
-  function offsetToViewTimelineRange(offset) {
-    if (!offset) {
-      return { rangeStart: "contain 0%", rangeEnd: "contain 100%" };
-    }
-    for (const [preset, name] of presets) {
-      if (matchesPreset(offset, preset)) {
-        return { rangeStart: `${name} 0%`, rangeEnd: `${name} 100%` };
-      }
-    }
-    return void 0;
-  }
-
-  // node_modules/framer-motion/dist/es/render/dom/scroll/utils/get-timeline.mjs
-  var timelineCache = /* @__PURE__ */ new Map();
-  function scrollTimelineFallback(options) {
-    const currentTime = { value: 0 };
-    const cancel = scrollInfo((info) => {
-      currentTime.value = info[options.axis].progress * 100;
-    }, options);
-    return { currentTime, cancel };
-  }
-  function getTimeline({ source, container: container2, ...options }) {
-    const { axis } = options;
-    if (source)
-      container2 = source;
-    let containerCache = timelineCache.get(container2);
-    if (!containerCache) {
-      containerCache = /* @__PURE__ */ new Map();
-      timelineCache.set(container2, containerCache);
-    }
-    const targetKey = options.target ?? "self";
-    let targetCache = containerCache.get(targetKey);
-    if (!targetCache) {
-      targetCache = {};
-      containerCache.set(targetKey, targetCache);
-    }
-    const axisKey = axis + (options.offset ?? []).join(",");
-    if (!targetCache[axisKey]) {
-      if (options.target && canUseNativeTimeline(options.target)) {
-        const range = offsetToViewTimelineRange(options.offset);
-        if (range) {
-          targetCache[axisKey] = new ViewTimeline({
-            subject: options.target,
-            axis
-          });
-        } else {
-          targetCache[axisKey] = scrollTimelineFallback({
-            container: container2,
-            ...options
-          });
-        }
-      } else if (canUseNativeTimeline()) {
-        targetCache[axisKey] = new ScrollTimeline({
-          source: container2,
-          axis
-        });
-      } else {
-        targetCache[axisKey] = scrollTimelineFallback({
-          container: container2,
-          ...options
-        });
-      }
-    }
-    return targetCache[axisKey];
-  }
-
-  // node_modules/framer-motion/dist/es/render/dom/scroll/attach-animation.mjs
-  function attachToAnimation(animation, options) {
-    const timeline = getTimeline(options);
-    const range = options.target ? offsetToViewTimelineRange(options.offset) : void 0;
-    const useNative = options.target ? canUseNativeTimeline(options.target) && !!range : canUseNativeTimeline();
-    return animation.attachTimeline({
-      timeline: useNative ? timeline : void 0,
-      ...range && useNative && {
-        rangeStart: range.rangeStart,
-        rangeEnd: range.rangeEnd
-      },
-      observe: (valueAnimation) => {
-        valueAnimation.pause();
-        return observeTimeline((progress2) => {
-          valueAnimation.time = valueAnimation.iterationDuration * progress2;
-        }, timeline);
-      }
-    });
-  }
-
-  // node_modules/framer-motion/dist/es/render/dom/scroll/utils/is-element-tracking.mjs
-  function isElementTracking(options) {
-    return options && (options.target || options.offset);
-  }
-
-  // node_modules/framer-motion/dist/es/render/dom/scroll/attach-function.mjs
-  function isOnScrollWithInfo(onScroll) {
-    return onScroll.length === 2;
-  }
-  function attachToFunction(onScroll, options) {
-    if (isOnScrollWithInfo(onScroll) || isElementTracking(options)) {
-      return scrollInfo((info) => {
-        onScroll(info[options.axis].progress, info);
-      }, options);
-    } else {
-      return observeTimeline(onScroll, getTimeline(options));
-    }
-  }
-
-  // node_modules/framer-motion/dist/es/render/dom/scroll/index.mjs
-  function scroll(onScroll, { axis = "y", container: container2 = document.scrollingElement, ...options } = {}) {
-    if (!container2)
-      return noop;
-    const optionsWithDefaults = { axis, container: container2, ...options };
-    return typeof onScroll === "function" ? attachToFunction(onScroll, optionsWithDefaults) : attachToAnimation(onScroll, optionsWithDefaults);
-  }
-
-  // node_modules/framer-motion/dist/es/value/use-scroll.mjs
-  var createScrollMotionValues = () => ({
-    scrollX: motionValue(0),
-    scrollY: motionValue(0),
-    scrollXProgress: motionValue(0),
-    scrollYProgress: motionValue(0)
-  });
-  var isRefPending = (ref) => {
-    if (!ref)
-      return false;
-    return !ref.current;
-  };
-  function makeAccelerateConfig(axis, options, container2, target) {
-    return {
-      // Refs attach child-first; defer so target.current is populated
-      // before scroll() reads it.
-      factory: (animation) => {
-        let cleanup;
-        const start = () => {
-          if (isRefPending(container2) || isRefPending(target)) {
-            microtask.read(start);
-            return;
-          }
-          cleanup = scroll(animation, {
-            ...options,
-            axis,
-            container: container2?.current || void 0,
-            target: target?.current || void 0
-          });
-        };
-        microtask.read(start);
-        return () => {
-          cancelMicrotask(start);
-          cleanup?.();
-        };
-      },
-      times: [0, 1],
-      keyframes: [0, 1],
-      ease: (v) => v,
-      duration: 1
-    };
-  }
-  function canAccelerateScroll(target, offset) {
-    if (typeof window === "undefined")
-      return false;
-    return target ? supportsViewTimeline() && !!offsetToViewTimelineRange(offset) : supportsScrollTimeline();
-  }
-  function useScroll({ container: container2, target, ...options } = {}) {
-    const values = useConstant(createScrollMotionValues);
-    if (canAccelerateScroll(target, options.offset)) {
-      values.scrollXProgress.accelerate = makeAccelerateConfig("x", options, container2, target);
-      values.scrollYProgress.accelerate = makeAccelerateConfig("y", options, container2, target);
-    }
-    const scrollAnimation = (0, import_react20.useRef)(null);
-    const needsStart = (0, import_react20.useRef)(false);
-    const start = (0, import_react20.useCallback)(() => {
-      scrollAnimation.current = scroll((_progress, { x, y }) => {
-        values.scrollX.set(x.current);
-        values.scrollXProgress.set(x.progress);
-        values.scrollY.set(y.current);
-        values.scrollYProgress.set(y.progress);
-      }, {
-        ...options,
-        container: container2?.current || void 0,
-        target: target?.current || void 0
-      });
-      return () => {
-        scrollAnimation.current?.();
-      };
-    }, [container2, target, JSON.stringify(options.offset)]);
-    useIsomorphicLayoutEffect(() => {
-      needsStart.current = false;
-      if (isRefPending(container2) || isRefPending(target)) {
-        needsStart.current = true;
-        return;
-      } else {
-        return start();
-      }
-    }, [start]);
-    (0, import_react20.useEffect)(() => {
-      if (!needsStart.current)
-        return;
-      let cleanup;
-      const tryStart = () => {
-        const containerPending = isRefPending(container2);
-        const targetPending = isRefPending(target);
-        invariant(!containerPending, "Container ref is defined but not hydrated", "use-scroll-ref");
-        invariant(!targetPending, "Target ref is defined but not hydrated", "use-scroll-ref");
-        if (!containerPending && !targetPending)
-          cleanup = start();
-      };
-      microtask.read(tryStart);
-      return () => {
-        cancelMicrotask(tryStart);
-        cleanup?.();
-      };
-    }, [start]);
-    return values;
-  }
-
   // node_modules/framer-motion/dist/es/value/use-motion-value.mjs
-  var import_react21 = __toESM(require_react(), 1);
+  var import_react20 = __toESM(require_react(), 1);
   function useMotionValue(initial) {
     const value = useConstant(() => motionValue(initial));
-    const { isStatic } = (0, import_react21.useContext)(MotionConfigContext);
+    const { isStatic } = (0, import_react20.useContext)(MotionConfigContext);
     if (isStatic) {
-      const [, setLatest] = (0, import_react21.useState)(initial);
-      (0, import_react21.useEffect)(() => value.on("change", setLatest), []);
+      const [, setLatest] = (0, import_react20.useState)(initial);
+      (0, import_react20.useEffect)(() => value.on("change", setLatest), []);
     }
     return value;
   }
@@ -30914,9 +30247,6 @@
     });
     return value;
   }
-
-  // node_modules/framer-motion/dist/es/value/use-follow-value.mjs
-  var import_react22 = __toESM(require_react(), 1);
 
   // node_modules/framer-motion/dist/es/value/use-computed.mjs
   function useComputed(compute) {
@@ -30963,188 +30293,130 @@
     });
   }
   function useMapTransform(inputValue, inputRange, outputMap, options) {
-    const keys2 = useConstant(() => Object.keys(outputMap));
+    const keys = useConstant(() => Object.keys(outputMap));
     const output = useConstant(() => ({}));
-    for (const key of keys2) {
+    for (const key of keys) {
       output[key] = useTransform(inputValue, inputRange, outputMap[key], options);
     }
     return output;
   }
 
-  // node_modules/framer-motion/dist/es/value/use-follow-value.mjs
-  function useFollowValue(source, options = {}) {
-    const { isStatic } = (0, import_react22.useContext)(MotionConfigContext);
-    const getFromSource = () => isMotionValue(source) ? source.get() : source;
-    if (isStatic) {
-      return useTransform(getFromSource);
-    }
-    const value = useMotionValue(getFromSource());
-    (0, import_react22.useInsertionEffect)(() => {
-      return attachFollow(value, source, options);
-    }, [value, JSON.stringify(options)]);
-    return value;
+  // node_modules/framer-motion/dist/es/utils/use-animation-frame.mjs
+  var import_react21 = __toESM(require_react(), 1);
+  function useAnimationFrame(callback) {
+    const initialTimestamp = (0, import_react21.useRef)(0);
+    const { isStatic } = (0, import_react21.useContext)(MotionConfigContext);
+    (0, import_react21.useEffect)(() => {
+      if (isStatic)
+        return;
+      const provideTimeSinceStart = ({ timestamp, delta }) => {
+        if (!initialTimestamp.current)
+          initialTimestamp.current = timestamp;
+        callback(timestamp - initialTimestamp.current, delta);
+      };
+      frame.update(provideTimeSinceStart, true);
+      return () => cancelFrame(provideTimeSinceStart);
+    }, [callback]);
   }
 
-  // node_modules/framer-motion/dist/es/value/use-spring.mjs
-  function useSpring(source, options = {}) {
-    return useFollowValue(source, { type: "spring", ...options });
-  }
-
-  // src/skiper19.tsx
-  var import_react23 = __toESM(require_react(), 1);
+  // src/GradientText.tsx
   var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
-  var timelineData = [
-    { date: "DECEMBER 19, 2025", title: "The Foundation of Dronex", description: "The club Dronex was officially founded with just 4 members, united by a shared vision and hope to help aerial systems achieve greater heights." },
-    { date: "FEBRUARY 21, 2026", title: "Team Expansion and Collaboration at AARUNYA", description: "Coinciding with our college fest, AARUNYA, the team grew to 15 members. During the fest, we connected with VyomDrones Pvt. Ltd., who provided us with high-end drones to showcase to the campus, a breakthrough that helped us significantly expand our horizons." },
-    { date: "MARCH 15, 2026", title: "Setting Sights on SUAS 2026 and Securing Sponsorship", description: "We centered our core focus on preparing for the SUAS 2026 competition. Recognizing our potential, VyomDrones Pvt. Ltd. officially became our sponsors, placing their belief in our vision and promising to provide the essential components and parts for our drone." },
-    { date: "MARCH 20, 2026", title: "The Birth of Team Trinetra", description: "Team Trinetra was officially born, established with a dual mission: saving lives through aerial innovation and competing in SUAS 2026. With the team members selected and technical domains fully locked in, the only hurdle left was to arrange the registration fee." },
-    { date: "MARCH 29, 2026", title: "A Lifeline Extended and Registration Secured", description: "With only a few days left before the final April 1st deadline, our sponsors, VyomDrones Pvt. Ltd., stepped in to pay the registration fees. This crucial moment didn't just solidify our entry into the competition; it forged an unbreakable bond of trust and partnership between us." },
-    { date: "APRIL 16, 2026", title: "Deconstructing the Competition: Inside and Out", description: "In the days following our registration, the team plunged into relentless, non-stop research and strategic meetings to map out the best path forward. We thoroughly dissected every single SUAS document, meticulously analyzing past participants' websites and technical design reports to truly master the blueprint of the competition." },
-    { date: "APRIL 24, 2026", title: "The First Step into Reality: Our Initial Prototype", description: "We successfully assembled our first prototype using the drone framework provided by VyomDrones to develop a deeper, hands-on understanding of the project's technical complexities. While it lacked advanced onboard components like the LiDAR, camera, and Jetson, getting this initial build off the ground was a massive milestone and achievement for our team." },
-    { date: "MAY 1, 2026", title: "Engineering the Core: Custom Design and 3D Printing", description: "Kuldeep began spearheading the design of our custom frame, pulley mechanism, and payloads. To kick off physical testing, we 3D-printed our first beacon component to evaluate its structural integrity and see exactly how it would hold up against the impact of ground landings." },
-    { date: "MAY 15, 2026", title: "Simulating the Skies and Building our Digital Presence", description: "The technical backbone of the project began taking shape on two fronts. Moksh initiated the integration of our complex software stack \u2014 setting up Gazebo, ROS2, the ardupilot_gazebo bridge, ArduPilot SITL, and building Mission Planner from source alongside gimbal and camera systems. Simultaneously, Aryan began building out our team website section by section to document and share our journey with the world." },
-    { date: "MAY 24, 2026", title: "Alignment, Architecture, and a Bold Design Pivot", description: "After dozens of collaborative meetings with VyomDrones and exhaustive internal team alignments, we locked onto our true trajectory \u2014 finalizing the payload dropping mechanism and pinpointing our exact hardware requirements. However, the website took an exciting turn when Ankit proposed shifting the entire theme to mirror the legendary ArduPilot ecosystem. Embracing the idea, Aryan pivoted, retaining the structural framework while completely rebuilding a fresh, high-tech atmosphere from scratch." },
-    { date: "MAY 31, 2026", title: "Virtual Success, Lightweight Hardware, and First Deployment", description: "The end of the month marked major milestones across the board. Moksh completely finalized the software simulation stack, leaving everything primed and ready to be deployed onto the Jetson Orin NX hardware. Meanwhile, Kuldeep perfected the drone plate designs, achieving a flawless balance of structural stability and lightweight efficiency. To tie it all together, the redesigned ArduPilot-themed website was successfully brought to life and officially hosted on Vercel." },
-    { date: "JUNE 2, 2026", title: "From Height Tests to the Skies: Our First Flight", description: "We took our prototype to the skies for its very first flight test, graduating from dropping beacons off building heights to real-time aerial testing. Conducted under the expert guidance of Raj Vardhan Sir from VyomDrones and our faculty coordinator, Dr. Yashwant Sawle, the flight was a massive success. However, behind the screens, a new challenge emerged. Looking at the freshly hosted site, Aryan realized that basing the theme on ArduPilot's classic look accidentally gave the website an antique feel \u2014 miles away from the cutting-edge, high tech vibe a drone team needs. Driven to fix it, he quietly set out to make a radical set of final changes completely on his own." },
-    { date: "JUNE 12, 2026", title: "Wearing Pride, Assembling Power, and the Final Countdown", description: "The team finally received our official custom t-shirts, designed to represent our identity, our club, and our country all at once. Simultaneously, the final high-end drone components arrived, and Parth, Harsh, and Rishabh joined forces to design a fully custom Power Distribution Board (PDB) tailored specifically for our system. With our armor ready and our custom hardware locked in, we were finally prepared to put everything into motion for the main event." },
-    { date: "JUNE 15, 2026", title: "Dissecting the Guidelines and Building Custom Power", description: "We closely studied the highly productive discussions on Discord between teams and the SUAS organizers, which gave us absolute clarity for our upcoming Flight Readiness Video submission. To ensure we didn't miss a single detail, we analyzed other teams' videos on YouTube and thoroughly re-reviewed the official guidelines. Simultaneously, we successfully completed spot-welding our custom battery packs. With the power system locked in, our final competition drone was fully assembled, ready to fly, and primed for the camera." },
-    { date: "JUNE 18, 2026", title: "Lights, Camera, Action: The Flight Readiness Shoot", description: "Shoot day finally arrived, and it was an outstanding experience from start to finish. We proudly christened our final competition drone Mayoor, which took to the skies with Ankit at the controls as our official pilot. We strictly executed our pre-flight inspections \u2014 checking battery health, validating failsafes, and establishing a rigorous safety perimeter to guarantee a completely secure testing environment. With Mayoor's successful aerial footage captured, we decided to handle the final editing and secure validation from our sponsors before submitting the video the following day." },
-    { date: "JUNE 20, 2026", title: "A Small Victory: Securing our Flight Order", description: "We finally got our official flight order. It might seem like a small thing, but to us, it felt like a huge win that we just couldn't keep to ourselves. It was such a great day \u2014 seeing our team's name on that list made all the sleepless nights and hard work over the past three months feel completely worth it." },
-    { date: "JUNE 28, 2026", title: "Spreading the Word and Putting on the Finishing Touches", description: "With the heavy engineering and video submissions behind us, we took a moment to breathe and focus our energy on our social media channels, sharing our journey and insights with the wider community. A brief rest was definitely well-deserved. Meanwhile, the website was running incredibly smoothly, with the structural layout functioning perfectly and the new aesthetic beautifully integrated across every single page." }
-  ];
-  var TimelineCard = ({ data, index, isMobile }) => {
-    const isLeft = isMobile ? false : index % 2 === 0;
-    const yStart = 50;
-    const yEnd = isMobile ? 13e3 : 3950;
-    const yPos = yStart + index / (timelineData.length - 1) * (yEnd - yStart);
-    const leftPos = isMobile ? "30px" : "50%";
-    const transformVal = isMobile ? "translate(30px, 0)" : isLeft ? "translate(calc(-100% - 40px), 0)" : "translate(40px, 0)";
-    const minW = isMobile ? "260px" : "350px";
-    const wVal = isMobile ? "calc(100vw - 80px)" : "45vw";
-    const connectorWidth = isMobile ? "30px" : "40px";
-    const connectorOffset = isMobile ? "-30px" : "-40px";
-    const dotOffset = isMobile ? "-34px" : "-44px";
+  function GradientText({
+    children,
+    className = "",
+    colors = ["#5227FF", "#FF9FFC", "#B497CF"],
+    animationSpeed = 8,
+    showBorder = false,
+    direction = "horizontal",
+    pauseOnHover = false,
+    yoyo = true
+  }) {
+    const [isPaused, setIsPaused] = (0, import_react22.useState)(false);
+    const progress2 = useMotionValue(0);
+    const elapsedRef = (0, import_react22.useRef)(0);
+    const lastTimeRef = (0, import_react22.useRef)(null);
+    const animationDuration = animationSpeed * 1e3;
+    useAnimationFrame((time2) => {
+      if (isPaused) {
+        lastTimeRef.current = null;
+        return;
+      }
+      if (lastTimeRef.current === null) {
+        lastTimeRef.current = time2;
+        return;
+      }
+      const deltaTime = time2 - lastTimeRef.current;
+      lastTimeRef.current = time2;
+      elapsedRef.current += deltaTime;
+      if (yoyo) {
+        const fullCycle = animationDuration * 2;
+        const cycleTime = elapsedRef.current % fullCycle;
+        if (cycleTime < animationDuration) {
+          progress2.set(cycleTime / animationDuration * 100);
+        } else {
+          progress2.set(100 - (cycleTime - animationDuration) / animationDuration * 100);
+        }
+      } else {
+        progress2.set(elapsedRef.current / animationDuration * 100);
+      }
+    });
+    (0, import_react22.useEffect)(() => {
+      elapsedRef.current = 0;
+      progress2.set(0);
+    }, [animationSpeed, progress2, yoyo]);
+    const backgroundPosition = useTransform(progress2, (p) => {
+      if (direction === "horizontal") {
+        return `${p}% 50%`;
+      } else if (direction === "vertical") {
+        return `50% ${p}%`;
+      } else {
+        return `${p}% 50%`;
+      }
+    });
+    const handleMouseEnter = (0, import_react22.useCallback)(() => {
+      if (pauseOnHover) setIsPaused(true);
+    }, [pauseOnHover]);
+    const handleMouseLeave = (0, import_react22.useCallback)(() => {
+      if (pauseOnHover) setIsPaused(false);
+    }, [pauseOnHover]);
+    const gradientAngle = direction === "horizontal" ? "to right" : direction === "vertical" ? "to bottom" : "to bottom right";
+    const gradientColors = [...colors, colors[0]].join(", ");
+    const gradientStyle = {
+      backgroundImage: `linear-gradient(${gradientAngle}, ${gradientColors})`,
+      backgroundSize: direction === "horizontal" ? "300% 100%" : direction === "vertical" ? "100% 300%" : "300% 300%",
+      backgroundRepeat: "repeat"
+    };
     return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-      "div",
+      motion.div,
       {
-        style: {
-          position: "absolute",
-          top: `${yPos}px`,
-          left: leftPos,
-          width: wVal,
-          minWidth: minW,
-          maxWidth: "750px",
-          zIndex: 10,
-          pointerEvents: "auto",
-          fontFamily: "'Helvetica Neue', sans-serif",
-          // Fixed Y transform (0) ensures connector NEVER moves when expanding
-          transform: transformVal,
-          scrollSnapAlign: "center"
-        },
+        className: `animated-gradient-text ${showBorder ? "with-border" : ""} ${className}`,
+        onMouseEnter: handleMouseEnter,
+        onMouseLeave: handleMouseLeave,
         children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-            "div",
-            {
-              style: {
-                position: "absolute",
-                top: "12px",
-                [isLeft ? "right" : "left"]: connectorOffset,
-                width: connectorWidth,
-                height: "2px",
-                backgroundColor: "rgba(255,255,255,0.2)"
-              }
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-            "div",
-            {
-              style: {
-                position: "absolute",
-                top: "13px",
-                [isLeft ? "right" : "left"]: dotOffset,
-                width: "8px",
-                height: "8px",
-                borderRadius: "50%",
-                backgroundColor: "#00D084",
-                transform: "translateY(-50%)",
-                boxShadow: "0 0 10px rgba(0,208,132,0.8)"
-              }
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "relative", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: `flex flex-col ${isLeft ? "text-right" : "text-left"}`, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "text-white tracking-wide leading-snug", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "font-semibold tracking-wider text-sm md:text-base text-[#00D084]", style: { fontFamily: "'Helvetica Neue', sans-serif" }, children: data.date }),
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "font-bold text-xl md:text-3xl mt-1", style: { fontFamily: "'Helvetica Neue', sans-serif" }, children: data.title })
-            ] }) }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "grid grid-rows-[1fr] opacity-100 mt-4", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "overflow-visible", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: `text-gray-300 text-base md:text-lg leading-relaxed font-light ${isLeft ? "pr-5 border-r border-[#00D084]/40 text-left" : "text-left"}`, style: { fontFamily: "'Helvetica Neue', sans-serif" }, children: data.description }) }) })
-          ] })
+          showBorder && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(motion.div, { className: "gradient-overlay", style: { ...gradientStyle, backgroundPosition } }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(motion.div, { className: "text-content", style: { ...gradientStyle, backgroundPosition }, children })
         ]
       }
     );
-  };
-  var Skiper19 = () => {
-    const containerRef = (0, import_react23.useRef)(null);
-    const [isMobile, setIsMobile] = (0, import_react23.useState)(false);
-    (0, import_react23.useEffect)(() => {
-      const handleResize = () => setIsMobile(window.innerWidth < 768);
-      handleResize();
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }, []);
-    const { scrollYProgress } = useScroll({
-      target: containerRef,
-      offset: ["start 85%", "end bottom"]
-    });
-    const pathLength = useSpring(scrollYProgress, { stiffness: 50, damping: 20 });
-    const containerHeight = isMobile ? 14e3 : 4400;
-    return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { ref: containerRef, style: { position: "relative", width: "100vw", left: "50%", transform: "translateX(-50%)", height: `${containerHeight}px`, marginTop: "40px" }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-        "div",
-        {
-          style: {
-            position: "absolute",
-            top: "0",
-            bottom: "0",
-            left: isMobile ? "30px" : "50%",
-            width: "2px",
-            backgroundColor: "rgba(255,255,255,0.05)",
-            transform: "translateX(-50%)",
-            zIndex: 0
-          }
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-        "svg",
-        {
-          width: "4",
-          height: containerHeight,
-          viewBox: `0 0 4 ${containerHeight}`,
-          fill: "none",
-          style: { position: "absolute", top: "0", left: isMobile ? "30px" : "50%", transform: "translateX(-50%)", zIndex: 1, overflow: "visible" },
-          children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-            motion.line,
-            {
-              x1: "2",
-              y1: 0,
-              x2: "2",
-              y2: containerHeight,
-              stroke: "#00D084",
-              strokeWidth: "4",
-              style: { pathLength }
-            }
-          )
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { style: { position: "absolute", top: "0", left: "0", width: "100%", height: `${containerHeight}px`, zIndex: 10 }, children: timelineData.map((data, idx) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(TimelineCard, { data, index: idx, isMobile }, idx)) })
-    ] });
-  };
+  }
 
-  // src/mountSkiper19.tsx
+  // src/mountGradientJourney.tsx
   var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
-  var container = document.getElementById("skiper19-root");
-  if (container) {
-    const root = (0, import_client.createRoot)(container);
-    root.render(/* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Skiper19, {}));
+  var el = document.getElementById("gradient-journey-root");
+  if (el) {
+    const root = (0, import_client.createRoot)(el);
+    root.render(
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+        GradientText,
+        {
+          colors: ["#0eb880", "#42edb4", "#d7ece6"],
+          animationSpeed: 3,
+          showBorder: false,
+          className: "custom-class",
+          children: "Journey"
+        }
+      )
+    );
   }
 })();
 /*! Bundled license information:

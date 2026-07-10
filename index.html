@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="vendor/swiper-bundle.min.css" />
     <script src="vendor/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dist/gradientJourneyBundle.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -737,7 +738,7 @@
         </div><!-- /vehicles-page -->
     </div>
 
-    <!-- â•â• JOURNEY TAB â•â• -->
+    <!--  JOURNEY TAB -->
     <div id="journey-tab"
         style="display:none; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; scroll-snap-type:y proximity; scroll-behavior:smooth;">
         <section id="journey-section"
@@ -746,8 +747,8 @@
             <div
                 style="position:relative; margin-top:25vh; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; text-align:center; scroll-snap-align:center;">
                 <h1
-                    style="font-size:clamp(60px, 8vw, 120px); font-weight:500; letter-spacing:-0.05em; line-height:1.05; color:white; position:relative; z-index:10; margin:0;">
-                    Our <span id="annotate-journey" style="display: inline-block; position: relative;">Journey</span>
+                    style="font-size:clamp(40px, 8vw, 120px); font-weight:500; letter-spacing:-0.05em; line-height:1.05; color:white; position:relative; z-index:10; margin:0;">
+                    Our <span id="gradient-journey-root" style="display: inline-block; position: relative; vertical-align: middle;">Journey</span>
                     <br /> Tells a greater
                     story <br />
                     Than any blog or timeline
@@ -759,37 +760,153 @@
             </div>
         </section>
 
-        <!-- â”€â”€ Journey Footer â”€â”€ -->
-        <footer id="jn-footer" style="scroll-snap-align: end;">
-            <div id="jn-footer-inner">
-                <div id="jn-footer-left">
-                    <div id="jn-footer-brand">
-                        <img src="Trinetra.svg" alt="Trinetra Logo" class="jn-footer-logo">
-                        <span class="jn-footer-brand-name">TRINETRA</span>
+        <!-- ── Journey Footer (Desktop) ── -->
+        <footer id="jn-footer-desktop" class="hidden md:flex items-center w-full bg-white text-black font-['Helvetica_Neue',Helvetica,Arial,sans-serif]" style="min-height: 60vh; border-top: 1px solid rgba(0,0,0,0.1); scroll-snap-align: end;">
+            <div class="w-full flex justify-between px-[5vw] py-12 h-full">
+                <div class="h-full flex flex-col justify-between">
+                    <div class="flex flex-col gap-12">
+                        <div class="flex items-center gap-4">
+                            <img src="Trinetra.svg" alt="Trinetra Logo" class="w-9 h-9" style="filter: invert(1);">
+                            <span class="text-3xl font-medium tracking-wide">TRINETRA</span>
+                        </div>
+
+                        <!-- Sponsored By -->
+                        <div class="relative group w-[250px] cursor-pointer">
+                            <h4 class="text-[10px] tracking-[0.25em] text-gray-500 mb-2 uppercase font-bold">
+                                SPONSORED BY
+                            </h4>
+                            <div class="relative w-full h-16">
+                                <img src="images/optimized/vyomdrones.webp" alt="Vyom Drones"
+                                    class="absolute inset-0 w-full h-full object-contain object-left opacity-90 group-hover:opacity-0 transition-opacity duration-500 ease-in-out" style="filter: brightness(0);">
+                                <img src="images/optimized/vyomdronescolour.webp" alt="Vyom Drones Color"
+                                    class="absolute inset-0 w-full h-full object-contain object-left opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
+                            </div>
+                        </div>
                     </div>
-                    <div class="jn-footer-copyright">COPYRIGHT &copy; 2026 TEAM TRINETRA</div>
+
+                    <div class="text-base text-black mt-auto">COPYRIGHT &copy; 2026 TEAM TRINETRA</div>
                 </div>
-                <div id="jn-footer-cols">
-                    <div class="jn-footer-col">
-                        <h4 class="jn-footer-col-head">SOCIAL</h4>
-                        <ul class="jn-footer-links">
-                            <li><a href="https://www.instagram.com/trinetra_team/" class="jn-footer-link">Instagram</a>
-                            </li>
-                            <li><a href="#" class="jn-footer-link">LinkedIn</a></li>
-                            <li><a href="#" class="jn-footer-link">YouTube</a></li>
-                            <li><a href="#" class="jn-footer-link">X / Twitter</a></li>
-                        </ul>
+
+                <div class="flex flex-col items-end gap-6">
+                    <div class="flex gap-20">
+                        <div class="flex flex-col gap-4">
+                            <h4 class="text-sm font-medium pb-2 tracking-wide text-gray-500 uppercase m-0">SOCIAL</h4>
+                            <ul class="list-none m-0 p-0 flex flex-col gap-2">
+                                <li><a href="https://www.instagram.com/trinetra_team/" class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">Instagram</a></li>
+                                <li><a href="#" class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">LinkedIn</a></li>
+                                <li><a href="#" class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">YouTube</a></li>
+                                <li><a href="#" class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">X / Twitter</a></li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <h4 class="text-sm font-medium pb-2 tracking-wide text-gray-500 uppercase m-0">CONTACT</h4>
+                            <ul class="list-none m-0 p-0 flex flex-col gap-2">
+                                <li><a href="mailto:team.trinetra2026@gmail.com" class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">team.trinetra2026@gmail.com</a></li>
+                                <li><a href="#" class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">Sponsor Enquiries</a></li>
+                                <li><a href="#" class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">Join the Team</a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="jn-footer-col">
-                        <h4 class="jn-footer-col-head">CONTACT</h4>
-                        <ul class="jn-footer-links">
-                            <li><a href="mailto:team.trinetra2026@gmail.com"
-                                    class="jn-footer-link">team.trinetra2026@gmail.com</a></li>
-                            <li><a href="#" class="jn-footer-link">Sponsor Enquiries</a></li>
-                            <li><a href="#" class="jn-footer-link">Join the Team</a></li>
-                        </ul>
+                    <div class="w-full flex justify-end mt-2">
+                        <iframe
+                            src="https://maps.google.com/maps?q=Madhav%20Institute%20of%20Technology%20and%20Science,%20Gwalior&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                            width="420" height="300"
+                            style="border:0; border-radius: 4px; filter: grayscale(100%) contrast(89%); opacity: 0.8;"
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
+            </div>
+        </footer>
+
+        <!-- ── Journey Footer (Mobile Accordion) ── -->
+        <footer id="jn-mobile-footer"
+            class="flex md:hidden w-full bg-white text-black px-6 py-12 flex-col font-['Helvetica_Neue',Helvetica,Arial,sans-serif]" style="scroll-snap-align: end;">
+            <!-- Brand & Sponsors -->
+            <div class="mb-16 flex flex-col gap-10">
+                <div class="flex items-center gap-2">
+                    <img src="Trinetra.svg" alt="Trinetra Logo" class="w-6 h-6"
+                        style="filter: invert(1);">
+                    <span class="text-xl font-bold tracking-widest text-black">TRINETRA</span>
+                </div>
+
+                <!-- Sponsored By -->
+                <div class="relative group w-[250px]">
+                    <h4 class="text-xs tracking-[0.25em] text-gray-500 mb-2 uppercase font-bold">SPONSORED BY
+                    </h4>
+                    <div class="relative w-full h-16">
+                        <img src="images/optimized/vyomdrones.webp" alt="Vyom Drones"
+                            class="absolute inset-0 w-full h-full object-contain object-left opacity-90" style="filter: brightness(0);">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion Items -->
+            <div class="footer-accordion w-full flex flex-col gap-6">
+                <div class="acc-item">
+                    <div class="acc-header py-2 flex justify-between items-center cursor-pointer text-sm font-bold tracking-widest text-gray-600 hover:text-black transition-colors"
+                        onclick="toggleAccordion(this)">
+                        <span>WORK WITH US</span>
+                        <div class="plus-minus-btn">
+                            <div class="bar horizontal" style="background-color: black;"></div>
+                            <div class="bar vertical" style="background-color: black;"></div>
+                        </div>
+                    </div>
+                    <div class="acc-grid">
+                        <div class="acc-inner">
+                            <div class="acc-content pt-4 pb-4 text-xl flex flex-col gap-4 font-medium">
+                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">Join the Team</a>
+                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">Sponsor Enquiries</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="acc-item">
+                    <div class="acc-header py-2 flex justify-between items-center cursor-pointer text-sm font-bold tracking-widest text-gray-600 hover:text-black transition-colors"
+                        onclick="toggleAccordion(this)">
+                        <span>SOCIAL</span>
+                        <div class="plus-minus-btn">
+                            <div class="bar horizontal" style="background-color: black;"></div>
+                            <div class="bar vertical" style="background-color: black;"></div>
+                        </div>
+                    </div>
+                    <div class="acc-grid">
+                        <div class="acc-inner">
+                            <div class="acc-content pt-4 pb-4 text-xl flex flex-col gap-4 font-medium">
+                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">X</a>
+                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">YouTube</a>
+                                <a href="https://www.instagram.com/trinetra_team/"
+                                    class="text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">Instagram</a>
+                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">Facebook</a>
+                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">LinkedIn</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="acc-item">
+                    <div class="acc-header py-2 flex justify-between items-center cursor-pointer text-sm font-bold tracking-widest text-gray-600 hover:text-black transition-colors"
+                        onclick="toggleAccordion(this)">
+                        <span>CONTACT</span>
+                        <div class="plus-minus-btn">
+                            <div class="bar horizontal" style="background-color: black;"></div>
+                            <div class="bar vertical" style="background-color: black;"></div>
+                        </div>
+                    </div>
+                    <div class="acc-grid">
+                        <div class="acc-inner">
+                            <div class="acc-content pt-4 pb-4 text-xl flex flex-col gap-4 font-medium">
+                                <a href="mailto:team.trinetra2026@gmail.com"
+                                    class="text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">team.trinetra2026@gmail.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Info -->
+            <div class="mt-20 text-sm text-black font-medium tracking-wider">
+                <div class="mb-4 uppercase">COPYRIGHT &copy; 2026 TEAM TRINETRA</div>
             </div>
         </footer>
     </div>
@@ -919,6 +1036,7 @@
     <script src="dist/sponsorButtonBundle.js"></script>
     <script src="dist/skiper19Bundle.js"></script>
     <script src="dist/skiper30Bundle.js"></script>
+    <script src="dist/gradientJourneyBundle.js"></script>
 </body>
 
 </html>

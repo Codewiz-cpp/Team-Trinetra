@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useSpring } from "framer-motion";
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 const timelineData = [
   { date: "DECEMBER 19, 2025", title: "The Foundation of Dronex", description: "The club Dronex was officially founded with just 4 members, united by a shared vision and hope to help aerial systems achieve greater heights." },
@@ -23,29 +23,39 @@ const timelineData = [
   { date: "JUNE 28, 2026", title: "Spreading the Word and Putting on the Finishing Touches", description: "With the heavy engineering and video submissions behind us, we took a moment to breathe and focus our energy on our social media channels, sharing our journey and insights with the wider community. A brief rest was definitely well-deserved. Meanwhile, the website was running incredibly smoothly, with the structural layout functioning perfectly and the new aesthetic beautifully integrated across every single page." }
 ];
 
-const TimelineCard = ({ data, index }) => {
+const TimelineCard = ({ data, index, isMobile }: { data: any, index: number, isMobile?: boolean }) => {
   // Alternate sides for a balanced look
-  const isLeft = index % 2 === 0;
+  const isLeft = isMobile ? false : index % 2 === 0;
 
   // Calculate top offset with massive gap to prevent collision
   const yStart = 50;
-  const yEnd = 3950;
+  const yEnd = isMobile ? 13000 : 3950;
   const yPos = yStart + (index / (timelineData.length - 1)) * (yEnd - yStart);
+
+  const leftPos = isMobile ? '30px' : '50%';
+  const transformVal = isMobile
+    ? "translate(30px, 0)"
+    : (isLeft ? "translate(calc(-100% - 40px), 0)" : "translate(40px, 0)");
+  const minW = isMobile ? '260px' : '350px';
+  const wVal = isMobile ? 'calc(100vw - 80px)' : '45vw';
+  const connectorWidth = isMobile ? '30px' : '40px';
+  const connectorOffset = isMobile ? '-30px' : '-40px';
+  const dotOffset = isMobile ? '-34px' : '-44px';
 
   return (
     <div
       style={{
         position: 'absolute',
         top: `${yPos}px`,
-        left: '50%',
-        width: '45vw',
-        minWidth: '350px',
+        left: leftPos,
+        width: wVal,
+        minWidth: minW,
         maxWidth: '750px',
         zIndex: 10,
         pointerEvents: "auto",
         fontFamily: "'Helvetica Neue', sans-serif",
         // Fixed Y transform (0) ensures connector NEVER moves when expanding
-        transform: isLeft ? "translate(calc(-100% - 40px), 0)" : "translate(40px, 0)",
+        transform: transformVal,
         scrollSnapAlign: 'center',
       }}
     >
@@ -54,8 +64,8 @@ const TimelineCard = ({ data, index }) => {
         style={{
           position: 'absolute',
           top: '12px',
-          [isLeft ? 'right' : 'left']: '-40px',
-          width: '40px',
+          [isLeft ? 'right' : 'left']: connectorOffset,
+          width: connectorWidth,
           height: '2px',
           backgroundColor: 'rgba(255,255,255,0.2)',
         }}
@@ -65,7 +75,7 @@ const TimelineCard = ({ data, index }) => {
         style={{
           position: 'absolute',
           top: '13px',
-          [isLeft ? 'right' : 'left']: '-44px',
+          [isLeft ? 'right' : 'left']: dotOffset,
           width: '8px',
           height: '8px',
           borderRadius: '50%',
@@ -97,6 +107,14 @@ const TimelineCard = ({ data, index }) => {
 
 const Skiper19 = () => {
   const containerRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize(); // Initialize on mount
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Track scroll exactly within the bounds of this component container
   const { scrollYProgress } = useScroll({
@@ -107,8 +125,10 @@ const Skiper19 = () => {
   // Smooth out the drawing
   const pathLength = useSpring(scrollYProgress, { stiffness: 50, damping: 20 });
 
+  const containerHeight = isMobile ? 14000 : 4400;
+
   return (
-    <div ref={containerRef} style={{ position: "relative", width: "100vw", left: "50%", transform: "translateX(-50%)", height: "4400px", marginTop: "40px" }}>
+    <div ref={containerRef} style={{ position: "relative", width: "100vw", left: "50%", transform: "translateX(-50%)", height: `${containerHeight}px`, marginTop: "40px" }}>
 
       {/* Background faint vertical line */}
       <div
@@ -116,7 +136,7 @@ const Skiper19 = () => {
           position: "absolute",
           top: "0",
           bottom: "0",
-          left: "50%",
+          left: isMobile ? "30px" : "50%",
           width: "2px",
           backgroundColor: "rgba(255,255,255,0.05)",
           transform: "translateX(-50%)",
@@ -127,16 +147,16 @@ const Skiper19 = () => {
       {/* Animated vertical line */}
       <svg
         width="4"
-        height="4400"
-        viewBox="0 0 4 4400"
+        height={containerHeight}
+        viewBox={`0 0 4 ${containerHeight}`}
         fill="none"
-        style={{ position: "absolute", top: "0", left: "50%", transform: "translateX(-50%)", zIndex: 1, overflow: "visible" }}
+        style={{ position: "absolute", top: "0", left: isMobile ? "30px" : "50%", transform: "translateX(-50%)", zIndex: 1, overflow: "visible" }}
       >
         <motion.line
           x1="2"
           y1={0}
           x2="2"
-          y2="4400"
+          y2={containerHeight}
           stroke="#00D084"
           strokeWidth="4"
           style={{ pathLength }}
@@ -144,9 +164,9 @@ const Skiper19 = () => {
       </svg>
 
       {/* Cards container */}
-      <div style={{ position: "absolute", top: "0", left: "0", width: "100%", height: "4400px", zIndex: 10 }}>
+      <div style={{ position: "absolute", top: "0", left: "0", width: "100%", height: `${containerHeight}px`, zIndex: 10 }}>
         {timelineData.map((data, idx) => (
-          <TimelineCard key={idx} data={data} index={idx} />
+          <TimelineCard key={idx} data={data} index={idx} isMobile={isMobile} />
         ))}
       </div>
     </div>
