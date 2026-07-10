@@ -1365,7 +1365,7 @@ body.simulation-active #toolbar:hover {
 }
 
 #sp-next-page {
-    --ribbon-size: 50px;
+    --ribbon-size: 0px;
     --heading-top: -2.0cqw;
 
     width: calc(100% - (var(--ribbon-size) * 2));
@@ -1392,7 +1392,7 @@ body.simulation-active #toolbar:hover {
 
     /* X-centering + Y slide-in driven by scroll via --heading-offset */
     left: 50%;
-    transform: translateX(calc(-50% - ((100cqw - 100px) * 0.0063))) translateY(var(--heading-offset, -30px));
+    transform: translateX(calc(-50% - ((100cqw - 100px) * 0.0063))) translateY(0px);
 
     font-family: 'Sigurd', serif;
     font-style: normal;
@@ -1424,7 +1424,7 @@ body.simulation-active #toolbar:hover {
     letter-spacing: 0px;
     white-space: nowrap;
     text-align: center;
-    opacity: var(--subheading-opacity, 0);
+    opacity: 1;
     transition: opacity 0.1s ease-out;
 }
 
@@ -2506,6 +2506,10 @@ body.sponsors-light-theme #sp-next-page {
 
 body.sponsors-light-theme #trinetra-logo {
     filter: invert(1);
+}
+
+body.sponsors-light-theme .hamburger-line {
+    background-color: #000000 !important;
 }
 
 /* -- React Sponsor Component Styles -- */
@@ -3832,9 +3836,9 @@ body.journey-active #toolbar {
     #sp-hero-desc, body.sponsors-light-theme #sp-hero-desc { max-width: 100% !important; font-size: 14px !important; width: 100% !important; line-height: 1.6 !important; }
     #sp-hero-motto br, #sp-hero-desc br, #sp-carousel-subheading br { display: inline-block !important; content: " " !important; clear: none !important; width: 4px; height: 0; }
     #sp-next-page { padding-bottom: 20px !important; padding-top: 40px !important; }
-    #sp-carousel-heading { font-size: 14vw !important; letter-spacing: 0 !important; width: 100% !important; top: 80px !important; transform: translateX(-50%) translateY(var(--heading-offset, -10px)) !important; }
-    #sp-carousel-subheading { font-size: 14px !important; white-space: normal !important; padding: 0 20px !important; width: 100% !important; box-sizing: border-box !important; line-height: 1.6 !important; top: calc(80px + 15vw) !important; margin-top: 15px !important; }
-    .sponsor-feature-section { margin-top: calc(100px + 15vw) !important; margin-bottom: 20px !important; width: 90% !important; border: 1px solid rgba(255, 255, 255, 0.1) !important; border-radius: 8px; }
+    #sp-carousel-heading { position: relative !important; top: auto !important; left: auto !important; transform: none !important; font-size: 9.5vw !important; letter-spacing: 0 !important; width: 100% !important; margin-top: 40px !important; margin-bottom: 10px !important; text-align: center !important; }
+    #sp-carousel-subheading { position: relative !important; top: auto !important; left: auto !important; transform: none !important; font-size: 16px !important; color: #ffffff !important; white-space: normal !important; padding: 0 20px !important; width: 100% !important; box-sizing: border-box !important; line-height: 1.6 !important; margin-top: 0 !important; margin-bottom: 40px !important; text-align: center !important; }
+    .sponsor-feature-section { margin-top: 0 !important; margin-bottom: 20px !important; width: 90% !important; border: 1px solid rgba(255, 255, 255, 0.1) !important; border-radius: 8px; }
     body.sponsors-light-theme .sponsor-feature-section { border-color: rgba(0, 0, 0, 0.1) !important; }
     .sponsor-feature-content { padding: 30px 20px !important; }
     .sf-image-container { min-height: auto !important; padding: 30px 20px !important; border-top: 1px solid rgba(255, 255, 255, 0.1) !important; }

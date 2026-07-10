@@ -1320,36 +1320,7 @@ function makeResizable(resizerId, targetId) {
     });
 }
 
-// --- Sponsors Scroll Animation ---
-document.addEventListener('DOMContentLoaded', () => {
-    const sponsorsTab = document.getElementById('sponsors-tab');
-
-    if (sponsorsTab) {
-        sponsorsTab.addEventListener('scroll', () => {
-            const nextPage = document.getElementById('sp-next-page');
-            const heading = document.getElementById('sp-carousel-heading');
-            if (!nextPage || !heading) return;
-
-            const st = sponsorsTab.scrollTop;
-            const maxScroll = 400; // Complete animation over 400px of scrolling
-            let progress = Math.min(st / maxScroll, 1);
-
-            // Ease out cubic for a smoother, premium finish
-            const easeOut = 1 - Math.pow(1 - progress, 3);
-
-            // Ribbon shrinks from 50px to 0px
-            const newRibbonSize = 50 * (1 - easeOut);
-
-            // Heading settles down by 30px as user scrolls in
-            const headingOffset = -30 + (30 * easeOut);
-
-            nextPage.style.setProperty('--ribbon-size', `${newRibbonSize}px`);
-            nextPage.style.setProperty('--heading-offset', `${headingOffset}px`);
-            nextPage.style.setProperty('--subheading-opacity', easeOut);
-        });
-    }
-});
-
+// Removed as per request to keep it static
 // ===== HERO TYPOGRAPHY ANIMATION =====
 function initHeroAnimation() {
     const heroTextContainer = document.getElementById('hero-text-container');
