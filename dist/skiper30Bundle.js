@@ -39685,10 +39685,44 @@ void main() {
     "images/p41.webp",
     "images/optimized/payload.webp"
   ];
+  var galleryPhotos = [
+    "images/Gallery/1.webp",
+    "images/Gallery/11.webp",
+    "images/Gallery/12.webp",
+    "images/Gallery/13.webp",
+    "images/Gallery/14.webp",
+    "images/Gallery/15.webp",
+    "images/Gallery/16.webp",
+    "images/Gallery/17.webp",
+    "images/Gallery/18.webp",
+    "images/Gallery/19.webp",
+    "images/Gallery/2.webp",
+    "images/Gallery/21.webp",
+    "images/Gallery/22.webp",
+    "images/Gallery/23.webp",
+    "images/Gallery/24.webp",
+    "images/Gallery/25.webp",
+    "images/Gallery/26.webp",
+    "images/Gallery/3.webp",
+    "images/Gallery/4.webp",
+    "images/Gallery/5.webp",
+    "images/Gallery/7.webp"
+  ];
   var Skiper30 = () => {
     const gallery = (0, import_react24.useRef)(null);
     const simTabRef = (0, import_react24.useRef)(typeof document !== "undefined" ? document.getElementById("sim-tab") : null);
     const [dimension, setDimension] = (0, import_react24.useState)({ width: 0, height: 0 });
+    const [selectedPhoto, setSelectedPhoto] = (0, import_react24.useState)(null);
+    const photoLibraryScrollRef = (0, import_react24.useRef)(null);
+    const scrollLibrary = (direction) => {
+      if (photoLibraryScrollRef.current) {
+        const scrollAmount = window.innerWidth * 0.5;
+        photoLibraryScrollRef.current.scrollBy({
+          left: direction === "left" ? -scrollAmount : scrollAmount,
+          behavior: "smooth"
+        });
+      }
+    };
     const { scrollYProgress } = useScroll({
       target: gallery,
       container: simTabRef,
@@ -39771,11 +39805,93 @@ void main() {
           ] })
         }
       ),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "relative w-full py-20 bg-black overflow-hidden z-20", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "flex flex-col items-center mb-16", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h2", { style: { fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }, className: "text-white text-1xl md:text-2xl font-bold tracking-[2px] uppercase leading-none", children: "Photo Library" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "w-24 h-px bg-white/30 mt-6" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "relative group/library", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+            "button",
+            {
+              onClick: () => scrollLibrary("left"),
+              className: "absolute left-2 md:left-6 top-1/2 -translate-y-[100%] z-30 text-white bg-transparent border-none p-2 opacity-75 md:opacity-0 group-hover/library:opacity-100 transition-all duration-300 hover:text-gray-300 hover:scale-110 cursor-pointer",
+              children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("svg", { width: "32", height: "32", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("polyline", { points: "15 18 9 12 15 6" }) })
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+            "button",
+            {
+              onClick: () => scrollLibrary("right"),
+              className: "absolute right-2 md:right-6 top-1/2 -translate-y-[100%] z-30 text-white bg-transparent border-none p-2 opacity-75 md:opacity-0 group-hover/library:opacity-100 transition-all duration-300 hover:text-gray-300 hover:scale-110 cursor-pointer",
+              children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("svg", { width: "32", height: "32", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("polyline", { points: "9 18 15 12 9 6" }) })
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+            "div",
+            {
+              ref: photoLibraryScrollRef,
+              className: "w-full overflow-x-auto pb-10 hide-scrollbar scroll-smooth",
+              style: { scrollbarWidth: "none", msOverflowStyle: "none" },
+              children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "grid grid-rows-2 grid-flow-col gap-4 px-[5vw] w-max", children: galleryPhotos.map((src, i) => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+                "div",
+                {
+                  className: "relative h-[25vh] md:h-[35vh] aspect-[4/3] cursor-pointer group overflow-hidden",
+                  onClick: () => setSelectedPhoto(src),
+                  children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+                    "img",
+                    {
+                      src,
+                      alt: `Gallery Photo ${i}`,
+                      className: "w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105",
+                      style: { borderRadius: 0 }
+                    }
+                  )
+                },
+                i
+              )) })
+            }
+          )
+        ] })
+      ] }),
+      selectedPhoto && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+        "div",
+        {
+          className: "fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-md transition-all duration-300",
+          onClick: () => setSelectedPhoto(null),
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+              "button",
+              {
+                className: "absolute top-8 left-8 text-white bg-transparent border-none hover:text-gray-300 z-50 p-2 cursor-pointer transition-transform duration-300 hover:scale-110",
+                onClick: () => setSelectedPhoto(null),
+                children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("svg", { width: "32", height: "32", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("line", { x1: "18", y1: "6", x2: "6", y2: "18" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("line", { x1: "6", y1: "6", x2: "18", y2: "18" })
+                ] })
+              }
+            ),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+              "img",
+              {
+                src: selectedPhoto,
+                alt: "Expanded view",
+                className: "max-w-[90vw] max-h-[90vh] object-contain shadow-2xl",
+                style: { borderRadius: 0 },
+                onClick: (e) => e.stopPropagation()
+              }
+            )
+          ]
+        }
+      ),
       /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("style", { dangerouslySetInnerHTML: {
         __html: `
         .swiper-button-next, .swiper-button-prev {
           font-weight: 900 !important;
           text-shadow: 0 0 5px rgba(0,0,0,0.8);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
         }
       `
       } }),

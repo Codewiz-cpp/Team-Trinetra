@@ -69,7 +69,11 @@ function showTabBase(name) {
     } else if (name === 'setup' || name === 'vehicles') {
         const btn = document.getElementById('btn-setup');
         if (btn) btn.classList.add('active');
-        document.getElementById('vehicles-tab').style.display = 'flex';
+        const vTab = document.getElementById('vehicles-tab');
+        if (vTab) vTab.style.display = 'block';
+        // Enable scrolling for vehicles tab
+        const mainEl2 = document.getElementById('main');
+        if (mainEl2) mainEl2.style.overflow = 'auto';
     } else if (name === 'journey') {
         const btn = document.getElementById('btn-journey');
         if (btn) btn.classList.add('active');
@@ -1285,6 +1289,38 @@ document.addEventListener('DOMContentLoaded', async () => {
                 lastScrollTop = scrollTop;
             });
         });
+
+        // Journey tab uses window/body-level scrolling — attach separate listener
+        let lastWindowScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            // Only fire when journey tab is active
+            if (!document.body.classList.contains('journey-active')) return;
+
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+            if (scrollTop <= 50) {
+                toolbar?.classList.remove('toolbar-hidden');
+                cancelToolbarAutoHide();
+                lastWindowScrollTop = 0;
+                return;
+            }
+
+            if (Math.abs(scrollTop - lastWindowScrollTop) < 15) return;
+
+            if (scrollTop > lastWindowScrollTop) {
+                toolbar?.classList.add('toolbar-hidden');
+                cancelToolbarAutoHide();
+            } else {
+                toolbar?.classList.remove('toolbar-hidden');
+                if (window.innerWidth > 768) {
+                    scheduleToolbarAutoHide();
+                } else {
+                    cancelToolbarAutoHide();
+                }
+            }
+
+            lastWindowScrollTop = scrollTop;
+        });
     });
 });
 
@@ -1574,7 +1610,7 @@ window.toggleMobileMenu = function () {
 // ===== MINIMAL MOBILE ACCORDION LOGIC =====
 window.toggleAccordion = function (headerElement) {
     const item = headerElement.parentElement;
-    
+
     // Close other accordions
     document.querySelectorAll('.acc-item').forEach(otherItem => {
         if (otherItem !== item) {

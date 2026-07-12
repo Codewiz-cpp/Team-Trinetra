@@ -24,10 +24,46 @@ const images = [
   "images/optimized/payload.webp",
 ];
 
+const galleryPhotos = [
+  "images/Gallery/1.webp",
+  "images/Gallery/11.webp",
+  "images/Gallery/12.webp",
+  "images/Gallery/13.webp",
+  "images/Gallery/14.webp",
+  "images/Gallery/15.webp",
+  "images/Gallery/16.webp",
+  "images/Gallery/17.webp",
+  "images/Gallery/18.webp",
+  "images/Gallery/19.webp",
+  "images/Gallery/2.webp",
+  "images/Gallery/21.webp",
+  "images/Gallery/22.webp",
+  "images/Gallery/23.webp",
+  "images/Gallery/24.webp",
+  "images/Gallery/25.webp",
+  "images/Gallery/26.webp",
+  "images/Gallery/3.webp",
+  "images/Gallery/4.webp",
+  "images/Gallery/5.webp",
+  "images/Gallery/7.webp",
+];
+
 const Skiper30 = () => {
   const gallery = useRef<HTMLDivElement>(null);
   const simTabRef = useRef<HTMLElement | null>(typeof document !== 'undefined' ? document.getElementById('sim-tab') : null);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
+  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
+  const photoLibraryScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollLibrary = (direction: 'left' | 'right') => {
+    if (photoLibraryScrollRef.current) {
+      const scrollAmount = window.innerWidth * 0.5;
+      photoLibraryScrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   const { scrollYProgress } = useScroll({
     target: gallery,
@@ -134,12 +170,89 @@ const Skiper30 = () => {
         )}
       </div>
 
+      {/* Photo Library Section */}
+      <div className="relative w-full py-20 bg-black overflow-hidden z-20">
+        <div className="flex flex-col items-center mb-16">
+          <h2 style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }} className="text-white text-1xl md:text-2xl font-bold tracking-[2px] uppercase leading-none">Photo Library</h2>
+          <div className="w-24 h-px bg-white/30 mt-6"></div>
+        </div>
+
+        {/* Horizontal scroll container without scrollbars */}
+        <div className="relative group/library">
+          {/* Scroll Arrows */}
+          <button 
+            onClick={() => scrollLibrary('left')} 
+            className="absolute left-2 md:left-6 top-1/2 -translate-y-[100%] z-30 text-white bg-transparent border-none p-2 opacity-75 md:opacity-0 group-hover/library:opacity-100 transition-all duration-300 hover:text-gray-300 hover:scale-110 cursor-pointer"
+          >
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button 
+            onClick={() => scrollLibrary('right')} 
+            className="absolute right-2 md:right-6 top-1/2 -translate-y-[100%] z-30 text-white bg-transparent border-none p-2 opacity-75 md:opacity-0 group-hover/library:opacity-100 transition-all duration-300 hover:text-gray-300 hover:scale-110 cursor-pointer"
+          >
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+
+          <div 
+            ref={photoLibraryScrollRef}
+            className="w-full overflow-x-auto pb-10 hide-scrollbar scroll-smooth" 
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            <div className="grid grid-rows-2 grid-flow-col gap-4 px-[5vw] w-max">
+              {galleryPhotos.map((src, i) => (
+                <div
+                  key={i}
+                  className="relative h-[25vh] md:h-[35vh] aspect-[4/3] cursor-pointer group overflow-hidden"
+                  onClick={() => setSelectedPhoto(src)}
+                >
+                  <img
+                    src={src}
+                    alt={`Gallery Photo ${i}`}
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    style={{ borderRadius: 0 }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Modal */}
+      {selectedPhoto && (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-md transition-all duration-300"
+          onClick={() => setSelectedPhoto(null)}
+        >
+          <button
+            className="absolute top-8 left-8 text-white bg-transparent border-none hover:text-gray-300 z-50 p-2 cursor-pointer transition-transform duration-300 hover:scale-110"
+            onClick={() => setSelectedPhoto(null)}
+          >
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+
+          <img
+            src={selectedPhoto}
+            alt="Expanded view"
+            className="max-w-[90vw] max-h-[90vh] object-contain shadow-2xl"
+            style={{ borderRadius: 0 }}
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+
       {/* Spacer and Horizontal Video Scroll above Footer */}
       <style dangerouslySetInnerHTML={{
         __html: `
         .swiper-button-next, .swiper-button-prev {
           font-weight: 900 !important;
           text-shadow: 0 0 5px rgba(0,0,0,0.8);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
         }
       `}} />
       <div className="w-full relative pt-[10vh] pb-[5vh] z-10 bg-black overflow-hidden cursor-grab active:cursor-grabbing">
@@ -285,7 +398,7 @@ const AccordionItem = ({ title, children }: { title: string, children: React.Rea
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className={`acc-item ${isOpen ? 'active' : ''}`}>
-      <div 
+      <div
         className="acc-header py-2 flex justify-between items-center cursor-pointer text-sm font-bold tracking-widest text-gray-400 hover:text-white transition-colors"
         onClick={() => setIsOpen(!isOpen)}
       >

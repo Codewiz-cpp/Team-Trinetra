@@ -222,6 +222,9 @@
         </div>
     </div>
 
+    <!-- Blur overlay: shown on toolbar hover for all tabs -->
+    <div id="blur-overlay"></div>
+
     <div id="main">
 
         <!-- â•â• HOME / DATA TAB â•â• -->
@@ -641,101 +644,44 @@
         </div>
     </div>
 
-    <!--VEHICLES TAB-->
-    <div id="vehicles-tab" style="display:none; width:100%;">
-        <div id="vehicles-page">
-            <div class="veh-entry veh-entry--odd">
-                <div class="veh-text">
-                    <div class="veh-number">01</div>
-                    <div class="veh-name">Vehicle Name Here</div>
-                    <div class="veh-sub">Role / Classification</div>
-                    <div class="veh-divider"></div>
-                    <div class="veh-desc">Add description here â€” what this vehicle does, what it's used for in the
-                        competition, and any key operational notes. Keep it concise and mission-focused.</div>
-                    <div class="veh-specs">
-                        <div class="veh-spec"><span class="veh-spec-label">Airframe</span><span
-                                class="veh-spec-val">â€”</span></div>
-                        <div class="veh-spec"><span class="veh-spec-label">FC</span><span
-                                class="veh-spec-val">â€”</span></div>
-                        <div class="veh-spec"><span class="veh-spec-label">Max Payload</span><span
-                                class="veh-spec-val">â€”</span></div>
-                        <div class="veh-spec"><span class="veh-spec-label">Endurance</span><span
-                                class="veh-spec-val">â€”</span></div>
-                        <div class="veh-spec"><span class="veh-spec-label">Max Speed</span><span
-                                class="veh-spec-val">â€”</span></div>
-                        <div class="veh-spec"><span class="veh-spec-label">Autopilot</span><span
-                                class="veh-spec-val">ArduCopter</span></div>
-                    </div>
-                    <div class="veh-tags"><span class="veh-tag">Tag 1</span><span class="veh-tag">Tag 2</span><span
-                            class="veh-tag">Tag 3</span></div>
+    <div id="vehicles-tab" style="display:none; width:100%; background-color: #000;">
+
+        <!-- Hero image section -->
+        <div
+            class="w-full aspect-[4/3] sm:aspect-video md:aspect-auto md:h-screen bg-black bg-no-repeat bg-cover bg-center"
+            style="background-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 25%), linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 25%), url('images/mayoor.webp');">
+        </div>
+
+        <!-- Mayoor editorial section -->
+        <div class="w-full bg-black box-border px-6 py-12 md:px-20 md:py-16 md:pb-20">
+
+            <!-- Section header -->
+            <div class="flex items-baseline justify-between mb-[18px]">
+                <span class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[24px] md:text-[28px] font-normal text-white/85 tracking-[-0.3px]">Mayoor?</span>
+            </div>
+            <!-- Full-width rule -->
+            <div class="w-full h-px bg-white/20 mb-0"></div>
+
+            <!-- Editorial entry: text-left / image-right -->
+            <div class="grid grid-cols-1 md:grid-cols-[1fr_0.7fr] gap-8 md:gap-0 items-center py-10">
+                <!-- Text block -->
+                <div class="pr-0 md:pr-[60px] order-2 md:order-1">
+                    <h2 class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[24px] md:text-[27px] font-medium text-white leading-tight tracking-[0.5px] mb-[18px]">
+                        How we got the name</h2>
+                    <p class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[16px] md:text-[19px] font-light text-white/65 leading-[1.45] tracking-[0.3px] m-0">
+                        The name "Mayoor"—referencing the peacock—is a deliberate design ethos for our platform, signaling a shift toward precision, structural ingenuity, and elegance in aerial robotics. By prioritizing aerodynamic efficiency and intelligent autonomy, the system achieves mission objectives through refined flight kinematics rather than brute force. We have engineered the platform to minimize power draw while maximizing endurance, ensuring that its operational capabilities are as resilient as they are graceful. Ultimately, this architecture transforms the UAV from a mere tool into a high-performance system capable of sophisticated, autonomous navigation.
+                    </p>
                 </div>
-                <div class="veh-image-wrap">
-                    <div class="veh-image-placeholder"><span>VEHICLE 01</span><span class="veh-img-hint">add image:
-                            images/vehicle1.webp</span></div>
+                <!-- Image block -->
+                <div class="w-full aspect-[16/10] overflow-hidden order-1 md:order-2">
+                    <img src="images/p31.webp" alt="Mayoor UAV" class="w-full h-full block object-cover object-bottom">
                 </div>
             </div>
-            <div class="veh-rule"></div>
-            <div class="veh-entry veh-entry--even">
-                <div class="veh-image-wrap">
-                    <div class="veh-image-placeholder"><span>VEHICLE 02</span><span class="veh-img-hint">add image:
-                            images/vehicle2.webp</span></div>
-                </div>
-                <div class="veh-text">
-                    <div class="veh-number">02</div>
-                    <div class="veh-name">Vehicle Name Here</div>
-                    <div class="veh-sub">Role / Classification</div>
-                    <div class="veh-divider"></div>
-                    <div class="veh-desc">Add description here â€” what this vehicle does, what it's used for in the
-                        competition, and any key operational notes.</div>
-                    <div class="veh-specs">
-                        <div class="veh-spec"><span class="veh-spec-label">Airframe</span><span
-                                class="veh-spec-val">â€”</span></div>
-                        <div class="veh-spec"><span class="veh-spec-label">FC</span><span
-                                class="veh-spec-val">â€”</span></div>
-                        <div class="veh-spec"><span class="veh-spec-label">Max Payload</span><span
-                                class="veh-spec-val">â€”</span></div>
-                        <div class="veh-spec"><span class="veh-spec-label">Endurance</span><span
-                                class="veh-spec-val">â€”</span></div>
-                        <div class="veh-spec"><span class="veh-spec-label">Max Speed</span><span
-                                class="veh-spec-val">â€”</span></div>
-                        <div class="veh-spec"><span class="veh-spec-label">Autopilot</span><span
-                                class="veh-spec-val">ArduCopter</span></div>
-                    </div>
-                    <div class="veh-tags"><span class="veh-tag">Tag 1</span><span class="veh-tag">Tag 2</span><span
-                            class="veh-tag">Tag 3</span></div>
-                </div>
-            </div>
-            <div class="veh-rule"></div>
-            <div class="veh-entry veh-entry--odd">
-                <div class="veh-text">
-                    <div class="veh-number">03</div>
-                    <div class="veh-name">Vehicle Name Here</div>
-                    <div class="veh-sub">Role / Classification</div>
-                    <div class="veh-divider"></div>
-                    <div class="veh-desc">Add description here â€” what this vehicle does, what it's used for in the
-                        competition, and any key operational notes.</div>
-                    <div class="veh-specs">
-                        <div class="veh-spec"><span class="veh-spec-label">Airframe</span><span
-                                class="veh-spec-val">â€”</span></div>
-                        <div class="veh-spec"><span class="veh-spec-label">FC</span><span
-                                class="veh-spec-val">â€”</span></div>
-                        <div class="veh-spec"><span class="veh-spec-label">Max Payload</span><span
-                                class="veh-spec-val">â€”</span></div>
-                        <div class="veh-spec"><span class="veh-spec-label">Endurance</span><span
-                                class="veh-spec-val">â€”</span></div>
-                        <div class="veh-spec"><span class="veh-spec-label">Max Speed</span><span
-                                class="veh-spec-val">â€”</span></div>
-                        <div class="veh-spec"><span class="veh-spec-label">Autopilot</span><span
-                                class="veh-spec-val">ArduCopter</span></div>
-                    </div>
-                    <div class="veh-tags"><span class="veh-tag">Tag 1</span><span class="veh-tag">Tag 2</span></div>
-                </div>
-                <div class="veh-image-wrap">
-                    <div class="veh-image-placeholder"><span>VEHICLE 03</span><span class="veh-img-hint">add image:
-                            images/vehicle3.webp</span></div>
-                </div>
-            </div>
-        </div><!-- /vehicles-page -->
+
+        </div>
+
+    </div>
+
     </div>
 
     <!--  JOURNEY TAB -->
@@ -748,7 +694,8 @@
                 style="position:relative; margin-top:25vh; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; text-align:center; scroll-snap-align:center;">
                 <h1
                     style="font-size:clamp(40px, 8vw, 120px); font-weight:500; letter-spacing:-0.05em; line-height:1.05; color:white; position:relative; z-index:10; margin:0;">
-                    Our <span id="gradient-journey-root" style="display: inline-block; position: relative; vertical-align: middle;">Journey</span>
+                    Our <span id="gradient-journey-root"
+                        style="display: inline-block; position: relative; vertical-align: middle;">Journey</span>
                     <br /> Tells a greater
                     story <br />
                     Than any blog or timeline
@@ -761,7 +708,9 @@
         </section>
 
         <!-- ── Journey Footer (Desktop) ── -->
-        <footer id="jn-footer-desktop" class="hidden md:flex items-center w-full bg-white text-black font-['Helvetica_Neue',Helvetica,Arial,sans-serif]" style="min-height: 60vh; border-top: 1px solid rgba(0,0,0,0.1); scroll-snap-align: end;">
+        <footer id="jn-footer-desktop"
+            class="hidden md:flex items-center w-full bg-white text-black font-['Helvetica_Neue',Helvetica,Arial,sans-serif]"
+            style="min-height: 60vh; border-top: 1px solid rgba(0,0,0,0.1); scroll-snap-align: end;">
             <div class="w-full flex justify-between px-[5vw] py-12 h-full">
                 <div class="h-full flex flex-col justify-between">
                     <div class="flex flex-col gap-12">
@@ -777,7 +726,8 @@
                             </h4>
                             <div class="relative w-full h-16">
                                 <img src="images/optimized/vyomdrones.webp" alt="Vyom Drones"
-                                    class="absolute inset-0 w-full h-full object-contain object-left opacity-90 group-hover:opacity-0 transition-opacity duration-500 ease-in-out" style="filter: brightness(0);">
+                                    class="absolute inset-0 w-full h-full object-contain object-left opacity-90 group-hover:opacity-0 transition-opacity duration-500 ease-in-out"
+                                    style="filter: brightness(0);">
                                 <img src="images/optimized/vyomdronescolour.webp" alt="Vyom Drones Color"
                                     class="absolute inset-0 w-full h-full object-contain object-left opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
                             </div>
@@ -792,18 +742,32 @@
                         <div class="flex flex-col gap-4">
                             <h4 class="text-sm font-medium pb-2 tracking-wide text-gray-500 uppercase m-0">SOCIAL</h4>
                             <ul class="list-none m-0 p-0 flex flex-col gap-2">
-                                <li><a href="https://www.instagram.com/trinetra_team/" class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">Instagram</a></li>
-                                <li><a href="#" class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">LinkedIn</a></li>
-                                <li><a href="#" class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">YouTube</a></li>
-                                <li><a href="#" class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">X / Twitter</a></li>
+                                <li><a href="https://www.instagram.com/trinetra_team/"
+                                        class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors"
+                                        style="text-decoration: none;">Instagram</a></li>
+                                <li><a href="#"
+                                        class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors"
+                                        style="text-decoration: none;">LinkedIn</a></li>
+                                <li><a href="#"
+                                        class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors"
+                                        style="text-decoration: none;">YouTube</a></li>
+                                <li><a href="#"
+                                        class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors"
+                                        style="text-decoration: none;">X / Twitter</a></li>
                             </ul>
                         </div>
                         <div class="flex flex-col gap-4">
                             <h4 class="text-sm font-medium pb-2 tracking-wide text-gray-500 uppercase m-0">CONTACT</h4>
                             <ul class="list-none m-0 p-0 flex flex-col gap-2">
-                                <li><a href="mailto:team.trinetra2026@gmail.com" class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">team.trinetra2026@gmail.com</a></li>
-                                <li><a href="#" class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">Sponsor Enquiries</a></li>
-                                <li><a href="#" class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">Join the Team</a></li>
+                                <li><a href="mailto:team.trinetra2026@gmail.com"
+                                        class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors"
+                                        style="text-decoration: none;">team.trinetra2026@gmail.com</a></li>
+                                <li><a href="#"
+                                        class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors"
+                                        style="text-decoration: none;">Sponsor Enquiries</a></li>
+                                <li><a href="#"
+                                        class="text-lg font-light text-black no-underline hover:text-gray-600 transition-colors"
+                                        style="text-decoration: none;">Join the Team</a></li>
                             </ul>
                         </div>
                     </div>
@@ -820,12 +784,12 @@
 
         <!-- ── Journey Footer (Mobile Accordion) ── -->
         <footer id="jn-mobile-footer"
-            class="flex md:hidden w-full bg-white text-black px-6 py-12 flex-col font-['Helvetica_Neue',Helvetica,Arial,sans-serif]" style="scroll-snap-align: end;">
+            class="flex md:hidden w-full bg-white text-black px-6 py-12 flex-col font-['Helvetica_Neue',Helvetica,Arial,sans-serif]"
+            style="scroll-snap-align: end;">
             <!-- Brand & Sponsors -->
             <div class="mb-16 flex flex-col gap-10">
                 <div class="flex items-center gap-2">
-                    <img src="Trinetra.svg" alt="Trinetra Logo" class="w-6 h-6"
-                        style="filter: invert(1);">
+                    <img src="Trinetra.svg" alt="Trinetra Logo" class="w-6 h-6" style="filter: invert(1);">
                     <span class="text-xl font-bold tracking-widest text-black">TRINETRA</span>
                 </div>
 
@@ -835,7 +799,8 @@
                     </h4>
                     <div class="relative w-full h-16">
                         <img src="images/optimized/vyomdrones.webp" alt="Vyom Drones"
-                            class="absolute inset-0 w-full h-full object-contain object-left opacity-90" style="filter: brightness(0);">
+                            class="absolute inset-0 w-full h-full object-contain object-left opacity-90"
+                            style="filter: brightness(0);">
                     </div>
                 </div>
             </div>
@@ -854,8 +819,10 @@
                     <div class="acc-grid">
                         <div class="acc-inner">
                             <div class="acc-content pt-4 pb-4 text-xl flex flex-col gap-4 font-medium">
-                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">Join the Team</a>
-                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">Sponsor Enquiries</a>
+                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors"
+                                    style="text-decoration: none;">Join the Team</a>
+                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors"
+                                    style="text-decoration: none;">Sponsor Enquiries</a>
                             </div>
                         </div>
                     </div>
@@ -873,12 +840,17 @@
                     <div class="acc-grid">
                         <div class="acc-inner">
                             <div class="acc-content pt-4 pb-4 text-xl flex flex-col gap-4 font-medium">
-                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">X</a>
-                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">YouTube</a>
+                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors"
+                                    style="text-decoration: none;">X</a>
+                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors"
+                                    style="text-decoration: none;">YouTube</a>
                                 <a href="https://www.instagram.com/trinetra_team/"
-                                    class="text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">Instagram</a>
-                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">Facebook</a>
-                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">LinkedIn</a>
+                                    class="text-black no-underline hover:text-gray-600 transition-colors"
+                                    style="text-decoration: none;">Instagram</a>
+                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors"
+                                    style="text-decoration: none;">Facebook</a>
+                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors"
+                                    style="text-decoration: none;">LinkedIn</a>
                             </div>
                         </div>
                     </div>
@@ -897,7 +869,8 @@
                         <div class="acc-inner">
                             <div class="acc-content pt-4 pb-4 text-xl flex flex-col gap-4 font-medium">
                                 <a href="mailto:team.trinetra2026@gmail.com"
-                                    class="text-black no-underline hover:text-gray-600 transition-colors" style="text-decoration: none;">team.trinetra2026@gmail.com</a>
+                                    class="text-black no-underline hover:text-gray-600 transition-colors"
+                                    style="text-decoration: none;">team.trinetra2026@gmail.com</a>
                             </div>
                         </div>
                     </div>
