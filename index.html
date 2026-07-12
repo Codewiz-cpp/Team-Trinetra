@@ -570,14 +570,25 @@
         <div id="sim-tab" style="display:none; width:100%;">
             <div id="skiper30-root" style="width: 100%; min-height: 100vh;"></div>
         </div>
-    </div><!-- /sim-tab --><!-- /sim-tab -->
-
-    <!--SPONSORS TAB-->
-    <div id="sponsors-tab" style="display:none; width:100%;">
-    </div>
+    </div><!-- /sim-tab -->
 
     <!--  TEAM TAB  -->
-    <div id="plan-tab" style="display:none; width:100%;">
+    <div id="plan-tab"
+        style="display:none; width:100%; height: 100vh; position: relative; background-color: #000; overflow: hidden;">
+        <!-- Background Image with low opacity -->
+        <div
+            style="position: absolute; inset: 0; background-image: url('images/Trinetrahome.webp'); background-size: cover; background-position: center; opacity: 0.3; z-index: 1;">
+        </div>
+
+        <!-- Content -->
+        <div
+            style="position: relative; z-index: 2; display: flex; align-items: flex-start; justify-content: center; width: 100%; height: 100%; padding-top: 120px;">
+            <h1
+                style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: clamp(40px, 8vw, 120px); color: white; font-weight: 200; letter-spacing: 4px; margin: 0; text-align: center;">
+                TEAM TRINETRA</h1>
+        </div>
+
+        <!-- 
         <div id="new-team-section">
             <div id="team-bg-text-container"></div>
             <div id="team-thumbnails-container"></div>
@@ -589,14 +600,11 @@
                 </svg>
             </div>
 
-            <!-- â•â• TEAM MEMBER DETAIL PANEL â•â• -->
             <div id="team-detail-panel">
-                <!-- Left Column: Pagination Counter (~10%) -->
                 <div class="tdp-col-left">
                     <span id="tdp-counter" class="tdp-counter">01 / 07</span>
                 </div>
 
-                <!-- Middle Column: Content Area (~50%) -->
                 <div class="tdp-col-mid">
                     <div class="tdp-domain" id="tdp-domain">FLIGHT DYNAMICS &amp; CONTROL</div>
                     <div class="tdp-paragraphs">
@@ -632,7 +640,6 @@
                     </div>
                 </div>
 
-                <!-- Right Column: Visual Showcase (~40%) -->
                 <div class="tdp-col-right">
                     <div class="tdp-image-frame">
                         <img src="images/Trinetrahome.webp" alt="Team Trinetra" class="tdp-image">
@@ -642,13 +649,17 @@
                 </div>
             </div>
         </div>
+        -->
+    </div>
+
+    <!--SPONSORS TAB-->
+    <div id="sponsors-tab" style="display:none; width:100%;">
     </div>
 
     <div id="vehicles-tab" style="display:none; width:100%; background-color: #000;">
 
         <!-- Hero image section -->
-        <div
-            class="w-full aspect-[4/3] sm:aspect-video md:aspect-auto md:h-screen bg-black bg-no-repeat bg-cover bg-center"
+        <div class="w-full aspect-[4/3] sm:aspect-video md:aspect-auto md:h-screen bg-black bg-no-repeat bg-cover bg-center"
             style="background-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 25%), linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 25%), url('images/mayoor.webp');">
         </div>
 
@@ -657,7 +668,8 @@
 
             <!-- Section header -->
             <div class="flex items-baseline justify-between mb-[18px]">
-                <span class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[24px] md:text-[28px] font-normal text-white/85 tracking-[-0.3px]">Mayoor?</span>
+                <span
+                    class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[24px] md:text-[28px] font-normal text-white/85 tracking-[-0.3px]">Mayoor?</span>
             </div>
             <!-- Full-width rule -->
             <div class="w-full h-px bg-white/20 mb-0"></div>
@@ -666,10 +678,19 @@
             <div class="grid grid-cols-1 md:grid-cols-[1fr_0.7fr] gap-8 md:gap-0 items-center py-10">
                 <!-- Text block -->
                 <div class="pr-0 md:pr-[60px] order-2 md:order-1">
-                    <h2 class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[24px] md:text-[27px] font-medium text-white leading-tight tracking-[0.5px] mb-[18px]">
+                    <h2
+                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[24px] md:text-[27px] font-medium text-white leading-tight tracking-[0.5px] mb-[18px]">
                         How we got the name</h2>
-                    <p class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[16px] md:text-[19px] font-light text-white/65 leading-[1.45] tracking-[0.3px] m-0">
-                        The name "Mayoor"—referencing the peacock—is a deliberate design ethos for our platform, signaling a shift toward precision, structural ingenuity, and elegance in aerial robotics. By prioritizing aerodynamic efficiency and intelligent autonomy, the system achieves mission objectives through refined flight kinematics rather than brute force. We have engineered the platform to minimize power draw while maximizing endurance, ensuring that its operational capabilities are as resilient as they are graceful. Ultimately, this architecture transforms the UAV from a mere tool into a high-performance system capable of sophisticated, autonomous navigation.
+                    <p
+                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[16px] md:text-[19px] font-light text-white/65 leading-[1.45] tracking-[0.3px] m-0">
+                        The name "Mayoor"—referencing the peacock—is a deliberate design ethos for our platform,
+                        signaling a shift toward precision, structural ingenuity, and elegance in aerial robotics. By
+                        prioritizing aerodynamic efficiency and intelligent autonomy, the system achieves mission
+                        objectives through refined flight kinematics rather than brute force. We have engineered the
+                        platform to minimize power draw while maximizing endurance, ensuring that its operational
+                        capabilities are as resilient as they are graceful. Ultimately, this architecture transforms the
+                        UAV from a mere tool into a high-performance system capable of sophisticated, autonomous
+                        navigation.
                     </p>
                 </div>
                 <!-- Image block -->

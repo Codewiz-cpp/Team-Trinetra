@@ -98,6 +98,7 @@ function showTab(name) {
 
 // ===== TEAM MEMBER DETAIL CONTENT =====
 // Domain label, three role paragraphs, and a showcase image per member
+/*
 const TEAM_MEMBER_DETAILS = {
     1: {
         domain: 'Electrical · Team Lead',
@@ -256,6 +257,7 @@ const TEAM_MEMBERS = [
         image: 'images/optimized/k.webp', portfolio: '#', github: '#', linkedin: '#'
     }
 ];
+*/
 
 let activeTeamMember = null;
 
@@ -1027,6 +1029,27 @@ async function loadTabs() {
                         }
                     });
                 }
+                // Initialize Scroll Animation for Sponsors Tab
+                tab.addEventListener('scroll', () => {
+                    const nextPage = document.getElementById('sp-next-page');
+                    const heading = document.getElementById('sp-carousel-heading');
+                    if (!nextPage || !heading) return;
+
+                    const st = tab.scrollTop;
+                    const maxScroll = 400;
+                    const progress = Math.min(st / maxScroll, 1);
+                    const easeOut = 1 - Math.pow(1 - progress, 3);
+
+                    const headingOffset = 0 + (150 * easeOut);
+                    const newHeadingTop = -2.0 + (8.0 * easeOut); /* Drops further down (up to 6cqw instead of 0cqw) */
+
+                    /* White ribbons start at 50px and shrink to 0px on scroll */
+                    const ribbonSize = 57 * (1 - easeOut);
+
+                    nextPage.style.setProperty('--heading-offset', `${headingOffset}px`);
+                    nextPage.style.setProperty('--heading-top', `${newHeadingTop}cqw`);
+                    nextPage.style.setProperty('--ribbon-size', `${ribbonSize}px`);
+                });
             }
         }
     } catch (e) {
