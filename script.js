@@ -65,7 +65,7 @@ function showTabBase(name) {
         const btn = document.getElementById('btn-plan');
         if (btn) btn.classList.add('active');
         const tab = document.getElementById('plan-tab');
-        if (tab) tab.style.display = 'flex';
+        if (tab) tab.style.display = 'block';
     } else if (name === 'setup' || name === 'vehicles') {
         const btn = document.getElementById('btn-setup');
         if (btn) btn.classList.add('active');
@@ -1648,3 +1648,26 @@ window.toggleAccordion = function (headerElement) {
         item.classList.add('active');
     }
 };
+
+// ===== SUBTEAM LEADS ANIMATION =====
+document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                entry.target.classList.add('animated');
+                const isLeft = entry.target.classList.contains('slide-from-left');
+                if (typeof gsap !== 'undefined') {
+                    gsap.fromTo(entry.target,
+                        { x: isLeft ? -100 : 100, opacity: 0 },
+                        { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+                    );
+                }
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.slide-from-left, .slide-from-right').forEach(el => {
+        el.style.opacity = '0';
+        observer.observe(el);
+    });
+});

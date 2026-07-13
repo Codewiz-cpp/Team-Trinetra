@@ -573,19 +573,298 @@
     </div><!-- /sim-tab -->
 
     <!--  TEAM TAB  -->
-    <div id="plan-tab"
-        style="display:none; width:100%; height: 100vh; position: relative; background-color: #000; overflow: hidden;">
-        <!-- Background Image with low opacity -->
-        <div
-            style="position: absolute; inset: 0; background-image: url('images/Trinetrahome.webp'); background-size: cover; background-position: center; opacity: 0.3; z-index: 1;">
+    <div id="plan-tab" style="display:none; width:100%; background-color: #000;">
+        <!-- Hero section -->
+        <div class="w-full h-screen relative bg-black flex items-start justify-center pt-[120px]"
+            style="overflow: hidden;">
+            <!-- Background Image with low opacity -->
+            <div
+                style="position: absolute; inset: 0; background-image: url('images/Trinetrahome.webp'); background-size: cover; background-position: center; opacity: 0.3; z-index: 1;">
+            </div>
+
+            <h1
+                style="position: relative; z-index: 2; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: clamp(40px, 8vw, 120px); color: white; font-weight: 200; letter-spacing: 4px; margin: 0; text-align: center;">
+                TEAM TRINETRA
+            </h1>
         </div>
 
-        <!-- Content -->
-        <div
-            style="position: relative; z-index: 2; display: flex; align-items: flex-start; justify-content: center; width: 100%; height: 100%; padding-top: 120px;">
-            <h1
-                style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: clamp(40px, 8vw, 120px); color: white; font-weight: 200; letter-spacing: 4px; margin: 0; text-align: center;">
-                TEAM TRINETRA</h1>
+        <!-- About us editorial section -->
+        <div class="w-full bg-black box-border px-6 pt-12 pb-4 md:px-20 md:pt-16 md:pb-4">
+            <!-- Section header -->
+            <div class="flex items-baseline justify-between mb-[18px]">
+                <span
+                    class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[24px] md:text-[28px] font-normal text-white/85 tracking-[-0.3px]">About
+                    Us</span>
+            </div>
+            <!-- Full-width rule -->
+            <div class="w-full h-px bg-white/20 mb-0"></div>
+
+            <!-- Editorial entry: text-left / image-right -->
+            <div class="grid grid-cols-1 md:grid-cols-[1fr_0.7fr] gap-8 md:gap-0 items-center pt-10 pb-4">
+                <!-- Text block -->
+                <div class="pr-0 md:pr-[60px] order-2 md:order-1">
+                    <h2
+                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[24px] md:text-[27px] font-medium text-white leading-tight tracking-[0.5px] mb-[18px]">
+                        Our Mission & Vision</h2>
+                    <p
+                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[16px] md:text-[19px] font-light text-white/65 leading-[1.45] tracking-[0.3px] m-0">
+                        Representing the Madhav Institute of Technology & Science under the banner of the Dronex
+                        Aerotech club, Team Trinetra UAV is a multidisciplinary student engineering team preparing for
+                        the international SUAS 2026 competition. The team's mission is to leverage autonomous systems to
+                        advance disaster recovery frameworks, specifically focusing on aerial area inspection, hazard
+                        monitoring, and critical rescue logistics.
+                    </p>
+                </div>
+                <!-- Image block -->
+                <div class="w-full aspect-[16/10] overflow-hidden order-1 md:order-2 bg-zinc-900 rounded-sm">
+                    <img src="images/optimized/team.webp" alt="Team Trinetra"
+                        class="w-full h-full block object-cover object-center">
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Lead section -->
+        <div class="w-full bg-black box-border px-6 pt-4 pb-12 md:pt-8 md:pb-24 flex flex-col items-center">
+            <!-- Header -->
+            <h2
+                class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[32px] md:text-[40px] font-medium text-white tracking-wide text-center mb-4">
+                Team Lead</h2>
+            <!-- Centered short rule -->
+            <div class="w-16 h-[2px] bg-white mb-12"></div>
+
+            <!-- Team Lead Cursor Target Wrapper -->
+            <div class="cursor-target flex flex-col items-center w-full">
+                <!-- Image -->
+                    <div class="w-full max-w-[400px] md:max-w-[500px] aspect-[4/5] overflow-hidden mb-8 bg-zinc-900">
+                        <img src="images/optimized/p.webp" alt="Parth Soni"
+                            class="w-full h-full object-cover object-center">
+                    </div>
+
+                    <!-- Name -->
+                    <h3
+                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[28px] md:text-[32px] font-bold text-white mb-6 text-center">
+                        Parth Soni</h3>
+
+                    <!-- Paragraphs -->
+                    <div
+                        class="w-full max-w-[800px] flex flex-col gap-6 text-white/75 font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-light leading-[1.6]">
+                        <p>
+                            As our Team Lead, Parth balances two key responsibilities: providing leadership and
+                            organization to
+                            keep the team on track while also overseeing the end-to-end electrical architecture of the
+                            UAV
+                            platform, including PCB layout, power distribution board design, and multi-rail voltage
+                            regulation
+                            for flight-critical subsystems.
+                        </p>
+                        <p>
+                            His leadership is reflected in his structured approach—coordinating cross-domain payload
+                            mechanism
+                            robotics and flight-time optimisation strategies, balancing power budgets against mission
+                            endurance
+                            requirements.
+                        </p>
+                    </div>
+                </div>
+        </div>
+
+        <!-- Remaining Members Section (No overarching header) -->
+        <div class="w-full bg-black box-border px-6 pb-24 md:px-20 flex flex-col items-center overflow-hidden">
+
+            <!-- 2-column Grid -->
+            <div class="w-full max-w-[1200px] grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20">
+
+                <!-- Artificial Intelligence Heading -->
+                <div class="col-span-1 md:col-span-2 flex flex-col items-center mt-2 md:mt-4">
+                    <h2
+                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[32px] md:text-[40px] font-medium text-white tracking-wide text-center mb-4">
+                        Artificial Intelligence
+                    </h2>
+                    <div class="w-16 h-[2px] bg-white"></div>
+                </div>
+
+                <!-- Member 4: Ankit -->
+                <div class="flex flex-col member-card cursor-target slide-from-left">
+                    <div class="w-full aspect-[4/5] bg-zinc-900 mb-6 overflow-hidden rounded-sm">
+                        <img src="images/optimized/ankitcopy.webp" alt="Ankit Gurjar"
+                            class="w-full h-full object-cover object-top">
+                    </div>
+                    <h2
+                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[28px] md:text-[32px] font-bold text-white mb-1 leading-tight">
+                        Ankit Gurjar
+                    </h2>
+                    <h3
+                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-medium text-white/80 mb-6">
+                        Autonomous Navigation & AIML
+                    </h3>
+                    <div
+                        class="text-white/75 font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-light leading-[1.6] flex flex-col gap-4">
+                        <p>Develops autonomous waypoint path-planning algorithms and integrates ArduCopter mission
+                            scripting for fully autonomous sortie execution including payload release sequences.</p>
+                        <p>Fuses LIDAR point-cloud data with IMU and GPS streams for precise obstacle-aware navigation,
+                            enabling safe low-altitude flight in cluttered environments.</p>
+                        <p>Serves as the primary test pilot, executing hardware-in-the-loop simulation runs before
+                            transitioning algorithms to live flight trials on the competition platform.</p>
+                    </div>
+                </div>
+
+                <!-- Member 5: Moksh -->
+                <div class="flex flex-col member-card cursor-target slide-from-right">
+                    <div class="w-full aspect-[4/5] bg-zinc-900 mb-6 overflow-hidden rounded-sm">
+                        <img src="images/optimized/m.webp" alt="Moksh Dandotiya"
+                            class="w-full h-full object-cover object-center">
+                    </div>
+                    <h2
+                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[28px] md:text-[32px] font-bold text-white mb-1 leading-tight">
+                        Moksh Dandotiya
+                    </h2>
+                    <h3
+                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-medium text-white/80 mb-6">
+                        Computer Vision & AI Systems
+                    </h3>
+                    <div
+                        class="text-white/75 font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-light leading-[1.6] flex flex-col gap-4">
+                        <p>Trains and deploys YOLOv8-based object detection pipelines for real-time aerial target
+                            identification, optimised for latency-constrained onboard inference on edge hardware.</p>
+                        <p>Implements OpenCV-based image processing routines for target geolocation, coordinate
+                            projection, and mission-event triggering integrated with the autopilot command layer.</p>
+                        <p>Manages ground station visual display overlays, providing operators with annotated live
+                            feeds, confidence scores, and bounding-box telemetry during autonomous search missions.</p>
+                    </div>
+                </div>
+
+                <!-- Electrical Heading -->
+                <div class="col-span-1 md:col-span-2 flex flex-col items-center pt-8 md:pt-12">
+                    <h2
+                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[32px] md:text-[40px] font-medium text-white tracking-wide text-center mb-4">
+                        Electrical
+                    </h2>
+                    <div class="w-16 h-[2px] bg-white"></div>
+                </div>
+
+                <!-- Member 2: Harsh -->
+                <div class="flex flex-col member-card cursor-target slide-from-left">
+                    <div class="w-full aspect-[4/5] bg-zinc-900 mb-6 overflow-hidden rounded-sm">
+                        <img src="images/optimized/h.webp" alt="Harsh Vardhan Kaushal"
+                            class="w-full h-full object-cover object-center">
+                    </div>
+                    <h2
+                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[28px] md:text-[32px] font-bold text-white mb-1 leading-tight">
+                        Harsh Vardhan Kaushal
+                    </h2>
+                    <h3
+                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-medium text-white/80 mb-6">
+                        PDB Design & Communications
+                    </h3>
+                    <div
+                        class="text-white/75 font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-light leading-[1.6] flex flex-col gap-4">
+                        <p>Designs multi-layer PCBs for flight controllers, sensor buses, and custom carrier boards,
+                            ensuring signal integrity and EMI compliance in vibration-intensive airframes.</p>
+                        <p>Responsible for power distribution board architecture, including eFuse protection, current
+                            sensing, and regulated output rails for avionics and payloads.</p>
+                        <p>Integrates camera modules and RF communication subsystems into the electrical stack, managing
+                            antenna placement and coaxial routing for maximum link margin.</p>
+                    </div>
+                </div>
+
+                <!-- Member 3: Rishabh -->
+                <div class="flex flex-col member-card cursor-target slide-from-right">
+                    <div class="w-full aspect-[4/5] bg-zinc-900 mb-6 overflow-hidden rounded-sm">
+                        <img src="images/optimized/Rishab.webp" alt="Rishabh Dohare"
+                            class="w-full h-full object-cover object-center">
+                    </div>
+                    <h2
+                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[28px] md:text-[32px] font-bold text-white mb-1 leading-tight">
+                        Rishabh Dohare
+                    </h2>
+                    <h3
+                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-medium text-white/80 mb-6">
+                        Ground Station & Telemetry
+                    </h3>
+                    <div
+                        class="text-white/75 font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-light leading-[1.6] flex flex-col gap-4">
+                        <p>Operates the ground control station during field missions, monitoring MAVLink telemetry
+                            streams and managing uplink commands to the autopilot in real time.</p>
+                        <p>Designs and validates failsafe logic — including RTL triggers, geofence enforcement, and
+                            battery-critical land sequences — to ensure safe autonomous behaviour under edge-case
+                            conditions.</p>
+                        <p>Maintains and tunes the RF telemetry link, configuring data rates, channel hopping, and RSSI
+                            thresholds to sustain reliable communication at extended operational ranges.</p>
+                    </div>
+                </div>
+
+                <!-- Column 1: Information Technology (Aryan) -->
+                <div class="flex flex-col col-span-1 pt-8 md:pt-12">
+                    <div class="flex flex-col items-center mb-8">
+                        <h2
+                            class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[32px] md:text-[40px] font-medium text-white tracking-wide text-center mb-4">
+                            Information Technology
+                        </h2>
+                        <div class="w-16 h-[2px] bg-white"></div>
+                    </div>
+                    <!-- Member 6: Aryan -->
+                    <div class="flex flex-col member-card cursor-target slide-from-left w-full h-full">
+                        <div class="w-full aspect-[4/5] bg-zinc-900 mb-6 overflow-hidden rounded-sm">
+                            <img src="images/optimized/a.webp" alt="Aryan Bhadoriya"
+                                class="w-full h-full object-cover object-center">
+                        </div>
+                        <h2
+                            class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[28px] md:text-[32px] font-bold text-white mb-1 leading-tight">
+                            Aryan Bhadoriya
+                        </h2>
+                        <h3
+                            class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-medium text-white/80 mb-6">
+                            Web Dev & Documentation
+                        </h3>
+                        <div
+                            class="text-white/75 font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-light leading-[1.6] flex flex-col gap-4">
+                            <p>Hello, I am Aryan Bhadoriya, a third-year undergrad leading our web development and
+                                technical documentation. Handling these two critical pillars for SUAS pushed me out of
+                                my comfort zone and taught me a lot about my capabilities.</p>
+                            <p>After focusing deeply on DSA during my first two years, this website marks my first major
+                                professional development project. Outside of coding and refining system schematics, I
+                                stay sharp and disciplined through chess and a love for fitness.</p>
+                            <p>Ultimately, I am driven to give my team a competitive edge and secure a top 3 spot for
+                                both Website and Technical Design.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2: Mechanical (Kuldeep) -->
+                <div class="flex flex-col col-span-1 pt-8 md:pt-12">
+                    <div class="flex flex-col items-center mb-8">
+                        <h2
+                            class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[32px] md:text-[40px] font-medium text-white tracking-wide text-center mb-4">
+                            Mechanical
+                        </h2>
+                        <div class="w-16 h-[2px] bg-white"></div>
+                    </div>
+                    <!-- Member 7: Kuldeep -->
+                    <div class="flex flex-col member-card cursor-target slide-from-right w-full h-full">
+                        <div class="w-full aspect-[4/5] bg-zinc-900 mb-6 overflow-hidden rounded-sm">
+                            <img src="images/optimized/Kuldeepcopy.webp" alt="Kuldeep Sikarwar"
+                                class="w-full h-full object-cover object-center">
+                        </div>
+                        <h2
+                            class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[28px] md:text-[32px] font-bold text-white mb-1 leading-tight">
+                            Kuldeep Sikarwar
+                        </h2>
+                        <h3
+                            class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-medium text-white/80 mb-6">
+                            Mechanical & Frame Design
+                        </h3>
+                        <div
+                            class="text-white/75 font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-light leading-[1.6] flex flex-col gap-4">
+                            <p>Hello, I am Kuldeep Sikarwar, a second-year Mechanical Engineering student at MITS
+                                Gwalior. As the CAD Designer for Team Trinetra, I design and validate our UAVs carbon
+                                fiber frame — using SolidWorks for precision modeling and ANSYS for structural, modal,
+                                and fatigue analysis. My mission is simple: build a structure that never fails when it
+                                matters most.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
         <!-- 

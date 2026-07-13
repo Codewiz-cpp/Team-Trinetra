@@ -996,7 +996,6 @@ body.simulation-active #toolbar:hover {
     height: 100%;
     overflow: hidden;
     background: #000;
-    flex-direction: column;
     padding-top: 83px;
     box-sizing: border-box;
 }
