@@ -575,13 +575,23 @@
     <!--  TEAM TAB  -->
     <div id="plan-tab" style="display:none; width:100%; background-color: #000;">
         <!-- Hero section -->
-        <div class="w-full h-screen relative bg-black flex items-start justify-center pt-[120px]"
+
+        <!-- ── Mobile Hero (image auto-sizes, no black space) ── -->
+        <div class="block md:hidden w-full relative bg-black" style="margin-top: 12px;">
+            <img src="images/Trinetrahome.webp" alt="Team Trinetra" class="w-full h-auto block"
+                style="opacity: 0.3; display: block;">
+            <h1 class="absolute inset-0 flex items-start justify-center pt-[7%]"
+                style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: clamp(28px, 8vw, 50px); color: white; font-weight: 200; letter-spacing: 4px; margin: 0; text-align: center; z-index: 2;">
+                TEAM TRINETRA
+            </h1>
+        </div>
+
+        <!-- ── Desktop Hero (full-screen background cover) ── -->
+        <div class="hidden md:flex w-full h-screen relative bg-black items-start justify-center pt-[120px]"
             style="overflow: hidden;">
-            <!-- Background Image with low opacity -->
-            <div
+            <div id="team-hero-bg"
                 style="position: absolute; inset: 0; background-image: url('images/Trinetrahome.webp'); background-size: cover; background-position: center; opacity: 0.3; z-index: 1;">
             </div>
-
             <h1
                 style="position: relative; z-index: 2; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: clamp(40px, 8vw, 120px); color: white; font-weight: 200; letter-spacing: 4px; margin: 0; text-align: center;">
                 TEAM TRINETRA
@@ -635,37 +645,37 @@
             <!-- Team Lead Cursor Target Wrapper -->
             <div class="cursor-target flex flex-col items-center w-full">
                 <!-- Image -->
-                    <div class="w-full max-w-[400px] md:max-w-[500px] aspect-[4/5] overflow-hidden mb-8 bg-zinc-900">
-                        <img src="images/optimized/p.webp" alt="Parth Soni"
-                            class="w-full h-full object-cover object-center">
-                    </div>
-
-                    <!-- Name -->
-                    <h3
-                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[28px] md:text-[32px] font-bold text-white mb-6 text-center">
-                        Parth Soni</h3>
-
-                    <!-- Paragraphs -->
-                    <div
-                        class="w-full max-w-[800px] flex flex-col gap-6 text-white/75 font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-light leading-[1.6]">
-                        <p>
-                            As our Team Lead, Parth balances two key responsibilities: providing leadership and
-                            organization to
-                            keep the team on track while also overseeing the end-to-end electrical architecture of the
-                            UAV
-                            platform, including PCB layout, power distribution board design, and multi-rail voltage
-                            regulation
-                            for flight-critical subsystems.
-                        </p>
-                        <p>
-                            His leadership is reflected in his structured approach—coordinating cross-domain payload
-                            mechanism
-                            robotics and flight-time optimisation strategies, balancing power budgets against mission
-                            endurance
-                            requirements.
-                        </p>
-                    </div>
+                <div class="w-full max-w-[400px] md:max-w-[500px] aspect-[4/5] overflow-hidden mb-8 bg-zinc-900">
+                    <img src="images/optimized/p.webp" alt="Parth Soni"
+                        class="w-full h-full object-cover object-center">
                 </div>
+
+                <!-- Name -->
+                <h3
+                    class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[28px] md:text-[32px] font-bold text-white mb-6 text-center">
+                    Parth Soni</h3>
+
+                <!-- Paragraphs -->
+                <div
+                    class="w-full max-w-[800px] flex flex-col gap-6 text-white/75 font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-light leading-[1.6]">
+                    <p>
+                        As our Team Lead, Parth balances two key responsibilities: providing leadership and
+                        organization to
+                        keep the team on track while also overseeing the end-to-end electrical architecture of the
+                        UAV
+                        platform, including PCB layout, power distribution board design, and multi-rail voltage
+                        regulation
+                        for flight-critical subsystems.
+                    </p>
+                    <p>
+                        His leadership is reflected in his structured approach—coordinating cross-domain payload
+                        mechanism
+                        robotics and flight-time optimisation strategies, balancing power budgets against mission
+                        endurance
+                        requirements.
+                    </p>
+                </div>
+            </div>
         </div>
 
         <!-- Remaining Members Section (No overarching header) -->
@@ -683,33 +693,8 @@
                     <div class="w-16 h-[2px] bg-white"></div>
                 </div>
 
-                <!-- Member 4: Ankit -->
+                <!-- Member 4: Moksh -->
                 <div class="flex flex-col member-card cursor-target slide-from-left">
-                    <div class="w-full aspect-[4/5] bg-zinc-900 mb-6 overflow-hidden rounded-sm">
-                        <img src="images/optimized/ankitcopy.webp" alt="Ankit Gurjar"
-                            class="w-full h-full object-cover object-top">
-                    </div>
-                    <h2
-                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[28px] md:text-[32px] font-bold text-white mb-1 leading-tight">
-                        Ankit Gurjar
-                    </h2>
-                    <h3
-                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-medium text-white/80 mb-6">
-                        Autonomous Navigation & AIML
-                    </h3>
-                    <div
-                        class="text-white/75 font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-light leading-[1.6] flex flex-col gap-4">
-                        <p>Develops autonomous waypoint path-planning algorithms and integrates ArduCopter mission
-                            scripting for fully autonomous sortie execution including payload release sequences.</p>
-                        <p>Fuses LIDAR point-cloud data with IMU and GPS streams for precise obstacle-aware navigation,
-                            enabling safe low-altitude flight in cluttered environments.</p>
-                        <p>Serves as the primary test pilot, executing hardware-in-the-loop simulation runs before
-                            transitioning algorithms to live flight trials on the competition platform.</p>
-                    </div>
-                </div>
-
-                <!-- Member 5: Moksh -->
-                <div class="flex flex-col member-card cursor-target slide-from-right">
                     <div class="w-full aspect-[4/5] bg-zinc-900 mb-6 overflow-hidden rounded-sm">
                         <img src="images/optimized/m.webp" alt="Moksh Dandotiya"
                             class="w-full h-full object-cover object-center">
@@ -730,6 +715,31 @@
                             projection, and mission-event triggering integrated with the autopilot command layer.</p>
                         <p>Manages ground station visual display overlays, providing operators with annotated live
                             feeds, confidence scores, and bounding-box telemetry during autonomous search missions.</p>
+                    </div>
+                </div>
+
+                <!-- Member 5: Ankit -->
+                <div class="flex flex-col member-card cursor-target slide-from-right">
+                    <div class="w-full aspect-[4/5] bg-zinc-900 mb-6 overflow-hidden rounded-sm">
+                        <img src="images/optimized/ankitcopy.webp" alt="Ankit Gurjar"
+                            class="w-full h-full object-cover object-top">
+                    </div>
+                    <h2
+                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[28px] md:text-[32px] font-bold text-white mb-1 leading-tight">
+                        Ankit Gurjar
+                    </h2>
+                    <h3
+                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-medium text-white/80 mb-6">
+                        Autonomous Navigation & AIML
+                    </h3>
+                    <div
+                        class="text-white/75 font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-light leading-[1.6] flex flex-col gap-4">
+                        <p>Develops autonomous waypoint path-planning algorithms and integrates ArduCopter mission
+                            scripting for fully autonomous sortie execution including payload release sequences.</p>
+                        <p>Fuses LIDAR point-cloud data with IMU and GPS streams for precise obstacle-aware navigation,
+                            enabling safe low-altitude flight in cluttered environments.</p>
+                        <p>Serves as the primary test pilot, executing hardware-in-the-loop simulation runs before
+                            transitioning algorithms to live flight trials on the competition platform.</p>
                     </div>
                 </div>
 
@@ -824,8 +834,6 @@
                             <p>After focusing deeply on DSA during my first two years, this website marks my first major
                                 professional development project. Outside of coding and refining system schematics, I
                                 stay sharp and disciplined through chess and a love for fitness.</p>
-                            <p>Ultimately, I am driven to give my team a competitive edge and secure a top 3 spot for
-                                both Website and Technical Design.</p>
                         </div>
                     </div>
                 </div>
@@ -864,6 +872,38 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+
+        <!-- Faculty Coordinator section -->
+        <div class="w-full bg-black box-border px-6 pt-4 pb-12 md:pt-8 md:pb-24 flex flex-col items-center">
+            <!-- Header -->
+            <h2
+                class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[32px] md:text-[40px] font-medium text-white tracking-wide text-center mb-4">
+                Faculty Coordinator</h2>
+            <!-- Centered short rule -->
+            <div class="w-16 h-[2px] bg-white mb-12"></div>
+
+            <div class="cursor-target flex flex-col items-center w-full">
+                <!-- Name -->
+                <h3
+                    class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[28px] md:text-[32px] font-bold text-white mb-6 text-center">
+                    Yashwant Sawle Sir</h3>
+
+                <!-- Paragraphs -->
+                <div
+                    class="w-full max-w-[800px] flex flex-col gap-6 text-white/75 font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-light leading-[1.6]">
+                    <p>
+                        Yashwant Sawle Sir serves as the dedicated faculty coordinator for our team, providing
+                        invaluable mentorship and advocacy with sponsors and the college administration. An Assistant
+                        Professor (Senior) at the Madhav Institute of Technology and Science, Gwalior, he brings over 14
+                        years of extensive teaching and research expertise to our project. Beyond his academic guidance,
+                        he is a distinguished leader in his field, holding prominent roles such as Chair of the IEEE PES
+                        Chapter MP and a Senior Member of IEEE. His recognition among the world’s top 2% of scientists
+                        by Stanford University and Elsevier highlights the caliber of expertise he brings to our team's
+                        mission.
+                    </p>
+                </div>
             </div>
         </div>
 
@@ -929,6 +969,155 @@
             </div>
         </div>
         -->
+
+        <!-- ── Team Footer (Desktop) ── -->
+        <footer id="team-footer-desktop"
+            class="hidden md:flex flex-col w-full bg-white text-black font-['Helvetica_Neue',Helvetica,Arial,sans-serif] relative"
+            style="border-top: 1px solid rgba(0,0,0,0.1);">
+
+            <div class="w-full flex justify-between items-stretch px-[60px] pt-[64px] pb-[100px] box-border">
+                <div class="flex flex-col justify-between h-full">
+                    <div class="flex flex-col gap-12">
+                        <div class="flex items-center gap-[12px]">
+                            <img src="Trinetra.svg" alt="Trinetra Logo" class="w-[37px] h-[37px]"
+                                style="filter: invert(1);">
+                            <span class="text-[30px] font-medium tracking-[1px]">TRINETRA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-end gap-6">
+                    <div class="flex gap-[80px]">
+                        <div class="flex flex-col">
+                            <h4 class="text-[13px] text-gray-500 font-medium tracking-[1px] mb-[16px] uppercase m-0">
+                                SOCIAL</h4>
+                            <ul class="list-none m-0 p-0 flex flex-col gap-[12px]">
+                                <li><a href="https://www.instagram.com/trinetra_team/"
+                                        class="text-[16px] font-light text-black no-underline hover:text-gray-600 transition-colors"
+                                        style="text-decoration: none;">Instagram</a></li>
+                                <li><a href="#"
+                                        class="text-[16px] font-light text-black no-underline hover:text-gray-600 transition-colors"
+                                        style="text-decoration: none;">LinkedIn</a></li>
+                                <li><a href="#"
+                                        class="text-[16px] font-light text-black no-underline hover:text-gray-600 transition-colors"
+                                        style="text-decoration: none;">YouTube</a></li>
+                                <li><a href="#"
+                                        class="text-[16px] font-light text-black no-underline hover:text-gray-600 transition-colors"
+                                        style="text-decoration: none;">X / Twitter</a></li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col">
+                            <h4 class="text-[13px] text-gray-500 font-medium tracking-[1px] mb-[16px] uppercase m-0">
+                                CONTACT</h4>
+                            <ul class="list-none m-0 p-0 flex flex-col gap-[12px]">
+                                <li><a href="mailto:team.trinetra2026@gmail.com"
+                                        class="text-[16px] font-light text-black no-underline hover:text-gray-600 transition-colors"
+                                        style="text-decoration: none;">team.trinetra2026@gmail.com</a></li>
+                                <li><a href="#"
+                                        class="text-[16px] font-light text-black no-underline hover:text-gray-600 transition-colors"
+                                        style="text-decoration: none;">Sponsor Enquiries</a></li>
+                                <li><a href="#"
+                                        class="text-[16px] font-light text-black no-underline hover:text-gray-600 transition-colors"
+                                        style="text-decoration: none;">Join the Team</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="absolute bottom-[20px] left-[60px] text-[16px] text-black font-normal">
+                COPYRIGHT &copy; 2026 TEAM TRINETRA
+            </div>
+        </footer>
+
+        <!-- ── Team Footer (Mobile Accordion) ── -->
+        <footer id="team-mobile-footer"
+            class="flex md:hidden w-full bg-white text-black px-6 pt-12 pb-[20px] flex-col font-['Helvetica_Neue',Helvetica,Arial,sans-serif]">
+            <!-- Brand & Sponsors -->
+            <div class="mb-16 flex flex-col gap-10">
+                <div class="flex items-center gap-2">
+                    <img src="Trinetra.svg" alt="Trinetra Logo" class="w-6 h-6" style="filter: invert(1);">
+                    <span class="text-xl font-bold tracking-widest text-black">TRINETRA</span>
+                </div>
+            </div>
+
+            <!-- Accordion Items -->
+            <div class="footer-accordion w-full flex flex-col gap-6">
+                <div class="acc-item">
+                    <div class="acc-header py-2 flex justify-between items-center cursor-pointer text-sm font-bold tracking-widest text-gray-600 hover:text-black transition-colors"
+                        onclick="toggleAccordion(this)">
+                        <span>WORK WITH US</span>
+                        <div class="plus-minus-btn">
+                            <div class="bar horizontal" style="background-color: black;"></div>
+                            <div class="bar vertical" style="background-color: black;"></div>
+                        </div>
+                    </div>
+                    <div class="acc-grid">
+                        <div class="acc-inner">
+                            <div class="acc-content pt-4 pb-4 text-xl flex flex-col gap-4 font-medium">
+                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors"
+                                    style="text-decoration: none;">Join the Team</a>
+                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors"
+                                    style="text-decoration: none;">Sponsor Enquiries</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="acc-item">
+                    <div class="acc-header py-2 flex justify-between items-center cursor-pointer text-sm font-bold tracking-widest text-gray-600 hover:text-black transition-colors"
+                        onclick="toggleAccordion(this)">
+                        <span>SOCIAL</span>
+                        <div class="plus-minus-btn">
+                            <div class="bar horizontal" style="background-color: black;"></div>
+                            <div class="bar vertical" style="background-color: black;"></div>
+                        </div>
+                    </div>
+                    <div class="acc-grid">
+                        <div class="acc-inner">
+                            <div class="acc-content pt-4 pb-4 text-xl flex flex-col gap-4 font-medium">
+                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors"
+                                    style="text-decoration: none;">X</a>
+                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors"
+                                    style="text-decoration: none;">YouTube</a>
+                                <a href="https://www.instagram.com/trinetra_team/"
+                                    class="text-black no-underline hover:text-gray-600 transition-colors"
+                                    style="text-decoration: none;">Instagram</a>
+                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors"
+                                    style="text-decoration: none;">Facebook</a>
+                                <a href="#" class="text-black no-underline hover:text-gray-600 transition-colors"
+                                    style="text-decoration: none;">LinkedIn</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="acc-item">
+                    <div class="acc-header py-2 flex justify-between items-center cursor-pointer text-sm font-bold tracking-widest text-gray-600 hover:text-black transition-colors"
+                        onclick="toggleAccordion(this)">
+                        <span>CONTACT</span>
+                        <div class="plus-minus-btn">
+                            <div class="bar horizontal" style="background-color: black;"></div>
+                            <div class="bar vertical" style="background-color: black;"></div>
+                        </div>
+                    </div>
+                    <div class="acc-grid">
+                        <div class="acc-inner">
+                            <div class="acc-content pt-4 pb-4 text-xl flex flex-col gap-4 font-medium">
+                                <a href="mailto:team.trinetra2026@gmail.com"
+                                    class="text-black no-underline hover:text-gray-600 transition-colors"
+                                    style="text-decoration: none;">team.trinetra2026@gmail.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Info -->
+            <div class="mt-20 text-sm text-black font-medium tracking-wider">
+                <div class="mb-0 uppercase">COPYRIGHT &copy; 2026 TEAM TRINETRA</div>
+            </div>
+        </footer>
     </div>
 
     <!--SPONSORS TAB-->
