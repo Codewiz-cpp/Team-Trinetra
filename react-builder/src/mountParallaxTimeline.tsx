@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Skiper19 } from './skiper19';
+import { Skiper19 } from './ParallaxTimeline';
 
 const container = document.getElementById('skiper19-root');
 if (container) {

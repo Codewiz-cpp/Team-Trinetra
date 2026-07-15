@@ -1,3 +1,11 @@
 node_modules/
 package-lock.json
 tools/imagemagick.zip
+
+# Compiled React bundles — contributors must run `cd react-builder && npm run build`
+dist/
+
+# Inner Next.js prototype project (not part of the main site)
+Team Trinetra/node_modules/
+Team Trinetra/package-lock.json
+Team Trinetra/.next/

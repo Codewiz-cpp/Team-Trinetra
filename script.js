@@ -1,3 +1,31 @@
+// ============================================================
+// script.js — Team Trinetra
+// Main JavaScript file for the Team Trinetra website.
+//
+// SECTIONS (Ctrl+F the section name to jump):
+//   1.  TAB SWITCHING          — showTab(), showTabBase()
+//   2.  TEAM MEMBER CONTENT    — member detail HTML builders
+//   3.  TEAM DATA              — member objects array
+//   4.  TEAM UI                — cards, detail panel, animation
+//   5.  CONNECT PANEL          — CP open/close, form submit
+//   6.  MODALS                 — openModal(), closeModal()
+//   7.  FORM SUBMIT            — sponsor & join-us form handlers
+//   8.  SPLASH SEQUENCE        — cinematic loading animation
+//   9.  TAB HTML               — HTML injection for each tab
+//  10.  SIMULATION CAROUSEL    — GSAP-driven sim carousel
+//  11.  INIT ON LOAD           — DOMContentLoaded bootstrap
+//  12.  HERO ANIMATION         — homepage typography entrance
+//  13.  SMOOTH SCROLL          — Lenis momentum scroll
+//  14.  MOBILE                 — mobile menu & accordion logic
+//  15.  SUBTEAM LEADS          — leads section scroll animation
+// ============================================================
+
+// ============================================================
+// 1. TAB SWITCHING
+// Controls which tab panel is visible. Also handles
+// light/dark theme toggling when the sponsors tab is active.
+// ============================================================
+
 // ===== TAB SWITCHING =====
 function showTabBase(name) {
     if (name === 'sponsors') {
@@ -96,6 +124,12 @@ function showTab(name) {
     showTabBase(name);
 }
 
+// ============================================================
+// 2. TEAM MEMBER CONTENT
+// HTML string builders for each member's detail panel
+// (biography, role, social links, etc.).
+// ============================================================
+
 // ===== TEAM MEMBER DETAIL CONTENT =====
 // Domain label, three role paragraphs, and a showcase image per member
 /*
@@ -169,6 +203,12 @@ const TEAM_MEMBER_DETAILS = {
         caption: 'Mechanical · Frame Design'
     }
 };
+
+// ============================================================
+// 3. TEAM DATA
+// Array of member objects: name, role, subteam, bio,
+// photo path, and social links.
+// ============================================================
 
 // ===== TEAM DATA =====
 const TEAM_MEMBERS = [
@@ -651,6 +691,12 @@ function initTeamHero() {
     });
 }
 
+// ============================================================
+// 5. CONNECT PANEL
+// Slide-in panel with quick Join / Sponsor forms.
+// Toggled from the top-right navbar button.
+// ============================================================
+
 // ===== CONNECT PANEL =====
 let cpOpen = false;
 let cpActiveTab = 'member';
@@ -749,6 +795,12 @@ function submitCPSponsor() {
 // ===== TEAM EMAIL =====
 const TEAM_EMAIL = 'team.trinetra2026@gmail.com';
 
+// ============================================================
+// 6. MODALS
+// Full-screen overlay modals (Sponsor enquiry, Join Us).
+// openModal(id) / closeModal(id) / closeModalOutside()
+// ============================================================
+
 // ===== MODAL OPEN / CLOSE =====
 function openModal(id) {
     document.getElementById('modal-' + id).classList.add('open');
@@ -769,6 +821,12 @@ document.addEventListener('keydown', (e) => {
         ['sponsors', 'joinus'].forEach(id => closeModal(id));
     }
 });
+
+// ============================================================
+// 7. FORM SUBMIT
+// Handlers for the sponsor enquiry and join-us forms.
+// Validates fields and sends data via EmailJS.
+// ============================================================
 
 // ===== SPONSOR FORM SUBMIT =====
 function submitSponsor() {
@@ -894,9 +952,29 @@ function startGeolocation() {
     );
 }
 
+// ============================================================
+// 8. SPLASH SEQUENCE
+// Cinematic intro animation on first page load.
+// Calls onComplete() callback when finished.
+// ============================================================
+
 // ===== SPLASH SEQUENCE =====
 
 function runSplash(onComplete) {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('tab')) {
+        const splash = document.getElementById('minimal-splash');
+        if (splash) splash.style.display = 'none';
+        const titlebar = document.getElementById('titlebar');
+        const toolbar = document.getElementById('toolbar');
+        const main = document.getElementById('main');
+        [titlebar, toolbar, main].forEach(el => {
+            if (el) { el.style.opacity = '1'; el.style.visibility = 'visible'; }
+        });
+        if (onComplete) onComplete();
+        return;
+    }
+
     const titlebar = document.getElementById('titlebar');
     const toolbar = document.getElementById('toolbar');
     const main = document.getElementById('main');
@@ -989,6 +1067,12 @@ function runSplash(onComplete) {
 }
 
 
+// ============================================================
+// 9. TAB HTML
+// HTML injection functions that load each tab's markup
+// from tabs/*.html via fetch() on first activation.
+// ============================================================
+
 // ===== TAB HTML =====
 // Dynamically load tabs from external HTML files
 async function loadTabs() {
@@ -1057,7 +1141,13 @@ async function loadTabs() {
     }
 }
 
-// ===== SIMULATION CAROUSEL (GSAP) =========
+// ============================================================
+// 10. SIMULATION CAROUSEL
+// GSAP ScrollTrigger-based pinned carousel for the
+// simulation slides section.
+// ============================================================
+
+// ===== SIMULATION CAROUSEL (GSAP) =====
 function initSimCarousel() {
     const slides = document.querySelectorAll('.sv-slide');
     if (!slides.length) return;
@@ -1228,6 +1318,12 @@ function initSimCarousel() {
     }, { passive: true });
 }
 
+// ============================================================
+// 11. INIT ON LOAD
+// DOMContentLoaded bootstrap: runs splash, injects tab HTML,
+// mounts React components, and sets up all event listeners.
+// ============================================================
+
 // ===== INITIALISE ON LOAD =====
 document.addEventListener('DOMContentLoaded', async () => {
     await loadTabs();          // inject all tab HTML first
@@ -1235,10 +1331,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         initHeroAnimation();
         initSimCarousel();
         initPlanMap();         // populates team cards immediately
-        showTab('home');       // make home/data tab visible as default
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const targetTab = urlParams.get('tab') || 'home';
+        
+        showTab(targetTab);
         setTimeout(() => {
             const dt = document.getElementById('data-tab');
-            if (dt) dt.classList.add('home-visible');
+            if (dt && targetTab === 'home') dt.classList.add('home-visible');
+            
+            if (window.location.hash) {
+                const targetId = window.location.hash.substring(1);
+                const el = document.getElementById(targetId);
+                if (el) {
+                    setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+                }
+            }
         }, 40);
 
         // Hide/Show Toolbar on Scroll
@@ -1380,6 +1488,12 @@ function makeResizable(resizerId, targetId) {
 }
 
 // Removed as per request to keep it static
+// ============================================================
+// 12. HERO ANIMATION
+// Entrance animation for the homepage hero typography.
+// Uses GSAP + SplitText for word/character reveals.
+// ============================================================
+
 // ===== HERO TYPOGRAPHY ANIMATION =====
 function initHeroAnimation() {
     const heroTextContainer = document.getElementById('hero-text-container');
@@ -1538,6 +1652,12 @@ function initHeroAnimation() {
     setTimeout(runCycle, 500);
 }
 
+// ============================================================
+// 13. SMOOTH SCROLL
+// Lenis smooth momentum scroll initialisation.
+// Disabled on mobile for native feel.
+// ============================================================
+
 // ===== SMOOTH MOMENTUM SCROLL =====
 (function () {
     // Ease-out factor: lower = slower deceleration, higher = snappier stop
@@ -1615,6 +1735,11 @@ function initHeroAnimation() {
     }, { passive: false });
 })();
 
+// ============================================================
+// 14. MOBILE
+// Mobile hamburger menu toggle and accordion footer logic.
+// ============================================================
+
 // ===== MOBILE MENU LOGIC =====
 let mobileMenuOpen = false;
 window.toggleMobileMenu = function () {
@@ -1648,6 +1773,12 @@ window.toggleAccordion = function (headerElement) {
         item.classList.add('active');
     }
 };
+
+// ============================================================
+// 15. SUBTEAM LEADS ANIMATION
+// Scroll-triggered entrance animation for the subteam
+// leads grid section on the team tab.
+// ============================================================
 
 // ===== SUBTEAM LEADS ANIMATION =====
 document.addEventListener("DOMContentLoaded", () => {

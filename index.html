@@ -12,12 +12,19 @@
     <script src="vendor/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="dist/gradientJourneyBundle.css">
+    <link rel="stylesheet" href="dist/galleryCarouselBundle.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             corePlugins: {
                 preflight: false,
             }
+        }
+    </script>
+    <script>
+        // Prevent splash screen flash on deep-links
+        if (window.location.search.includes('tab=')) {
+            document.write('<style>#minimal-splash { display: none !important; }</style>');
         }
     </script>
 </head>
@@ -1496,8 +1503,8 @@
 
 
     <script src="dist/sponsorButtonBundle.js"></script>
-    <script src="dist/skiper19Bundle.js"></script>
-    <script src="dist/skiper30Bundle.js"></script>
+    <script src="dist/parallaxTimelineBundle.js"></script>
+    <script src="dist/galleryCarouselBundle.js"></script>
     <script src="dist/gradientJourneyBundle.js"></script>
 </body>
 

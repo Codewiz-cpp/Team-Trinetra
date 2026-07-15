@@ -1,4 +1,32 @@
-/* ===== GALLERY ===== */
+/* ============================================================
+   style.css — Team Trinetra
+   Main stylesheet for the Team Trinetra website.
+
+   SECTIONS (use Ctrl+F on the section name to jump):
+     1.  FONTS          — @font-face declarations
+     2.  GLOBAL RESET   — box-sizing, scrollbar, base typography
+     3.  LOADING        — cinematic splash / loading screen
+     4.  MODALS         — MP-style modal overlays & forms
+     5.  NAVBAR         — toolbar, brand block, nav tabs
+     6.  CONNECT PANEL  — sliding connect/CP panel & forms
+     7.  TAB SHELL      — tab layout wrapper, content area
+     8.  SIMULATION TAB — GSAP carousel, slides
+     9.  VEHICLES TAB   — vehicle entry list
+    10.  SPONSORS TAB   — hero, feature section, CTA
+    11.  HOME TAB       — hero viewport, video, bento, typography
+    12.  TEAM TAB       — plan map, member cards, detail panel
+    13.  JOURNEY TAB    — standalone + SPA journey page
+    14.  REACT COMPONENTS — React-rendered UI (sponsor button, gallery)
+    15.  MOBILE         — responsive overrides & mobile menu
+   ============================================================ */
+
+/* ============================================================
+   1. FONTS
+   Custom @font-face declarations — Gallery, Elios, Sigurd,
+   and Helvetica Neue weight variants.
+   ============================================================ */
+
+/* -- Gallery -- */
 @font-face {
     font-family: 'gallery';
     src: url('fonts/Gallery.otf') format('opentype');
@@ -7,7 +35,7 @@
     font-display: swap;
 }
 
-/* ===== ELIOS REGULAR ===== */
+/* -- Elios Regular -- */
 @font-face {
     font-family: 'Elios Regular';
     src: url('fonts/Elios.ttf') format('truetype');
@@ -16,7 +44,7 @@
     font-display: swap;
 }
 
-/* ===== SIGURD ===== */
+/* -- Sigurd -- */
 
 @font-face {
     font-family: 'Sigurd';
@@ -26,7 +54,7 @@
     font-display: swap;
 }
 
-/* ===== HELVETICA NEUE FONT FACES ===== */
+/* -- Helvetica Neue (all weights 100–900) -- */
 
 /* Ultra Light â€” 100 */
 @font-face {
@@ -164,6 +192,12 @@
     font-display: swap;
 }
 
+/* ============================================================
+   2. GLOBAL RESET
+   Universal reset, custom scrollbar styling, and base body
+   typography settings.
+   ============================================================ */
+
 /* ===== GLOBAL RESET ===== */
 * {
     margin: 0;
@@ -190,6 +224,12 @@ body {
     width: 0;
     height: 0;
 }
+
+/* ============================================================
+   3. LOADING / SPLASH SCREEN
+   Full-screen cinematic intro animation shown on first load.
+   Fades out after the splash sequence completes.
+   ============================================================ */
 
 /* ===== CINEMATIC LOADING SCREEN ===== */
 #minimal-splash {
@@ -264,6 +304,12 @@ body {
     }
 }
 
+
+/* ============================================================
+   4. MODALS
+   App-global modal overlays (Sponsor enquiry, Join Us).
+   Triggered via openModal() / closeModal() in script.js.
+   ============================================================ */
 
 /* ===== MP-STYLE MODALS ===== */
 .mp-modal-overlay {
@@ -572,6 +618,12 @@ body {
     display: inline-block;
 }
 
+/* ============================================================
+   5. NAVBAR & TOOLBAR
+   Top navigation bar, brand block, tab buttons, and the
+   "Connect With Us" dropdown group.
+   ============================================================ */
+
 /* Right side toolbar */
 #toolbar-right {
     flex: 1;
@@ -726,6 +778,12 @@ body {
     white-space: nowrap;
     font-family: 'Helvetica Neue', Helvetica;
 }
+
+/* ============================================================
+   6. CONNECT PANEL
+   Sliding overlay panel for Join / Sponsor quick forms.
+   Toggled via toggleConnectPanel() in script.js.
+   ============================================================ */
 
 /* ===== CONNECT PANEL ===== */
 #connect-wrap {
@@ -939,6 +997,12 @@ body {
 
 
 
+/* ============================================================
+   7. TAB SHELL
+   Layout wrapper for the main content area. Each tab
+   (home, team, sponsors …) is shown/hidden via showTab().
+   ============================================================ */
+
 /* Main content */
 #main {
     flex: 1;
@@ -1018,6 +1082,11 @@ body.simulation-active #toolbar:hover {
 #sim-tab {
     box-sizing: border-box;
 }
+
+/* ============================================================
+   8. SIMULATION TAB
+   GSAP-driven carousel for flight-simulation slides.
+   ============================================================ */
 
 /* ===== SIMULATION TAB ===== */
 #sim-tab {
@@ -1241,7 +1310,12 @@ body.simulation-active #toolbar:hover {
 
 
 
-/* ======================================================
+/* ============================================================
+   9. VEHICLES TAB
+   Vehicle entry list with editorial layout and hover states.
+   ============================================================ */
+
+/* ========================================================
    SPONSORS TAB
 ====================================================== */
 
@@ -1291,6 +1365,12 @@ body.simulation-active #toolbar:hover {
     gap: 0;
     min-height: calc(100vh - 50px - ((100cqw - 100px) * 0.101));
 }
+
+/* ============================================================
+   10. SPONSORS TAB
+   Hero section, partner feature cards, and CTA area.
+   React sponsor button styles live in section 14.
+   ============================================================ */
 
 /* Category eyebrow â€” "OUR PARTNERS" */
 #sp-hero-category {
@@ -1606,7 +1686,7 @@ body.simulation-active #toolbar:hover {
 #sp-cta-section {
     width: 100%;
     margin: 0 auto;
-    padding: 90px 60px calc(80px + 30vh);
+    padding: 90px 60px 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2184,6 +2264,12 @@ body.simulation-active #toolbar:hover {
     display: block;
 }
 
+/* ============================================================
+   11. HOME TAB
+   Hero viewport, background video, bento grid, and hero
+   typography overlay. Hardware-accelerated GPU layers.
+   ============================================================ */
+
 /* ===== UNIFIED HOME HERO VIEWPORT ===== */
 #home-hero {
     position: relative;
@@ -2537,18 +2623,57 @@ body.sponsors-light-theme .hamburger-line {
     background-color: #000000 !important;
 }
 
+/* ============================================================
+   14. REACT COMPONENTS
+   Styles for React-rendered UI islands bundled via esbuild.
+   Source lives in react-builder/src/.
+   Components: ExpandableSponsorButton, GalleryCarousel,
+               ParallaxTimeline, VehicleSwiper.
+   ============================================================ */
+
 /* -- React Sponsor Component Styles -- */
 .react-sp-container {
     position: relative;
     display: flex;
-    overflow: hidden;
+    width: fit-content;
     margin: 0 auto;
 }
 
+/* Desktop: fixed-height anchor so expansion doesn't push footer */
+@media (min-width: 901px) {
+    #react-sponsor-button-root {
+        position: relative;
+        min-height: 480px;
+        margin-top: 24px !important;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    #react-sponsor-button-root > div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .react-sp-button-collapsed {
+        width: fit-content !important;
+    }
+
+    .react-sp-container.react-sp-button-collapsed {
+        width: fit-content !important;
+    }
+}
+
 .react-sp-button-collapsed {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    width: auto;
     margin-top: 8px;
     padding: 16px 44px;
     color: #ffffff;
@@ -3138,6 +3263,12 @@ body.sponsors-light-theme .hamburger-line {
     transform: translateX(0) scale(1);
 }
 
+/* ============================================================
+   12. TEAM TAB
+   Plan/map view, team member cards, and the sliding
+   detail panel with biography and social links.
+   ============================================================ */
+
 /* ===== OFF-WHITE CONTENT SECTION ===== */
 #off-white-section {
     width: 100%;
@@ -3390,6 +3521,12 @@ body.sponsors-light-theme .hamburger-line {
     }
 }
 
+/* ============================================================
+   13. JOURNEY TAB
+   Styles shared by the standalone journey.html page
+   and the SPA journey tab mode inside index.html.
+   ============================================================ */
+
 /* ===== JOURNEY TAB ===== */
 #journey-tab {
     display: none;
@@ -3557,6 +3694,13 @@ body.journey-active #toolbar {
         opacity: 1;
     }
 }
+
+/* ============================================================
+   15. MOBILE
+   All responsive overrides, mobile menu, accordion footer,
+   and mobile-specific layout adjustments.
+   Breakpoints: 768px (tablet), 900px (small desktop).
+   ============================================================ */
 
 /* ===== MOBILE MENU (Hidden on Desktop) ===== */
 #mobile-menu-btn {

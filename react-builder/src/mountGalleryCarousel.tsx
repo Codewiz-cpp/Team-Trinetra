@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Skiper30 } from './skiper30';
+import { Skiper30 } from './GalleryCarousel';
 
 const container = document.getElementById('skiper30-root');
 const simTab = document.getElementById('sim-tab');

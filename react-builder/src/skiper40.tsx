@@ -1,3 +1,14 @@
+// ============================================================
+// skiper40.tsx — Animated Link Variants (REFERENCE / UNUSED)
+//
+// This file is NOT bundled or used by the live site.
+// It is kept here as a design reference for animated link
+// hover effects, adapted from cursor.com interaction patterns.
+//
+// If you want to use any of these Link components, import
+// them into a mount file and add an esbuild entry in watch.js.
+// ============================================================
+
 "use client";
 
 import Link from "next/link";
