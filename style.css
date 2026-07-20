@@ -799,9 +799,11 @@ body {
     top: calc(100% + 2px);
     right: 0;
     width: 360px;
-    background: #1a1a1a;
-    border: 1px solid #2e4a00;
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.85), 0 0 0 1px #111;
+    background: rgba(15, 15, 15, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.85);
     z-index: 8000;
     border-radius: 0 0 3px 3px;
     animation: cpSlideDown 0.2s cubic-bezier(0.22, 1, 0.36, 1);
@@ -827,8 +829,8 @@ body {
 #cp-toggle-wrap {
     position: relative;
     display: flex;
-    background: #111;
-    border-bottom: 1px solid #2a2a2a;
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     margin: 0;
     padding: 5px;
     gap: 0;
@@ -840,8 +842,8 @@ body {
     left: 5px;
     width: calc(50% - 5px);
     bottom: 5px;
-    background: #2a5000;
-    border: 1px solid #4a8000;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 2px;
     transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
@@ -856,7 +858,7 @@ body {
     flex: 1;
     background: none;
     border: none;
-    color: #999;
+    color: #888;
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.8px;
@@ -873,7 +875,7 @@ body {
 }
 
 .cp-tab:not(.active):hover {
-    color: #ddd;
+    color: #ccc;
 }
 
 /* Forms */
@@ -887,7 +889,7 @@ body {
     font-size: 12px;
     color: #aaa;
     margin-bottom: 12px;
-    border-left: 2px solid #3a5a00;
+    border-left: 2px solid #fff;
     padding-left: 8px;
     line-height: 1.6;
 }
@@ -912,32 +914,37 @@ body {
 .cp-select,
 .cp-textarea {
     flex: 1;
-    background: #111;
-    border: 1px solid #333;
-    color: #ddd;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #eee;
     font-size: 12px;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     padding: 4px 8px;
     outline: none;
     border-radius: 2px;
-    transition: border-color 0.15s;
+    transition: border-color 0.15s, background 0.15s;
 }
 
 .cp-input:focus,
 .cp-select:focus,
 .cp-textarea:focus {
-    border-color: #5a8a00;
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .cp-input::placeholder,
 .cp-textarea::placeholder {
-    color: #555;
+    color: #666;
     font-size: 12px;
 }
 
 .cp-select {
     height: 26px;
     cursor: pointer;
+}
+.cp-select option {
+    background: #111;
+    color: #eee;
 }
 
 .cp-textarea {
@@ -950,17 +957,17 @@ body {
     display: flex;
     justify-content: flex-end;
     padding: 8px 0 10px;
-    border-top: 1px solid #222;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     margin-top: 6px;
 }
 
 .cp-btn-submit {
-    background: #2a5000;
-    border: 1px solid #4a8000;
-    color: #c8e880;
-    padding: 5px 20px;
+    background: #fff;
+    border: none;
+    color: #000;
+    padding: 6px 20px;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     border-radius: 2px;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -969,7 +976,7 @@ body {
 }
 
 .cp-btn-submit:hover {
-    background: #356000;
+    background: #e0e0e0;
 }
 
 
@@ -1058,7 +1065,8 @@ body.simulation-active #toolbar:hover {
 #plan-tab {
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     background: #000;
     padding-top: 83px;
     box-sizing: border-box;
@@ -4211,4 +4219,99 @@ body.journey-active #toolbar {
     .react-sp-form-expanded {
         padding: 24px !important;
     }
+}
+
+/* ============================================================
+   SEARCH MODAL
+   ============================================================ */
+#search-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 10vh;
+}
+#search-modal.hidden {
+    display: none;
+}
+.search-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+.search-modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    background: rgba(15, 15, 15, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.search-input-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.search-input-wrapper svg {
+    color: #888;
+    flex-shrink: 0;
+}
+#search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    padding: 0 16px;
+    outline: none;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+#search-input::placeholder {
+    color: #666;
+}
+.search-close {
+    cursor: pointer;
+    color: #888;
+    transition: color 0.2s;
+    display: flex;
+}
+.search-close:hover {
+    color: #fff;
+}
+#search-results {
+    max-height: 50vh;
+    overflow-y: auto;
+}
+.search-result-item {
+    padding: 16px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    transition: background 0.2s;
+}
+.search-result-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+.search-result-title {
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+.search-result-desc {
+    color: #888;
+    font-size: 12px;
+}
+.search-no-results {
+    padding: 24px;
+    text-align: center;
+    color: #888;
+    font-size: 14px;
 }

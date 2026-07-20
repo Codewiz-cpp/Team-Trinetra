@@ -1802,3 +1802,64 @@ document.addEventListener("DOMContentLoaded", () => {
         observer.observe(el);
     });
 });
+
+// ============================================================
+// 19. SEARCH MODAL FUNCTIONALITY
+// ============================================================
+
+const searchIndex = [
+    { title: "Home", keywords: "home, main, intro, start", action: () => showTab('home') },
+    { title: "Team & Members", keywords: "team, members, lead, faculty, parth soni, yashwant sawle, leads, subteams", action: () => showTab('plan') },
+    { title: "UAV Vehicles", keywords: "vehicles, drones, quadcopter, hexacopter, fixed wing, models, specs", action: () => showTab('vehicles') },
+    { title: "Sponsors & Partners", keywords: "sponsors, partners, support, funding, collaborate", action: () => showTab('sponsors') },
+    { title: "Gallery & Simulations", keywords: "gallery, photos, simulation, videos, media", action: () => showTab('simulation') },
+    { title: "Our Journey", keywords: "journey, history, timeline, about us, story", action: () => showTab('journey') },
+];
+
+function toggleSearchPanel() {
+    const modal = document.getElementById('search-modal');
+    const input = document.getElementById('search-input');
+    if (modal.classList.contains('hidden')) {
+        modal.classList.remove('hidden');
+        setTimeout(() => input.focus(), 100);
+    } else {
+        modal.classList.add('hidden');
+        input.value = '';
+        document.getElementById('search-results').innerHTML = '';
+    }
+}
+
+function handleSearch(e) {
+    const query = e.target.value.toLowerCase().trim();
+    const resultsContainer = document.getElementById('search-results');
+    
+    if (!query) {
+        resultsContainer.innerHTML = '';
+        return;
+    }
+
+    const matches = searchIndex.filter(item => 
+        item.title.toLowerCase().includes(query) || 
+        item.keywords.toLowerCase().includes(query)
+    );
+
+    if (matches.length === 0) {
+        resultsContainer.innerHTML = '<div class="search-no-results">No results found for "'+query+'"</div>';
+        return;
+    }
+
+    resultsContainer.innerHTML = matches.map((match, i) => `
+        <div class="search-result-item" onclick="executeSearchAction('${match.title}')">
+            <div class="search-result-title">${match.title}</div>
+            <div class="search-result-desc">Section matching: ${query}</div>
+        </div>
+    `).join('');
+}
+
+function executeSearchAction(title) {
+    const match = searchIndex.find(item => item.title === title);
+    if(match) {
+        match.action();
+        toggleSearchPanel();
+    }
+}

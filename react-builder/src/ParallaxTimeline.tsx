@@ -5,35 +5,36 @@ import React, { useRef, useState, useEffect } from "react";
 
 const timelineData = [
   {
-    title: "The Launchpad: DroneX Club and VyomDrones",
+    title: "DroneX Club and VyomDrones",
     description: "Every great engineering story is written in the language of the problems it had to solve. For us, stepping onto the international stage for SUAS 2026 meant building specialized technical baselines completely from the ground up. We found our footing by combining the foundational energy of the DroneX Club with a crucial partnership with VyomDrones, which opened the doors to advanced hardware testing like the Jetson Orin NX and LiDAR systems."
   },
   {
-    title: "The Architecture: Choosing Our Wings",
+    title: "Choosing Our Wings",
     description: "With the workspace secured, our first major design fork was deciding on the perfect aircraft configuration. The competition demanded a system capable of stable flight, high payload capacity, and autonomous accuracy. After endless technical report analysis and intense debates, we mapped the exact trade-offs required to lock in the ultimate flight strategy for the mission profile."
   },
   {
-    title: "The Diet: Structural Weight Optimization",
+    title: "Structural Weight Optimization",
     description: "Once the architectural concept was set, the physical battle against weight optimization began. The drone had to lift serious payloads while remaining incredibly agile and strictly within the competition's weight threshold. Kuldeep tackled this head-on by continually trimming out mass through custom frame iterations to achieve a beautiful equilibrium of structural stability and featherlight efficiency."
   },
   {
-    title: "The Drop: Iterating the Payload Pulley",
-    description: "This structural evolution paved the way for our custom payload delivery mechanism. Dropping ground beacons successfully required a reliable deployment system that could handle landing impacts without mechanical failure. Early tests involved dropping dummy beacons from building roofs, but after a string of mechanical pulley iterations, we graduated to flawless, real-time aerial drops under professional industry guidance."
+    title: "Iterating the Payload Pulley",
+    description: "This structural evolution paved the way for our custom payload delivery mechanism. Dropping ground beacons successfully required a reliable deployment system that could handle landing impacts without mechanical failure. Early tests involved dropping dummy beacons from building roofs, but after a string of mechanical pulley iterations, we graduated to flawless, real-time aerial drops under professional industry guidance.",
+    images: ["images/Gallery/16.webp", "images/Gallery/17.webp"]
   },
   {
-    title: "The Skeleton: Front and Back Plate Evolution",
+    title: "Front and Back Plate Evolution",
     description: "Simultaneously, we wrestled with the frame geometry itself, pushing through multiple front and back plate iterations. Securing custom components like the battery, PDB, and processing units required precise frame plates that wouldn't warp or flex under operational stress. This relentless push for optimization guaranteed our core electronic layout remained secure under pressure."
   },
   {
-    title: "The Identity: Refining the Digital Front",
+    title: "Refining the Digital Front",
     description: "Our optimization extended far beyond the hardware and into our public face. The website went through three complete thematic overhauls—evolving from a blank canvas to an old-school ArduPilot layout that felt too antique, before I stepped in to entirely rewrite the frontend into the premium, high-tech interface it is today."
   },
   {
-    title: "The Power: Spot-Welding the 6S6P Battery",
+    title: "Spot-Welding the 6S6P Battery",
     description: "The final milestones brought our heaviest engineering breakthroughs. Off-the-shelf power options couldn't meet our endurance requirements, so we custom-built our own battery packs, splitting and spot-welding a massive 6S6P cell structure to safely deliver high current within strict competition parameters."
   },
   {
-    title: "The Brain: Custom Vision Integration",
+    title: "Custom Vision Integration",
     description: "At the same moment, the brain of the drone was coming alive. Real-time object detection and classification required seamless communication between the onboard camera systems, a tracking gimbal, and the processing stack. Moksh seamlessly bridged the ROS2 and Gazebo simulation stack with our tracking hardware, training our vision algorithms on a custom-built dataset to ensure our drone could think and detect with absolute precision mid-flight."
   },
 ];
@@ -44,7 +45,12 @@ const TimelineCard = ({ data, index, isMobile }: { data: any, index: number, isM
   // Generous spacing per entry so picture slots are comfortable
   const yStart = 60;
   const yEnd = isMobile ? 4800 : 2400;
-  const yPos = yStart + (index / (timelineData.length - 1)) * (yEnd - yStart);
+  let yPos = yStart + (index / (timelineData.length - 1)) * (yEnd - yStart);
+
+  // Shift items down after the one with images (index 3)
+  if (index > 3) {
+    yPos += isMobile ? 300 : 250;
+  }
 
   const leftPos = isMobile ? '30px' : '50%';
   const transformVal = isMobile
@@ -134,6 +140,15 @@ const TimelineCard = ({ data, index, isMobile }: { data: any, index: number, isM
           </p>
         </div>
 
+        {/* Images */}
+        {data.images && (
+          <div className="flex flex-wrap gap-4 mt-8">
+            {data.images.map((img: string, i: number) => (
+              <img key={i} src={img} alt={`${data.title} - ${i}`} className="w-[45%] md:w-[48%] object-cover" />
+            ))}
+          </div>
+        )}
+
         {/* Extra breathing room below */}
         <div style={{ height: '80px' }} />
       </div>
@@ -159,7 +174,7 @@ const Skiper19 = () => {
 
   const pathLength = useSpring(scrollYProgress, { stiffness: 50, damping: 20 });
 
-  const containerHeight = isMobile ? 5400 : 2900;
+  const containerHeight = isMobile ? 5700 : 3150;
 
   return (
     <div ref={containerRef} style={{ position: "relative", width: "100vw", left: "50%", transform: "translateX(-50%)", height: `${containerHeight}px`, marginTop: "40px" }}>

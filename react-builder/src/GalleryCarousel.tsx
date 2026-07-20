@@ -46,6 +46,17 @@ const galleryPhotos = [
   "images/Gallery/4.webp",
   "images/Gallery/5.webp",
   "images/Gallery/7.webp",
+  "images/Gallery/g31.jpeg",
+  "images/Gallery/g32.jpeg",
+  "images/Gallery/g33.jpeg",
+  "images/Gallery/g34.jpeg",
+  "images/Gallery/g35.jpeg",
+  "images/Gallery/g36.jpeg",
+  "images/Gallery/g37.jpeg",
+  "images/Gallery/g38.jpeg",
+  "images/Gallery/g39.jpeg",
+  "images/Gallery/g40.jpeg",
+  "images/Gallery/g41.jpeg",
 ];
 
 const Skiper30 = () => {
@@ -180,22 +191,22 @@ const Skiper30 = () => {
         {/* Horizontal scroll container without scrollbars */}
         <div className="relative group/library">
           {/* Scroll Arrows */}
-          <button 
-            onClick={() => scrollLibrary('left')} 
+          <button
+            onClick={() => scrollLibrary('left')}
             className="absolute left-2 md:left-6 top-1/2 -translate-y-[100%] z-30 text-white bg-transparent border-none p-2 opacity-75 md:opacity-0 group-hover/library:opacity-100 transition-all duration-300 hover:text-gray-300 hover:scale-110 cursor-pointer"
           >
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
           </button>
-          <button 
-            onClick={() => scrollLibrary('right')} 
+          <button
+            onClick={() => scrollLibrary('right')}
             className="absolute right-2 md:right-6 top-1/2 -translate-y-[100%] z-30 text-white bg-transparent border-none p-2 opacity-75 md:opacity-0 group-hover/library:opacity-100 transition-all duration-300 hover:text-gray-300 hover:scale-110 cursor-pointer"
           >
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
 
-          <div 
+          <div
             ref={photoLibraryScrollRef}
-            className="w-full overflow-x-auto pb-10 hide-scrollbar scroll-smooth" 
+            className="w-full overflow-x-auto pb-10 hide-scrollbar scroll-smooth"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             <div className="grid grid-rows-2 grid-flow-col gap-4 px-[5vw] w-max">
