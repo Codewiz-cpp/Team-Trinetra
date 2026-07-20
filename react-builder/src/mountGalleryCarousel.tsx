@@ -7,7 +7,7 @@ const simTab = document.getElementById('sim-tab');
 
 if (container && simTab) {
   const observer = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) {
+    if (entries[0]?.isIntersecting) {
       observer.disconnect();
       const root = createRoot(container);
       root.render(<Skiper30 />);

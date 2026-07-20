@@ -11,10 +11,13 @@
 
 "use client";
 
-import Link from "next/link";
 import React from "react";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
-import { cn } from "@/lib/utils";
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 const Skiper40 = () => {
   return (
@@ -42,7 +45,7 @@ const Link000 = ({
   className?: string;
 }) => {
   return (
-    <Link
+    <a
       href={href}
       className={cn(
         "group relative flex items-center",
@@ -53,7 +56,7 @@ const Link000 = ({
       )}
     >
       {children}
-    </Link>
+    </a>
   );
 };
 const Link001 = ({

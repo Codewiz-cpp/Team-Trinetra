@@ -2,6 +2,7 @@
 
 import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
 import Lenis from "lenis";
+// @ts-ignore
 import SideRays from './SideRays';
 import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -168,15 +169,15 @@ const Skiper30 = () => {
       >
         {dimension.width > 0 && dimension.width < 768 ? (
           <>
-            <Column images={[images[0], images[1], images[2], images[3], images[4], images[5]]} y={y} />
-            <Column images={[images[6], images[7], images[8], images[9], images[10], images[11]]} y={y2} />
+            <Column images={images.slice(0, 6)} y={y} />
+            <Column images={images.slice(6, 12)} y={y2} />
           </>
         ) : (
           <>
-            <Column images={[images[0], images[1], images[2]]} y={y} />
-            <Column images={[images[3], images[4], images[5]]} y={y2} />
-            <Column images={[images[6], images[7], images[8]]} y={y3} />
-            <Column images={[images[9], images[10], images[11]]} y={y4} />
+            <Column images={images.slice(0, 3)} y={y} />
+            <Column images={images.slice(3, 6)} y={y2} />
+            <Column images={images.slice(6, 9)} y={y3} />
+            <Column images={images.slice(9, 12)} y={y4} />
           </>
         )}
       </div>
