@@ -169,7 +169,7 @@ const Skiper19 = () => {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 85%", "end bottom"]
+    offset: ["start 85%", "end end"]
   });
 
   const pathLength = useSpring(scrollYProgress, { stiffness: 50, damping: 20 });
