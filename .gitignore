@@ -3,7 +3,7 @@ package-lock.json
 tools/imagemagick.zip
 
 # Compiled React bundles — contributors must run `cd react-builder && npm run build`
-dist/
+# dist/
 
 # Inner Next.js prototype project (not part of the main site)
 Team Trinetra/node_modules/
