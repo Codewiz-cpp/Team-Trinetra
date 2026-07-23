@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Demo - High Texture & Hover Effect</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #FFFFFF;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, sans-serif;
+        }
+
+        #map-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #FFFFFF; 
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            z-index: 1;
+        }
+
+        /* 
+         * Radial Fade (Vignette Effect) 
+         */
+        .vignette-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 20%, #FFFFFF 65%);
+            z-index: 1000;
+        }
+
+        /* 
+         * Land Area Styling
+         */
+        path.leaflet-interactive {
+            stroke: none !important;
+            filter: url(#grainy-texture);
+            transition: fill 0.3s ease; 
+        }
+
+        /* Custom Marker CSS */
+        .custom-div-icon {
+            position: relative;
+        }
+
+        .marker-pin {
+            width: 16px;
+            height: 16px;
+            background: #E60000;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+
+        .marker-pulse {
+            width: 44px;
+            height: 44px;
+            background: rgba(230, 0, 0, 0.15);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            /* Removed animation-delay so the radial wave animation starts immediately and is continuous */
+            animation: wave 2.5s infinite ease-out;
+        }
+
+        @keyframes wave {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(2.2);
+                opacity: 0;
+            }
+        }
+
+        /* Hover Card UI - Clean minimalist card from the inspiration */
+        .leaflet-tooltip.custom-card-tooltip {
+            background: #ffffff;
+            border: 1px solid #e8e8e8;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            padding: 24px 28px;
+            width: max-content;
+            pointer-events: none;
+            white-space: normal;
+        }
+
+        /* Remove the tooltip arrow entirely */
+        .leaflet-tooltip-top:before,
+        .leaflet-tooltip-bottom:before,
+        .leaflet-tooltip-left:before,
+        .leaflet-tooltip-right:before {
+            display: none !important;
+        }
+
+        .card-title {
+            margin: 0 0 10px 0;
+            font-size: 26px;
+            font-weight: 500;
+            color: #222222;
+            letter-spacing: -0.5px;
+        }
+
+        .card-subtitle {
+            margin: 0;
+            font-size: 15px;
+            color: #444444;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hidden SVG to define the uneven grain filter -->
+<svg style="width:0;height:0;position:absolute;" aria-hidden="true">
+    <defs>
+        <filter id="grainy-texture" x="-20%" y="-20%" width="140%" height="140%">
+            <!-- Increased numOctaves to 2 creates a more uneven, clumpy, organic texture -->
+            <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" result="noise" />
+            
+            <!-- High contrast threshold to extract strong stipple dots -->
+            <feColorMatrix type="matrix" 
+                           values="0 0 0 0 0.6  
+                                   0 0 0 0 0.6  
+                                   0 0 0 0 0.6  
+                                   5 0 0 0 -2.5" 
+                           in="noise" result="coloredNoise" />
+            
+            <feComposite operator="in" in="coloredNoise" in2="SourceGraphic" result="maskedNoise" />
+            
+            <feBlend mode="multiply" in="maskedNoise" in2="SourceGraphic" />
+        </filter>
+    </defs>
+</svg>
+
+<div id="map-container">
+    <div id="map"></div>
+    <div class="vignette-overlay"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+    // 1. Initialize map (Zoomed out from 4.5 to 3.8 as requested)
+    const map = L.map('map', {
+        center: [36.1540, -95.9925], 
+        zoom: 3.8, 
+        scrollWheelZoom: false,
+        zoomControl: false,
+        maxBounds: [[-90, -180], [90, 180]],
+        maxBoundsViscosity: 1.0
+    });
+
+    let usaLayer;
+
+    // 2. Fetch GeoJSON and draw landmasses
+    fetch('https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.json')
+        .then(response => response.json())
+        .then(data => {
+            L.geoJSON(data, {
+                style: {
+                    fillColor: '#E2E2E2',
+                    weight: 0, 
+                    fillOpacity: 1
+                },
+                onEachFeature: function(feature, layer) {
+                    if (feature.id === 'USA') {
+                        usaLayer = layer;
+                    }
+                }
+            }).addTo(map);
+        });
+
+    const pulseIcon = L.divIcon({
+        className: 'custom-div-icon',
+        html: `
+            <div class="marker-pulse"></div>
+            <div class="marker-pin"></div>
+        `,
+        iconSize: [48, 48],
+        iconAnchor: [24, 24]
+    });
+
+    // Updated location data based on your exact text
+    const tulsaLocation = { 
+        name: "Skyway 36", 
+        lat: 36.1540, 
+        lng: -95.9925,
+        desc: "Skyway 36 Droneport & Technology Innovation Center,<br>1211 West 36th St N, Tulsa, OK 74127."
+    };
+
+    const marker = L.marker([tulsaLocation.lat, tulsaLocation.lng], { icon: pulseIcon }).addTo(map);
+    
+    // Clean, image-less hover card matching the exact inspiration
+    // Properly interpolated without escaping the $ sign
+    const cardHtml = `
+        <h3 class="card-title">${tulsaLocation.name}</h3>
+        <p class="card-subtitle">${tulsaLocation.desc}</p>
+    `;
+
+    marker.bindTooltip(cardHtml, {
+        direction: 'left',
+        offset: [-30, 0],
+        className: 'custom-card-tooltip',
+        opacity: 1
+    });
+
+    marker.on('mouseover', function() {
+        if (usaLayer) {
+            usaLayer.setStyle({ fillColor: '#ffcdd2' }); // Turns USA pink
+        }
+    });
+
+    marker.on('mouseout', function() {
+        if (usaLayer) {
+            usaLayer.setStyle({ fillColor: '#E2E2E2' }); // Reverts back to gray
+        }
+    });
+</script>
+
+</body>
+</html>

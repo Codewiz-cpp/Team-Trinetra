@@ -1,23 +1,23 @@
-// ============================================================
-// script.js — Team Trinetra
+﻿// ============================================================
+// script.js â€” Team Trinetra
 // Main JavaScript file for the Team Trinetra website.
 //
 // SECTIONS (Ctrl+F the section name to jump):
-//   1.  TAB SWITCHING          — showTab(), showTabBase()
-//   2.  TEAM MEMBER CONTENT    — member detail HTML builders
-//   3.  TEAM DATA              — member objects array
-//   4.  TEAM UI                — cards, detail panel, animation
-//   5.  CONNECT PANEL          — CP open/close, form submit
-//   6.  MODALS                 — openModal(), closeModal()
-//   7.  FORM SUBMIT            — sponsor & join-us form handlers
-//   8.  SPLASH SEQUENCE        — cinematic loading animation
-//   9.  TAB HTML               — HTML injection for each tab
-//  10.  SIMULATION CAROUSEL    — GSAP-driven sim carousel
-//  11.  INIT ON LOAD           — DOMContentLoaded bootstrap
-//  12.  HERO ANIMATION         — homepage typography entrance
-//  13.  SMOOTH SCROLL          — Lenis momentum scroll
-//  14.  MOBILE                 — mobile menu & accordion logic
-//  15.  SUBTEAM LEADS          — leads section scroll animation
+//   1.  TAB SWITCHING          â€” showTab(), showTabBase()
+//   2.  TEAM MEMBER CONTENT    â€” member detail HTML builders
+//   3.  TEAM DATA              â€” member objects array
+//   4.  TEAM UI                â€” cards, detail panel, animation
+//   5.  CONNECT PANEL          â€” CP open/close, form submit
+//   6.  MODALS                 â€” openModal(), closeModal()
+//   7.  FORM SUBMIT            â€” sponsor & join-us form handlers
+//   8.  SPLASH SEQUENCE        â€” cinematic loading animation
+//   9.  TAB HTML               â€” HTML injection for each tab
+//  10.  SIMULATION CAROUSEL    â€” GSAP-driven sim carousel
+//  11.  INIT ON LOAD           â€” DOMContentLoaded bootstrap
+//  12.  HERO ANIMATION         â€” homepage typography entrance
+//  13.  SMOOTH SCROLL          â€” Lenis momentum scroll
+//  14.  MOBILE                 â€” mobile menu & accordion logic
+//  15.  SUBTEAM LEADS          â€” leads section scroll animation
 // ============================================================
 
 // ============================================================
@@ -135,72 +135,72 @@ function showTab(name) {
 /*
 const TEAM_MEMBER_DETAILS = {
     1: {
-        domain: 'Electrical · Team Lead',
+        domain: 'Electrical Â· Team Lead',
         paras: [
             'Oversees end-to-end electrical architecture of the UAV platform, including PCB layout, power distribution board design, and multi-rail voltage regulation for flight-critical subsystems.',
             'Drives camera integration pipelines and communication link design, ensuring low-latency video telemetry and reliable command uplinks across field test conditions.',
             'Coordinates cross-domain payload mechanism robotics and flight-time optimisation strategies, balancing power budgets against mission endurance requirements.'
         ],
         image: 'images/optimized/p.webp',
-        caption: 'Team Lead · Electrical'
+        caption: 'Team Lead Â· Electrical'
     },
     2: {
-        domain: 'PCB Design · Communications',
+        domain: 'PCB Design Â· Communications',
         paras: [
             'Designs multi-layer PCBs for flight controllers, sensor buses, and custom carrier boards, ensuring signal integrity and EMI compliance in vibration-intensive airframes.',
             'Responsible for power distribution board architecture, including eFuse protection, current sensing, and regulated output rails for avionics and payloads.',
             'Integrates camera modules and RF communication subsystems into the electrical stack, managing antenna placement and coaxial routing for maximum link margin.'
         ],
         image: 'images/optimized/h.webp',
-        caption: 'Electrical · PCB Design'
+        caption: 'Electrical Â· PCB Design'
     },
     3: {
-        domain: 'Ground Station · Telemetry',
+        domain: 'Ground Station Â· Telemetry',
         paras: [
             'Operates the ground control station during field missions, monitoring MAVLink telemetry streams and managing uplink commands to the autopilot in real time.',
-            'Designs and validates failsafe logic — including RTL triggers, geofence enforcement, and battery-critical land sequences — to ensure safe autonomous behaviour under edge-case conditions.',
+            'Designs and validates failsafe logic â€” including RTL triggers, geofence enforcement, and battery-critical land sequences â€” to ensure safe autonomous behaviour under edge-case conditions.',
             'Maintains and tunes the RF telemetry link, configuring data rates, channel hopping, and RSSI thresholds to sustain reliable communication at extended operational ranges.'
         ],
         image: 'images/optimized/Rishab.webp',
-        caption: 'Electrical · Ground Station'
+        caption: 'Electrical Â· Ground Station'
     },
     4: {
-        domain: 'Autonomous Navigation · AIML',
+        domain: 'Autonomous Navigation Â· AIML',
         paras: [
             'Develops autonomous waypoint path-planning algorithms and integrates ArduCopter mission scripting for fully autonomous sortie execution including payload release sequences.',
             'Fuses LIDAR point-cloud data with IMU and GPS streams for precise obstacle-aware navigation, enabling safe low-altitude flight in cluttered environments.',
             'Serves as the primary test pilot, executing hardware-in-the-loop simulation runs before transitioning algorithms to live flight trials on the competition platform.'
         ],
         image: 'images/optimized/ankitcopy.webp',
-        caption: 'AIML · Autonomous Navigation'
+        caption: 'AIML Â· Autonomous Navigation'
     },
     5: {
-        domain: 'Computer Vision · AI Systems',
+        domain: 'Computer Vision Â· AI Systems',
         paras: [
             'Trains and deploys YOLOv8-based object detection pipelines for real-time aerial target identification, optimised for latency-constrained onboard inference on edge hardware.',
             'Implements OpenCV-based image processing routines for target geolocation, coordinate projection, and mission-event triggering integrated with the autopilot command layer.',
             'Manages ground station visual display overlays, providing operators with annotated live feeds, confidence scores, and bounding-box telemetry during autonomous search missions.'
         ],
         image: 'images/optimized/m.webp',
-        caption: 'AIR · Computer Vision'
+        caption: 'AIR Â· Computer Vision'
     },
     6: {
-        domain: 'IT · Web Development & Technical Documentation',
+        domain: 'IT Â· Web Development & Technical Documentation',
         paras: [
             'Hello, I am Aryan Bhadoriya, a third-year undergrad leading our web development and technical documentation.Handling these two critical pillars for SUAS pushed me out of my comfort zone and taught me a lot about my capabilities.',
             'After focusing deeply on DSA during my first two years, this website marks my first major professional development project. Outside of coding and refining system schematics, I stay sharp and disciplined through chess and a love for fitness.',
             'Ultimately, I am driven to give my team a competitive edge and secure a top 3 spot for both Website and Technical Design.',
         ],
         image: 'images/optimized/a.webp',
-        caption: 'IT · Web DEV & Documentation'
+        caption: 'IT Â· Web DEV & Documentation'
     },
     7: {
-        domain: 'Mechanical · Frame Design',
+        domain: 'Mechanical Â· Frame Design',
         paras: [
-            'Hello, I am Kuldeep Sikarwar, a second-year Mechanical Engineering student at MITS Gwalior. As the CAD Designer for Team Trinetra, I design and validate our UAVs carbon fiber frame — using SolidWorks for precision modeling and ANSYS for structural, modal, and fatigue analysis. My mission is simple: build a structure that never fails when it matters most.',
+            'Hello, I am Kuldeep Sikarwar, a second-year Mechanical Engineering student at MITS Gwalior. As the CAD Designer for Team Trinetra, I design and validate our UAVs carbon fiber frame â€” using SolidWorks for precision modeling and ANSYS for structural, modal, and fatigue analysis. My mission is simple: build a structure that never fails when it matters most.',
         ],
         image: 'images/optimized/Kuldeepcopy.webp',
-        caption: 'Mechanical · Frame Design'
+        caption: 'Mechanical Â· Frame Design'
     }
 };
 
@@ -215,7 +215,7 @@ const TEAM_MEMBERS = [
     {
         id: 1,
         name: 'Parth Soni',
-        role: 'Team Lead · Electrical',
+        role: 'Team Lead Â· Electrical',
         initials: 'PS',
         color: '#c8c800',
         lat: 25.8910, lng: 78.3339,          // Dabra
@@ -227,7 +227,7 @@ const TEAM_MEMBERS = [
     {
         id: 2,
         name: 'Harsh Vardhan Kaushal',
-        role: 'Electrical · PCB Design',
+        role: 'Electrical Â· PCB Design',
         initials: 'HVK',
         color: '#4a9de0',
         lat: 26.2260, lng: 78.1540,              // DD Nagar, Gwalior
@@ -239,7 +239,7 @@ const TEAM_MEMBERS = [
     {
         id: 3,
         name: 'Rishabh Dohare',
-        role: 'Electrical · Ground Station',
+        role: 'Electrical Â· Ground Station',
         initials: 'RD',
         color: '#ee6644',
         lat: 24.8411, lng: 77.9797,          // Isagarh
@@ -251,10 +251,10 @@ const TEAM_MEMBERS = [
     {
         id: 4,
         name: 'Ankit Gurjar',
-        role: 'AIML · Navigation',
+        role: 'AIML Â· Navigation',
         initials: 'AG',
         color: '#44bb66',
-        lat: 26.33, lng: 78.29,              // Gwalior – NE (close)
+        lat: 26.33, lng: 78.29,              // Gwalior â€“ NE (close)
         city: 'Gwalior, Madhya Pradesh',
         branch: 'AIML', year: '2nd Year',
         work: 'Autonomous navigation and path planning, AI integration, pilot, sensor integration and LIDAR.',
@@ -263,10 +263,10 @@ const TEAM_MEMBERS = [
     {
         id: 5,
         name: 'Moksh Dandotiya',
-        role: 'AIR · AI / Computer Vision',
+        role: 'AIR Â· AI / Computer Vision',
         initials: 'MD',
         color: '#aa55ee',
-        lat: 26.11, lng: 78.07,              // Gwalior – SW (close)
+        lat: 26.11, lng: 78.07,              // Gwalior â€“ SW (close)
         city: 'Gwalior, Madhya Pradesh',
         branch: 'AIR', year: '4th Year',
         work: 'AI engineer, computer vision, YOLO, OpenCV and image processing, ground station handling.',
@@ -275,7 +275,7 @@ const TEAM_MEMBERS = [
     {
         id: 6,
         name: 'Aryan Bhadoriya',
-        role: 'IT · Documentation',
+        role: 'IT Â· Documentation',
         initials: 'AB',
         color: '#e0aa00',
         lat: 26.2090, lng: 78.2200,              // Adityapuram, Gwalior
@@ -287,7 +287,7 @@ const TEAM_MEMBERS = [
     {
         id: 7,
         name: 'Kuldeep Sikarwar',
-        role: 'Mechanical · Frame Design',
+        role: 'Mechanical Â· Frame Design',
         initials: 'KS',
         color: '#dd4488',
         lat: 26.0382, lng: 77.3138,          // Jaura
@@ -345,7 +345,7 @@ function populateTeamCards() {
 
         gsap.set(thumb, { x: startXOffset + (index * (baseSize + gap)), yPercent: -50 });
 
-        // ── 1. HOVER LOGIC ──
+        // â”€â”€ 1. HOVER LOGIC â”€â”€
         thumb.addEventListener('mouseenter', () => {
             if (pinnedMember) return;
             clearTimeout(hoverTimer);
@@ -363,12 +363,12 @@ function populateTeamCards() {
             clearTimeout(hoverTimer);
         });
 
-        // ── 2. CLICK LOGIC (Bulletproof Override) ──
+        // â”€â”€ 2. CLICK LOGIC (Bulletproof Override) â”€â”€
         thumb.addEventListener('click', (e) => {
             const firstNameText = member.name.split(' ')[0].toUpperCase();
             const lastNameText = member.name.split(' ').slice(1).join(' ').toUpperCase();
 
-            // 🔴 UNPIN LOGIC
+            // ðŸ”´ UNPIN LOGIC
             if (pinnedMember === member) {
                 pinnedMember = null;
                 isCursorPinned = false;
@@ -409,14 +409,14 @@ function populateTeamCards() {
                 return;
             }
 
-            // 🔄 SWITCH LOGIC: if a different member is already pinned, clear it and fall through to pin the new one
+            // ðŸ”„ SWITCH LOGIC: if a different member is already pinned, clear it and fall through to pin the new one
             if (pinnedMember !== null && pinnedMember !== member) {
                 pinnedMember = null;
                 isCursorPinned = false;
-                // No need to restore cursor/thumbs — the PIN block below will immediately re-apply its own state
+                // No need to restore cursor/thumbs â€” the PIN block below will immediately re-apply its own state
             }
 
-            // 🔴 PIN LOGIC: ABSOLUTE OVERRIDE
+            // ðŸ”´ PIN LOGIC: ABSOLUTE OVERRIDE
             pinnedMember = member;
             isCursorPinned = true;
             container.classList.add('is-frozen');
@@ -502,7 +502,7 @@ function populateTeamCards() {
         container.appendChild(thumb);
     });
 
-    // ── 3. DOCK PHYSICS ──
+    // â”€â”€ 3. DOCK PHYSICS â”€â”€
     container.addEventListener('mousemove', (e) => {
         if (pinnedMember) return;
 
@@ -535,7 +535,7 @@ function populateTeamCards() {
     });
 }
 
-// ── Show team member detail panel ──
+// â”€â”€ Show team member detail panel â”€â”€
 function showMemberDetailPanel(member) {
     const panel = document.getElementById('team-detail-panel');
     if (!panel) return;
@@ -593,14 +593,14 @@ function showMemberDetailPanel(member) {
     });
 }
 
-// ── Hide team member detail panel ──
+// â”€â”€ Hide team member detail panel â”€â”€
 function hideMemberDetailPanel() {
     const panel = document.getElementById('team-detail-panel');
     if (!panel) return;
     panel.classList.remove('tdp-visible');
 }
 
-// ── TEXT ANIMATION (With Aggressive Memory Cleanup) ──
+// â”€â”€ TEXT ANIMATION (With Aggressive Memory Cleanup) â”€â”€
 function splitTextAndAnimate(text, type, color) {
     const container = document.getElementById('team-bg-text-container');
     if (!container) return;
@@ -760,11 +760,11 @@ function submitCPMember() {
         return;
     }
 
-    const subject = encodeURIComponent(`[Join Us] ${domain} – ${name}`);
+    const subject = encodeURIComponent(`[Join Us] ${domain} â€“ ${name}`);
     const body = encodeURIComponent(
-        `Team Trinetra – Join Application\n==================================\n` +
-        `Name    : ${name}\nEmail   : ${email}\nCollege : ${college || '—'}\n` +
-        `Domain  : ${domain}\nYear    : ${year || '—'}\n\nWhy Join?\n${msg || '—'}\n`
+        `Team Trinetra â€“ Join Application\n==================================\n` +
+        `Name    : ${name}\nEmail   : ${email}\nCollege : ${college || 'â€”'}\n` +
+        `Domain  : ${domain}\nYear    : ${year || 'â€”'}\n\nWhy Join?\n${msg || 'â€”'}\n`
     );
     window.location.href = `mailto:${TEAM_EMAIL}?subject=${subject}&body=${body}`;
     closeConnectPanel();
@@ -782,10 +782,10 @@ function submitCPSponsor() {
         return;
     }
 
-    const subject = encodeURIComponent(`[Sponsorship] ${type || 'Inquiry'} – ${org || name}`);
+    const subject = encodeURIComponent(`[Sponsorship] ${type || 'Inquiry'} â€“ ${org || name}`);
     const body = encodeURIComponent(
         `Sponsorship Inquiry\n===================\n` +
-        `Organization : ${org || '—'}\nContact : ${name}\nEmail   : ${email}\nType    : ${type || '—'}\n\nMessage:\n${msg || '—'}\n`
+        `Organization : ${org || 'â€”'}\nContact : ${name}\nEmail   : ${email}\nType    : ${type || 'â€”'}\n\nMessage:\n${msg || 'â€”'}\n`
     );
     window.location.href = `mailto:${TEAM_EMAIL}?subject=${subject}&body=${body}`;
     closeConnectPanel();
@@ -841,15 +841,15 @@ function submitSponsor() {
         return;
     }
 
-    const subject = encodeURIComponent(`[Sponsorship] ${type || 'Inquiry'} – ${org || name}`);
+    const subject = encodeURIComponent(`[Sponsorship] ${type || 'Inquiry'} â€“ ${org || name}`);
     const body = encodeURIComponent(
         `Sponsorship Inquiry\n` +
         `===================\n` +
-        `Organization : ${org || '—'}\n` +
+        `Organization : ${org || 'â€”'}\n` +
         `Contact      : ${name}\n` +
         `Email        : ${email}\n` +
-        `Type         : ${type || '—'}\n\n` +
-        `Message:\n${msg || '—'}\n`
+        `Type         : ${type || 'â€”'}\n\n` +
+        `Message:\n${msg || 'â€”'}\n`
     );
 
     window.location.href = `mailto:${TEAM_EMAIL}?subject=${subject}&body=${body}`;
@@ -870,23 +870,23 @@ function submitJoinUs() {
         return;
     }
 
-    const subject = encodeURIComponent(`[Join Us] ${domain} – ${name}`);
+    const subject = encodeURIComponent(`[Join Us] ${domain} â€“ ${name}`);
     const body = encodeURIComponent(
-        `Team Trinetra – Join Application\n` +
+        `Team Trinetra â€“ Join Application\n` +
         `==================================\n` +
         `Name         : ${name}\n` +
         `Email        : ${email}\n` +
-        `College      : ${college || '—'}\n` +
+        `College      : ${college || 'â€”'}\n` +
         `Domain       : ${domain}\n` +
-        `Year         : ${year || '—'}\n\n` +
-        `Why Join?\n${msg || '—'}\n`
+        `Year         : ${year || 'â€”'}\n\n` +
+        `Why Join?\n${msg || 'â€”'}\n`
     );
 
     window.location.href = `mailto:${TEAM_EMAIL}?subject=${subject}&body=${body}`;
     closeModal('joinus');
 }
 
-// ===== REAL-TIME GEOLOCATION COORDINATES (retired — display element removed) =====
+// ===== REAL-TIME GEOLOCATION COORDINATES (retired â€” display element removed) =====
 function startGeolocation() {
     const display = document.getElementById('coords-display');
     if (!display) return;
@@ -979,7 +979,7 @@ function runSplash(onComplete) {
     const toolbar = document.getElementById('toolbar');
     const main = document.getElementById('main');
 
-    // ── Phase 0: hide the app beneath the splash ──
+    // â”€â”€ Phase 0: hide the app beneath the splash â”€â”€
     [titlebar, toolbar, main].forEach(el => {
         if (el) { el.style.opacity = '0'; el.style.visibility = 'hidden'; }
     });
@@ -988,14 +988,14 @@ function runSplash(onComplete) {
     const brand = splash.querySelector('.splash-brand');
     const tagline = splash.querySelector('.splash-tagline');
 
-    // ── Phase 1 (0 – 1.8s): light background, black TRINETRA, fully visible ──
+    // â”€â”€ Phase 1 (0 â€“ 1.8s): light background, black TRINETRA, fully visible â”€â”€
     splash.style.background = '#f0f0f0';
     splash.style.opacity = '1';
     splash.style.transition = 'none';
     if (brand) brand.style.color = '#111111';
     if (tagline) tagline.style.color = '#111111';
 
-    // ── Phase 2 (at 1800ms): circle-blur #1 — light → dark theme swap ──
+    // â”€â”€ Phase 2 (at 1800ms): circle-blur #1 â€” light â†’ dark theme swap â”€â”€
     // ::view-transition-new(root) CSS handles the expanding-circle + blur.
     setTimeout(() => {
 
@@ -1016,10 +1016,10 @@ function runSplash(onComplete) {
 
     }, 1800);
 
-    // ── Phase 3: circle-blur #2 — circle sweeps from TRINETRA to blurred data ──
+    // â”€â”€ Phase 3: circle-blur #2 â€” circle sweeps from TRINETRA to blurred data â”€â”€
     // Key: pre-render the app UNDER the splash (z-index keeps splash on top),
     // wait two rAF frames for the browser to paint it, then fire the transition.
-    // The callback only removes the splash — old snapshot = TRINETRA,
+    // The callback only removes the splash â€” old snapshot = TRINETRA,
     // new snapshot = already-painted blurred dashboard. No pop-in.
     function phase3() {
         // 1. Reveal the app beneath the splash (splash z-index:10000 covers it)
@@ -1034,7 +1034,7 @@ function runSplash(onComplete) {
         if (btnHome) btnHome.classList.add('active');
         if (main) main.style.filter = 'blur(16px)';
 
-        // 3. Two rAF frames — browser paints the blurred dashboard under the splash
+        // 3. Two rAF frames â€” browser paints the blurred dashboard under the splash
         requestAnimationFrame(() => requestAnimationFrame(() => {
 
             const doRemoveSplash = () => {
@@ -1044,7 +1044,7 @@ function runSplash(onComplete) {
             if (document.startViewTransition) {
                 const vt2 = document.startViewTransition(doRemoveSplash);
                 vt2.finished.then(() => {
-                    // 4. Circle done — clear the blur with a smooth transition
+                    // 4. Circle done â€” clear the blur with a smooth transition
                     requestAnimationFrame(() => {
                         if (main) {
                             main.style.transition = 'filter 0.7s ease';
@@ -1152,7 +1152,7 @@ function initSimCarousel() {
     const slides = document.querySelectorAll('.sv-slide');
     if (!slides.length) return;
     if (typeof gsap === 'undefined') {
-        console.warn('GSAP not loaded — sim carousel skipped');
+        console.warn('GSAP not loaded â€” sim carousel skipped');
         return;
     }
 
@@ -1163,7 +1163,7 @@ function initSimCarousel() {
     let current = 0;
     let animating = false;
 
-    // ── Store each iframe's original src so we can restore after stopping ──
+    // â”€â”€ Store each iframe's original src so we can restore after stopping â”€â”€
     slides.forEach(slide => {
         const iframe = slide.querySelector('iframe.sv-player');
         if (iframe && iframe.src && !iframe.src.includes('about:blank')) {
@@ -1171,10 +1171,10 @@ function initSimCarousel() {
         }
     });
 
-    // ── Initial slide positions ──
+    // â”€â”€ Initial slide positions â”€â”€
     slides.forEach((slide, i) => gsap.set(slide, { xPercent: i * 100 }));
 
-    // ── Initial card visual states ──
+    // â”€â”€ Initial card visual states â”€â”€
     slides.forEach((slide, i) => {
         const card = slide.querySelector('.sv-card');
         if (!card) return;
@@ -1184,7 +1184,7 @@ function initSimCarousel() {
         );
     });
 
-    // ── Stop video on a slide (works for both iframes & <video>) ──
+    // â”€â”€ Stop video on a slide (works for both iframes & <video>) â”€â”€
     function stopVideo(idx) {
         const slide = slides[idx];
         if (!slide) return;
@@ -1194,7 +1194,7 @@ function initSimCarousel() {
         if (video) video.pause();
     }
 
-    // ── Restore iframe src when returning to a slide ──
+    // â”€â”€ Restore iframe src when returning to a slide â”€â”€
     function restoreVideo(idx) {
         const slide = slides[idx];
         if (!slide) return;
@@ -1202,7 +1202,7 @@ function initSimCarousel() {
         if (iframe && iframe.dataset.origSrc) iframe.src = iframe.dataset.origSrc;
     }
 
-    // ── Sync dots + counter (no arrow dimming — circular so always enabled) ──
+    // â”€â”€ Sync dots + counter (no arrow dimming â€” circular so always enabled) â”€â”€
     function syncUI(idx) {
         document.querySelectorAll('.sv-dot').forEach((d, i) =>
             d.classList.toggle('active', i === idx)
@@ -1212,7 +1212,7 @@ function initSimCarousel() {
             `${String(idx + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
     }
 
-    // ── Core transition with circular wrap support ──
+    // â”€â”€ Core transition with circular wrap support â”€â”€
     function goTo(rawIndex) {
         // Modulo wrap for circular
         const index = ((rawIndex % total) + total) % total;
@@ -1227,19 +1227,19 @@ function initSimCarousel() {
         // Restore the incoming slide's video src (if it was blanked previously)
         restoreVideo(next);
 
-        // ── Circular wrap positioning ──
+        // â”€â”€ Circular wrap positioning â”€â”€
         const isForwardWrap = prev === total - 1 && next === 0;
         const isBackwardWrap = prev === 0 && next === total - 1;
 
         if (isForwardWrap) {
-            // Incoming (first) was far left — teleport it to right of current, then slide in
+            // Incoming (first) was far left â€” teleport it to right of current, then slide in
             gsap.set(slides[next], { xPercent: 100 });
             slides.forEach((slide, i) => {
                 const xp = (i === prev) ? -100 : (i - next) * 100;
                 gsap.to(slide, { xPercent: xp, duration: 0.72, ease: 'power3.inOut' });
             });
         } else if (isBackwardWrap) {
-            // Incoming (last) was far right — teleport it to left of current, then slide in
+            // Incoming (last) was far right â€” teleport it to left of current, then slide in
             gsap.set(slides[next], { xPercent: -100 });
             slides.forEach((slide, i) => {
                 const xp = (i === prev) ? 100 : (i - next) * 100;
@@ -1252,7 +1252,7 @@ function initSimCarousel() {
             });
         }
 
-        // Incoming card → sharp + full size
+        // Incoming card â†’ sharp + full size
         const inCard = slides[next].querySelector('.sv-card');
         if (inCard) {
             gsap.to(inCard, {
@@ -1264,7 +1264,7 @@ function initSimCarousel() {
             setTimeout(() => { animating = false; }, 750);
         }
 
-        // All other cards → blurred, scaled down, still visible (peek)
+        // All other cards â†’ blurred, scaled down, still visible (peek)
         slides.forEach((slide, i) => {
             if (i === next) return;
             const card = slide.querySelector('.sv-card');
@@ -1281,7 +1281,7 @@ function initSimCarousel() {
 
     syncUI(0);
 
-    // ── Mouse wheel on the clip (covers full visible area inc. peek zones) ──
+    // â”€â”€ Mouse wheel on the clip (covers full visible area inc. peek zones) â”€â”€
     let wheelBlock = false;
     clip.addEventListener('wheel', (e) => {
         e.preventDefault();
@@ -1292,16 +1292,16 @@ function initSimCarousel() {
         else goTo(current - 1);
     }, { passive: false });
 
-    // ── Arrow buttons ──
+    // â”€â”€ Arrow buttons â”€â”€
     document.getElementById('sv-prev')?.addEventListener('click', () => goTo(current - 1));
     document.getElementById('sv-next')?.addEventListener('click', () => goTo(current + 1));
 
-    // ── Dots ──
+    // â”€â”€ Dots â”€â”€
     document.querySelectorAll('.sv-dot').forEach((dot, i) => {
         dot.addEventListener('click', () => goTo(i));
     });
 
-    // ── Keyboard (only when sim tab is visible) ──
+    // â”€â”€ Keyboard (only when sim tab is visible) â”€â”€
     document.addEventListener('keydown', (e) => {
         const simTab = document.getElementById('sim-tab');
         if (!simTab || simTab.style.display === 'none') return;
@@ -1309,7 +1309,7 @@ function initSimCarousel() {
         if (e.key === 'ArrowLeft') goTo(current - 1);
     });
 
-    // ── Touch / swipe ──
+    // â”€â”€ Touch / swipe â”€â”€
     let touchX = 0;
     clip.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
     clip.addEventListener('touchend', e => {
@@ -1331,15 +1331,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         initHeroAnimation();
         initSimCarousel();
         initPlanMap();         // populates team cards immediately
-        
+
         const urlParams = new URLSearchParams(window.location.search);
         const targetTab = urlParams.get('tab') || 'home';
-        
+
         showTab(targetTab);
         setTimeout(() => {
             const dt = document.getElementById('data-tab');
             if (dt && targetTab === 'home') dt.classList.add('home-visible');
-            
+
             if (window.location.hash) {
                 const targetId = window.location.hash.substring(1);
                 const el = document.getElementById(targetId);
@@ -1379,7 +1379,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             tab.addEventListener('scroll', () => {
                 const scrollTop = tab.scrollTop;
 
-                // 1. Always show if near the top — cancel any pending auto-hide
+                // 1. Always show if near the top â€” cancel any pending auto-hide
                 if (scrollTop <= 50) {
                     toolbar?.classList.remove('toolbar-hidden');
                     cancelToolbarAutoHide();
@@ -1401,11 +1401,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 // 4. Toggle based on direction
                 if (scrollTop > lastScrollTop) {
-                    // Scrolling down — hide toolbar immediately, cancel any pending auto-hide
+                    // Scrolling down â€” hide toolbar immediately, cancel any pending auto-hide
                     toolbar?.classList.add('toolbar-hidden');
                     cancelToolbarAutoHide();
                 } else {
-                    // Scrolling up — show toolbar
+                    // Scrolling up â€” show toolbar
                     toolbar?.classList.remove('toolbar-hidden');
 
                     if (window.innerWidth > 768) {
@@ -1421,7 +1421,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         });
 
-        // Journey tab uses window/body-level scrolling — attach separate listener
+        // Journey tab uses window/body-level scrolling â€” attach separate listener
         let lastWindowScrollTop = 0;
         window.addEventListener('scroll', () => {
             // Only fire when journey tab is active
@@ -1502,10 +1502,10 @@ function initHeroAnimation() {
     heroTextContainer.innerHTML = '';
 
     const linesText = [
-        "© TEAM TRINETRA",
+        "Â© TEAM TRINETRA",
         "SECURING THE SKIES",
         "TO SAVE LIVES",
-        "AT SUAS ➤ 2026"
+        "AT SUAS âž¤ 2026"
     ];
 
     const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
@@ -1774,6 +1774,7 @@ window.toggleAccordion = function (headerElement) {
     }
 };
 
+
 // ============================================================
 // 15. SUBTEAM LEADS ANIMATION
 // Scroll-triggered entrance animation for the subteam
@@ -1803,63 +1804,202 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+
 // ============================================================
-// 19. SEARCH MODAL FUNCTIONALITY
+// SEARCH — inline navbar sliding search bar
 // ============================================================
 
 const searchIndex = [
-    { title: "Home", keywords: "home, main, intro, start", action: () => showTab('home') },
-    { title: "Team & Members", keywords: "team, members, lead, faculty, parth soni, yashwant sawle, leads, subteams", action: () => showTab('plan') },
-    { title: "UAV Vehicles", keywords: "vehicles, drones, quadcopter, hexacopter, fixed wing, models, specs", action: () => showTab('vehicles') },
-    { title: "Sponsors & Partners", keywords: "sponsors, partners, support, funding, collaborate", action: () => showTab('sponsors') },
-    { title: "Gallery & Simulations", keywords: "gallery, photos, simulation, videos, media", action: () => showTab('simulation') },
-    { title: "Our Journey", keywords: "journey, history, timeline, about us, story", action: () => showTab('journey') },
+    // ── NAV SECTIONS ──
+    { tag: 'Page', title: 'Home', desc: 'Main landing page, hero video, mission overview', action: function() { showTab('home'); } },
+    { tag: 'Page', title: 'Team & Members', desc: 'Meet the team - leads, members, faculty mentors', action: function() { showTab('plan'); } },
+    { tag: 'Page', title: 'UAV Vehicles', desc: 'Our drones - quadcopter, hexacopter, fixed wing specs', action: function() { showTab('vehicles'); } },
+    { tag: 'Page', title: 'Sponsors & Partners', desc: 'Support and funding partners for Team Trinetra', action: function() { showTab('sponsors'); } },
+    { tag: 'Page', title: 'Gallery & Simulations', desc: 'Photos, videos, Gazebo simulations, media', action: function() { showTab('simulation'); } },
+    { tag: 'Page', title: 'Our Journey', desc: 'History, timeline, milestones, story so far', action: function() { showTab('journey'); } },
+
+    // ── HOME CONTENT ──
+    { tag: 'Section', title: 'Precision Engineering', desc: 'Designing the future of flight - Home', action: function() { showTab('home'); } },
+    { tag: 'Section', title: 'Mayoor UAV Drone', desc: 'Ready to take off, custom-built UAS by Trinetra', action: function() { showTab('home'); } },
+    { tag: 'Section', title: 'Aerodynamics', desc: 'Optimized for efficiency - Home', action: function() { showTab('home'); } },
+    { tag: 'Section', title: 'Pilot Testing FPV', desc: 'Testing FPV drones - Home', action: function() { showTab('home'); } },
+    { tag: 'Section', title: 'Team Collaboration', desc: 'Working together seamlessly - Home', action: function() { showTab('home'); } },
+    { tag: 'Section', title: 'Payload Dropping Mechanism', desc: 'Delivering with accuracy - Home', action: function() { showTab('home'); } },
+    { tag: 'Section', title: 'Gazebo Simulation', desc: 'Real-time data streaming - Home', action: function() { showTab('home'); } },
+    { tag: 'Section', title: 'Mission & Innovation', desc: 'Editorial section - Team Trinetra mission statement', action: function() { showTab('home'); } },
+    { tag: 'Section', title: 'Engineering a Lifeline', desc: 'From two members to seven, building a life-saving UAS', action: function() { showTab('home'); } },
+    { tag: 'Section', title: 'SUAS 2026 Storm Response Challenge', desc: 'Disaster recovery robotics, three-phase operations', action: function() { showTab('home'); } },
+    { tag: 'Section', title: 'Flight Readiness Video', desc: 'Watch our flight readiness demo on YouTube', action: function() { showTab('home'); } },
+
+    // ── TEAM ──
+    { tag: 'Team', title: 'Faculty Mentors', desc: 'Professors and advisors guiding Team Trinetra', action: function() { showTab('plan'); } },
+    { tag: 'Team', title: 'Subteam Leads', desc: 'Lead members heading each domain subteam', action: function() { showTab('plan'); } },
+    { tag: 'Team', title: 'Parth Soni', desc: 'Team lead, member of Team Trinetra', action: function() { showTab('plan'); } },
+    { tag: 'Team', title: 'Yashwant Sawle', desc: 'Team member, subteam lead', action: function() { showTab('plan'); } },
+    { tag: 'Team', title: 'Electrical & Electronics', desc: 'ESCs, motors, power systems domain', action: function() { showTab('plan'); } },
+    { tag: 'Team', title: 'Mechanical & Frame Design', desc: 'Frame, body, structural engineering', action: function() { showTab('plan'); } },
+    { tag: 'Team', title: 'AI & Machine Learning', desc: 'AI-powered vision and decision-making', action: function() { showTab('plan'); } },
+    { tag: 'Team', title: 'Computer Vision', desc: 'Object detection, imaging, SLAM', action: function() { showTab('plan'); } },
+    { tag: 'Team', title: 'Autonomous Navigation', desc: 'Path planning, GPS, autopilot systems', action: function() { showTab('plan'); } },
+    { tag: 'Team', title: 'Software & IT', desc: 'Ground control, telemetry, software stack', action: function() { showTab('plan'); } },
+    { tag: 'Team', title: 'Robotics & AIR', desc: 'Aerial intelligent robotics domain', action: function() { showTab('plan'); } },
+
+    // ── VEHICLES ──
+    { tag: 'Vehicle', title: 'Quadcopter', desc: 'Four-rotor drone - specs, weight, payload', action: function() { showTab('vehicles'); } },
+    { tag: 'Vehicle', title: 'Hexacopter', desc: 'Six-rotor drone - redundancy, heavy lift', action: function() { showTab('vehicles'); } },
+    { tag: 'Vehicle', title: 'Fixed Wing', desc: 'Fixed wing UAV - endurance, long range flight', action: function() { showTab('vehicles'); } },
+    { tag: 'Vehicle', title: 'VTOL', desc: 'Vertical take-off and landing hybrid UAV', action: function() { showTab('vehicles'); } },
+    { tag: 'Vehicle', title: 'Drone Specs & Configurations', desc: 'Motor, ESC, battery, frame specifications', action: function() { showTab('vehicles'); } },
+    { tag: 'Vehicle', title: 'Vyom Drones', desc: 'Vyom UAV platform - Trinetra vehicle lineup', action: function() { showTab('vehicles'); } },
+
+    // ── SPONSORS ──
+    { tag: 'Sponsor', title: 'Become a Sponsor', desc: 'Partner with Team Trinetra - sponsorship opportunities', action: function() { showTab('sponsors'); } },
+    { tag: 'Sponsor', title: 'Title Sponsor', desc: 'Flagship sponsorship tier for organisations', action: function() { showTab('sponsors'); } },
+    { tag: 'Sponsor', title: 'Product & Equipment Sponsor', desc: 'Donate hardware, tools, or equipment', action: function() { showTab('sponsors'); } },
+    { tag: 'Sponsor', title: 'Travel Sponsor', desc: 'Support our travel to SUAS competitions', action: function() { showTab('sponsors'); } },
+    { tag: 'Sponsor', title: 'Research Partnership', desc: 'Collaborate on UAV and robotics research', action: function() { showTab('sponsors'); } },
+
+    // ── GALLERY ──
+    { tag: 'Gallery', title: 'Photo Gallery', desc: 'Images from our workshops, tests, and events', action: function() { showTab('simulation'); } },
+    { tag: 'Gallery', title: 'Simulation Videos', desc: 'Gazebo and in-flight simulation recordings', action: function() { showTab('simulation'); } },
+    { tag: 'Gallery', title: 'Workshop Photos', desc: 'Behind-the-scenes workshop and build photos', action: function() { showTab('simulation'); } },
+
+    // ── JOURNEY ──
+    { tag: 'Journey', title: 'Timeline & Milestones', desc: 'Key events and achievements in our journey', action: function() { showTab('journey'); } },
+    { tag: 'Journey', title: 'SUAS Competition', desc: 'Student Unmanned Aerial Systems competition', action: function() { showTab('journey'); } },
+    { tag: 'Journey', title: 'About Team Trinetra', desc: 'Who we are, our story, our founding', action: function() { showTab('journey'); } },
+
+    // ── CONTACT ──
+    { tag: 'Contact', title: 'Connect With Us', desc: 'Apply to join the team or inquire about sponsoring', action: function() { toggleConnectPanel(); } },
+    { tag: 'Contact', title: 'Join the Team', desc: 'Apply as a student member - open to all domains', action: function() { toggleConnectPanel(); } },
+    { tag: 'Contact', title: 'team.trinetra2026@gmail.com', desc: 'Direct contact email for Team Trinetra', action: function() { toggleConnectPanel(); } },
 ];
 
-function toggleSearchPanel() {
-    const modal = document.getElementById('search-modal');
-    const input = document.getElementById('search-input');
-    if (modal.classList.contains('hidden')) {
-        modal.classList.remove('hidden');
-        setTimeout(() => input.focus(), 100);
+var searchFocusIndex = -1;
+
+function toggleSearchBar() {
+    var wrap = document.getElementById('search-bar-wrap');
+    if (wrap.classList.contains('open')) {
+        closeSearchBar();
     } else {
-        modal.classList.add('hidden');
-        input.value = '';
-        document.getElementById('search-results').innerHTML = '';
+        openSearchBar();
     }
 }
 
-function handleSearch(e) {
-    const query = e.target.value.toLowerCase().trim();
-    const resultsContainer = document.getElementById('search-results');
-    
+function openSearchBar() {
+    var wrap = document.getElementById('search-bar-wrap');
+    var input = document.getElementById('search-bar-input');
+    var backdrop = document.getElementById('search-bar-backdrop');
+    wrap.classList.add('open');
+    backdrop.classList.add('active');
+    setTimeout(function() { input.focus(); }, 380);
+}
+
+function closeSearchBar() {
+    var wrap = document.getElementById('search-bar-wrap');
+    var input = document.getElementById('search-bar-input');
+    var results = document.getElementById('search-bar-results');
+    var backdrop = document.getElementById('search-bar-backdrop');
+    wrap.classList.remove('open');
+    backdrop.classList.remove('active');
+    input.value = '';
+    results.innerHTML = '';
+    results.classList.remove('has-results');
+    searchFocusIndex = -1;
+}
+
+function _escHtml(str) {
+    return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function _highlightMatch(text, query) {
+    if (!query) return _escHtml(text);
+    var idx = text.toLowerCase().indexOf(query.toLowerCase());
+    if (idx === -1) return _escHtml(text);
+    return _escHtml(text.slice(0, idx)) +
+           '<span class="sb-highlight">' + _escHtml(text.slice(idx, idx + query.length)) + '</span>' +
+           _escHtml(text.slice(idx + query.length));
+}
+
+function handleSearchBar(e) {
+    var query = e.target.value.trim();
+    var results = document.getElementById('search-bar-results');
+    searchFocusIndex = -1;
+
     if (!query) {
-        resultsContainer.innerHTML = '';
+        results.innerHTML = '';
+        results.classList.remove('has-results');
         return;
     }
 
-    const matches = searchIndex.filter(item => 
-        item.title.toLowerCase().includes(query) || 
-        item.keywords.toLowerCase().includes(query)
-    );
+    var q = query.toLowerCase();
+    var matches = searchIndex.filter(function(item) {
+        return item.title.toLowerCase().indexOf(q) !== -1 ||
+               item.desc.toLowerCase().indexOf(q) !== -1 ||
+               (item.tag && item.tag.toLowerCase().indexOf(q) !== -1);
+    }).slice(0, 10);
 
     if (matches.length === 0) {
-        resultsContainer.innerHTML = '<div class="search-no-results">No results found for "'+query+'"</div>';
+        results.innerHTML = '<div class="sb-no-results">No results for "' + _escHtml(query) + '"</div>';
+        results.classList.add('has-results');
         return;
     }
 
-    resultsContainer.innerHTML = matches.map((match, i) => `
-        <div class="search-result-item" onclick="executeSearchAction('${match.title}')">
-            <div class="search-result-title">${match.title}</div>
-            <div class="search-result-desc">Section matching: ${query}</div>
-        </div>
-    `).join('');
+    results.innerHTML = matches.map(function(m, i) {
+        return '<div class="sb-result-item" data-index="' + i + '" onclick="executeSBAction(' + i + ')">' +
+            '<span class="sb-result-tag">' + _escHtml(m.tag) + '</span>' +
+            '<span class="sb-result-title">' + _highlightMatch(m.title, query) + '</span>' +
+            '<span class="sb-result-desc">' + _highlightMatch(m.desc, query) + '</span>' +
+            '</div>';
+    }).join('');
+    results.classList.add('has-results');
+    results._matches = matches;
 }
 
-function executeSearchAction(title) {
-    const match = searchIndex.find(item => item.title === title);
-    if(match) {
-        match.action();
-        toggleSearchPanel();
+function handleSearchKeydown(e) {
+    var results = document.getElementById('search-bar-results');
+    var items = results.querySelectorAll('.sb-result-item');
+
+    if (e.key === 'Escape') { closeSearchBar(); return; }
+
+    if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        searchFocusIndex = Math.min(searchFocusIndex + 1, items.length - 1);
+        _updateSBFocus(items);
+    } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        searchFocusIndex = Math.max(searchFocusIndex - 1, -1);
+        _updateSBFocus(items);
+    } else if (e.key === 'Enter') {
+        if (searchFocusIndex >= 0 && items[searchFocusIndex]) {
+            executeSBAction(parseInt(items[searchFocusIndex].dataset.index));
+        } else if (results._matches && results._matches.length > 0) {
+            executeSBAction(0);
+        }
     }
 }
+
+function _updateSBFocus(items) {
+    items.forEach(function(el, i) {
+        el.classList.toggle('focused', i === searchFocusIndex);
+        if (i === searchFocusIndex) el.scrollIntoView({ block: 'nearest' });
+    });
+}
+
+function executeSBAction(i) {
+    var results = document.getElementById('search-bar-results');
+    var matches = results._matches;
+    if (!matches || !matches[i]) return;
+    matches[i].action();
+    closeSearchBar();
+}
+
+// Legacy stubs
+function toggleSearchPanel() { toggleSearchBar(); }
+function handleSearch() {}
+function executeSearchAction() {}

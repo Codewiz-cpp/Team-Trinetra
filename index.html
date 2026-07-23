@@ -27,9 +27,147 @@
             document.write('<style>#minimal-splash { display: none !important; }</style>');
         }
     </script>
+    <!-- Map Integration CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <style>
+        #off-white-section {
+            position: relative;
+            background: transparent !important;
+            isolation: isolate;
+            display: grid;
+            grid-template-columns: 1fr;
+            padding: 0 !important;
+        }
+
+        #map-container {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
+            background-color: #FFFFFF;
+            overflow: hidden;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+        }
+
+        .vignette-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 20%, #FFFFFF 65%);
+            z-index: 1000;
+        }
+
+        path.leaflet-interactive {
+            stroke: none !important;
+            filter: url(#grainy-texture);
+            transition: fill 0.3s ease;
+        }
+
+        .custom-div-icon {
+            position: relative;
+        }
+
+        .marker-pin {
+            width: 16px;
+            height: 16px;
+            background: #E60000;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+
+        .marker-pulse {
+            width: 44px;
+            height: 44px;
+            background: rgba(230, 0, 0, 0.15);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            animation: wave 2.5s infinite ease-out;
+        }
+
+        @keyframes wave {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(2.2);
+                opacity: 0;
+            }
+        }
+
+        .leaflet-tooltip.custom-card-tooltip {
+            background: #ffffff;
+            border: 1px solid #e8e8e8;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            padding: 24px 28px;
+            width: max-content;
+            pointer-events: none;
+            white-space: normal;
+        }
+
+        .leaflet-tooltip-top:before,
+        .leaflet-tooltip-bottom:before,
+        .leaflet-tooltip-left:before,
+        .leaflet-tooltip-right:before {
+            display: none !important;
+        }
+
+        .card-title {
+            margin: 0 0 10px 0;
+            font-size: 26px;
+            font-weight: 500;
+            color: #222222;
+            letter-spacing: -0.5px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, sans-serif;
+        }
+
+        .card-subtitle {
+            margin: 0;
+            font-size: 15px;
+            color: #444444;
+            line-height: 1.5;
+            font-weight: 400;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, sans-serif;
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Hidden SVG to define the uneven grain filter -->
+    <svg style="width:0;height:0;position:absolute;" aria-hidden="true">
+        <defs>
+            <filter id="grainy-texture" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" result="noise" />
+                <feColorMatrix type="matrix" values="0 0 0 0 0.6  
+                                       0 0 0 0 0.6  
+                                       0 0 0 0 0.6  
+                                       5 0 0 0 -2.5" in="noise" result="coloredNoise" />
+                <feComposite operator="in" in="coloredNoise" in2="SourceGraphic" result="maskedNoise" />
+                <feBlend mode="multiply" in="maskedNoise" in2="SourceGraphic" />
+            </filter>
+        </defs>
+    </svg>
     <div id="minimal-splash">
         <div class="splash-center">
             <div class="splash-brand">TRINETRA</div>
@@ -79,7 +217,8 @@
         <div id="toolbar-right">
             <!-- Search Button -->
             <div class="toolbar-btn" id="search-btn" onclick="toggleSearchPanel()">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
@@ -255,7 +394,7 @@
                 </div>
             </div>
 
-            <!-- â•â• BENTO BOX SECTION â•â• -->
+            <!-- â• â•  BENTO BOX SECTION â• â•  -->
             <div id="bento-section">
                 <!-- Row 1 -->
                 <div class="bento-item">
@@ -326,16 +465,27 @@
                 </div>
             </div>
 
-            <!-- â•â• OFF-WHITE CONTENT SECTION â•â• -->
+            <!-- â• â•  OFF-WHITE CONTENT SECTION â• â•  -->
             <div id="off-white-section">
-
-                <!-- Editorial divider line -->
-                <div class="ed-section-header">
-                    <span class="ed-section-label">Mission & Innovation</span>
+                <!-- Map Background Layer -->
+                <div id="map-container">
+                    <div id="map"></div>
+                    <div class="vignette-overlay"></div>
                 </div>
-                <div class="ed-section-rule"></div>
 
-                <!-- â”€â”€ EDITORIAL ENTRY 1 Â· text-left / image-right â”€â”€ -->
+                <div style="position: relative; z-index: 1; pointer-events: none; grid-column: 1 / 2; grid-row: 1 / 2; padding: 64px 80px 20px 80px;">
+                    <style>
+                        #off-white-section .ed-text,
+                        #off-white-section .ed-image-wrap {
+                            pointer-events: auto;
+                        }
+                    </style>
+
+                    <!-- Editorial divider line -->
+                    <div class="ed-section-header">
+                        <span class="ed-section-label">Mission & Innovation</span>
+                    </div>
+                    <div class="ed-section-rule"></div>
                 <div class="ed-entry ed-entry--text-left">
                     <div class="ed-text">
                         <h2 class="ed-headline">Team Trinetra & Mayoor: Engineering a Lifeline</h2>
@@ -354,9 +504,6 @@
                     </div>
                 </div>
 
-                <div class="ed-rule"></div>
-
-                <!-- â”€â”€ EDITORIAL ENTRY 2 Â· image-left / text-right â”€â”€ -->
                 <div class="ed-entry ed-entry--image-left">
                     <div class="ed-image-wrap">
                         <div class="ed-image-placeholder" id="ed-img-2">
@@ -376,6 +523,7 @@
                     </div>
                 </div>
 
+                </div> <!-- End of relative wrapper -->
             </div>
 
             <!-- ══ ARSENAL VIDEO SECTION ══ -->
@@ -671,12 +819,18 @@
                         class="w-full flex flex-col gap-6 text-white/75 font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[18px] md:text-[20px] font-light leading-[1.6]">
                         <p>
                             Yashwant Sawle Sir serves as the dedicated faculty coordinator for our team, providing
-                            invaluable mentorship and advocacy with sponsors and the college administration. An Assistant
-                            Professor (Senior) at the Madhav Institute of Technology and Science, Gwalior, he brings over 14
-                            years of extensive teaching and research expertise to our project. Beyond his academic guidance,
-                            he is a distinguished leader in his field, holding prominent roles such as Chair of the IEEE PES
-                            Chapter MP and a Senior Member of IEEE. His recognition among the world's top 2% of scientists
-                            by Stanford University and Elsevier highlights the caliber of expertise he brings to our team's
+                            invaluable mentorship and advocacy with sponsors and the college administration. An
+                            Assistant
+                            Professor (Senior) at the Madhav Institute of Technology and Science, Gwalior, he brings
+                            over 14
+                            years of extensive teaching and research expertise to our project. Beyond his academic
+                            guidance,
+                            he is a distinguished leader in his field, holding prominent roles such as Chair of the IEEE
+                            PES
+                            Chapter MP and a Senior Member of IEEE. His recognition among the world's top 2% of
+                            scientists
+                            by Stanford University and Elsevier highlights the caliber of expertise he brings to our
+                            team's
                             mission.
                         </p>
                     </div>
@@ -1196,16 +1350,8 @@
 
                 <!-- Video block -->
                 <div class="w-full overflow-hidden rounded-sm" id="concept-video-wrap">
-                    <video
-                        id="mayoor-concept-video"
-                        src="images/Mayoor_concept.mp4"
-                        muted
-                        loop
-                        playsinline
-                        preload="metadata"
-                        class="w-full h-full block object-cover"
-                        style="display:block;"
-                    ></video>
+                    <video id="mayoor-concept-video" src="images/Mayoor_concept.mp4" muted loop playsinline
+                        preload="metadata" class="w-full h-full block object-cover" style="display:block;"></video>
                 </div>
 
                 <!-- Text block -->
@@ -1215,18 +1361,24 @@
                         Visualising the Mission: Search, Detect &amp; Deliver</h2>
                     <p
                         class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[15px] md:text-[17px] font-light text-white/65 leading-[1.55] tracking-[0.3px] m-0 mb-6">
-                        This video acts as a conceptual representation demonstrating the operational workflow required for
+                        This video acts as a conceptual representation demonstrating the operational workflow required
+                        for
                         the SUAS 2026 competition's "Search, Detect, and Deliver" mission task. It outlines the specific
-                        sequential tasks our system must execute, starting with autonomous navigation while maintaining the
-                        mandatory 150-foot minimum altitude fence. The simulation details the process of scanning the search
-                        boundary to detect designated targets—specifically identifying a human mannequin to deliver a water
+                        sequential tasks our system must execute, starting with autonomous navigation while maintaining
+                        the
+                        mandatory 150-foot minimum altitude fence. The simulation details the process of scanning the
+                        search
+                        boundary to detect designated targets—specifically identifying a human mannequin to deliver a
+                        water
                         bottle payload and a pop-up tent to drop a GP908 strobing beacon. By visualizing these mission
                         milestones, the animation serves as a technical benchmark for the system's planned target
                         identification and payload release mechanics under official rule parameters.
                     </p>
-                    <p class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[13px] md:text-[14px] font-light text-white/35 leading-[1.5] tracking-[0.2px] m-0 italic">
+                    <p
+                        class="font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-[13px] md:text-[14px] font-light text-white/35 leading-[1.5] tracking-[0.2px] m-0 italic">
                         This simulation is entirely a conceptual demonstration of mission requirements and does not
-                        represent actual flight telemetry or live operational testing. We strictly oppose misrepresentation
+                        represent actual flight telemetry or live operational testing. We strictly oppose
+                        misrepresentation
                         or presenting simulated results as verified field performance data.
                     </p>
                 </div>
@@ -1566,7 +1718,8 @@
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
-                <input type="text" id="search-input" placeholder="Search team, vehicles, sponsors..." oninput="handleSearch(event)" autocomplete="off">
+                <input type="text" id="search-input" placeholder="Search team, vehicles, sponsors..."
+                    oninput="handleSearch(event)" autocomplete="off">
                 <div class="search-close" onclick="toggleSearchPanel()">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -1577,6 +1730,84 @@
             <div id="search-results"></div>
         </div>
     </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script>
+        (function () {
+            if (document.getElementById('map')) {
+                const map = L.map('map', {
+                    center: [36.1540, -95.9925],
+                    zoom: 3.8,
+                    scrollWheelZoom: false,
+                    zoomControl: false,
+                    dragging: false,
+                    maxBounds: [[-90, -180], [90, 180]],
+                    maxBoundsViscosity: 1.0
+                });
+
+                // Ensure map sizes correctly after layout is fully calculated
+                window.addEventListener('load', () => {
+                    setTimeout(() => {
+                        map.invalidateSize();
+                        map.setView([36.1540, -95.9925], 3.8, { animate: false });
+                    }, 100);
+                });
+
+                let usaLayer;
+
+                fetch('https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.json')
+                    .then(response => {
+                        if (!response.ok) throw new Error('Fetch failed');
+                        return response.json();
+                    })
+                    .then(data => {
+                        L.geoJSON(data, {
+                            style: {
+                                fillColor: '#E2E2E2',
+                                weight: 0,
+                                fillOpacity: 1
+                            },
+                            onEachFeature: function (feature, layer) {
+                                if (feature.id === 'USA') {
+                                    usaLayer = layer;
+                                }
+                            }
+                        }).addTo(map);
+                    }).catch(err => console.error(err));
+
+                const pulseIcon = L.divIcon({
+                    className: 'custom-div-icon',
+                    html: '<div class="marker-pulse"></div><div class="marker-pin"></div>',
+                    iconSize: [48, 48],
+                    iconAnchor: [24, 24]
+                });
+
+                const tulsaLocation = {
+                    name: "Skyway 36",
+                    lat: 36.1540,
+                    lng: -95.9925,
+                    desc: "Skyway 36 Droneport & Technology Innovation Center,<br>1211 West 36th St N, Tulsa, OK 74127."
+                };
+
+                const marker = L.marker([tulsaLocation.lat, tulsaLocation.lng], { icon: pulseIcon }).addTo(map);
+
+                const cardHtml = '<h3 class="card-title">' + tulsaLocation.name + '</h3><p class="card-subtitle">' + tulsaLocation.desc + '</p>';
+
+                marker.bindTooltip(cardHtml, {
+                    direction: 'left',
+                    offset: [-30, 0],
+                    className: 'custom-card-tooltip',
+                    opacity: 1
+                });
+
+                marker.on('mouseover', function () {
+                    if (usaLayer) usaLayer.setStyle({ fillColor: '#ffcdd2' });
+                });
+                marker.on('mouseout', function () {
+                    if (usaLayer) usaLayer.setStyle({ fillColor: '#E2E2E2' });
+                });
+            }
+        })();
+    </script>
 </body>
 
 </html>
